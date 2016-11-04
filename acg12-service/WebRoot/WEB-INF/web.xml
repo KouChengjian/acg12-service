@@ -76,13 +76,34 @@
 		<servlet-class>org.acg12.servlet.request.Home</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>HomeInfo</servlet-name>
+		<servlet-class>org.acg12.servlet.request.HomeInfo</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>HomeMore</servlet-name>
+		<servlet-class>org.acg12.servlet.request.HomeMore</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>Find</servlet-name>
 		<servlet-class>org.acg12.servlet.request.Find</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>FindInfo</servlet-name>
+		<servlet-class>org.acg12.servlet.request.FindInfo</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Search</servlet-name>
 		<servlet-class>org.acg12.servlet.request.Search</servlet-class>
 	</servlet>
+
+	<servlet>
+		<servlet-name>PlayUrl</servlet-name>
+		<servlet-class>org.acg12.servlet.request.PlayUrl</servlet-class>
+	</servlet>
+
+
+
+
 
 
 
@@ -92,13 +113,31 @@
 		<url-pattern>/home</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+		<servlet-name>HomeMore</servlet-name>
+		<url-pattern>/home/more</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>Find</servlet-name>
 		<url-pattern>/find</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FindInfo</servlet-name>
+		<url-pattern>/find/info</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Search</servlet-name>
 		<url-pattern>/search</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>HomeInfo</servlet-name>
+		<url-pattern>/home/info</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PlayUrl</servlet-name>
+		<url-pattern>/playurl</url-pattern>
+	</servlet-mapping>
+
+
 
 
 </web-app>

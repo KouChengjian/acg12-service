@@ -1,5 +1,7 @@
 package org.acg12.bean;
 
+import java.util.List;
+
 public class Video {
 
 	private String aid;// 视频av号
@@ -19,8 +21,11 @@ public class Video {
 	private String coins;// 视频硬币数
 	private String duration;// 视频长度
 	// 后续添加的字段
-	private String urlInfo;// 连接详细信息
+	private String urlInfo;// 链接详细信息
 	private String updateContent;// 更新信息
+	
+	private List<Video> bangumiVideoList; // 番剧列表
+	private List<Video> quarterVideoList; // 季度视频
 
 	public String getAid() {
 		return aid;
@@ -165,5 +170,21 @@ public class Video {
 	public void setUpdateContent(String updateContent) {
 		this.updateContent = updateContent;
 	}
-	
+
+	public List<Video> getBangumiVideoList() {
+		return bangumiVideoList;
+	}
+
+	public void setBangumiVideoList(List<Video> bangumiVideoList) {
+		this.bangumiVideoList = bangumiVideoList;
+	}
+
+	public List<Video> getQuarterVideoList() {
+		return quarterVideoList;
+	}
+
+	public void setQuarterVideoList(List<Video> quarterVideoList) {
+		this.quarterVideoList = quarterVideoList;
+	}
+
 }

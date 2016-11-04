@@ -83,7 +83,7 @@ public class HttpUtlis {
 	/**
 	 * 首页-获取新的画集
 	 */
-	public static synchronized String getAlbumHtmlString(String max ) {
+	public static synchronized String getAlbumHtmlString(String max) {
 		String content = "";
 		List<Album> albumList = new ArrayList<Album>();
 		try {
@@ -193,7 +193,7 @@ public class HttpUtlis {
 	}
 	
 	/**
-	 * 主页-内容
+	 * 首页-内容
 	 */
 	public static synchronized String getHomeHtmlString(){
 		String content = "";
@@ -274,9 +274,136 @@ public class HttpUtlis {
 		return content ;
 	}
 	
+	/**
+	 * 首页-画板中详细内容
+	 */
+	public static synchronized String getPaletteAblumHtmlString(String boardId, String max) {
+		String content = "";
+		List<Album> albumList = new ArrayList<Album>();
+		try {
+			Document document = Jsoup
+					.connect(Constant.URL_PALETTE_ALBUM + boardId+ "/?iemf5hfr&limit=20&wfl=1&max=" + max)
+					.data("jquery", "java").userAgent("Mozilla")
+					.cookie("auth", "token").timeout(50000).get();
+			if (document.toString() == null || document.toString().isEmpty()) {
+			}else{
+				Elements var = document.body().select("script");
+				for (Element div : var) {
+					String str1 = "app.page[" + "\"" + "board" + "\"" + "] = ";
+					String str2 = "app._csr = true";
+					String str3 = StringUtils.substringBetween(div.toString(),str1, str2);
+					if (str3 != null && !str3.isEmpty()) {
+						JSONObject json = new JSONObject(str3);
+						JSONArray jsonpins = json.getJSONArray("pins");
+						for (int i = 0; i < jsonpins.length(); i++) {
+							JSONObject pins = jsonpins.getJSONObject(i);
+							JSONObject jsomUrl = (JSONObject) pins.get("file");
+							ArrayList<String> url = new ArrayList<String>();
+							int width = 0, height = 0;
+							width = 720 / 2 - 30;
+							height = width * jsomUrl.getInt("height")
+									/ jsomUrl.getInt("width");
+							if (height > 500) {
+								height = 500;
+							}
+							Album album = new Album();
+							album.setContent(pins.getString("raw_text"));
+							url.add("http://img.hb.aicdn.com/"
+									+ jsomUrl.getString("key") + "_fw658");
+							album.setPinId(String.valueOf(pins.getInt("pin_id")));
+							album.setUrlList(url);
+							album.setResWidth(width);
+							album.setResHight(height);
+							album.setLove(pins.getInt("like_count"));
+							album.setFavorites(pins.getInt("repin_count"));
+							albumList.add(album);
+						}
+					}
+				}
+				Gson gson = new Gson();
+				content = gson.toJson(albumList);
+				System.out.println(content);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return content;
+	}
 	
-	
-	
+	/**
+	 * 主页 - 更多视频
+	 */
+	public static synchronized String getMoreVedio(String url,String page){
+		String content = "";
+		List<Video> videoList = new ArrayList<Video>();
+		try {
+			//System.out.println(url + page+ "-" + TimeUtil.getTimeOld(System.currentTimeMillis())+".html");
+			Document document = Jsoup.connect(url + page+ "-" + TimeUtil.getTimeOld(System.currentTimeMillis())+".html").data("jquery", "java")
+					.userAgent("Mozilla").cookie("auth", "token")
+					.timeout(50000).get();
+			if (document.toString() == null || document.toString().isEmpty()) {
+			}else{
+				Elements divs = document.select("div.l-item");
+				for (Element div : divs) {
+					Elements l_l = div.select("div.l-l");
+					Elements aa = l_l.select("a");
+					String aid = aa.attr("href").split("av")[1].replace("/","");
+					System.out.println(aid);
+					String title = aa.attr("title");
+					System.out.println(title);
+					String imageurl = div.select("[data-img]").attr("abs:data-img");
+					System.out.println(imageurl);
+					
+					//Element link = div.select("a[href]").get(0);
+					//Elements media = div.select("[data-img]");
+					Elements info = div.select("div.v-desc");
+					Elements v_info = div.select("div.v-info");
+					//Elements gk = v_info.select("span");
+					Elements up_info = div.select("div.up-info");
+					Elements v_date = up_info.select("span");
+					Element user = up_info.select("a[href]").get(0);
+					
+					String gk = "0";
+					Elements gks = v_info.select("v-info-i,.gk");
+					Elements gknum = gks.select("span");
+					if(gknum.size() == 2){
+						gk = gknum.get(1).attr("number");
+					}
+					String dm = "0";
+					Elements dms = v_info.select("v-info-i,.dm");
+					Elements dmnum = dms.select("span");
+					if(dmnum.size() == 2){
+						dm = dmnum.get(1).attr("number");
+					}
+					String sc = "0";
+					Elements scs = v_info.select("v-info-i,.sc");
+					Elements scnum = scs.select("span");
+					if(scnum.size() == 2){
+						sc = scnum.get(1).attr("number");
+					}
+					Video item = new Video();
+					item.setAid(aid);
+					item.setTitle(title);
+					item.setPic(imageurl);
+					item.setDescription(info.text());
+					item.setPlay(gk); // 播放
+					item.setVideoReview(dm); // 弹幕
+					item.setFavorites(sc); // 收藏
+					item.setAuthor(user.text());
+					item.setCreate(v_date.text());
+					videoList.add(item);
+				}
+				Gson gson = new Gson();
+				content = gson.toJson(videoList);
+				System.out.println(content);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+		return content;
+	}
 	
 	
 	
@@ -328,6 +455,95 @@ public class HttpUtlis {
 			content = "";
 		} catch (Exception e) {
 			content = "";
+			e.printStackTrace();
+		}
+		return content;
+	}
+	
+	/**
+	 * 发现 - 番剧详情
+	 */
+	public static synchronized String getFindInfo(String av) {
+		String content = "";
+		Video video = new Video();
+		try {
+			//System.out.println(Constant.URL_FIND_BANKUN_INFO+av);
+			Document document = Jsoup.connect(Constant.URL_FIND_BANKUN_INFO+av).data("jquery", "java")
+					.userAgent("Mozilla").cookie("auth", "token").timeout(50000).get();
+			//System.out.println(document.toString());
+			
+			Elements main_inner = document.select("div.info-content");
+			//System.out.println(main_inner.toString());
+			Elements bangumi_preview = main_inner.select("div.bangumi-preview");
+			//System.out.println(bangumi_preview.toString());
+			String previewUrl = bangumi_preview.select("img").attr("abs:src");
+			video.setPic(previewUrl);
+			//System.out.println("previewUrl = "+previewUrl);
+			Elements bangumi_info_r = main_inner.select("div.bangumi-info-r");
+			//System.out.println(bangumi_info_r.toString());
+			Elements title_h = bangumi_info_r.select("h1");
+			//System.out.println(title_h.toString());
+			String title = title_h.attr("title");
+			video.setTitle(title);
+			//System.out.println("title = "+title);
+			Elements taga = bangumi_info_r.select("a");
+			String label = "";
+			for(Element tag:taga){
+				//System.out.println("tag="+tag.text());
+				label += tag.text() +" ";
+			}
+			video.setSbutitle(label);
+			//System.out.println("label = "+label);
+			Elements info_descs = bangumi_info_r.select("div.info-row,.info-desc-wrp");
+			Elements info = info_descs.select("div.info-desc");
+			String des = info.text();
+			video.setDescription(des);
+			//System.out.println("des = "+des);
+			
+			// 获取视频列表
+			List<Video> bangumiVideoList = new ArrayList<Video>();
+			Elements complete_list = document.getElementsByClass("complete-list");
+			//System.out.println(complete_list.size());
+			Elements slider_part_wrapper = complete_list.select("div.slider-part-wrapper");
+			//System.out.println(slider_part_wrapper.size());
+			Elements v1_bangumi_list_part_child = slider_part_wrapper.select("li.v1-bangumi-list-part-child");
+			//System.out.println("episode_list = "+v1_bangumi_list_part_child.size());
+			for(Element element :v1_bangumi_list_part_child){
+				Video vi = new Video();
+				Elements v1_complete_text = element.select("a[href]");
+				//System.out.println(v1_complete_text.toString());
+				String vi_title = v1_complete_text.attr("title");
+				String vi_videoUrl = v1_complete_text.attr("href");
+				//System.out.println("vi_videoUrl="+vi_videoUrl);
+				vi.setTitle(vi_title);
+				vi.setUrlInfo(vi_videoUrl);
+				bangumiVideoList.add(vi);
+			}
+			video.setBangumiVideoList(bangumiVideoList);
+			
+			// 季度
+			List<Video> quarterViewList = new ArrayList<Video>();
+			Elements v1_bangumi_list_season_wrapper = document.select("div.v1-bangumi-list-season-wrapper");
+			Elements slider_list_content = v1_bangumi_list_season_wrapper.select("div.v1-bangumi-list-season-content,.slider-list-content");
+			Elements v1_bangumi_list_season = slider_list_content.select("ul.v1-bangumi-list-season,.clearfix,.slider-list");
+			Elements li_items = v1_bangumi_list_season.select("li");
+			//System.out.println(li_items.size());
+			for(Element item: li_items) {
+				Video quarterVideo = new Video();
+				String quarter_title = item.text();
+				String data_season_id = item.attr("data-season-id");
+				//System.out.println(quarter_title);
+				//System.out.println(Constant.URL_FIND_BANKUN_INFO+data_season_id);
+				quarterVideo.setTitle(quarter_title);
+				quarterVideo.setUrlInfo(Constant.URL_FIND_BANKUN_INFO+data_season_id);
+				quarterVideo.setPic(previewUrl);
+				quarterViewList.add(quarterVideo);
+			}
+			
+			video.setQuarterVideoList(quarterViewList);
+			Gson gson = new Gson();
+			content = gson.toJson(video);
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return content;
@@ -566,4 +782,59 @@ public class HttpUtlis {
 		return content;
 	}
 	
+    
+    
+    
+    
+    public static synchronized String getPlayUrl(String av) {
+    	String content = "";
+		try {
+			URL url = new URL(String.format(Constant.URL_PLAY_VIDEO_INFO,av));
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setConnectTimeout(10 * 1000);
+			conn.setRequestMethod("GET");
+			if (conn.getResponseCode() != 200)
+	            throw new RuntimeException("请求url失败");
+	        InputStream is = conn.getInputStream();//拿到输入流  
+	        String s = "";
+	        if ("gzip".equals(conn.getContentEncoding())) {
+	        	s = StringUtil.readDataForZgip(is, "utf-8");
+	        }else{
+	        	s = StringUtil.readDataForZgip(is);
+	        }
+	        conn.disconnect();
+	        //System.out.println(s);
+	        s = s.replace("jQuery172024279008170264427_1478221268354(", "");
+	        s = s.replace(");", "");
+	        if(s != null && !s.isEmpty()){
+	        	JSONObject json = new JSONObject(s);
+	        	if(json.isNull("code") ){
+	        		//System.out.println("code");
+	        		String mp4url = "";
+	        		String cid = json.getString("cid");
+	        		String img = json.getString("img");
+	        		JSONArray durl = json.getJSONArray("durl");
+	        		for(int i = 0, num = durl.length(); i < num; i++){
+	        			JSONObject item = durl.getJSONObject(i);
+	        			mp4url = item.getString("url");
+	        		}
+	        		
+	        		JSONObject j = new JSONObject();
+	        		j.put("cid", cid);
+	        		j.put("url", mp4url);
+	        		j.put("img", img);
+	        		content = j.toString();
+	        	}
+	        }
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return content;
+    }
+    
+    
 }
