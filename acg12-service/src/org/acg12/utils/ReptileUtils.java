@@ -67,7 +67,7 @@ public class ReptileUtils {
 		}
 	}
 	
-	public static String HomePaletteMore(HttpServletRequest request,
+	public static String getHomePaletteMore(HttpServletRequest request,
 			HttpServletResponse response) {
 		String max = request.getParameter("max");
 		final String paletteContent = HttpUtlis.getPaletteHtmlString(max);
@@ -78,7 +78,7 @@ public class ReptileUtils {
 		}
 	}
 	
-	public static String HomePaletteAlbumMore(HttpServletRequest request,
+	public static String getHomePaletteAlbumMore(HttpServletRequest request,
 			HttpServletResponse response) {
 		String boardId = request.getParameter("boardId");
 		String max = request.getParameter("max");
@@ -90,12 +90,23 @@ public class ReptileUtils {
 		}
 	}
 
-	public static String HomeVideoMore(HttpServletRequest request,
+	public static String getHomeVideoMore(HttpServletRequest request,
 			HttpServletResponse response) {
 		String type = request.getParameter("type");
 		String page = request.getParameter("page");
 		String url = StringUtil.getMoreVideoUrl(type);
 		final String videoContent = HttpUtlis.getMoreVedio(url , page);
+		if(videoContent != null && !videoContent.isEmpty()){
+			return StringUtil.weiteData(videoContent,Constant.SUCCESS,response);
+		} else {
+			return StringUtil.weiteData(videoContent,Constant.ERROR,response);
+		}
+	}
+	
+	public static String getHomeVideoInfo(HttpServletRequest request,
+			HttpServletResponse response) {
+		String av = request.getParameter("av");
+		final String videoContent = HttpUtlis.getHomeVideoInfo(av);
 		if(videoContent != null && !videoContent.isEmpty()){
 			return StringUtil.weiteData(videoContent,Constant.SUCCESS,response);
 		} else {
@@ -116,6 +127,16 @@ public class ReptileUtils {
 	public static String getFindInfo(HttpServletRequest request,HttpServletResponse response){
 		String av = request.getParameter("av");
 		final String findContent  = HttpUtlis.getFindInfo(av);
+		if(findContent != null && !findContent.isEmpty()){
+			return StringUtil.weiteData(findContent,Constant.SUCCESS,response);
+		} else {
+			return StringUtil.weiteData(findContent,Constant.ERROR,response);
+		}
+	}
+	
+	public static String getFindInfoAv(HttpServletRequest request,HttpServletResponse response){
+		String number = request.getParameter("number");
+		final String findContent  = HttpUtlis.getFindInfoAv(number);
 		if(findContent != null && !findContent.isEmpty()){
 			return StringUtil.weiteData(findContent,Constant.SUCCESS,response);
 		} else {

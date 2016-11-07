@@ -23,14 +23,6 @@
 		</description>
 		<display-name>This is the display name of my J2EE component
 		</display-name>
-		<servlet-name>ss</servlet-name>
-		<servlet-class>org.acg12.servlet.ui.ss</servlet-class>
-	</servlet>
-	<servlet>
-		<description>This is the description of my J2EE component
-		</description>
-		<display-name>This is the display name of my J2EE component
-		</display-name>
 		<servlet-name>MainServlet</servlet-name>
 		<servlet-class>org.acg12.servlet.ui.MainServlet</servlet-class>
 	</servlet>
@@ -92,14 +84,19 @@
 		<servlet-class>org.acg12.servlet.request.FindInfo</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>FindInfoAv</servlet-name>
+		<servlet-class>org.acg12.servlet.request.FindInfoAv</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>Search</servlet-name>
 		<servlet-class>org.acg12.servlet.request.Search</servlet-class>
 	</servlet>
-
 	<servlet>
 		<servlet-name>PlayUrl</servlet-name>
 		<servlet-class>org.acg12.servlet.request.PlayUrl</servlet-class>
 	</servlet>
+
+
 
 
 
@@ -117,6 +114,10 @@
 		<url-pattern>/home/more</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+		<servlet-name>HomeInfo</servlet-name>
+		<url-pattern>/home/info</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>Find</servlet-name>
 		<url-pattern>/find</url-pattern>
 	</servlet-mapping>
@@ -125,17 +126,18 @@
 		<url-pattern>/find/info</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>Search</servlet-name>
-		<url-pattern>/search</url-pattern>
+		<servlet-name>FindInfoAv</servlet-name>
+		<url-pattern>/find/v</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>HomeInfo</servlet-name>
-		<url-pattern>/home/info</url-pattern>
+		<servlet-name>Search</servlet-name>
+		<url-pattern>/search</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>PlayUrl</servlet-name>
 		<url-pattern>/playurl</url-pattern>
 	</servlet-mapping>
+
 
 
 

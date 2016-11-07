@@ -30,13 +30,13 @@ public class HomeMore extends HttpServlet {
 		if(action.equals("album")) {
 			ReptileUtils.getHomeAlbumMore(request, response);
 		} else if(action.equals("palette")) {
-			ReptileUtils.HomePaletteMore(request, response);
+			ReptileUtils.getHomePaletteMore(request, response);
 		} else if(action.equals("palettealbum")) {
-			ReptileUtils.HomePaletteAlbumMore(request, response);
+			ReptileUtils.getHomePaletteAlbumMore(request, response);
 		} else if(action.equals("video")) {
-			ReptileUtils.HomeVideoMore(request, response);
+			ReptileUtils.getHomeVideoMore(request, response);
 		} else if(action.equals("bangumi")) {
-			ReptileUtils.HomeVideoMore(request, response);
+			ReptileUtils.getHomeVideoMore(request, response);
 		} 
 	}
 

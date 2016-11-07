@@ -405,6 +405,37 @@ public class HttpUtlis {
 		return content;
 	}
 	
+	/**
+	 * 主页 - 视频信息
+	 */
+	public static synchronized String getHomeVideoInfo(String av){
+		String content = "";
+		Video video = new Video();
+		List<Video> videoList = new ArrayList<Video>();
+		try {
+			System.out.println(String.format(Constant.URL_HOME_VIDEO_INFO , av));
+			Document document = Jsoup.connect(String.format(Constant.URL_HOME_VIDEO_INFO , av)).data("jquery", "java")
+					.userAgent("Mozilla").cookie("auth", "token")
+					.timeout(50000).get();
+			Elements listElements = document.getElementsByClass("li-wrap-content");
+			System.out.println(listElements.size());
+			for (int i = 0; i < listElements.size(); i++) {
+				Video item = new Video();
+				item.setTitle(listElements.get(i).text());
+				videoList.add(item);
+			}
+			Elements labelElements = document.select("[name=keywords]");
+		    String label = labelElements.attr("content");
+			video.setSbutitle(label);	
+			video.setBangumiVideoList(videoList);
+			Gson gson = new Gson();
+			content = gson.toJson(video);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return content;
+	}
+	
 	
 	
 	
@@ -543,6 +574,30 @@ public class HttpUtlis {
 			video.setQuarterVideoList(quarterViewList);
 			Gson gson = new Gson();
 			content = gson.toJson(video);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return content;
+	}
+	
+	/**
+	 * 发现 - 番剧详情获取av
+	 */
+	public static synchronized String getFindInfoAv(String number) {
+		String content = "";
+		try {
+			Document document = Jsoup.connect(Constant.URL_FIND_BANKUN_INFO_AV + number).data("jquery", "java")
+					.userAgent("Mozilla").cookie("auth", "token").timeout(50000).get();
+			
+			Elements viewbox = document.select("div.viewbox");
+			Elements tminfo = viewbox.select("div.tminfo");
+			Elements avtitle = tminfo.select("a[href]");
+			Elements av_link = avtitle.select("a.v-av-link");
+			String href = av_link.attr("href");
+			href = href.split("/av")[1].replace("/", "");
+			System.out.println(av_link);
+			System.out.println(href);
+			content = href;
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
