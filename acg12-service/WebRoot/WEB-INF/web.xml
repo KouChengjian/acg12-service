@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- <!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 
-	2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd"> -->
-<web-app>
+<web-app >
 
+
+
+    <welcome-file-list>
+        <welcome-file>jsp/login.jsp</welcome-file>
+    </welcome-file-list>
+    
 	<filter>
 		<filter-name>CharactorEncodingFilter</filter-name>
 		<filter-class>org.acg12.filter.CharactorEncodingFilter</filter-class>
@@ -14,50 +18,36 @@
 	</filter-mapping>
 
 
-	<servlet>
+	<!-- <servlet>
 		<servlet-name>test</servlet-name>
 		<servlet-class>org.acg12.servlet.test</servlet-class>
 	</servlet>
 	<servlet>
-		<description>This is the description of my J2EE component
-		</description>
-		<display-name>This is the display name of my J2EE component
-		</display-name>
 		<servlet-name>MainServlet</servlet-name>
 		<servlet-class>org.acg12.servlet.ui.MainServlet</servlet-class>
-	</servlet>
+	</servlet> -->
 
-
-
-
-
-
-
-	<servlet-mapping>
+	<!-- <servlet-mapping>
 		<servlet-name>test</servlet-name>
 		<url-pattern>/servlet/test</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>ss</servlet-name>
-		<url-pattern>/servlet/ss</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>MainServlet</servlet-name>
 		<url-pattern>/servlet/MainServlet</url-pattern>
 	</servlet-mapping>
-
+ -->
 
 
 
 	<!-- 针对404错误的处理页面 -->
 	<error-page>
 		<error-code>404</error-code>
-		<location>/jsps/error/404error.jsp</location>
+		<location>/jsp/error404.jsp</location>
 	</error-page>
 	<!-- 针对500错误的处理页面 -->
 	<error-page>
 		<error-code>500</error-code>
-		<location>/jsps/error/500error.jsp</location>
+		<location>/jsp/error500.jsp</location>
 	</error-page>
 
 
@@ -95,6 +85,13 @@
 		<servlet-name>PlayUrl</servlet-name>
 		<servlet-class>org.acg12.servlet.request.PlayUrl</servlet-class>
 	</servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>org.acg12.servlet.ui.LoginServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -137,9 +134,10 @@
 		<servlet-name>PlayUrl</servlet-name>
 		<url-pattern>/playurl</url-pattern>
 	</servlet-mapping>
-
-
-
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/servlet/LoginServlet</url-pattern>
+  </servlet-mapping>
 
 
 </web-app>

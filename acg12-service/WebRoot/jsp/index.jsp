@@ -18,7 +18,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
   
-      <body background="<%=path %>/images/bg.png">
+      <body background="<%=path %>/imag
+      s/bg.png">
 
       <div id="top-right" class="right">
         <div class="" id="topMenu">

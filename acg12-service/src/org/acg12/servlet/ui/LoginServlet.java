@@ -1,4 +1,4 @@
-package org.acg12.servlet;
+package org.acg12.servlet.ui;
 
 import java.io.IOException;
 
@@ -7,12 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class test extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 
-	public test() {
+	private static final long serialVersionUID = 1440864036614768626L;
+
+	public LoginServlet() {
 		super();
 	}
-
+	
 	public void init() throws ServletException {
 	}
 
@@ -27,6 +29,5 @@ public class test extends HttpServlet {
 	public void destroy() {
 		super.destroy(); 
 	}
-
 
 }
