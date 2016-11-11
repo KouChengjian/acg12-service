@@ -1,4 +1,4 @@
-package org.acg12.servlet.request;
+package org.acg12.servlet;
 
 import java.io.IOException;
 
@@ -9,29 +9,31 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.acg12.utils.ReptileUtils;
 
-public class PlayUrl extends HttpServlet {
+public class Find extends HttpServlet {
 
-	private static final long serialVersionUID = -6532259880495252927L;
+	private static final long serialVersionUID = 1163918290202901772L;
 
-	public PlayUrl() {
+	public Find() {
 		super();
 	}
 	
 	public void init() throws ServletException {
-		
-	}
-
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-        ReptileUtils.getPlayUrl(request, response);
-	}
-
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 	public void destroy() {
 		super.destroy(); 
 	}
+
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+        ReptileUtils.getFindContent(request, response);
+	}
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request,response);
+	}
+
+
+
 }

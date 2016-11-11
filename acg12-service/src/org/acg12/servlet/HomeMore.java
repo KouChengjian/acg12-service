@@ -1,7 +1,6 @@
-package org.acg12.servlet.request;
+package org.acg12.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,46 +9,40 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.acg12.utils.ReptileUtils;
 
-public class Search extends HttpServlet {
+public class HomeMore extends HttpServlet {
 
-	private static final long serialVersionUID = 7769150504778328631L;
+	private static final long serialVersionUID = -3371558165260833251L;
 
-	public Search() {
+	public HomeMore() {
 		super();
 	}
 	
 	public void init() throws ServletException {
-		// Put your code here
 	}
 
-	/**
-	 * Destruction of the servlet. <br>
-	 */
 	public void destroy() {
-		super.destroy(); // Just puts "destroy" string in log
+		super.destroy(); 
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
 		if(action.equals("album")) {
-			ReptileUtils.getSearchAlbum(request, response);
+			ReptileUtils.getHomeAlbumMore(request, response);
 		} else if(action.equals("palette")) {
-			ReptileUtils.getSearchPalette(request, response);
+			ReptileUtils.getHomePaletteMore(request, response);
+		} else if(action.equals("palettealbum")) {
+			ReptileUtils.getHomePaletteAlbumMore(request, response);
 		} else if(action.equals("video")) {
-			ReptileUtils.getSearchVideo(request, response);
+			ReptileUtils.getHomeVideoMore(request, response);
 		} else if(action.equals("bangumi")) {
-			ReptileUtils.getSearchBangunmi(request, response);
-		}
-		
+			ReptileUtils.getHomeVideoMore(request, response);
+		} 
 	}
-	
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-
-	
 
 }

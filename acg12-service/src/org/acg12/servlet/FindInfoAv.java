@@ -1,4 +1,4 @@
-package org.acg12.servlet.request;
+package org.acg12.servlet;
 
 import java.io.IOException;
 
@@ -9,31 +9,29 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.acg12.utils.ReptileUtils;
 
-public class FindInfo extends HttpServlet {
+public class FindInfoAv extends HttpServlet {
 
-	private static final long serialVersionUID = 6752952237325041195L;
+	private static final long serialVersionUID = 4691720265709695445L;
 
-	public FindInfo() {
+	public FindInfoAv() {
 		super();
 	}
 	
 	public void init() throws ServletException {
 	}
 
-	public void destroy() {
-		super.destroy(); 
-	}
-	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-        ReptileUtils.getFindInfo(request, response);
+		ReptileUtils.getFindInfoAv(request, response);
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+        doGet(request, response);
 	}
 
+	public void destroy() {
+		super.destroy(); 
+	}
 	
-
 }

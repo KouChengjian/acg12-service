@@ -1,4 +1,4 @@
-package org.acg12.db;
+package org.acg12.utils;
 
 import java.io.InputStream;
 import java.sql.Connection;

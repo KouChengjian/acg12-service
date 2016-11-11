@@ -1,9 +1,7 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" errorPage="/erroe.jsp"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" errorPage="./erroe.jsp"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-log(path);
-log("basePath=="+basePath);
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -35,7 +33,7 @@ log("basePath=="+basePath);
           
           <p style="padding: 30px 0px 10px ; position: relative; background-color: #ffffff"">
               <span class="u_logo"></span>
-              <input class="ipt" type="text" placeholder="请输入用户名或邮箱" value=""> 
+              <input class="ipt" id="username" type="text" placeholder="请输入用户名或邮箱" value=""> 
           </p>
           
           <P style="position: relative;">
@@ -46,14 +44,15 @@ log("basePath=="+basePath);
           <div class="btn_div">
               <p style="margin: 0px 35px 20px 45px;">
                   <span style="float: left;">
-                      <a style="color: rgb(204, 204, 204);" href="#">忘记密码?</a>
+                      <a id="resetpwd" style="color: rgb(204, 204, 204); cursor: pointer;">忘记密码?</a>
                   </span>
                   <span style="float: right;">
-                      <a class="btn_reg" href="${basePath}/jsp/register.jsp">注册</a>
-                      <a class="btn_login" href="#">登录</a>
+                      <a class="btn_reg" id="reg" style="cursor: pointer;">注册</a> <!-- target="_blank" href="${pageContext.request.contextPath }/admin/v/register"-->
+                      <a class="btn_login" id="login" style="cursor: pointer;">登录</a><!-- href="#" -->
                   </span>
               </p>
           </div>
+          
       </div>
   </body>
 </html>

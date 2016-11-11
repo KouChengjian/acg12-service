@@ -1,4 +1,4 @@
-package org.acg12.servlet.ui;
+package org.acg12.servlet;
 
 import java.io.IOException;
 
@@ -7,27 +7,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class LoginServlet extends HttpServlet {
+import org.acg12.utils.ReptileUtils;
 
-	private static final long serialVersionUID = 1440864036614768626L;
+public class PlayUrl extends HttpServlet {
 
-	public LoginServlet() {
+	private static final long serialVersionUID = -6532259880495252927L;
+
+	public PlayUrl() {
 		super();
 	}
 	
 	public void init() throws ServletException {
+		
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+        ReptileUtils.getPlayUrl(request, response);
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		doGet(request, response);
 	}
 
 	public void destroy() {
 		super.destroy(); 
 	}
-
 }
