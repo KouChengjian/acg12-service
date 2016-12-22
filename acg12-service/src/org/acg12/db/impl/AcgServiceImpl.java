@@ -1,4 +1,4 @@
-package org.acg12.impl;
+package org.acg12.db.impl;
 
 import org.acg12.bean.User;
 import org.acg12.db.UserDao;

@@ -1,4 +1,4 @@
-package org.acg12.impl;
+package org.acg12.db.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

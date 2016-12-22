@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.acg12.Constant;
 import org.acg12.bean.User;
-import org.acg12.impl.AcgServiceImpl;
+import org.acg12.db.impl.AcgServiceImpl;
 import org.acg12.utils.StringUtil;
 
 import com.google.gson.Gson;
