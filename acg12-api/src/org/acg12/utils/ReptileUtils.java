@@ -134,16 +134,6 @@ public class ReptileUtils {
 		}
 	}
 	
-	public static String getFindInfoAv(HttpServletRequest request,HttpServletResponse response){
-		String number = request.getParameter("number");
-		final String findContent  = HttpUtlis.getFindInfoAv(number);
-		if(findContent != null && !findContent.isEmpty()){
-			return StringUtil.weiteData(findContent,Constant.SUCCESS,response);
-		} else {
-			return StringUtil.weiteData(findContent,Constant.ERROR,response);
-		}
-	}
-	
 	public static void getSearchAlbum(HttpServletRequest request,HttpServletResponse response){
 		String key = request.getParameter("key");
 		String page = request.getParameter("page");
@@ -188,11 +178,24 @@ public class ReptileUtils {
 		}	
 	}
 	
-	
+	public static String getFindInfoAv(HttpServletRequest request,HttpServletResponse response){
+		String number = request.getParameter("number");
+		final String findContent  = HttpUtlis.getFindInfoAv(number);
+		if(findContent != null && !findContent.isEmpty()){
+			return StringUtil.weiteData(findContent,Constant.SUCCESS,response);
+		} else {
+			return StringUtil.weiteData(findContent,Constant.ERROR,response);
+		}
+	}
 	
 	public static void getPlayUrl(HttpServletRequest request,HttpServletResponse response){
+		String action = request.getParameter("action");
 		String av = request.getParameter("av");
+		if(action.equals("bangumi")){
+			av  = HttpUtlis.getFindInfoAv(av);
+		}
 		final String content = HttpUtlis.getPlayUrl(av);
+		
 		if(content != null && !content.isEmpty()){
 			StringUtil.weiteData(content,Constant.SUCCESS,response);
 		} else {

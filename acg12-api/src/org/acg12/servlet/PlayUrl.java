@@ -21,14 +21,12 @@ public class PlayUrl extends HttpServlet {
 		
 	}
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         ReptileUtils.getPlayUrl(request, response);
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
+	public void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+		//doGet(request, response);
 	}
 
 	public void destroy() {

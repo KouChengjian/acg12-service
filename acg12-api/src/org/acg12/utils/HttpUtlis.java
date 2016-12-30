@@ -586,18 +586,34 @@ public class HttpUtlis {
 	public static synchronized String getFindInfoAv(String number) {
 		String content = "";
 		try {
-			Document document = Jsoup.connect(Constant.URL_FIND_BANKUN_INFO_AV + number).data("jquery", "java")
-					.userAgent("Mozilla").cookie("auth", "token").timeout(50000).get();
-			
-			Elements viewbox = document.select("div.viewbox");
-			Elements tminfo = viewbox.select("div.tminfo");
-			Elements avtitle = tminfo.select("a[href]");
-			Elements av_link = avtitle.select("a.v-av-link");
-			String href = av_link.attr("href");
-			href = href.split("/av")[1].replace("/", "");
-			System.out.println(av_link);
-			System.out.println(href);
-			content = href;
+			String av = number.split("#")[1];
+			String videoUrl = String.format(Constant.URL_FIND_BANKUN_INFO_AV, av);
+			//System.out.println(videoUrl);
+			URL url = new URL(videoUrl);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setConnectTimeout(10 * 1000);
+			conn.setRequestMethod("GET");
+			if (conn.getResponseCode() != 200)
+	            throw new RuntimeException("请求url失败");
+	        InputStream is = conn.getInputStream();//拿到输入流  
+	        String response = "";
+	        if ("gzip".equals(conn.getContentEncoding())) {
+	        	response = StringUtil.readDataForZgip(is, "utf-8");
+	        }else{
+	        	response = StringUtil.readDataForZgip(is);
+	        }
+	        conn.disconnect();
+	        if(response != null && !response.isEmpty()){
+	        	JSONObject json = new JSONObject(response);
+	        	int code = json.getInt("code");
+	        	if(code == 0){
+	        		JSONObject result = json.getJSONObject("result");
+	        		JSONObject currentEpisode = result.getJSONObject("currentEpisode");
+	        		content = currentEpisode.getString("avId");
+	        	}
+	        }
+		}catch (JSONException e) {
+			e.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -844,7 +860,9 @@ public class HttpUtlis {
     public static synchronized String getPlayUrl(String av) {
     	String content = "";
 		try {
-			URL url = new URL(String.format(Constant.URL_PLAY_VIDEO_INFO,av));
+			String u = String.format(Constant.URL_PLAY_VIDEO_INFO,av);
+			System.out.println(u);
+			URL url = new URL(u);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setConnectTimeout(10 * 1000);
 			conn.setRequestMethod("GET");
@@ -858,7 +876,7 @@ public class HttpUtlis {
 	        	s = StringUtil.readDataForZgip(is);
 	        }
 	        conn.disconnect();
-	        //System.out.println(s);
+	        System.out.println(s);
 	        s = s.replace("jQuery172024279008170264427_1478221268354(", "");
 	        s = s.replace(");", "");
 	        if(s != null && !s.isEmpty()){

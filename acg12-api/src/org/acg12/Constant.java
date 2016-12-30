@@ -44,7 +44,7 @@ public class Constant {
 	// 发现 - 番剧详情
 	public static final String URL_FIND_BANKUN_INFO    = "http://bangumi.bilibili.com/anime/";
 	// 发现 - 获取AV
-	public static final String URL_FIND_BANKUN_INFO_AV = "http://bangumi.bilibili.com/anime/v/";
+	public static final String URL_FIND_BANKUN_INFO_AV = "http://bangumi.bilibili.com/web_api/episode/%s.json"; // http://bangumi.bilibili.com/web_api/episode/96703.json
 	
 	// 搜索 - 图片
 	public static final String URL_SEARCH_ALBUM   = "http://huaban.com/search/?category=anime&q=";
