@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
 
-	<!-- <welcome-file-list> <welcome-file>/admin/login.jsp</welcome-file> </welcome-file-list> -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/acg12-servlet.xml</param-value>
+	</context-param>
+
+	<servlet>
+		<servlet-name>acg12</servlet-name>
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>acg12</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+
+
+
+
+
 
 	<filter>
 		<filter-name>CharactorEncodingFilter</filter-name>

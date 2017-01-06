@@ -13,9 +13,9 @@ public class ErrorCode {
 	 * 数据请求
 	 */
 	// 失败
-	public static final int DATA_REQUEST_FAILURE = 0;
-	// 成功
-	public static final int DATA_REQUEST_SUCCESS = 200;
+		public static final int DATA_REQUEST_FAILURE = 0;
+		// 成功
+		public static final int DATA_REQUEST_SUCCESS = 200;
 	
 	
 	
