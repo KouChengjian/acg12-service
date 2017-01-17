@@ -3,7 +3,6 @@ package org.acg12.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.acg12.utils.HttpUtlis;
 import org.acg12.utils.ReptileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +21,7 @@ public class IndexController {
     private HttpServletResponse response;
 	
 	@ResponseBody
-	@RequestMapping(value = "/index",method = RequestMethod.GET)
+	@RequestMapping(value = "/index" , method = RequestMethod.GET)
 	public void index() {
         ReptileUtils.getHomeContent(request , response);
 	}

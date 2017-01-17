@@ -339,7 +339,7 @@ public class HttpUtlis {
 		String content = "";
 		List<Video> videoList = new ArrayList<Video>();
 		try {
-			//System.out.println(url + page+ "-" + TimeUtil.getTimeOld(System.currentTimeMillis())+".html");
+			System.out.println(url + page+ "-" + TimeUtil.getTimeOld(System.currentTimeMillis())+".html");
 			Document document = Jsoup.connect(url + page+ "-" + TimeUtil.getTimeOld(System.currentTimeMillis())+".html").data("jquery", "java")
 					.userAgent("Mozilla").cookie("auth", "token")
 					.timeout(50000).get();

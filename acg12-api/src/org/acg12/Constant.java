@@ -55,8 +55,9 @@ public class Constant {
 	// 搜索 - 番剧
 	public static final String URL_SEARCH_SERIES  = "http://search.bilibili.com/bangumi?";
 	
-	// 通过av号获取弹幕和视频地址
-	public static final String URL_PLAY_VIDEO_INFO = "http://api.bilibili.com/playurl?callback=jQuery172024279008170264427_1478221268354&aid=%s&page=1&platform=html5&quality=1&vtype=mp4&type=jsonp&_=1478221268411";
+	// 通过av号获取弹幕和视频地址                                                                              http://api.bilibili.com/playurl?callback=jQuery172024279008170264427_1478221268354&aid=7315442&page=1&platform=html5&quality=1&vtype=mp4&type=jsonp&_=1478221268411
+	public static final String URL_PLAY_VIDEO_INFO = "http://api.bilibili.com/playurl?aid=%s";
 	
-
+	
+	
 }
