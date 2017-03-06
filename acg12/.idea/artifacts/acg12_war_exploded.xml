@@ -13,6 +13,10 @@
           <element id="library" level="project" name="mybatis-3.4.2" />
           <element id="library" level="project" name="spring-web-4.3.6.RELEASE" />
           <element id="library" level="project" name="spring-4.3.6.RELEASE" />
+          <element id="library" level="project" name="log4j-1.2.17" />
+          <element id="library" level="project" name="commons-pool2-2.4.2" />
+          <element id="library" level="project" name="commons-logging-1.2" />
+          <element id="library" level="project" name="commons-dbcp2-2.1.1" />
         </element>
       </element>
     </root>
