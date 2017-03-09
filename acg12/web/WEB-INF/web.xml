@@ -6,6 +6,8 @@
 
     <display-name>acg12</display-name>
 
+
+
     <!-- 加载spring容器 -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -41,6 +43,7 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:config/spring/springmvc.xml</param-value>
         </init-param>
+        <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
