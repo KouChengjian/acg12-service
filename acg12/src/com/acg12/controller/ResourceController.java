@@ -1,6 +1,6 @@
 package com.acg12.controller;
 
-import com.acg12.utils.ReptileUtil;
+import com.acg12.service.ResourceService;
 import com.acg12.utils.StringUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,35 +23,38 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "/res")
 public class ResourceController {
 
-    @RequestMapping(value = "/p/anime" )
+    @Resource
+    private ResourceService resourceService;
+
+    @RequestMapping(value = "/index" , method = {RequestMethod.POST , RequestMethod.GET})
+    @ResponseBody
+    public void queryIndex(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        System.out.println("1");
+        JSONObject content = resourceService.getIndex();
+        System.out.println("2");
+        String result = StringUtil.result(content);
+        StringUtil.outputStream(response , result);
+    }
+
+    @RequestMapping(value = "/p/anime" ,method = {RequestMethod.GET})
     @ResponseBody
     public void queryPictrueAnimes(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        try{
-            System.out.println("1");
-            JSONObject content = ReptileUtil.getHomeContent();
-            System.out.println("2");
-            JSONObject json = new JSONObject();
-            json.put("result", 200);
-            json.put("desc",   "获取成功");
-            json.put("data",   content);
-            StringUtil.weiteData(response , json.toString());
-        } catch (JSONException e){
-
-        }
-
+        String max = request.getParameter("max");
+        JSONObject content = resourceService.getAlbumList(max);
+        String result = StringUtil.result(content);
+        StringUtil.outputStream(response , result);
     }
 
-    @RequestMapping(value = "/p/boards/anime" , method = {RequestMethod.POST, RequestMethod.GET})
-    public void queryPictrueBoardsAnimes() throws Exception {
+    @RequestMapping(value = "/p/boards/anime" , method = {RequestMethod.GET})
+    public void queryPictrueBoardsAnimes(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String max = request.getParameter("max");
+        JSONObject content = resourceService.getBoardsList(max);
+        String result = StringUtil.result(content);
+        StringUtil.outputStream(response , result);
 
     }
 
 
-    @RequestMapping(value = "/test")
-    @ResponseBody
-    public String lista(HttpServletRequest request) {
 
-        return ReptileUtil.getUsernameById(1);
-    }
 
 }

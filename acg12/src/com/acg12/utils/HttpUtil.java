@@ -29,9 +29,7 @@ public class HttpUtil {
     /**
      * 首页-横幅
      */
-    @Cacheable(value = "myCache")
     public static synchronized List<Video> getBanner() {
-        System.out.println("a");
         List<Video> bannerList = new ArrayList<Video>();
         try {
             URL url = new URL(Constant.URL_HOME_BRAND);
@@ -73,7 +71,7 @@ public class HttpUtil {
     /**
      * 首页-获取新的画集
      */
-    public static synchronized List<Album> getAlbumHtmlString(String max) {
+    public static synchronized List<Album> getAlbumList(String max) {
         List<Album> albumList = new ArrayList<Album>();
         try {
             Document document = Jsoup.connect(Constant.URL_ALBUM + "&max=" + max)
@@ -128,7 +126,7 @@ public class HttpUtil {
     /**
      * 首页-获取画板
      */
-    public static synchronized List<Palette> getPaletteHtmlString(String max) {
+    public static synchronized List<Palette> getPaletteList(String max) {
         List<Palette> paletteList = new ArrayList<Palette>();
         try {
             Document document = Jsoup
@@ -177,7 +175,7 @@ public class HttpUtil {
     /**
      * 首页-内容
      */
-    public static synchronized List<List<Video>> getHomeHtmlString(){
+    public static synchronized List<List<Video>> getHomeLists(){
         List<List<Video>> videoLl = new ArrayList<List<Video>>();
         try {
             URL url = new URL(Constant.URL_HOME_CONTENT);

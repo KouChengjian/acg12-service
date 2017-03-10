@@ -9,7 +9,6 @@
 
     <!-- 组件扫描器 可以扫描controller、service、...这里让扫描controller，指定controller的包 -->
     <context:component-scan base-package="com.acg12"></context:component-scan>
-    <context:component-scan base-package="com.acg12.utils"></context:component-scan>
     <!--<context:component-scan base-package="com.acg12.controller" use-default-filters="false">-->
         <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
     <!--</context:component-scan>-->
@@ -98,11 +97,12 @@
     <!- 若只想使用Spring自身提供的缓存器,则注释掉下面的两个关于Ehcache配置的bean,并启用上面的SimpleCacheManager即可 -->
     <!-- Spring提供的基于的Ehcache实现的缓存管理器 -->
 
-    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
-        <property name="cacheManager" ref="cacheManagerFactory"/>
-    </bean>
     <bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
         <property name="configLocation" value="classpath:config/cache/ehcache.xml"/>
     </bean>
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager" ref="cacheManagerFactory"/>
+    </bean>
+
 
 </beans>

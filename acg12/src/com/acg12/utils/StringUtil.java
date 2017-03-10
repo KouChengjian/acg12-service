@@ -1,6 +1,8 @@
 package com.acg12.utils;
 
 import com.acg12.config.Constant;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -17,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 public class StringUtil {
 
 
-	public static void weiteData(HttpServletResponse response , String content){
+	public static void outputStream(HttpServletResponse response , String content){
 		try {
 			OutputStream outputStream = response.getOutputStream();
 			response.setHeader("content-type", "text/html;charset=UTF-8");
@@ -28,6 +30,25 @@ public class StringUtil {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static synchronized String result(JSONObject content){
+		JSONObject json = new JSONObject();
+		try{
+			if(content == null ){
+				json.put("result", 201);
+				json.put("desc",   "获取失败");
+				json.put("data",   new JSONObject());
+			} else {
+				json.put("result", 200);
+				json.put("desc",   "获取成功");
+				json.put("data",   content);
+			}
+		} catch (JSONException e){
+
+		}
+
+		return json.toString();
 	}
 	
 	public static String getMoreVideoUrl(String type){
