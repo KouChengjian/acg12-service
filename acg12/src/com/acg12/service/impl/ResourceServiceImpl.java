@@ -62,7 +62,7 @@ public class ResourceServiceImpl implements ResourceService {
 
             return array;
         }catch (Exception e) {
-            System.err.println("ResourceServiceImpl->getHomeContent"
+            System.err.println("ResourceServiceImpl->getHomeContent()"
                     +e.toString());
         }
 
@@ -80,7 +80,7 @@ public class ResourceServiceImpl implements ResourceService {
             array.put("album",albumJson);
             return array;
         } catch (Exception e) {
-            System.err.println("ResourceServiceImpl->getAlbumList"
+            System.err.println("ResourceServiceImpl->getAlbumList()"
                     +e.toString());
         }
         return null;
@@ -97,7 +97,190 @@ public class ResourceServiceImpl implements ResourceService {
             array.put("palette",paletteJson);
             return array;
         } catch (Exception e) {
-            System.err.println("ResourceServiceImpl->getBoardsList"
+            System.err.println("ResourceServiceImpl->getBoardsList()"
+                    +e.toString());
+        }
+        return null;
+    }
+
+    @Cacheable(value = "resource_cache" , key = "'paletteAlbumList_boardId=' + #boardId +',max=' + #max")
+    @Override
+    public JSONObject getBoardsToAlbumList(String boardId, String max) {
+        List<Album> albumList  = HttpUtil.getBoardsToAlbumList(boardId , max);
+        try {
+            Gson gson = new Gson();
+            JSONArray paletteJson = new JSONArray(gson.toJson(albumList));
+            JSONObject array = new JSONObject();
+            array.put("album",paletteJson);
+            return array;
+        } catch (Exception e) {
+            System.err.println("ResourceServiceImpl->getBoardsToAlbumList()"
+                    +e.toString());
+        }
+        return null;
+    }
+
+    @Cacheable(value = "resource_cache" , key = "'videoTypeList_type=' + #type + ',page=' + #page")
+    @Override
+    public JSONObject getVideoTypeList(String type, String page) {
+        List<Video> videoList = HttpUtil.getVideoTypeList(type , page);
+        try {
+            Gson gson = new Gson();
+            JSONArray paletteJson = new JSONArray(gson.toJson(videoList));
+            JSONObject array = new JSONObject();
+            array.put("video",paletteJson);
+            return array;
+        } catch (Exception e) {
+            System.err.println("ResourceServiceImpl->getVideoTypeList()"
+                    +e.toString());
+        }
+        return null;
+    }
+
+    @Cacheable(value = "resource_cache" , key = "'videoTypeInfo_av=' + #av")
+    @Override
+    public JSONObject getVideoTypeInfo(String av) {
+        Video video = HttpUtil.getVideoTypeInfo(av);
+        try {
+            Gson gson = new Gson();
+            JSONObject paletteJson = new JSONObject(gson.toJson(video));
+            JSONObject array = new JSONObject();
+            array.put("video",paletteJson);
+            return array;
+        } catch (Exception e) {
+            System.err.println("ResourceServiceImpl->getVideoTypeInfo()"
+                    +e.toString());
+        }
+        return null;
+    }
+
+    @Cacheable(value = "resource_cache" , key = "'dangumiList_page=' + #page")
+    @Override
+    public JSONObject getDangumiList(String page) {
+        List<Video> videoList = HttpUtil.getDangumiList(page);
+        try {
+            Gson gson = new Gson();
+            JSONArray paletteJson = new JSONArray(gson.toJson(videoList));
+            JSONObject array = new JSONObject();
+            array.put("video",paletteJson);
+            return array;
+        } catch (Exception e) {
+            System.err.println("ResourceServiceImpl->getDangumiList()"
+                    +e.toString());
+        }
+        return null;
+    }
+
+    @Cacheable(value = "resource_cache" , key = "'dangumiInfo_av=' + #av")
+    @Override
+    public JSONObject getDangumiInfo(String av) {
+        Video video = HttpUtil.getDangumiInfo(av);
+        try {
+            Gson gson = new Gson();
+            JSONObject paletteJson = new JSONObject(gson.toJson(video));
+            JSONObject array = new JSONObject();
+            array.put("video",paletteJson);
+            return array;
+        } catch (Exception e) {
+            System.err.println("ResourceServiceImpl->getDangumiInfo()"
+                    +e.toString());
+        }
+        return null;
+    }
+
+    @Cacheable(value = "resource_cache" , key = "'dangumiAV_id=' + #id")
+    @Override
+    public JSONObject getDangumiAV(String id) {
+        String av = HttpUtil.getDangumiAV(id);
+        try {
+            JSONObject array = new JSONObject();
+            array.put("av",av);
+            return array;
+        } catch (Exception e) {
+            System.err.println("ResourceServiceImpl->getDangumiAV()"
+                    +e.toString());
+        }
+        return null;
+    }
+
+    @Cacheable(value = "resource_cache" , key = "'searchAlbum_key=' + #key + ',Page=' + #Page")
+    @Override
+    public JSONObject getSearchAlbum(String key, String Page) {
+        List<Album> albumList = HttpUtil.getSearchAlbum(key , Page);
+        try {
+            Gson gson = new Gson();
+            JSONObject paletteJson = new JSONObject(gson.toJson(albumList));
+            JSONObject array = new JSONObject();
+            array.put("album",paletteJson);
+            return array;
+        } catch (Exception e) {
+            System.err.println("ResourceServiceImpl->getSearchAlbum()"
+                    +e.toString());
+        }
+        return null;
+    }
+
+    @Cacheable(value = "resource_cache" , key = "'searchBoards_key=' + #key + ',Page=' + #Page")
+    @Override
+    public JSONObject getSearchBoards(String key, String Page) {
+        List<Palette> paletteList = HttpUtil.getSearchPalette(key , Page);
+        try {
+            Gson gson = new Gson();
+            JSONObject paletteJson = new JSONObject(gson.toJson(paletteList));
+            JSONObject array = new JSONObject();
+            array.put("palette",paletteJson);
+            return array;
+        } catch (Exception e) {
+            System.err.println("ResourceServiceImpl->getSearchBoards()"
+                    +e.toString());
+        }
+        return null;
+    }
+
+    @Cacheable(value = "resource_cache" , key = "'searchVideo_key=' + #key + ',Page=' + #Page")
+    @Override
+    public JSONObject getSearchVideo(String key, String Page) {
+        List<Video> paletteList = HttpUtil.getSearchVideo(key , Page);
+        try {
+            Gson gson = new Gson();
+            JSONObject paletteJson = new JSONObject(gson.toJson(paletteList));
+            JSONObject array = new JSONObject();
+            array.put("video",paletteJson);
+            return array;
+        } catch (Exception e) {
+            System.err.println("ResourceServiceImpl->getSearchVideo()"
+                    +e.toString());
+        }
+        return null;
+    }
+
+    @Cacheable(value = "resource_cache" , key = "'searchDangumi_key=' + #key + ',Page=' + #Page")
+    @Override
+    public JSONObject getSearchDangumi(String key, String Page) {
+        List<Video> paletteList = HttpUtil.getSearchBangunmi(key , Page);
+        try {
+            Gson gson = new Gson();
+            JSONObject paletteJson = new JSONObject(gson.toJson(paletteList));
+            JSONObject array = new JSONObject();
+            array.put("video",paletteJson);
+            return array;
+        } catch (Exception e) {
+            System.err.println("ResourceServiceImpl->getSearchDangumi()"
+                    +e.toString());
+        }
+        return null;
+    }
+
+    @Cacheable(value = "resource_cache" , key = "'playInfo_av=' + #av")
+    @Override
+    public JSONObject getPlayInfo(String av) {
+        String content = HttpUtil.getPlayUrl(av);
+        try {
+            JSONObject array = new JSONObject();
+            array.put("info",content);
+            return array;
+        } catch (Exception e) {
+            System.err.println("ResourceServiceImpl->getPlayInfo()"
                     +e.toString());
         }
         return null;

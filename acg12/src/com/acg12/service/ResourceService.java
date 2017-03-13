@@ -9,11 +9,33 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ResourceService {
 
-    public JSONObject getIndex();
+    JSONObject getIndex();
 
-    public JSONObject getAlbumList(String max);
+    JSONObject getAlbumList(String max);
 
-    public JSONObject getBoardsList(String max);
+    JSONObject getBoardsList(String max);
+
+    JSONObject getBoardsToAlbumList(String boardId , String max);
+
+    JSONObject getVideoTypeList(String type , String page);
+
+    JSONObject getVideoTypeInfo(String av);
+
+    JSONObject getDangumiList(String page);
+
+    JSONObject getDangumiInfo(String av);
+
+    JSONObject getDangumiAV(String id);
+
+    JSONObject getSearchAlbum(String key , String Page);
+
+    JSONObject getSearchBoards(String key , String Page);
+
+    JSONObject getSearchVideo(String key , String Page);
+
+    JSONObject getSearchDangumi(String key , String Page);
+
+    JSONObject getPlayInfo(String av);
 
 
 }

@@ -27,7 +27,7 @@ import java.util.List;
 public class HttpUtil {
 
     /**
-     * 首页-横幅
+     * 横幅
      */
     public static synchronized List<Video> getBanner() {
         List<Video> bannerList = new ArrayList<Video>();
@@ -69,7 +69,7 @@ public class HttpUtil {
     }
 
     /**
-     * 首页-获取新的画集
+     * 获取新的画集
      */
     public static synchronized List<Album> getAlbumList(String max) {
         List<Album> albumList = new ArrayList<Album>();
@@ -124,7 +124,7 @@ public class HttpUtil {
     }
 
     /**
-     * 首页-获取画板
+     * 获取画板
      */
     public static synchronized List<Palette> getPaletteList(String max) {
         List<Palette> paletteList = new ArrayList<Palette>();
@@ -173,7 +173,7 @@ public class HttpUtil {
     }
 
     /**
-     * 首页-内容
+     * 视频内容
      */
     public static synchronized List<List<Video>> getHomeLists(){
         List<List<Video>> videoLl = new ArrayList<List<Video>>();
@@ -246,18 +246,17 @@ public class HttpUtil {
     }
 
     /**
-     * 首页-画板中详细内容
+     * 画板中详细内容
      */
-    public static synchronized String getPaletteAblumHtmlString(String boardId, String max) {
-        String content = "";
+    public static synchronized List<Album> getBoardsToAlbumList(String boardId, String max) {
         List<Album> albumList = new ArrayList<Album>();
         try {
             Document document = Jsoup
                     .connect(Constant.URL_PALETTE_ALBUM + boardId+ "/?iemf5hfr&limit=20&wfl=1&max=" + max)
                     .data("jquery", "java").userAgent("Mozilla")
                     .cookie("auth", "token").timeout(50000).get();
-            if (document.toString() == null || document.toString().isEmpty()) {
-            }else{
+            String content = document.toString();
+            if (content != null && !content.isEmpty()) {
                 Elements var = document.body().select("script");
                 for (Element div : var) {
                     String str1 = "app.page[" + "\"" + "board" + "\"" + "] = ";
@@ -291,31 +290,28 @@ public class HttpUtil {
                         }
                     }
                 }
-                Gson gson = new Gson();
-                content = gson.toJson(albumList);
-                System.out.println(content);
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return content;
+        return albumList;
     }
 
     /**
      * 主页 - 更多视频
      */
-    public static synchronized String getMoreVedio(String url,String page){
-        String content = "";
+    public static synchronized List<Video> getVideoTypeList(String url,String page){
         List<Video> videoList = new ArrayList<Video>();
         try {
             System.out.println(url + page+ "-" + TimeUtil.getTimeOld(System.currentTimeMillis())+".html");
             Document document = Jsoup.connect(url + page+ "-" + TimeUtil.getTimeOld(System.currentTimeMillis())+".html").data("jquery", "java")
                     .userAgent("Mozilla").cookie("auth", "token")
                     .timeout(50000).get();
-            if (document.toString() == null || document.toString().isEmpty()) {
-            }else{
+            String content = document.toString();
+            if (content != null && !content.isEmpty()) {
                 Elements divs = document.select("div.l-item");
                 for (Element div : divs) {
                     Elements l_l = div.select("div.l-l");
@@ -366,30 +362,28 @@ public class HttpUtil {
                     item.setCreate(v_date.text());
                     videoList.add(item);
                 }
-                Gson gson = new Gson();
-                content = gson.toJson(videoList);
-                System.out.println(content);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return content;
+        return videoList;
     }
 
     /**
      * 主页 - 视频信息
      */
-    public static synchronized String getHomeVideoInfo(String av){
+    public static synchronized Video getVideoTypeInfo(String av) {
         String content = "";
         Video video = new Video();
         List<Video> videoList = new ArrayList<Video>();
         try {
-            System.out.println(String.format(Constant.URL_HOME_VIDEO_INFO , av));
+            //System.out.println(String.format(Constant.URL_HOME_VIDEO_INFO , av));
             Document document = Jsoup.connect(String.format(Constant.URL_HOME_VIDEO_INFO , av)).data("jquery", "java")
                     .userAgent("Mozilla").cookie("auth", "token")
                     .timeout(50000).get();
+
             Elements listElements = document.getElementsByClass("li-wrap-content");
-            System.out.println(listElements.size());
+            //System.out.println(listElements.size());
             for (int i = 0; i < listElements.size(); i++) {
                 Video item = new Video();
                 item.setTitle(listElements.get(i).text());
@@ -399,22 +393,18 @@ public class HttpUtil {
             String label = labelElements.attr("content");
             video.setSbutitle(label);
             video.setBangumiVideoList(videoList);
-            Gson gson = new Gson();
-            content = gson.toJson(video);
+            //Gson gson = new Gson();
+            //content = gson.toJson(video);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return content;
+        return video;
     }
-
-
-
 
     /**
      * 发现 - 番剧
      */
-    public static synchronized String getFind(String page){
-        String content = "";
+    public static synchronized List<Video> getDangumiList(String page){
         final List<Video> videoList = new ArrayList<Video>();
         try {
             URL url = new URL(Constant.URL_FIND_BANKUN + page);
@@ -424,6 +414,7 @@ public class HttpUtil {
             if (conn.getResponseCode() != 200)
                 throw new RuntimeException("请求url失败");
             InputStream is = conn.getInputStream();//拿到输入流
+            String content = "";
             if ("gzip".equals(conn.getContentEncoding())) {
                 content = StringUtil.readDataForZgip(is, "utf-8");
             }else{
@@ -443,30 +434,24 @@ public class HttpUtil {
                     item.setUpdateContent("更新至"+jsonObject.getString("newest_ep_index")+"话");
                     videoList.add(item);
                 }
-                Gson gson = new Gson();
-                content = gson.toJson(videoList);
+//                Gson gson = new Gson();
+//                content = gson.toJson(videoList);
                 //System.out.println(content);
-            }else{
-                content = "";
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            content = "";
         } catch (IOException e) {
             e.printStackTrace();
-            content = "";
         } catch (Exception e) {
-            content = "";
             e.printStackTrace();
         }
-        return content;
+        return videoList;
     }
 
     /**
      * 发现 - 番剧详情
      */
-    public static synchronized String getFindInfo(String av) {
-        String content = "";
+    public static synchronized Video getDangumiInfo(String av) {
         Video video = new Video();
         try {
             //System.out.println(Constant.URL_FIND_BANKUN_INFO+av);
@@ -543,21 +528,21 @@ public class HttpUtil {
             }
 
             video.setQuarterVideoList(quarterViewList);
-            Gson gson = new Gson();
-            content = gson.toJson(video);
+//            Gson gson = new Gson();
+//            content = gson.toJson(video);
         }catch (Exception e) {
             e.printStackTrace();
         }
-        return content;
+        return video;
     }
 
     /**
      * 发现 - 番剧详情获取av
      */
-    public static synchronized String getFindInfoAv(String number) {
+    public static synchronized String getDangumiAV(String id) {
         String content = "";
         try {
-            String av = number.split("#")[1];
+            String av = id.split("#")[1];
             String videoUrl = String.format(Constant.URL_FIND_BANKUN_INFO_AV, av);
             //System.out.println(videoUrl);
             URL url = new URL(videoUrl);
@@ -591,21 +576,18 @@ public class HttpUtil {
         return content;
     }
 
-
     /**
      * 搜索-图片
      */
-    public static synchronized String getSearchAlbum(String key , String page ){
-        String content = "";
+    public static synchronized List<Album> getSearchAlbum(String key , String page ){
         List<Album> albumList = new ArrayList<Album>();
         try {
             Document document = Jsoup
                     .connect(Constant.URL_SEARCH_ALBUM + URLEncoder.encode(key, "UTF-8") +"&page="+page)
                     .data("jquery", "java").userAgent("Mozilla")
                     .cookie("auth", "token").timeout(50000).get();
-            if(document.toString() == null || document.toString().isEmpty()){
-
-            }else{
+            String content = document.toString();
+            if(content != null && !content.isEmpty()){
                 Elements var = document.body().select("script");
                 //System.out.println(var.toString());
                 for (Element div : var) {
@@ -642,33 +624,27 @@ public class HttpUtil {
                         }
                     }
                 }
-                Gson gson = new Gson();
-                content = gson.toJson(albumList);
-                System.out.println(content);
-
             }
         } catch (IOException e) {
             e.printStackTrace();
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return content;
+        return albumList;
     }
 
     /**
      * 搜索-画板
      */
-    public static synchronized String getSearchPalette(String key , String page ) {
-        String content = "";
+    public static synchronized List<Palette> getSearchPalette(String key , String page ) {
         List<Palette> paletteList = new ArrayList<Palette>();
         try {
             Document document = Jsoup
                     .connect(Constant.URL_SEARCH_PALETTE + URLEncoder.encode(key, "UTF-8") +"&page="+page)
                     .data("jquery", "java").userAgent("Mozilla")
                     .cookie("auth", "token").timeout(50000).get();
-            if(document.toString() == null || document.toString().isEmpty()){
-            }else{
+            String content = document.toString();
+            if(content != null && !content.isEmpty()){
                 Elements var = document.body().select("script");
                 //System.out.println(var.toString());
                 for (Element div : var) {
@@ -696,32 +672,27 @@ public class HttpUtil {
                         }
                     }
                 }
-                Gson gson = new Gson();
-                content = gson.toJson(paletteList);
-                System.out.println(content);
             }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return content;
+        return paletteList;
     }
 
     /**
      * 搜索-视频
      */
-    public static synchronized String getSearchVideo(String key , String page ){
-        String content = "";
+    public static synchronized List<Video> getSearchVideo(String key , String page ){
         List<Video> videoList = new ArrayList<Video>();
         try {
             //System.out.println(Constant.URL_SEARCH_VIDEO + "&keyword="+URLEncoder.encode(key, "UTF-8")+"&page="+page);
             Document document = Jsoup.connect(Constant.URL_SEARCH_VIDEO + "&keyword="+URLEncoder.encode(key, "UTF-8")+"&page="+page).data("jquery", "java")
                     .userAgent("Mozilla").cookie("auth", "token")
                     .timeout(50000).get();
-            if (document.toString() == null || document.toString().isEmpty()) {
-
-            }else{
+            String content = document.toString();
+            if (content != null && !content.isEmpty()) {
                 //System.out.println(document.toString());
                 Elements so_wrap = document.getElementsByClass("ajax-render");
                 //System.out.println(so_wrap.toString());
@@ -757,31 +728,24 @@ public class HttpUtil {
                     //System.out.println(span.get(3).text());
                     videoList.add(video);
                 }
-                Gson gson = new Gson();
-                content = gson.toJson(videoList);
-                System.out.println(content);
-
             }
         } catch (IOException e) {
             e.printStackTrace();
-
         }
-        return content;
+        return videoList;
     }
 
     /**
      * 搜索-番剧
      */
-    public static synchronized String getSearchBangunmi(String key ,String page ){
-        String content = "";
+    public static synchronized List<Video> getSearchBangunmi(String key ,String page ){
         List<Video> videoList = new ArrayList<Video>();
         try {
             Document document = Jsoup.connect(Constant.URL_SEARCH_SERIES + "&keyword="+URLEncoder.encode(key, "UTF-8")+"&page="+page).data("jquery", "java")
                     .userAgent("Mozilla").cookie("auth", "token")
                     .timeout(50000).get();
-            if (document.toString() == null || document.toString().isEmpty()) {
-
-            }else{
+            String content = document.toString();
+            if (content != null && !content.isEmpty()) {
                 Elements ajax_render = document.select("div.ajax-render");
                 Elements left_img = document.select("div.left-img");
                 Elements img = left_img.select("a");
@@ -812,21 +776,12 @@ public class HttpUtil {
 
                     videoList.add(video);
                 }
-                Gson gson = new Gson();
-                content = gson.toJson(videoList);
-                //System.out.println(content);
-
             }
         } catch (IOException e) {
             e.printStackTrace();
-
         }
-        return content;
+        return videoList;
     }
-
-
-
-
 
     public static synchronized String getPlayUrl(String av) {
         String content = "";

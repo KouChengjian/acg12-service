@@ -54,7 +54,130 @@ public class ResourceController {
 
     }
 
-
+//    public static String getHomePaletteAlbumMore(HttpServletRequest request,
+//                                                 HttpServletResponse response) {
+//        String boardId = request.getParameter("boardId");
+//        String max = request.getParameter("max");
+//        final String paletteContent = HttpUtlis.getPaletteAblumHtmlString(boardId,max);
+//        if(paletteContent != null && !paletteContent.isEmpty()){
+//            return StringUtil.weiteData(paletteContent,Constant.SUCCESS,response);
+//        } else {
+//            return StringUtil.weiteData(paletteContent,Constant.ERROR,response);
+//        }
+//    }
+//
+//    public static String getHomeVideoMore(HttpServletRequest request,
+//                                          HttpServletResponse response) {
+//        String type = request.getParameter("type");
+//        String page = request.getParameter("page");
+//        String url = StringUtil.getMoreVideoUrl(type);
+//        final String videoContent = HttpUtlis.getMoreVedio(url , page);
+//        if(videoContent != null && !videoContent.isEmpty()){
+//            return StringUtil.weiteData(videoContent,Constant.SUCCESS,response);
+//        } else {
+//            return StringUtil.weiteData(videoContent,Constant.ERROR,response);
+//        }
+//    }
+//
+//    public static String getHomeVideoInfo(HttpServletRequest request,
+//                                          HttpServletResponse response) {
+//        String av = request.getParameter("av");
+//        final String videoContent = HttpUtlis.getHomeVideoInfo(av);
+//        if(videoContent != null && !videoContent.isEmpty()){
+//            return StringUtil.weiteData(videoContent,Constant.SUCCESS,response);
+//        } else {
+//            return StringUtil.weiteData(videoContent,Constant.ERROR,response);
+//        }
+//    }
+//
+//    public static String getFindContent(HttpServletRequest request,HttpServletResponse response){
+//        String page = request.getParameter("page");
+//        final String findContent  = HttpUtlis.getFind(page);
+//        if(findContent != null && !findContent.isEmpty()){
+//            return StringUtil.weiteData(findContent,Constant.SUCCESS,response);
+//        } else {
+//            return StringUtil.weiteData(findContent,Constant.ERROR,response);
+//        }
+//    }
+//
+//    public static String getFindInfo(HttpServletRequest request,HttpServletResponse response){
+//        String av = request.getParameter("av");
+//        final String findContent  = HttpUtlis.getFindInfo(av);
+//        if(findContent != null && !findContent.isEmpty()){
+//            return StringUtil.weiteData(findContent,Constant.SUCCESS,response);
+//        } else {
+//            return StringUtil.weiteData(findContent,Constant.ERROR,response);
+//        }
+//    }
+//
+//    public static void getSearchAlbum(HttpServletRequest request,HttpServletResponse response){
+//        String key = request.getParameter("key");
+//        String page = request.getParameter("page");
+//        final String content = HttpUtlis.getSearchAlbum(key, page);
+//        if(content != null && !content.isEmpty()){
+//            StringUtil.weiteData(content,Constant.SUCCESS,response);
+//        } else {
+//            StringUtil.weiteData(content,Constant.ERROR,response);
+//        }
+//    }
+//
+//    public static void getSearchPalette(HttpServletRequest request,HttpServletResponse response){
+//        String key = request.getParameter("key");
+//        String page = request.getParameter("page");
+//        final String content = HttpUtlis.getSearchPalette(key, page);
+//        if(content != null && !content.isEmpty()){
+//            StringUtil.weiteData(content,Constant.SUCCESS,response);
+//        } else {
+//            StringUtil.weiteData(content,Constant.ERROR,response);
+//        }
+//    }
+//
+//    public static void getSearchVideo(HttpServletRequest request,HttpServletResponse response){
+//        String key = request.getParameter("key");
+//        String page = request.getParameter("page");
+//        final String content = HttpUtlis.getSearchVideo(key, page);
+//        if(content != null && !content.isEmpty()){
+//            StringUtil.weiteData(content,Constant.SUCCESS,response);
+//        } else {
+//            StringUtil.weiteData(content,Constant.ERROR,response);
+//        }
+//    }
+//
+//    public static void getSearchBangunmi(HttpServletRequest request,HttpServletResponse response){
+//        String key = request.getParameter("key");
+//        String page = request.getParameter("page");
+//        final String content = HttpUtlis.getSearchBangunmi(key, page);
+//        if(content != null && !content.isEmpty()){
+//            StringUtil.weiteData(content,Constant.SUCCESS,response);
+//        } else {
+//            StringUtil.weiteData(content,Constant.ERROR,response);
+//        }
+//    }
+//
+//    public static String getFindInfoAv(HttpServletRequest request,HttpServletResponse response){
+//        String number = request.getParameter("number");
+//        final String findContent  = HttpUtlis.getFindInfoAv(number);
+//        if(findContent != null && !findContent.isEmpty()){
+//            return StringUtil.weiteData(findContent,Constant.SUCCESS,response);
+//        } else {
+//            return StringUtil.weiteData(findContent,Constant.ERROR,response);
+//        }
+//    }
+//
+//    public static void getPlayUrl(HttpServletRequest request,HttpServletResponse response){
+//        String action = request.getParameter("action");
+//        String av = request.getParameter("av");
+//        if(action.equals("bangumi")){
+//            av  = HttpUtlis.getFindInfoAv(av);
+//        }
+//        final String content = HttpUtlis.getPlayUrl(av);
+//
+//        if(content != null && !content.isEmpty()){
+//            StringUtil.weiteData(content,Constant.SUCCESS,response);
+//        } else {
+//            StringUtil.weiteData(content,Constant.ERROR,response);
+//        }
+//    }
 
 
 }
