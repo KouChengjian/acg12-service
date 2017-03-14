@@ -27,13 +27,13 @@ public interface ResourceService {
 
     JSONObject getDangumiAV(String id);
 
-    JSONObject getSearchAlbum(String key , String Page);
+    JSONObject getSearchAlbum(String key , String page);
 
-    JSONObject getSearchBoards(String key , String Page);
+    JSONObject getSearchBoards(String key , String page);
 
-    JSONObject getSearchVideo(String key , String Page);
+    JSONObject getSearchVideo(String key , String page);
 
-    JSONObject getSearchDangumi(String key , String Page);
+    JSONObject getSearchDangumi(String key , String page);
 
     JSONObject getPlayInfo(String av);
 

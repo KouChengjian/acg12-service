@@ -36,17 +36,17 @@ public class ResourceController {
         StringUtil.outputStream(response , result);
     }
 
-    @RequestMapping(value = "/p/anime" ,method = {RequestMethod.GET})
+    @RequestMapping(value = "/p/album" ,method = {RequestMethod.GET})
     @ResponseBody
-    public void queryPictrueAnimes(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void queryPictrueAlbum(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String max = request.getParameter("max");
         JSONObject content = resourceService.getAlbumList(max);
         String result = StringUtil.result(content);
         StringUtil.outputStream(response , result);
     }
 
-    @RequestMapping(value = "/p/boards/anime" , method = {RequestMethod.GET})
-    public void queryPictrueBoardsAnimes(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    @RequestMapping(value = "/p/boards" , method = {RequestMethod.GET})
+    public void queryPictrueBoards(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String max = request.getParameter("max");
         JSONObject content = resourceService.getBoardsList(max);
         String result = StringUtil.result(content);
@@ -54,130 +54,105 @@ public class ResourceController {
 
     }
 
-//    public static String getHomePaletteAlbumMore(HttpServletRequest request,
-//                                                 HttpServletResponse response) {
-//        String boardId = request.getParameter("boardId");
-//        String max = request.getParameter("max");
-//        final String paletteContent = HttpUtlis.getPaletteAblumHtmlString(boardId,max);
-//        if(paletteContent != null && !paletteContent.isEmpty()){
-//            return StringUtil.weiteData(paletteContent,Constant.SUCCESS,response);
-//        } else {
-//            return StringUtil.weiteData(paletteContent,Constant.ERROR,response);
-//        }
-//    }
-//
-//    public static String getHomeVideoMore(HttpServletRequest request,
-//                                          HttpServletResponse response) {
-//        String type = request.getParameter("type");
-//        String page = request.getParameter("page");
-//        String url = StringUtil.getMoreVideoUrl(type);
-//        final String videoContent = HttpUtlis.getMoreVedio(url , page);
-//        if(videoContent != null && !videoContent.isEmpty()){
-//            return StringUtil.weiteData(videoContent,Constant.SUCCESS,response);
-//        } else {
-//            return StringUtil.weiteData(videoContent,Constant.ERROR,response);
-//        }
-//    }
-//
-//    public static String getHomeVideoInfo(HttpServletRequest request,
-//                                          HttpServletResponse response) {
-//        String av = request.getParameter("av");
-//        final String videoContent = HttpUtlis.getHomeVideoInfo(av);
-//        if(videoContent != null && !videoContent.isEmpty()){
-//            return StringUtil.weiteData(videoContent,Constant.SUCCESS,response);
-//        } else {
-//            return StringUtil.weiteData(videoContent,Constant.ERROR,response);
-//        }
-//    }
-//
-//    public static String getFindContent(HttpServletRequest request,HttpServletResponse response){
-//        String page = request.getParameter("page");
-//        final String findContent  = HttpUtlis.getFind(page);
-//        if(findContent != null && !findContent.isEmpty()){
-//            return StringUtil.weiteData(findContent,Constant.SUCCESS,response);
-//        } else {
-//            return StringUtil.weiteData(findContent,Constant.ERROR,response);
-//        }
-//    }
-//
-//    public static String getFindInfo(HttpServletRequest request,HttpServletResponse response){
-//        String av = request.getParameter("av");
-//        final String findContent  = HttpUtlis.getFindInfo(av);
-//        if(findContent != null && !findContent.isEmpty()){
-//            return StringUtil.weiteData(findContent,Constant.SUCCESS,response);
-//        } else {
-//            return StringUtil.weiteData(findContent,Constant.ERROR,response);
-//        }
-//    }
-//
-//    public static void getSearchAlbum(HttpServletRequest request,HttpServletResponse response){
-//        String key = request.getParameter("key");
-//        String page = request.getParameter("page");
-//        final String content = HttpUtlis.getSearchAlbum(key, page);
-//        if(content != null && !content.isEmpty()){
-//            StringUtil.weiteData(content,Constant.SUCCESS,response);
-//        } else {
-//            StringUtil.weiteData(content,Constant.ERROR,response);
-//        }
-//    }
-//
-//    public static void getSearchPalette(HttpServletRequest request,HttpServletResponse response){
-//        String key = request.getParameter("key");
-//        String page = request.getParameter("page");
-//        final String content = HttpUtlis.getSearchPalette(key, page);
-//        if(content != null && !content.isEmpty()){
-//            StringUtil.weiteData(content,Constant.SUCCESS,response);
-//        } else {
-//            StringUtil.weiteData(content,Constant.ERROR,response);
-//        }
-//    }
-//
-//    public static void getSearchVideo(HttpServletRequest request,HttpServletResponse response){
-//        String key = request.getParameter("key");
-//        String page = request.getParameter("page");
-//        final String content = HttpUtlis.getSearchVideo(key, page);
-//        if(content != null && !content.isEmpty()){
-//            StringUtil.weiteData(content,Constant.SUCCESS,response);
-//        } else {
-//            StringUtil.weiteData(content,Constant.ERROR,response);
-//        }
-//    }
-//
-//    public static void getSearchBangunmi(HttpServletRequest request,HttpServletResponse response){
-//        String key = request.getParameter("key");
-//        String page = request.getParameter("page");
-//        final String content = HttpUtlis.getSearchBangunmi(key, page);
-//        if(content != null && !content.isEmpty()){
-//            StringUtil.weiteData(content,Constant.SUCCESS,response);
-//        } else {
-//            StringUtil.weiteData(content,Constant.ERROR,response);
-//        }
-//    }
-//
-//    public static String getFindInfoAv(HttpServletRequest request,HttpServletResponse response){
-//        String number = request.getParameter("number");
-//        final String findContent  = HttpUtlis.getFindInfoAv(number);
-//        if(findContent != null && !findContent.isEmpty()){
-//            return StringUtil.weiteData(findContent,Constant.SUCCESS,response);
-//        } else {
-//            return StringUtil.weiteData(findContent,Constant.ERROR,response);
-//        }
-//    }
-//
-//    public static void getPlayUrl(HttpServletRequest request,HttpServletResponse response){
-//        String action = request.getParameter("action");
-//        String av = request.getParameter("av");
-//        if(action.equals("bangumi")){
-//            av  = HttpUtlis.getFindInfoAv(av);
-//        }
-//        final String content = HttpUtlis.getPlayUrl(av);
-//
-//        if(content != null && !content.isEmpty()){
-//            StringUtil.weiteData(content,Constant.SUCCESS,response);
-//        } else {
-//            StringUtil.weiteData(content,Constant.ERROR,response);
-//        }
-//    }
+    @RequestMapping(value = "/p/boards/album" , method = {RequestMethod.GET})
+    public void queryPictrueBoardsAlbum(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String max = request.getParameter("max");
+        String boardId = request.getParameter("boardId");
+        JSONObject content = resourceService.getBoardsToAlbumList(boardId , max);
+        String result = StringUtil.result(content);
+        StringUtil.outputStream(response , result);
+
+    }
+
+    @RequestMapping(value = "/v" , method = {RequestMethod.GET})
+    public void queryVideoTypeList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String type = request.getParameter("type");
+        String page = request.getParameter("page");
+        JSONObject content = resourceService.getVideoTypeList(type , page);
+        String result = StringUtil.result(content);
+        StringUtil.outputStream(response , result);
+
+    }
+
+    @RequestMapping(value = "/v/info" , method = {RequestMethod.GET})
+    public void queryVideoTypeInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String av = request.getParameter("av");
+        JSONObject content = resourceService.getVideoTypeInfo(av);
+        String result = StringUtil.result(content);
+        StringUtil.outputStream(response , result);
+    }
+
+    @RequestMapping(value = "/v/dangumi" , method = {RequestMethod.GET})
+    public void queryDangumiList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String page = request.getParameter("page");
+        JSONObject content = resourceService.getDangumiList(page);
+        String result = StringUtil.result(content);
+        StringUtil.outputStream(response , result);
+    }
+
+    @RequestMapping(value = "/v/dangumi/info" , method = {RequestMethod.GET})
+    public void queryDangumiInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String av = request.getParameter("av");
+        JSONObject content = resourceService.getDangumiInfo(av);
+        String result = StringUtil.result(content);
+        StringUtil.outputStream(response , result);
+    }
+
+    @RequestMapping(value = "/v/dangumi/id" , method = {RequestMethod.GET})
+    public void queryDangumiAV(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String id = request.getParameter("number");
+        JSONObject content = resourceService.getDangumiAV(id);
+        String result = StringUtil.result(content);
+        StringUtil.outputStream(response , result);
+    }
+
+    @RequestMapping(value = "/v/search/album" , method = {RequestMethod.GET})
+    public void querySearchAlbum(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String key = request.getParameter("key");
+        String page = request.getParameter("page");
+        JSONObject content = resourceService.getSearchAlbum(key , page);
+        String result = StringUtil.result(content);
+        StringUtil.outputStream(response , result);
+    }
+
+    @RequestMapping(value = "/v/search/palette" , method = {RequestMethod.GET})
+    public void querySearchPalette(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String key = request.getParameter("key");
+        String page = request.getParameter("page");
+        JSONObject content = resourceService.getSearchBoards(key , page);
+        String result = StringUtil.result(content);
+        StringUtil.outputStream(response , result);
+    }
+
+    @RequestMapping(value = "/v/search/video" , method = {RequestMethod.GET})
+    public void querySearchVideo(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String key = request.getParameter("key");
+        String page = request.getParameter("page");
+        JSONObject content = resourceService.getSearchVideo(key , page);
+        String result = StringUtil.result(content);
+        StringUtil.outputStream(response , result);
+    }
+
+    @RequestMapping(value = "/v/search/bangunmi" , method = {RequestMethod.GET})
+    public void querySearchBangunmi(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String key = request.getParameter("key");
+        String page = request.getParameter("page");
+        JSONObject content = resourceService.getSearchDangumi(key , page);
+        String result = StringUtil.result(content);
+        StringUtil.outputStream(response , result);
+    }
+
+    @RequestMapping(value = "/v/playurl" , method = {RequestMethod.GET})
+    public void queryPlayUrl(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String action = request.getParameter("action");
+        String av = request.getParameter("av");
+        if(action.equals("bangumi")){
+            //av  = HttpUtlis.getFindInfoAv(av);
+        }
+        JSONObject content = resourceService.getPlayInfo(av);
+        String result = StringUtil.result(content);
+        StringUtil.outputStream(response , result);
+    }
 
 
 }

@@ -5,6 +5,7 @@ import com.acg12.beans.Palette;
 import com.acg12.beans.Video;
 import com.acg12.service.ResourceService;
 import com.acg12.utils.HttpUtil;
+import com.acg12.utils.StringUtil;
 import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -123,7 +124,8 @@ public class ResourceServiceImpl implements ResourceService {
     @Cacheable(value = "resource_cache" , key = "'videoTypeList_type=' + #type + ',page=' + #page")
     @Override
     public JSONObject getVideoTypeList(String type, String page) {
-        List<Video> videoList = HttpUtil.getVideoTypeList(type , page);
+        String url = StringUtil.getMoreVideoUrl(type);
+        List<Video> videoList = HttpUtil.getVideoTypeList(url , page);
         try {
             Gson gson = new Gson();
             JSONArray paletteJson = new JSONArray(gson.toJson(videoList));
@@ -205,8 +207,8 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Cacheable(value = "resource_cache" , key = "'searchAlbum_key=' + #key + ',Page=' + #Page")
     @Override
-    public JSONObject getSearchAlbum(String key, String Page) {
-        List<Album> albumList = HttpUtil.getSearchAlbum(key , Page);
+    public JSONObject getSearchAlbum(String key, String page) {
+        List<Album> albumList = HttpUtil.getSearchAlbum(key , page);
         try {
             Gson gson = new Gson();
             JSONObject paletteJson = new JSONObject(gson.toJson(albumList));
@@ -222,8 +224,8 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Cacheable(value = "resource_cache" , key = "'searchBoards_key=' + #key + ',Page=' + #Page")
     @Override
-    public JSONObject getSearchBoards(String key, String Page) {
-        List<Palette> paletteList = HttpUtil.getSearchPalette(key , Page);
+    public JSONObject getSearchBoards(String key, String page) {
+        List<Palette> paletteList = HttpUtil.getSearchPalette(key , page);
         try {
             Gson gson = new Gson();
             JSONObject paletteJson = new JSONObject(gson.toJson(paletteList));
@@ -239,8 +241,8 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Cacheable(value = "resource_cache" , key = "'searchVideo_key=' + #key + ',Page=' + #Page")
     @Override
-    public JSONObject getSearchVideo(String key, String Page) {
-        List<Video> paletteList = HttpUtil.getSearchVideo(key , Page);
+    public JSONObject getSearchVideo(String key, String page) {
+        List<Video> paletteList = HttpUtil.getSearchVideo(key , page);
         try {
             Gson gson = new Gson();
             JSONObject paletteJson = new JSONObject(gson.toJson(paletteList));
@@ -256,8 +258,8 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Cacheable(value = "resource_cache" , key = "'searchDangumi_key=' + #key + ',Page=' + #Page")
     @Override
-    public JSONObject getSearchDangumi(String key, String Page) {
-        List<Video> paletteList = HttpUtil.getSearchBangunmi(key , Page);
+    public JSONObject getSearchDangumi(String key, String page) {
+        List<Video> paletteList = HttpUtil.getSearchBangunmi(key , page);
         try {
             Gson gson = new Gson();
             JSONObject paletteJson = new JSONObject(gson.toJson(paletteList));
