@@ -209,11 +209,12 @@ public class ResourceServiceImpl implements ResourceService {
     @Override
     public JSONObject getSearchAlbum(String key, String page) {
         List<Album> albumList = HttpUtil.getSearchAlbum(key , page);
+        System.err.println(albumList.size());
         try {
             Gson gson = new Gson();
-            JSONObject paletteJson = new JSONObject(gson.toJson(albumList));
+            JSONArray albumJson = new JSONArray(gson.toJson(albumList));
             JSONObject array = new JSONObject();
-            array.put("album",paletteJson);
+            array.put("album",albumJson);
             return array;
         } catch (Exception e) {
             System.err.println("ResourceServiceImpl->getSearchAlbum()"
@@ -228,7 +229,7 @@ public class ResourceServiceImpl implements ResourceService {
         List<Palette> paletteList = HttpUtil.getSearchPalette(key , page);
         try {
             Gson gson = new Gson();
-            JSONObject paletteJson = new JSONObject(gson.toJson(paletteList));
+            JSONArray paletteJson = new JSONArray(gson.toJson(paletteList));
             JSONObject array = new JSONObject();
             array.put("palette",paletteJson);
             return array;
@@ -245,7 +246,7 @@ public class ResourceServiceImpl implements ResourceService {
         List<Video> paletteList = HttpUtil.getSearchVideo(key , page);
         try {
             Gson gson = new Gson();
-            JSONObject paletteJson = new JSONObject(gson.toJson(paletteList));
+            JSONArray paletteJson = new JSONArray(gson.toJson(paletteList));
             JSONObject array = new JSONObject();
             array.put("video",paletteJson);
             return array;
@@ -262,7 +263,7 @@ public class ResourceServiceImpl implements ResourceService {
         List<Video> paletteList = HttpUtil.getSearchBangunmi(key , page);
         try {
             Gson gson = new Gson();
-            JSONObject paletteJson = new JSONObject(gson.toJson(paletteList));
+            JSONArray paletteJson = new JSONArray(gson.toJson(paletteList));
             JSONObject array = new JSONObject();
             array.put("video",paletteJson);
             return array;

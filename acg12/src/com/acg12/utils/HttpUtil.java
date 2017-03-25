@@ -587,9 +587,11 @@ public class HttpUtil {
                     .data("jquery", "java").userAgent("Mozilla")
                     .cookie("auth", "token").timeout(50000).get();
             String content = document.toString();
+            //System.out.println(content);
             if(content != null && !content.isEmpty()){
                 Elements var = document.body().select("script");
                 //System.out.println(var.toString());
+                System.out.println(var.size());
                 for (Element div : var) {
                     String str1 = "app.page[" + "\"" + "pins" + "\"" + "] = ";
                     //System.out.println(str1);
@@ -598,6 +600,8 @@ public class HttpUtil {
                     String str3 = StringUtils.substringBetween(div.toString(),str1, str2);
                     //System.out.println(str3);
                     if (str3 != null && !str3.isEmpty()) {
+                        str3 = str3.replace(";","");
+                        System.out.println(str3);
                         JSONArray array = new JSONArray(str3);
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject json = (JSONObject) array.get(i);
@@ -622,6 +626,7 @@ public class HttpUtil {
                             album.setFavorites(json.getInt("repin_count"));
                             albumList.add(album);
                         }
+                        continue;
                     }
                 }
             }
@@ -700,6 +705,7 @@ public class HttpUtil {
                 //System.out.println(li.size());
                 for(int i = 0 ; i < li.size() ; i++){
                     Element item = li.get(i);
+                    System.out.println(item.toString());
                     Video video = new Video();
                     Elements img = item.select("a[href]");
                     //Elements intro = item.select("p");
@@ -708,12 +714,18 @@ public class HttpUtil {
                     //System.out.println(item.toString());
                     //System.out.println(icon_wrap.toString());
                     //System.out.println("------------");
-                    video.setAid(img.attr("href").split("av")[1].replace("/",""));
-                    //System.out.println("setAid==="+img.attr("href").split("av")[1].replace("/",""));
+                    String str1 = "/video/av";
+                    //System.out.println(str1);
+                    String str2 = "?from=search";
+                    //System.out.println(str2);
+                    String str3 = StringUtils.substringBetween(img.attr("href"),str1, str2);
+                    video.setAid(str3);
+                    //System.out.println(img.attr("href"));
+                    //System.out.println(str3);
                     video.setTitle(img.attr("title"));
                     //System.out.println("title==="+img.attr("title"));
-                    video.setPic(img.select("[src]").attr("abs:src"));
-                    //System.out.println("src==="+img.select("[src]").attr("abs:src"));
+                    video.setPic(img.select("img").attr("abs:data-src"));
+                    //System.out.println("src==="+img.select("img").attr("abs:data-src"));
                     video.setDescription("");
                     //System.out.println("setDescription==="+intro.text());
                     video.setFavorites("");
@@ -749,7 +761,7 @@ public class HttpUtil {
                 Elements ajax_render = document.select("div.ajax-render");
                 Elements left_img = document.select("div.left-img");
                 Elements img = left_img.select("a");
-                String imgurl = img.select("[src]").attr("abs:src");
+                String imgurl = img.select("img").attr("abs:data-src");
                 String title = img.attr("title");
                 //System.out.println(imgurl);
                 //System.out.println(title);
