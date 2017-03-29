@@ -1,6 +1,8 @@
 package com.acg12.controller;
 
+import com.acg12.beans.User;
 import com.acg12.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,19 +19,30 @@ import javax.annotation.Resource;
 @RequestMapping(value = "/u")
 public class UserController {
 
-    @Resource
+    //@Resource
+    @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/info" , method = {RequestMethod.POST, RequestMethod.GET})
+    @ResponseBody
+    @RequestMapping(value = "/sava" , method = {RequestMethod.POST, RequestMethod.GET})
     public String userInfo() {
+        User u = new User();
+//        u.setId(1);
+        u.setUsername("1111");
+        u.setPassword("123456");
+        try {
+            userService.saveUser(u);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "dfgh";
     }
 
-    @ResponseBody
-    @RequestMapping(value="/get/{userNo}", method=RequestMethod.GET)
-    public String get(@PathVariable String userNo, Model model){
-        String username = userService.get(userNo);
-        return username;
-    }
+//    @ResponseBody
+//    @RequestMapping(value="/get/{userNo}", method=RequestMethod.GET)
+//    public String get(@PathVariable String userNo, Model model){
+//        String username = userService.get(userNo);
+//        return username;
+//    }
 
 }

@@ -1,18 +1,14 @@
 package com.acg12.service.impl;
 
-
-
 import com.acg12.beans.User;
 import com.acg12.mapper.UserMapper;
-import com.acg12.service.ItemsService;
+import com.acg12.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
-public class ItemsServiceImpl implements ItemsService {
-
-    //http://blog.csdn.net/xlxxybz1314/article/details/51404700
-
-
+/**
+ * Created by kouchengjian on 2017/3/29.
+ */
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
@@ -21,8 +17,6 @@ public class ItemsServiceImpl implements ItemsService {
     public void saveUser(User u) throws Exception {
         userMapper.insert(u);
     }
-
-
 
 
 }
