@@ -13,6 +13,16 @@
 
 
 
+    <!--<insert id="insert" parameterType="com.acg12.beans.User">-->
+        <!--<selectKey resultType="int" keyProperty="id" order="BEFORE">-->
+            <!--select LAST_INSERT_ID() AS VALUE-->
+        <!--</selectKey>-->
+
+        <!--insert into user (id,username, password,email,updated,created)-->
+        <!--values (#{id,jdbcType=INTEGER},#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}-->
+        <!--, #{updated,jdbcType=VARCHAR}, #{created,jdbcType=VARCHAR})-->
+    <!--</insert>-->
+
     <insert id="insert" parameterType="com.acg12.beans.User"
             useGeneratedKeys="true" keyProperty="id">
         insert into user (id,username, password,email,updated,created)
