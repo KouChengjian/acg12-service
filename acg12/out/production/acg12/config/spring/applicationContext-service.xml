@@ -3,6 +3,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 
-    <!-- 商品管理的service -->
-    <bean id="itemsService" class="com.acg12.service.impl.UserServiceImpl"/>
+    <!-- user的service -->
+    <bean id="userService" class="com.acg12.service.impl.UserServiceImpl"/>
 </beans>
