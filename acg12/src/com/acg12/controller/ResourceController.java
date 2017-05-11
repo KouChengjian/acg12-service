@@ -92,7 +92,7 @@ public class ResourceController {
 
     @RequestMapping(value = "/v/dangumi/info" , method = {RequestMethod.GET})
     public void queryDangumiInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String av = request.getParameter("av");
+        String av = request.getParameter("bmId");
         JSONObject content = resourceService.getDangumiInfo(av);
         String result = StringUtil.result(content);
         StringUtil.outputStream(response , result);

@@ -173,10 +173,10 @@ public class ResourceServiceImpl implements ResourceService {
         return null;
     }
 
-    @Cacheable(value = "resource_cache" , key = "'dangumiInfo_av=' + #av")
+    @Cacheable(value = "resource_cache" , key = "'dangumiInfo_bmId=' + #bmId")
     @Override
-    public JSONObject getDangumiInfo(String av) {
-        Video video = HttpUtil.getDangumiInfo(av);
+    public JSONObject getDangumiInfo(String bmId) {
+        Video video = HttpUtil.getDangumiInfo2(bmId);
         try {
             Gson gson = new Gson();
             JSONObject paletteJson = new JSONObject(gson.toJson(video));

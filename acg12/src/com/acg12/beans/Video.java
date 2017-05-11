@@ -12,7 +12,7 @@ public class Video {
 	private String review;// 评论数
 	private String videoReview;// 视频弹幕数
 	private String favorites;// 视频收藏数
-	private String mid;
+	private String mid; // 弹幕id
 	private String author;// Up主
 	private String description;// 视频简介
 	private String create;// 视频发布时间
@@ -21,6 +21,7 @@ public class Video {
 	private String coins;// 视频硬币数
 	private String duration;// 视频长度
 	// 后续添加的字段
+	private String bmId; // 番剧id
 	private String urlInfo;// 链接详细信息
 	private String updateContent;// 更新信息
 	
@@ -187,4 +188,11 @@ public class Video {
 		this.quarterVideoList = quarterVideoList;
 	}
 
+	public String getBmId() {
+		return bmId;
+	}
+
+	public void setBmId(String bmId) {
+		this.bmId = bmId;
+	}
 }

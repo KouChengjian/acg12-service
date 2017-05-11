@@ -35,10 +35,11 @@ public class Constant {
 	// 主页-视频详细信息   
 	public static final String URL_HOME_VIDEO_INFO = "http://www.bilibili.com/video/av%s/";//详细信息
 	
-	// 发现 - 所有番剧
-	public static final String URL_FIND_BANKUN         = "http://www.bilibili.com/api_proxy?app=bangumi&indexType=0&pagesize=30&action=site_season_index&page=";//所有的动画资源
+	// 发现 - 所有番剧              http://www.bilibili.com/api_proxy?app=bangumi&indexType=0&pagesize=20&action=site_season_index&page=                        http://bangumi.bilibili.com/web_api/season/index_global?page=1&page_size=20&version=0&is_finish=0&start_year=0&tag_id=&index_type=0&index_sort=0&quarter=0
+	public static final String URL_FIND_BANKUN         = "http://bangumi.bilibili.com/web_api/season/index_global?page_size=20&version=0&is_finish=0&start_year=0&tag_id=&index_type=0&index_sort=0&quarter=0&page=";//所有的动画资源
 	// 发现 - 番剧详情
 	public static final String URL_FIND_BANKUN_INFO    = "http://bangumi.bilibili.com/anime/";
+	public static final String URL_FIND_BANKUN_INFO_2    = "http://bangumi.bilibili.com/jsonp/seasoninfo/%s.ver?callback=seasonListCallback&jsonp=jsonp&_=1494466313782";
 	// 发现 - 获取AV
 	public static final String URL_FIND_BANKUN_INFO_AV = "http://bangumi.bilibili.com/web_api/episode/%s.json"; // http://bangumi.bilibili.com/web_api/episode/96703.json
 	
@@ -51,8 +52,8 @@ public class Constant {
 	// 搜索 - 番剧
 	public static final String URL_SEARCH_SERIES  = "http://search.bilibili.com/bangumi?";
 	
-	// 通过av号获取弹幕和视频地址                                                                              http://api.bilibili.com/playurl?callback=jQuery172024279008170264427_1478221268354&aid=7315442&page=1&platform=html5&quality=1&vtype=mp4&type=jsonp&_=1478221268411
-	public static final String URL_PLAY_VIDEO_INFO = "http://api.bilibili.com/playurl?aid=%s";
+	// 通过av号获取弹幕和视频地址 http://api.bilibili.com/playurl?callback=callbackfunction&aid=9520883&page=1&platform=html5&quality=1&vtype=mp4&type=json
+	public static final String URL_PLAY_VIDEO_INFO = "http://api.bilibili.com/playurl?callback=callbackfunction&aid=%s&page=1&platform=html5&quality=1&vtype=mp4&type=json";
 	
 	
 	

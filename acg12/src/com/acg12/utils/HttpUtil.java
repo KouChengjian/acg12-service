@@ -428,7 +428,8 @@ public class HttpUtil {
                 for(int i = 0 ; i < list.length() ; i++){
                     JSONObject jsonObject =  list.getJSONObject(i);
                     Video item = new Video();
-                    item.setUrlInfo(jsonObject.getString("url"));
+                    //item.setUrlInfo(jsonObject.getString("url"));
+                    item.setBmId(jsonObject.getString("url").split("/anime/")[1]);
                     item.setPic(jsonObject.getString("cover"));
                     item.setTitle(jsonObject.getString("title"));
                     item.setUpdateContent("更新至"+jsonObject.getString("newest_ep_index")+"话");
@@ -451,11 +452,11 @@ public class HttpUtil {
     /**
      * 发现 - 番剧详情
      */
-    public static synchronized Video getDangumiInfo(String av) {
+    public static synchronized Video getDangumiInfo(String bmId) {
         Video video = new Video();
         try {
-            //System.out.println(Constant.URL_FIND_BANKUN_INFO+av);
-            Document document = Jsoup.connect(Constant.URL_FIND_BANKUN_INFO+av).data("jquery", "java")
+            System.out.println(Constant.URL_FIND_BANKUN_INFO+bmId);
+            Document document = Jsoup.connect(Constant.URL_FIND_BANKUN_INFO+bmId).data("jquery", "java")
                     .userAgent("Mozilla").cookie("auth", "token").timeout(50000).get();
             //System.out.println(document.toString());
 
@@ -530,6 +531,77 @@ public class HttpUtil {
             video.setQuarterVideoList(quarterViewList);
 //            Gson gson = new Gson();
 //            content = gson.toJson(video);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return video;
+    }
+
+    public static synchronized Video getDangumiInfo2(String bmId) {
+        Video video = new Video();
+        try {
+            String videoUrl = String.format(Constant.URL_FIND_BANKUN_INFO_2, bmId);
+            URL url = new URL(videoUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(10 * 1000);
+            conn.setRequestMethod("GET");
+            if (conn.getResponseCode() != 200)
+                throw new RuntimeException("请求url失败");
+            InputStream is = conn.getInputStream();//拿到输入流
+            String response = "";
+            if ("gzip".equals(conn.getContentEncoding())) {
+                response = StringUtil.readDataForZgip(is, "utf-8");
+            }else{
+                response = StringUtil.readDataForZgip(is);
+            }
+            conn.disconnect();
+            if(response != null && !response.isEmpty()){
+                String str1 = "seasonListCallback(";
+                String str2 = ");";
+                String str3 = StringUtils.substringBetween(response,str1, str2);
+
+                JSONObject json = new JSONObject(str3);
+                int code = json.getInt("code");
+                if(code == 0){
+                    JSONObject result = json.getJSONObject("result");
+                    System.out.println(result.toString());
+                    video.setTitle(result.getString("bangumi_title"));
+                    video.setPic(result.getString("cover"));
+                    video.setDescription(result.getString("evaluate"));
+
+                    JSONArray tags = result.getJSONArray("tags");
+                    String label = "";
+                    for (int i = 0 , num = tags.length() ; i < num ; i++) {
+                        JSONObject item = tags.getJSONObject(i);
+                        label += item.getString("tag_name") +" ";
+                    }
+                    video.setSbutitle(label);
+
+                    JSONArray episodes = result.getJSONArray("episodes");
+                    List<Video> episodesVideoList = new ArrayList<Video>();
+                    for (int i = 0 , num = episodes.length() ; i < num ; i++) {
+                        Video vi = new Video();
+                        JSONObject item = episodes.getJSONObject(i);
+                        vi.setTitle(item.getString("index_title"));
+                        vi.setAid(item.getString("av_id"));
+                        episodesVideoList.add(vi);
+                    }
+                    video.setBangumiVideoList(episodesVideoList);
+
+                    JSONArray seasons = result.getJSONArray("seasons");
+                    List<Video> seasonsViewList = new ArrayList<Video>();
+                    for (int i = 0 , num = seasons.length() ; i < num ; i++) {
+                        Video vi = new Video();
+                        JSONObject item = seasons.getJSONObject(i);
+                        vi.setTitle(item.getString("title"));
+                        //vi.setAid(item.getString("season_id"));
+                        vi.setPic(item.getString("cover"));
+                        vi.setBmId(item.getString("season_id"));
+                        seasonsViewList.add(vi);
+                    }
+                    video.setQuarterVideoList(seasonsViewList);
+                }
+            }
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -802,6 +874,7 @@ public class HttpUtil {
             System.out.println(u);
             URL url = new URL(u);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestProperty("Cookie", "buvid3=C4C5E5DA-AA7A-488F-90B6-1D9F6630601B12546infoc");
             conn.setConnectTimeout(10 * 1000);
             conn.setRequestMethod("GET");
             if (conn.getResponseCode() != 200)
