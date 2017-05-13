@@ -867,9 +867,10 @@ public class HttpUtil {
         return videoList;
     }
 
-    public static synchronized String getPlayUrl(String av) {
-        String content = "";
+    public static synchronized JSONObject getPlayUrl(String av) {
+        JSONObject content = new JSONObject() ;
         try {
+
             String u = String.format(Constant.URL_PLAY_VIDEO_INFO,av);
             System.out.println(u);
             URL url = new URL(u);
@@ -903,11 +904,11 @@ public class HttpUtil {
                         mp4url = item.getString("url");
                     }
 
-                    JSONObject j = new JSONObject();
-                    j.put("cid", cid);
-                    j.put("url", mp4url);
-                    j.put("img", img);
-                    content = j.toString();
+//                    JSONObject j = new JSONObject();
+                    content.put("cid", cid);
+                    content.put("url", mp4url);
+                    content.put("img", img);
+//                    content = j.toString();
                 }
             }
         } catch (MalformedURLException e) {

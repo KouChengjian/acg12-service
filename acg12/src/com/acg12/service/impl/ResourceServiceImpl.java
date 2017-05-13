@@ -277,7 +277,7 @@ public class ResourceServiceImpl implements ResourceService {
     @Cacheable(value = "resource_cache" , key = "'playInfo_av=' + #av")
     @Override
     public JSONObject getPlayInfo(String av) {
-        String content = HttpUtil.getPlayUrl(av);
+        JSONObject content = HttpUtil.getPlayUrl(av);
         try {
             JSONObject array = new JSONObject();
             array.put("info",content);
