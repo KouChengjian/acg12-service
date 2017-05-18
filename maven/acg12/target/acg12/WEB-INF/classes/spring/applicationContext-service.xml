@@ -3,6 +3,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 
+    <!--可以在这声明，也可以使用@Service-->
     <!-- user的service -->
     <bean id="userService" class="com.acg12.service.impl.UserServiceImpl"/>
+
+    <bean id="resourceService" class="com.acg12.service.impl.ResourceServiceImpl"/>
 </beans>

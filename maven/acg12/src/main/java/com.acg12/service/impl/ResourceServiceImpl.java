@@ -17,7 +17,6 @@ import java.util.List;
 /**
  * Created by kouchengjian on 2017/3/9.
  */
-@Service
 public class ResourceServiceImpl implements ResourceService {
 
     @Cacheable(value = "resource_cache" , key = "'homeContent'")
