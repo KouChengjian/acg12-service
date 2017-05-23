@@ -9,4 +9,6 @@ import com.acg12.beans.User;
 public interface UserService {
 
     void saveUser(User u) throws Exception;
+
+    void queryUser(int id) throws Exception;
 }

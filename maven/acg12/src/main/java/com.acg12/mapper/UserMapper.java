@@ -8,8 +8,9 @@ import com.acg12.beans.User;
  */
 public interface UserMapper {
 
-    int insert(User record);
+    int insert(User user);
 
+    int query(int id);
 
 
 

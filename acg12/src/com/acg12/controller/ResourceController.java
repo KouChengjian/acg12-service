@@ -42,6 +42,7 @@ public class ResourceController {
         String max = request.getParameter("max");
         JSONObject content = resourceService.getAlbumList(max);
         String result = StringUtil.result(content);
+//        Thread.sleep(1000 *20);
         StringUtil.outputStream(response , result);
     }
 

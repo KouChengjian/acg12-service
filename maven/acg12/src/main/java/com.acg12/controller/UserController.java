@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * Created by kouchengjian on 2017/3/6.
  */
@@ -15,13 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/u")
 public class UserController {
 
-    //@Resource
-    @Autowired
+    @Resource
     private UserService userService;
 
+
     @ResponseBody
-    @RequestMapping(value = "/sava" , method = {RequestMethod.POST, RequestMethod.GET})
-    public String userInfo() {
+    @RequestMapping(value = "/sava" , method = {RequestMethod.POST})
+    public String userInfo(HttpServletRequest request, HttpServletResponse response) throws Exception{
         User u = new User();
 //        u.setId(1);
         u.setUsername("1111");

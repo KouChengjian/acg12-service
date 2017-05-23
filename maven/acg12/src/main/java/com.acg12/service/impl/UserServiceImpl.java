@@ -12,13 +12,17 @@ import javax.annotation.Resource;
  */
 public class UserServiceImpl implements UserService {
 
-//    @Autowired
     @Resource
     private UserMapper userMapper;
 
     @Override
     public void saveUser(User u) throws Exception {
         userMapper.insert(u);
+    }
+
+    @Override
+    public void queryUser(int id) throws Exception {
+
     }
 
 
