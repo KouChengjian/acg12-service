@@ -1,11 +1,14 @@
 package com.acg12.utils;
 
+import com.acg12.beans.Result;
 import com.acg12.config.Constant;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 
 
@@ -38,9 +41,18 @@ public class StringUtil {
 				json.put("data",   content);
 			}
 		} catch (JSONException e){
-
 		}
+		return json.toString();
+	}
 
+	public static synchronized String result(Result result){
+		JSONObject json = new JSONObject();
+		try{
+			json.put("result", result.getResult());
+			json.put("desc",   result.getDesc());
+			json.put("data",   result.getData());
+		} catch (JSONException e){
+		}
 		return json.toString();
 	}
 	
@@ -110,6 +122,15 @@ public class StringUtil {
         }  
         return resultBuffer.toString();
 	}
-	
-	
+
+
+	// 判断字符串是否为数字
+	public static boolean isNumeric(String str){
+		Pattern pattern = Pattern.compile("[0-9]*");
+		Matcher isNum = pattern.matcher(str);
+		if( !isNum.matches() ){
+			return false;
+		}
+		return true;
+	}
 }

@@ -16,23 +16,28 @@
     </resultMap>
 
 
-
-    <!--<insert id="insert" parameterType="com.acg12.beans.User">-->
-        <!--<selectKey resultType="int" keyProperty="id" order="BEFORE">-->
-            <!--select LAST_INSERT_ID() AS VALUE-->
-        <!--</selectKey>-->
-
-        <!--insert into user (id,username, password,email,updated,created)-->
-        <!--values (#{id,jdbcType=INTEGER},#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}-->
-        <!--, #{updated,jdbcType=VARCHAR}, #{created,jdbcType=VARCHAR})-->
-    <!--</insert>-->
-
     <insert id="insert" parameterType="com.acg12.beans.User"
             useGeneratedKeys="true" keyProperty="id">
         insert into user (id,username, password,email,nick,avatar,sign,sex,createdAt,updatedAt)
-        values (#{id,jdbcType=INTEGER},#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}
-        , #{nick,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}
-        , #{createdAt,jdbcType=INTEGER}, #{updatedAt,jdbcType=INTEGER})
+        values (#{id,jdbcType=INTEGER},#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+        #{nick,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER},
+        #{createdAt,jdbcType=INTEGER}, #{updatedAt,jdbcType=INTEGER})
     </insert>
+
+    <delete id="deleteUser" parameterType="int">
+        delete from user where id=#{id}
+    </delete>
+
+    <update id="updateUser" parameterType="com.acg12.beans.User">
+        update user set name=#{name},age=#{age} where id=#{id}
+    </update>
+
+    <select id="queryUserList" resultType="com.acg12.beans.User">
+        select * from user
+    </select>
+
+    <select id="queryUser" parameterType="int" resultType="com.acg12.beans.User">
+        select * from user where id = #{id}
+    </select>
 
 </mapper>

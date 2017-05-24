@@ -16,13 +16,13 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public void saveUser(User u) throws Exception {
-        userMapper.insert(u);
+    public int saveUser(User u) throws Exception {
+        return userMapper.insert(u);
     }
 
     @Override
-    public void queryUser(int id) throws Exception {
-
+    public User queryUser(int id) throws Exception {
+        return userMapper.queryUser(id);
     }
 
 

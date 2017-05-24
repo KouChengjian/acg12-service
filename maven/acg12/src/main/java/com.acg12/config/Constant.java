@@ -2,7 +2,12 @@ package com.acg12.config;
 
 
 public class Constant {
-	
+
+	public static final int HTTP_RESULT_SUCCEED = 200;
+	public static final int HTTP_RESULT_ERROR = 201;
+	public static final int HTTP_RESULT_ERROR_PARAM = 202;
+	public static final int HTTP_RESULT_ERROR_NULL_DATA = 203;
+	public static final int HTTP_RESULT_ERROR_SQL_SAVE = 204;
 
 	// 获取画集
 	public static final String URL_ALBUM = "http://huaban.com/favorite/anime/?ieks59gh&limit=20&wfl=1";//&max=474845357

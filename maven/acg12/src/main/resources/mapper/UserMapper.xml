@@ -24,8 +24,20 @@
         #{createdAt,jdbcType=INTEGER}, #{updatedAt,jdbcType=INTEGER})
     </insert>
 
-    <select id="">
-        
+    <delete id="deleteUser" parameterType="int">
+        delete from user where id=#{id}
+    </delete>
+
+    <update id="updateUser" parameterType="com.acg12.beans.User">
+        update user set name=#{name},age=#{age} where id=#{id}
+    </update>
+
+    <select id="queryUserList" resultType="com.acg12.beans.User">
+        select * from user
+    </select>
+
+    <select id="queryUser" parameterType="int" resultType="com.acg12.beans.User">
+        select * from user where id = #{id}
     </select>
 
 </mapper>
