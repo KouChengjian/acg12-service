@@ -29,7 +29,7 @@
     </delete>
 
     <update id="updateUser" parameterType="com.acg12.beans.User">
-        update user set name=#{name},age=#{age} where id=#{id}
+        update user set nick=#{nick},avatar=#{avatar},sign=#{sign},sex=#{sex},password=#{password},updatedAt=#{updatedAt} where id=#{id}
     </update>
 
     <select id="queryUserList" resultType="com.acg12.beans.User">
@@ -38,6 +38,10 @@
 
     <select id="queryUser" parameterType="int" resultType="com.acg12.beans.User">
         select * from user where id = #{id}
+    </select>
+
+    <select id="queryUserName" parameterType="String" resultType="com.acg12.beans.User">
+        select * from user where username = #{username}
     </select>
 
 </mapper>
