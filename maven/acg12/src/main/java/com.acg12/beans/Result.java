@@ -1,8 +1,11 @@
 package com.acg12.beans;
 
 import com.google.gson.Gson;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/5/24.
@@ -47,5 +50,14 @@ public class Result {
         }
     }
 
+    public void putDataArray(String key , List object) {
+        try {
+            Gson gson = new Gson();
+            JSONArray json = new JSONArray(gson.toJson(object));
+            data.put(key , json);
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

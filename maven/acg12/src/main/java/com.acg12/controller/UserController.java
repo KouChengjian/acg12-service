@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by kouchengjian on 2017/3/6.
@@ -96,9 +97,15 @@ public class UserController {
 
     @RequestMapping(value = "/userInfo" , method = {RequestMethod.POST})
     public void userInfo(HttpServletRequest request, HttpServletResponse response) throws Exception{
-        String uid = request.getParameter("uid");
+        String uid = request.getHeader("uid");
         User user ;
         Result result = new Result();
+        if(uid == null || uid.isEmpty()){
+            result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
+            result.setDesc("请求参数为空");
+            StringUtil.outputStream(response , StringUtil.result(result));
+            return;
+        }
         if(StringUtil.isNumeric(uid)){
             int id = Integer.valueOf(uid).intValue();
             user = userService.queryUser(id);
@@ -246,6 +253,56 @@ public class UserController {
             StringUtil.outputStream(response , StringUtil.result(result));
         }
     }
+
+    @RequestMapping(value = "/delUser" , method = {RequestMethod.POST})
+    public void delUser(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        String uid = request.getHeader("uid");
+        String username = request.getParameter("username");
+        Result result = new Result();
+        if(uid == null || uid.isEmpty()){
+            result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
+            result.setDesc("请求参数为空");
+            StringUtil.outputStream(response , StringUtil.result(result));
+        } else {
+            if(StringUtil.isNumeric(uid)){
+                int id = Integer.valueOf(uid).intValue();
+                long i = userService.deleteUser(id);
+                if(i > 0){
+                    result.setResult(Constant.HTTP_RESULT_SUCCEED);
+                    result.setDesc("成功");
+                    StringUtil.outputStream(response , StringUtil.result(result));
+                } else {
+                    result.setResult(Constant.HTTP_RESULT_ERROR_NULL_DATA);
+                    result.setDesc("不存在该数据");
+                    StringUtil.outputStream(response , StringUtil.result(result));
+                }
+            } else {
+                result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
+                result.setDesc("请求参数为空");
+                StringUtil.outputStream(response , StringUtil.result(result));
+            }
+        }
+    }
+
+    @RequestMapping(value = "/userList" , method = {RequestMethod.POST})
+    public void userList(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        Result result = new Result();
+        List<User> userList = userService.queryUserList();
+        if(userList == null || userList.size() == 0){
+            result.setResult(Constant.HTTP_RESULT_ERROR_NULL_DATA);
+            result.setDesc("不存在该数据");
+            StringUtil.outputStream(response , StringUtil.result(result));
+        }else {
+            result.setResult(Constant.HTTP_RESULT_SUCCEED);
+            result.setDesc("成功");
+            result.putDataArray("user" , userList);
+            StringUtil.outputStream(response , StringUtil.result(result));
+        }
+    }
+
+
+
+
 
 
 
