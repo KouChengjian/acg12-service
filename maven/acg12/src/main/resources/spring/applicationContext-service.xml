@@ -5,7 +5,7 @@
 
     <!--可以在这声明，也可以使用@Service-->
     <!-- user的service -->
-    <bean id="userService" class="com.acg12.service.impl.UserServiceImpl"/>
+    <bean id="userService" class="com.acg12.service.UserServiceImpl"/>
 
-    <bean id="resourceService" class="com.acg12.service.impl.ResourceServiceImpl"/>
+    <bean id="resourceService" class="com.acg12.service.ResourceServiceImpl"/>
 </beans>

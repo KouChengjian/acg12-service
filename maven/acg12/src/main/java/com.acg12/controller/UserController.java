@@ -3,16 +3,23 @@ package com.acg12.controller;
 import com.acg12.beans.Result;
 import com.acg12.beans.User;
 import com.acg12.config.Constant;
-import com.acg12.service.UserService;
+import com.acg12.service.UserServiceImpl;
+import com.acg12.service.base.ResourceService;
+import com.acg12.service.base.UserService;
+import com.acg12.utils.ListUtil;
 import com.acg12.utils.StringUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -23,7 +30,7 @@ import java.util.List;
 public class UserController {
 
     @Resource
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @RequestMapping(value = "/login" , method = {RequestMethod.POST})
     public void login(HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -137,14 +144,15 @@ public class UserController {
         String verify = request.getParameter("verify");
         User user ;
         Result result = new Result();
-        if(!username.isEmpty() && !verify.isEmpty()) {
-
-
-        }else{
+        if(username.isEmpty() || verify.isEmpty()) {
             result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
             result.setDesc("请求参数为空");
             StringUtil.outputStream(response , StringUtil.result(result));
+            return;
         }
+
+
+
     }
 
     @RequestMapping(value = "/restPwd" , method = {RequestMethod.POST})
@@ -172,7 +180,7 @@ public class UserController {
         String param2 = request.getParameter("param2");
         User user ;
         Result result = new Result();
-        if(alterType == null){
+        if(alterType == null || alterType.isEmpty()){
             result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
             result.setDesc("请求参数为空");
             StringUtil.outputStream(response , StringUtil.result(result));
@@ -251,6 +259,81 @@ public class UserController {
             result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
             result.setDesc("请求参数为空");
             StringUtil.outputStream(response , StringUtil.result(result));
+        }
+    }
+
+    @RequestMapping(value = "/alteruser/file" , method = {RequestMethod.POST})
+    public void alterFileUser(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        String uid = request.getHeader("uid");
+        String alterType = request.getParameter("alterType");
+//        File param1 = request.getParameter("param1");
+        String param2 = request.getParameter("param2");
+        User user ;
+        Result result = new Result();
+        if(alterType == null || alterType.isEmpty()){
+            result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
+            result.setDesc("请求参数为空");
+            StringUtil.outputStream(response , StringUtil.result(result));
+            return;
+        }
+
+        if(StringUtil.isNumeric(uid)) {
+            int id = Integer.valueOf(uid).intValue();
+            user = userService.queryUser(id);
+            if (user == null) {
+                result.setResult(Constant.HTTP_RESULT_ERROR_NULL_DATA);
+                result.setDesc("不存在该用户");
+                StringUtil.outputStream(response , StringUtil.result(result));
+                return;
+            }
+        } else {
+            result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
+            result.setDesc("请求参数为空");
+            StringUtil.outputStream(response , StringUtil.result(result));
+            return;
+        }
+
+        //创建一个通用的多部分解析器
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+        //判断 request 是否有文件上传,即多部分请求
+        if(!multipartResolver.isMultipart(request)){
+            result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
+            result.setDesc("请求参数为空");
+            StringUtil.outputStream(response , StringUtil.result(result));
+            return;
+        }
+
+        //转换成多部分request
+        MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
+        //取得request中的所有文件名
+        Iterator<String> iter = multiRequest.getFileNames();
+        List<String> myList = ListUtil.copyIterator(iter);
+        if(myList == null || myList.isEmpty()){
+            result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
+            result.setDesc("请求参数为空");
+            StringUtil.outputStream(response , StringUtil.result(result));
+            return;
+        }
+
+        iter = ListUtil.copyList(myList);
+        while (iter.hasNext()) {
+            //取得上传文件
+            System.err.printf("=======");
+            MultipartFile file = multiRequest.getFile(iter.next());
+            if (file != null) {
+                //取得当前上传文件的文件名称
+                String myFileName = file.getOriginalFilename();
+                System.out.println(myFileName);
+                //如果名称不为“”,说明该文件存在，否则说明该文件不存在
+                if (!myFileName.trim().isEmpty()) {
+                    //重命名上传后的文件名
+                    String fileName = "demoUpload" + file.getOriginalFilename();
+                    //定义上传路径
+                    String path = "D:/" + fileName;
+                    File localFile = new File(path);
+                    file.transferTo(localFile);
+                }
+            }
         }
     }
 

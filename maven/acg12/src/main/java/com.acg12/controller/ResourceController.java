@@ -1,6 +1,6 @@
 package com.acg12.controller;
 
-import com.acg12.service.ResourceService;
+import com.acg12.service.base.ResourceService;
 import com.acg12.utils.StringUtil;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
