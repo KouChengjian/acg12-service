@@ -13,8 +13,8 @@ public interface VerifyMapper {
 
     Verify queryVerifyCode(int code);
 
-    int deleteUser(int id);
+    int deleteVerify(int id);
 
-    int updateVerify(Verify user);
+    int updateVerify(Verify verify);
 
 }

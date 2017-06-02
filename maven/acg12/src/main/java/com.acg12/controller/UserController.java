@@ -2,8 +2,10 @@ package com.acg12.controller;
 
 import com.acg12.beans.Result;
 import com.acg12.beans.User;
+import com.acg12.beans.Verify;
 import com.acg12.config.Constant;
 import com.acg12.service.UserServiceImpl;
+import com.acg12.service.VerifyServiceImpl;
 import com.acg12.service.base.ResourceService;
 import com.acg12.service.base.UserService;
 import com.acg12.utils.ListUtil;
@@ -31,6 +33,8 @@ public class UserController {
 
     @Resource
     private UserServiceImpl userService;
+    @Resource
+    private VerifyServiceImpl verifyService;
 
     @RequestMapping(value = "/login" , method = {RequestMethod.POST})
     public void login(HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -38,30 +42,33 @@ public class UserController {
         String password = request.getParameter("password");
         User user ;
         Result result = new Result();
-        if(!username.isEmpty() && !password.isEmpty()) {
-            user = userService.queryUserName(username);
-            if(user == null){
-                result.setResult(Constant.HTTP_RESULT_ERROR_NULL_DATA);
-                result.setDesc("不存在该用户");
-                StringUtil.outputStream(response , StringUtil.result(result));
-            } else {
-                if(!user.getPassword().equals(password)) {
-                    result.setResult(Constant.HTTP_RESULT_ERROR_PASSWORD);
-                    result.setDesc("密码错误");
-                    StringUtil.outputStream(response , StringUtil.result(result));
-                } else {
-                    user.setPassword(null);
-                    user.setCreatedAt(null);
-                    user.setUpdatedAt(null);
-                    result.setResult(Constant.HTTP_RESULT_SUCCEED);
-                    result.setDesc("成功");
-                    result.putDataObject("user" , user);
-                    StringUtil.outputStream(response , StringUtil.result(result));
-                }
-            }
-        }else{
+
+        if(username.isEmpty() || password.isEmpty()){
             result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
             result.setDesc("请求参数为空");
+            StringUtil.outputStream(response , StringUtil.result(result));
+            return;
+        }
+
+        user = userService.queryUserName(username);
+        if(user == null){
+            result.setResult(Constant.HTTP_RESULT_ERROR_NULL_DATA);
+            result.setDesc("不存在该用户");
+            StringUtil.outputStream(response , StringUtil.result(result));
+            return;
+        }
+
+        if(!user.getPassword().equals(password)) {
+            result.setResult(Constant.HTTP_RESULT_ERROR_PASSWORD);
+            result.setDesc("密码错误");
+            StringUtil.outputStream(response , StringUtil.result(result));
+        } else {
+            user.setPassword(null);
+            user.setCreatedAt(null);
+            user.setUpdatedAt(null);
+            result.setResult(Constant.HTTP_RESULT_SUCCEED);
+            result.setDesc("成功");
+            result.putDataObject("user" , user);
             StringUtil.outputStream(response , StringUtil.result(result));
         }
     }
@@ -70,34 +77,52 @@ public class UserController {
     public void register(HttpServletRequest request, HttpServletResponse response) throws Exception{
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        User u = new User();
+        String verify = request.getParameter("verify");
+        Verify ver;
+        User user = new User();
         Result result = new Result();
 
-        if(!username.isEmpty() && !password.isEmpty()) {
-            u.setUsername(username);
-            u.setPassword(password);
-            long time = System.currentTimeMillis();
-            time = time / 1000;
-            u.setCreatedAt(new Long(time).intValue());
-            u.setUpdatedAt(new Long(time).intValue());
-            u.setSign("这个家伙很懒，什么也不说...");
-            long id = userService.saveUser(u);
-            if(id > 0){
-                u.setPassword(null);
-                u.setCreatedAt(null);
-                u.setUpdatedAt(null);
-                result.setResult(Constant.HTTP_RESULT_SUCCEED);
-                result.setDesc("成功");
-                result.putDataObject("user" , u);
-                StringUtil.outputStream(response , StringUtil.result(result));
-            } else {
-                result.setResult(Constant.HTTP_RESULT_ERROR_SQL_SAVE);
-                result.setDesc("数据存储异常");
-                StringUtil.outputStream(response , StringUtil.result(result));
-            }
-        } else {
+        if(username.isEmpty()|| password.isEmpty() || verify.isEmpty()) {
             result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
             result.setDesc("请求参数为空");
+            StringUtil.outputStream(response , StringUtil.result(result));
+            return;
+        }
+
+        if(!StringUtil.isNumeric(verify)){
+            result.setResult(Constant.HTTP_RESULT_ERROR);
+            result.setDesc("验证码错误");
+            StringUtil.outputStream(response , StringUtil.result(result));
+            return;
+        }
+
+        ver = verifyService.queryVerifyCode(Integer.valueOf(verify).intValue());
+        if(ver == null){
+            result.setResult(Constant.HTTP_RESULT_ERROR);
+            result.setDesc("验证码错误");
+            StringUtil.outputStream(response , StringUtil.result(result));
+            return;
+        }
+
+        user.setUsername(username);
+        user.setPassword(password);
+        long time = System.currentTimeMillis();
+        time = time / 1000;
+        user.setCreatedAt(new Long(time).intValue());
+        user.setUpdatedAt(new Long(time).intValue());
+        user.setSign("这个家伙很懒，什么也不说...");
+        long id = userService.saveUser(user);
+        if(id > 0){
+            user.setPassword(null);
+            user.setCreatedAt(null);
+            user.setUpdatedAt(null);
+            result.setResult(Constant.HTTP_RESULT_SUCCEED);
+            result.setDesc("成功");
+            result.putDataObject("user" , user);
+            StringUtil.outputStream(response , StringUtil.result(result));
+        } else {
+            result.setResult(Constant.HTTP_RESULT_ERROR_SQL_SAVE);
+            result.setDesc("数据存储异常");
             StringUtil.outputStream(response , StringUtil.result(result));
         }
     }
@@ -141,15 +166,33 @@ public class UserController {
     @RequestMapping(value = "/verify" , method = {RequestMethod.POST})
     public void verify(HttpServletRequest request, HttpServletResponse response) throws Exception{
         String username = request.getParameter("username");
-        String verify = request.getParameter("verify");
-        User user ;
         Result result = new Result();
-        if(username.isEmpty() || verify.isEmpty()) {
+        if(username.isEmpty()) {
             result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
             result.setDesc("请求参数为空");
             StringUtil.outputStream(response , StringUtil.result(result));
             return;
         }
+
+        Verify verify = new Verify();
+        int randomNum = StringUtil.randomNum();
+        long time = System.currentTimeMillis();
+        time = time / 1000;
+        verify.setPhone(username);
+        verify.setVerifycode(randomNum);
+        verify.setDuration(60 * 1000);
+        verify.setCreatedAt(new Long(time).intValue());
+        verify.setStatus(0);
+
+        int code = verifyService.saveVerify(verify);
+        if(code < 0){
+            result.setResult(Constant.HTTP_RESULT_ERROR);
+            result.setDesc("存储失败");
+            StringUtil.outputStream(response , StringUtil.result(result));
+            return;
+        }
+
+
 
 
 
@@ -162,14 +205,14 @@ public class UserController {
         String verify = request.getParameter("verify");
         User user ;
         Result result = new Result();
-        if(!username.isEmpty() && !password.isEmpty() && !verify.isEmpty()) {
-
-
-        }else{
+        if(username.isEmpty()|| password.isEmpty() || verify.isEmpty()) {
             result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
             result.setDesc("请求参数为空");
             StringUtil.outputStream(response , StringUtil.result(result));
+            return;
         }
+
+
     }
 
     @RequestMapping(value = "/alteruser" , method = {RequestMethod.POST})

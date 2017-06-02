@@ -6,10 +6,11 @@ package com.acg12.beans;
 public class Verify {
 
     private Integer id;
-    private Integer uid;
+    private String phone;
     private Integer verifycode;
     private Integer duration; // 有效时间
     private Integer status; // 状态 0 未使用 1 已使用 2 已过期
+    private Integer createdAt;
 
     public Integer getId() {
         return id;
@@ -17,14 +18,6 @@ public class Verify {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getUid() {
-        return uid;
-    }
-
-    public void setUid(Integer uid) {
-        this.uid = uid;
     }
 
     public Integer getVerifycode() {
@@ -49,5 +42,21 @@ public class Verify {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Integer getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Integer createdAt) {
+        this.createdAt = createdAt;
     }
 }

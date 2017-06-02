@@ -18,5 +18,6 @@
      -->
     <mappers>
         <mapper resource="mapper/UserMapper.xml" />
+        <mapper resource="mapper/VerifyMapper.xml" />
     </mappers>
 </configuration>

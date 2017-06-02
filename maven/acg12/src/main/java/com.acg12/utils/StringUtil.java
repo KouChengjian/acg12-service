@@ -133,4 +133,8 @@ public class StringUtil {
 		}
 		return true;
 	}
+
+	public static int randomNum(){
+		return (int)((Math.random()*9+1)*1000);
+	}
 }
