@@ -29,7 +29,8 @@
     </delete>
 
     <update id="updateUser" parameterType="com.acg12.beans.User">
-        update user set nick=#{nick},avatar=#{avatar},sign=#{sign},sex=#{sex},password=#{password},updatedAt=#{updatedAt} where id=#{id}
+        update user set nick=#{nick},avatar=#{avatar},sign=#{sign},sex=#{sex},
+        password=#{password},updatedAt=#{updatedAt} where id=#{id}
     </update>
 
     <select id="queryUserList" resultType="com.acg12.beans.User">
