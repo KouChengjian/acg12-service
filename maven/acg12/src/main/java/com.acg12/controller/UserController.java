@@ -8,6 +8,7 @@ import com.acg12.service.UserServiceImpl;
 import com.acg12.service.VerifyServiceImpl;
 import com.acg12.service.base.ResourceService;
 import com.acg12.service.base.UserService;
+import com.acg12.utils.FileUpload;
 import com.acg12.utils.ListUtil;
 import com.acg12.utils.StringUtil;
 import org.springframework.stereotype.Controller;
@@ -361,21 +362,40 @@ public class UserController {
         iter = ListUtil.copyList(myList);
         while (iter.hasNext()) {
             //取得上传文件
-            System.err.printf("=======");
+//            System.err.printf("=======");
             MultipartFile file = multiRequest.getFile(iter.next());
             if (file != null) {
                 //取得当前上传文件的文件名称
-                String myFileName = file.getOriginalFilename();
-                System.out.println(myFileName);
+//                String myFileName = file.getOriginalFilename();
+//                System.out.println(myFileName);
                 //如果名称不为“”,说明该文件存在，否则说明该文件不存在
-                if (!myFileName.trim().isEmpty()) {
-                    //重命名上传后的文件名
-                    String fileName = "demoUpload" + file.getOriginalFilename();
-                    //定义上传路径
-                    String path = "D:/" + fileName;
-                    File localFile = new File(path);
-                    file.transferTo(localFile);
+
+                String filePath = FileUpload.uploadFile(file , request);
+                System.out.println(filePath);
+                user.setAvatar(filePath);
+                long i = userService.updateUser(user);
+                if(i > 0){
+                    user.setPassword(null);
+                    user.setCreatedAt(null);
+                    user.setUpdatedAt(null);
+                    result.setResult(Constant.HTTP_RESULT_SUCCEED);
+                    result.setDesc("成功");
+                    result.putDataObject("user" , user);
+                    StringUtil.outputStream(response , StringUtil.result(result));
+                } else {
+                    result.setResult(Constant.HTTP_RESULT_ERROR);
+                    result.setDesc("失败");
+                    StringUtil.outputStream(response , StringUtil.result(result));
                 }
+
+//                if (!myFileName.trim().isEmpty()) {
+//                    //重命名上传后的文件名
+//                    String fileName = "demoUpload" + file.getOriginalFilename();
+//                    //定义上传路径
+//                    String path = "D:/" + fileName;
+//                    File localFile = new File(path);
+////                    file.transferTo(localFile);
+//                }
             }
         }
     }
