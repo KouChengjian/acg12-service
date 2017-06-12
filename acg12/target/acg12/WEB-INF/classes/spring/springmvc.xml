@@ -13,9 +13,11 @@
       http://www.springframework.org/schema/cache
       http://www.springframework.org/schema/cache/spring-cache.xsd">
 
+    <!-- 启用spring mvc 注解 -->
+    <mvc:annotation-driven/>
 
     <!-- 组件扫描器 可以扫描controller、service、...这里让扫描controller，指定controller的包 -->
-    <context:component-scan base-package="com.acg12"></context:component-scan>
+    <context:component-scan base-package="com.acg12"/>
     <!--<context:component-scan base-package="com.acg12.controller" use-default-filters="false">-->
         <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
     <!--</context:component-scan>-->
@@ -24,17 +26,16 @@
 
     <!--<mvc:annotation-driven conversion-service="conversionService"
                    validator="validator"/>-->
-    <!-- 启用spring mvc 注解 -->
-    <mvc:annotation-driven/>
+
 
     <mvc:default-servlet-handler/>
     <!-- 视图解析器 解析jsp解析，默认使用jstl标签，classpath下的得有jstl的包 -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <!-- 配置jsp路径的前缀 -->
-        <property name="prefix" value="/WEB-INF/jsp/"/>
-        <!-- 配置jsp路径的后缀 -->
-        <property name="suffix" value=".jsp"/>
-    </bean>
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+        <!--&lt;!&ndash; 配置jsp路径的前缀 &ndash;&gt;-->
+        <!--<property name="prefix" value="/WEB-INF/jsp/"/>-->
+        <!--&lt;!&ndash; 配置jsp路径的后缀 &ndash;&gt;-->
+        <!--<property name="suffix" value=".jsp"/>-->
+    <!--</bean>-->
 
     <!-- 自定义参数绑定 -->
     <!--<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
@@ -82,9 +83,7 @@
     <!--<bean class="com.acg12.exception.CustomExceptionResolver"></bean>-->
 
     <!-- 将 springSwaggerConfig加载到spring容器 -->
-    <!--<bean class="com.mangofactory.swagger.configuration.SpringSwaggerConfig"/>
-    <bean id="SwaggerConfig" class="com.ssm.conf.SwaggerConfig"/>-->
-
+    <bean class="com.acg12.conf.SwaggerConfig"/>
 
     <!-- 缓存配置 -->
     <!-- 启用缓存注解功能(请将其配置在Spring主配置文件中) -->
@@ -102,7 +101,6 @@
 
     <!- 若只想使用Spring自身提供的缓存器,则注释掉下面的两个关于Ehcache配置的bean,并启用上面的SimpleCacheManager即可 -->
     <!-- Spring提供的基于的Ehcache实现的缓存管理器 -->
-
     <bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
         <property name="configLocation" value="classpath:cache/ehcache.xml"/>
     </bean>

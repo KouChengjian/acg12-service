@@ -1,7 +1,7 @@
 package com.acg12.utils;
 
 import com.acg12.beans.Result;
-import com.acg12.config.Constant;
+import com.acg12.conf.Constant;
 import org.json.JSONException;
 import org.json.JSONObject;
 

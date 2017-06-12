@@ -3,7 +3,7 @@ package com.acg12.utils;
 import com.acg12.beans.Album;
 import com.acg12.beans.Palette;
 import com.acg12.beans.Video;
-import com.acg12.config.Constant;
+import com.acg12.conf.Constant;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;

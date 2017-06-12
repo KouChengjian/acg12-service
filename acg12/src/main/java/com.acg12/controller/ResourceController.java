@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by kouchengjian on 2017/3/6.
  */
+//@Api(value = "User控制器")
 @Controller
 @RequestMapping(value = "/res")
 public class ResourceController {
@@ -22,6 +23,8 @@ public class ResourceController {
     @Resource
     private ResourceService resourceService;
 
+//    @ApiOperation(value = "根据用户id查询用户信息", httpMethod = "POST", produces = "application/json")
+//    @ApiResponse(code = 200, message = "success", response = Result.class)
     @RequestMapping(value = "/index" , method = {RequestMethod.POST , RequestMethod.GET})
     @ResponseBody
     public void queryIndex(HttpServletRequest request, HttpServletResponse response) throws Exception {

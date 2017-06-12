@@ -1,7 +1,5 @@
 package com.acg12.utils;
 
-import com.acg12.config.Constant;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
