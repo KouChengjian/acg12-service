@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.acg12.mapper.UserMapper" >
+
+    <resultMap id="BaseResultMap" type="com.acg12.beans.User" >
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="nick" property="nick" jdbcType="VARCHAR" />
+        <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+        <result column="sign" property="sign" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" jdbcType="INTEGER" />
+        <result column="createdAt" property="createdAt" jdbcType="INTEGER" />
+        <result column="updatedAt" property="updatedAt" jdbcType="INTEGER" />
+    </resultMap>
+
+
+    <insert id="insert" parameterType="com.acg12.beans.User"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into user (id,username, password,email,nick,avatar,sign,sex,createdAt,updatedAt)
+        values (#{id,jdbcType=INTEGER},#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+        #{nick,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER},
+        #{createdAt,jdbcType=INTEGER}, #{updatedAt,jdbcType=INTEGER})
+    </insert>
+
+    <delete id="deleteUser" parameterType="int">
+        delete from user where id=#{id}
+    </delete>
+
+    <update id="updateUser" parameterType="com.acg12.beans.User">
+        update user set nick=#{nick},avatar=#{avatar},sign=#{sign},sex=#{sex},
+        password=#{password},updatedAt=#{updatedAt} where id=#{id}
+    </update>
+
+    <select id="queryUserList" resultType="com.acg12.beans.User">
+        select * from user
+    </select>
+
+    <select id="queryUser" parameterType="int" resultType="com.acg12.beans.User">
+        select * from user where id = #{id}
+    </select>
+
+    <select id="queryUserName" parameterType="String" resultType="com.acg12.beans.User">
+        select * from user where username = #{username}
+    </select>
+
+
+
+</mapper>
