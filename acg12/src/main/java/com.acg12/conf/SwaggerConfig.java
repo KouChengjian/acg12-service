@@ -32,10 +32,10 @@ public class SwaggerConfig {
 
     private ApiInfo buildApiInf(){
         return new ApiInfoBuilder()
-                .title("xingguo大标题")
-                .termsOfServiceUrl("http://blog.csdn.net/u014231523网址链接")
-                .description("springmvc swagger2")
-                .contact(new Contact("diaoxingguo", "http://blog.csdn.net/u014231523", "diaoxingguo@163.com"))
+                .title("漫友")
+//                .termsOfServiceUrl("http://blog.csdn.net/u014231523网址链接")
+                .description("v3.0.2")
+//                .contact(new Contact("diaoxingguo", "http://blog.csdn.net/u014231523", "diaoxingguo@163.com"))
                 .build();
 
     }

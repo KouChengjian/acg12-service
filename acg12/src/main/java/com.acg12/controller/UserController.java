@@ -9,9 +9,14 @@ import com.acg12.service.VerifyServiceImpl;
 import com.acg12.utils.FileUpload;
 import com.acg12.utils.ListUtil;
 import com.acg12.utils.StringUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -25,6 +30,7 @@ import java.util.List;
 /**
  * Created by kouchengjian on 2017/3/6.
  */
+@Api(value = "UserController"  , description = "用户控制" )
 @Controller
 @RequestMapping(value = "/api")
 public class UserController {
@@ -34,10 +40,14 @@ public class UserController {
     @Resource
     private VerifyServiceImpl verifyService;
 
-    @RequestMapping(value = "/login" , method = {RequestMethod.POST})
-    public void login(HttpServletRequest request, HttpServletResponse response) throws Exception{
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+    @ApiOperation(value = "登录", httpMethod = "POST", produces = "application/json")
+    @ApiResponse(code = 200, message = "success", response = Result.class)
+    @RequestMapping(value = "/login" , method = {RequestMethod.POST} ,produces = "application/json")
+    public void login(@ApiParam(name = "username", required = true, value = "用户名") @RequestParam("username") String username,
+                      @ApiParam(name = "password", required = true, value = "用户密码") @RequestParam("password") String password,
+            HttpServletRequest request, HttpServletResponse response) throws Exception {
+//        String username = request.getParameter("username");
+//        String password = request.getParameter("password");
         User user ;
         Result result = new Result();
 

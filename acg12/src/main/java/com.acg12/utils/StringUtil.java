@@ -18,7 +18,7 @@ public class StringUtil {
 	public static void outputStream(HttpServletResponse response , String content){
 		try {
 			OutputStream outputStream = response.getOutputStream();
-			response.setHeader("content-type", "text/html;charset=UTF-8");
+			response.setHeader("content-type", "application/json;charset=UTF-8");
 			byte[] dataByteArr = content.getBytes("UTF-8");
 			outputStream.write(dataByteArr);
 			outputStream.flush();

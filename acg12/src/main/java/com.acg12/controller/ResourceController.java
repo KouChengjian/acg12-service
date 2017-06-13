@@ -1,11 +1,19 @@
 package com.acg12.controller;
 
+import com.acg12.beans.Result;
+import com.acg12.conf.Constant;
+import com.acg12.service.ResourceServiceImpl;
 import com.acg12.service.base.ResourceService;
 import com.acg12.utils.StringUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -15,33 +23,48 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by kouchengjian on 2017/3/6.
  */
-//@Api(value = "User控制器")
+@Api(value = "ResourceController"  , description = "资源控制" )
 @Controller
 @RequestMapping(value = "/res")
 public class ResourceController {
 
     @Resource
-    private ResourceService resourceService;
+    private ResourceServiceImpl resourceService;
 
-//    @ApiOperation(value = "根据用户id查询用户信息", httpMethod = "POST", produces = "application/json")
+    @ApiOperation(value = "首页", httpMethod = "GET", produces = "application/json")
 //    @ApiResponse(code = 200, message = "success", response = Result.class)
-    @RequestMapping(value = "/index" , method = {RequestMethod.POST , RequestMethod.GET})
+    @RequestMapping(value = "/index" , method = {RequestMethod.GET} , produces = "application/json ;charset=utf-8" )
     @ResponseBody
-    public void queryIndex(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String queryIndex(HttpServletRequest request, HttpServletResponse response) throws Exception {
         System.out.println("1");
         JSONObject content = resourceService.getIndex();
         System.out.println("2");
         String result = StringUtil.result(content);
-        StringUtil.outputStream(response , result);
+//        StringUtil.outputStream(response , result);
+//        result result = new
+//        result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
+//        result.setDesc("请求参数为空");
+//        StringUtil.outputStream(response , StringUtil.result(result));
+        return result;
     }
 
-    @RequestMapping(value = "/p/album" ,method = {RequestMethod.GET})
+    @ApiOperation(value = "获取插画", httpMethod = "GET", produces = "application/json")
+//    @ApiResponse(code = 200, message = "success", response = Result.class)
+    @RequestMapping(value = "/p/album" ,method = {RequestMethod.GET}, produces = "application/json ;charset=utf-8")
     @ResponseBody
-    public void queryPictrueAlbum(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String max = request.getParameter("max");
+    public void queryPictrueAlbum(@ApiParam(name = "max", required = true, value = "图片的id") @RequestParam("max") String max,
+            HttpServletRequest request, HttpServletResponse response) throws Exception {
         JSONObject content = resourceService.getAlbumList(max);
-        String result = StringUtil.result(content);
-        StringUtil.outputStream(response , result);
+        Result result = new Result();
+        if(content == null) {
+            result.setResult(Constant.HTTP_RESULT_ERROR);
+            result.setDesc("获取错误");
+        } else {
+            result.setResult(Constant.HTTP_RESULT_SUCCEED);
+            result.setDesc("获取成功");
+            result.setData(content);
+        }
+        StringUtil.outputStream(response , StringUtil.result(result));
     }
 
     @RequestMapping(value = "/p/boards" , method = {RequestMethod.GET})

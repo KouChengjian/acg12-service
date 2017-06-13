@@ -46,20 +46,13 @@ public class ResourceServiceImpl implements ResourceService {
             JSONArray bangumiJson = new JSONArray(gson.toJson(bangumiList));
             JSONArray dougaJson = new JSONArray(gson.toJson(dougaList));
 
-            JSONObject array = new JSONObject();
-            array.put("banner",bannerJson);
-            array.put("album",albumJson);
-            array.put("palette",paletteJson);
-            array.put("bangumi",bangumiJson);
-            array.put("douga",dougaJson);
-
-//            JSONObject json = new JSONObject();
-//            json.put("result", 200);
-//            json.put("desc",   "获取成功");
-//            json.put("data",   array);
-//            System.err.println(array.toString());
-
-            return array;
+            JSONObject object = new JSONObject();
+            object.put("banner",bannerJson);
+            object.put("album",albumJson);
+            object.put("palette",paletteJson);
+            object.put("bangumi",bangumiJson);
+            object.put("douga",dougaJson);
+            return object;
         }catch (Exception e) {
             System.err.println("ResourceServiceImpl->getHomeContent()"
                     +e.toString());
