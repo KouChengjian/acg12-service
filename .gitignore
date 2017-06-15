@@ -22,3 +22,4 @@ bin-release/
 acg12-service/.apt_generated
 acg12-service/WebRoot/WEB-INF/classes
 acg12/target
+acg12/.idea

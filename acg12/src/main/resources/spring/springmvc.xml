@@ -65,19 +65,19 @@
         <!--<property name="validationMessageSource" ref="messageSource"/>-->
     <!--</bean>-->
     <!-- 校验错误信息配置文件 -->
-    <!--<bean id="messageSource"
-          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        &lt;!&ndash; 资源文件名&ndash;&gt;
-        <property name="basenames">
-            <list>
-                <value>classpath:CustomValidationMessages</value>
-            </list>
-        </property>
-        &lt;!&ndash; 资源文件编码格式 &ndash;&gt;
-        <property name="fileEncodings" value="utf-8"/>
-        &lt;!&ndash; 对资源文件内容缓存时间，单位秒 &ndash;&gt;
-        <property name="cacheSeconds" value="120"/>
-    </bean>-->
+    <!--<bean id="messageSource"-->
+          <!--class="org.springframework.context.support.ReloadableResourceBundleMessageSource">-->
+        <!--&lt;!&ndash; 资源文件名&ndash;&gt;-->
+        <!--<property name="basenames">-->
+            <!--<list>-->
+                <!--<value>classpath:CustomValidationMessages</value>-->
+            <!--</list>-->
+        <!--</property>-->
+        <!--&lt;!&ndash; 资源文件编码格式 &ndash;&gt;-->
+        <!--<property name="fileEncodings" value="utf-8"/>-->
+        <!--&lt;!&ndash; 对资源文件内容缓存时间，单位秒 &ndash;&gt;-->
+        <!--<property name="cacheSeconds" value="120"/>-->
+    <!--</bean>-->
 
     <!--全局异常处理器 只要实现HandlerExceptionResolver接口就是全局异常处理器-->
     <!--<bean class="com.acg12.exception.CustomExceptionResolver"></bean>-->

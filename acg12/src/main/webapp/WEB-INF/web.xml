@@ -16,7 +16,6 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
-
     <!--springmvc前端控制器 -->
     <servlet>
         <servlet-name>springmvc</servlet-name>
@@ -70,5 +69,10 @@
         <welcome-file>default.htm</welcome-file>
         <welcome-file>default.jsp</welcome-file>
     </welcome-file-list>
+
+    <!--<error-page>-->
+        <!--<error-code>404</error-code>-->
+        <!--<location>/../html/404.html</location>-->
+    <!--</error-page>-->
 
 </web-app>
