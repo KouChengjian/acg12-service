@@ -19,5 +19,7 @@
     <mappers>
         <mapper resource="mapper/UserMapper.xml" />
         <mapper resource="mapper/VerifyMapper.xml" />
+        <mapper resource="mapper/FeedbackMapper.xml" />
+        <mapper resource="mapper/UpdateAppMapper.xml" />
     </mappers>
 </configuration>

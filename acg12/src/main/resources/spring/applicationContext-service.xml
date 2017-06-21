@@ -7,5 +7,9 @@
     <!-- user的service -->
     <bean id="userService" class="com.acg12.service.UserServiceImpl"/>
     <bean id="verifyService" class="com.acg12.service.VerifyServiceImpl"/>
-    <bean id="resourceService" class="com.acg12.service.ResourceServiceImpl"/>
+    <bean id="resourceService" class="com.acg12.service.ResServiceImpl"/>
+    <bean id="feedbackServiceImpl" class="com.acg12.service.FeedbackServiceImpl"/>
+    <bean id="updateAppServiceImpl" class="com.acg12.service.UpdateAppServiceImpl"/>
+
+
 </beans>

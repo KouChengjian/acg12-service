@@ -3,7 +3,7 @@ package com.acg12.service;
 import com.acg12.beans.Album;
 import com.acg12.beans.Palette;
 import com.acg12.beans.Video;
-import com.acg12.service.base.ResourceService;
+import com.acg12.service.base.ResService;
 import com.acg12.utils.HttpUtil;
 import com.acg12.utils.StringUtil;
 import com.google.gson.Gson;
@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by kouchengjian on 2017/3/9.
  */
-public class ResourceServiceImpl implements ResourceService {
+public class ResServiceImpl implements ResService {
 
     @Cacheable(value = "resource_cache" , key = "'homeContent'")
     @Override
@@ -54,7 +54,7 @@ public class ResourceServiceImpl implements ResourceService {
             object.put("douga",dougaJson);
             return object;
         }catch (Exception e) {
-            System.err.println("ResourceServiceImpl->getHomeContent()"
+            System.err.println("ResServiceImpl->getHomeContent()"
                     +e.toString());
         }
 
@@ -72,7 +72,7 @@ public class ResourceServiceImpl implements ResourceService {
             array.put("album",albumJson);
             return array;
         } catch (Exception e) {
-            System.err.println("ResourceServiceImpl->getAlbumList()"
+            System.err.println("ResServiceImpl->getAlbumList()"
                     +e.toString());
         }
         return null;
@@ -89,7 +89,7 @@ public class ResourceServiceImpl implements ResourceService {
             array.put("palette",paletteJson);
             return array;
         } catch (Exception e) {
-            System.err.println("ResourceServiceImpl->getBoardsList()"
+            System.err.println("ResServiceImpl->getBoardsList()"
                     +e.toString());
         }
         return null;
@@ -106,7 +106,7 @@ public class ResourceServiceImpl implements ResourceService {
             array.put("album",paletteJson);
             return array;
         } catch (Exception e) {
-            System.err.println("ResourceServiceImpl->getBoardsToAlbumList()"
+            System.err.println("ResServiceImpl->getBoardsToAlbumList()"
                     +e.toString());
         }
         return null;
@@ -124,7 +124,7 @@ public class ResourceServiceImpl implements ResourceService {
             array.put("video",paletteJson);
             return array;
         } catch (Exception e) {
-            System.err.println("ResourceServiceImpl->getVideoTypeList()"
+            System.err.println("ResServiceImpl->getVideoTypeList()"
                     +e.toString());
         }
         return null;
@@ -141,7 +141,7 @@ public class ResourceServiceImpl implements ResourceService {
             array.put("video",paletteJson);
             return array;
         } catch (Exception e) {
-            System.err.println("ResourceServiceImpl->getVideoTypeInfo()"
+            System.err.println("ResServiceImpl->getVideoTypeInfo()"
                     +e.toString());
         }
         return null;
@@ -158,7 +158,7 @@ public class ResourceServiceImpl implements ResourceService {
             array.put("video",paletteJson);
             return array;
         } catch (Exception e) {
-            System.err.println("ResourceServiceImpl->getDangumiList()"
+            System.err.println("ResServiceImpl->getDangumiList()"
                     +e.toString());
         }
         return null;
@@ -175,7 +175,7 @@ public class ResourceServiceImpl implements ResourceService {
             array.put("video",paletteJson);
             return array;
         } catch (Exception e) {
-            System.err.println("ResourceServiceImpl->getDangumiInfo()"
+            System.err.println("ResServiceImpl->getDangumiInfo()"
                     +e.toString());
         }
         return null;
@@ -190,13 +190,13 @@ public class ResourceServiceImpl implements ResourceService {
             array.put("av",av);
             return array;
         } catch (Exception e) {
-            System.err.println("ResourceServiceImpl->getDangumiAV()"
+            System.err.println("ResServiceImpl->getDangumiAV()"
                     +e.toString());
         }
         return null;
     }
 
-    @Cacheable(value = "resource_cache" , key = "'searchAlbum_key=' + #key + ',Page=' + #Page")
+    @Cacheable(value = "resource_cache" , key = "'searchAlbum_key=' + #key + ',Page=' + #page")
     @Override
     public JSONObject getSearchAlbum(String key, String page) {
         List<Album> albumList = HttpUtil.getSearchAlbum(key , page);
@@ -208,13 +208,13 @@ public class ResourceServiceImpl implements ResourceService {
             array.put("album",albumJson);
             return array;
         } catch (Exception e) {
-            System.err.println("ResourceServiceImpl->getSearchAlbum()"
+            System.err.println("ResServiceImpl->getSearchAlbum()"
                     +e.toString());
         }
         return null;
     }
 
-    @Cacheable(value = "resource_cache" , key = "'searchBoards_key=' + #key + ',Page=' + #Page")
+    @Cacheable(value = "resource_cache" , key = "'searchBoards_key=' + #key + ',Page=' + #page")
     @Override
     public JSONObject getSearchBoards(String key, String page) {
         List<Palette> paletteList = HttpUtil.getSearchPalette(key , page);
@@ -225,13 +225,13 @@ public class ResourceServiceImpl implements ResourceService {
             array.put("palette",paletteJson);
             return array;
         } catch (Exception e) {
-            System.err.println("ResourceServiceImpl->getSearchBoards()"
+            System.err.println("ResServiceImpl->getSearchBoards()"
                     +e.toString());
         }
         return null;
     }
 
-    @Cacheable(value = "resource_cache" , key = "'searchVideo_key=' + #key + ',Page=' + #Page")
+    @Cacheable(value = "resource_cache" , key = "'searchVideo_key=' + #key + ',Page=' + #page")
     @Override
     public JSONObject getSearchVideo(String key, String page) {
         List<Video> paletteList = HttpUtil.getSearchVideo(key , page);
@@ -242,13 +242,13 @@ public class ResourceServiceImpl implements ResourceService {
             array.put("video",paletteJson);
             return array;
         } catch (Exception e) {
-            System.err.println("ResourceServiceImpl->getSearchVideo()"
+            System.err.println("ResServiceImpl->getSearchVideo()"
                     +e.toString());
         }
         return null;
     }
 
-    @Cacheable(value = "resource_cache" , key = "'searchDangumi_key=' + #key + ',Page=' + #Page")
+    @Cacheable(value = "resource_cache" , key = "'searchDangumi_key=' + #key + ',Page=' + #page")
     @Override
     public JSONObject getSearchDangumi(String key, String page) {
         List<Video> paletteList = HttpUtil.getSearchBangunmi(key , page);
@@ -259,7 +259,7 @@ public class ResourceServiceImpl implements ResourceService {
             array.put("video",paletteJson);
             return array;
         } catch (Exception e) {
-            System.err.println("ResourceServiceImpl->getSearchDangumi()"
+            System.err.println("ResServiceImpl->getSearchDangumi()"
                     +e.toString());
         }
         return null;
@@ -274,7 +274,7 @@ public class ResourceServiceImpl implements ResourceService {
             array.put("info",content);
             return array;
         } catch (Exception e) {
-            System.err.println("ResourceServiceImpl->getPlayInfo()"
+            System.err.println("ResServiceImpl->getPlayInfo()"
                     +e.toString());
         }
         return null;

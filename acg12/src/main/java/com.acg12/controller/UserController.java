@@ -1,9 +1,9 @@
 package com.acg12.controller;
 
-import com.acg12.beans.Result;
-import com.acg12.beans.User;
-import com.acg12.beans.Verify;
+import com.acg12.beans.*;
 import com.acg12.conf.Constant;
+import com.acg12.service.FeedbackServiceImpl;
+import com.acg12.service.UpdateAppServiceImpl;
 import com.acg12.service.UserServiceImpl;
 import com.acg12.service.VerifyServiceImpl;
 import com.acg12.utils.FileUpload;
@@ -14,9 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -39,6 +37,10 @@ public class UserController {
     private UserServiceImpl userService;
     @Resource
     private VerifyServiceImpl verifyService;
+    @Resource
+    private FeedbackServiceImpl feedbackServiceImpl;
+    @Resource
+    private UpdateAppServiceImpl updateAppServiceImpl;
 
     @ApiOperation(value = "登录", httpMethod = "POST", produces = "application/json")
     @ApiResponse(code = 200, message = "success", response = Result.class)
@@ -46,8 +48,6 @@ public class UserController {
     public void login(@ApiParam(name = "username", required = true, value = "用户名") @RequestParam("username") String username,
                       @ApiParam(name = "password", required = true, value = "用户密码") @RequestParam("password") String password,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        String username = request.getParameter("username");
-//        String password = request.getParameter("password");
         User user ;
         Result result = new Result();
 
@@ -80,6 +80,7 @@ public class UserController {
             StringUtil.outputStream(response , StringUtil.result(result));
         }
     }
+
 
     @RequestMapping(value = "/register" , method = {RequestMethod.POST })
     public void register(HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -135,39 +136,34 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value = "获取用户信息", httpMethod = "POST", produces = "application/json")
     @RequestMapping(value = "/userInfo" , method = {RequestMethod.POST})
-    public void userInfo(HttpServletRequest request, HttpServletResponse response) throws Exception{
-        String uid = request.getHeader("uid");
+    public void userInfo(@ApiParam(name = "uid", required = true, value = "用户id") @RequestHeader("uid") Integer uid ,
+            HttpServletRequest request, HttpServletResponse response) throws Exception{
         User user ;
         Result result = new Result();
-        if(uid == null || uid.isEmpty()){
+        if(uid == 0){
             result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
             result.setDesc("请求参数为空");
             StringUtil.outputStream(response , StringUtil.result(result));
             return;
         }
-        if(StringUtil.isNumeric(uid)){
-            int id = Integer.valueOf(uid).intValue();
-            user = userService.queryUser(id);
-            if(user == null){
-                result.setResult(Constant.HTTP_RESULT_ERROR_NULL_DATA);
-                result.setDesc("不存在该数据");
-                StringUtil.outputStream(response , StringUtil.result(result));
-            } else {
-                user.setPassword(null);
-                user.setCreatedAt(null);
-                user.setUpdatedAt(null);
-                result.setResult(Constant.HTTP_RESULT_SUCCEED);
-                result.setDesc("成功");
-                result.putDataObject("user" , user);
-                StringUtil.outputStream(response , StringUtil.result(result));
-            }
-        } else {
-            result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
-            result.setDesc("请求参数为空");
+
+        user = userService.queryUser(uid);
+        if(user == null){
+            result.setResult(Constant.HTTP_RESULT_ERROR_NULL_DATA);
+            result.setDesc("不存在该数据");
             StringUtil.outputStream(response , StringUtil.result(result));
+            return;
         }
 
+        user.setPassword(null);
+        user.setCreatedAt(null);
+        user.setUpdatedAt(null);
+        result.setResult(Constant.HTTP_RESULT_SUCCEED);
+        result.setDesc("成功");
+        result.putDataObject("user" , user);
+        StringUtil.outputStream(response , StringUtil.result(result));
 
     }
 
@@ -223,92 +219,90 @@ public class UserController {
 
     }
 
+    @ApiOperation(value = "修改用户信息", httpMethod = "POST", produces = "application/json")
     @RequestMapping(value = "/alteruser" , method = {RequestMethod.POST})
-    public void alterUser(HttpServletRequest request, HttpServletResponse response) throws Exception{
-        String uid = request.getHeader("uid");
-        String alterType = request.getParameter("alterType");
-        String param1 = request.getParameter("param1");
-        String param2 = request.getParameter("param2");
+    public void alterUser(@ApiParam(name = "uid", required = true, value = "用户id") @RequestHeader("uid") Integer uid ,
+                          @ApiParam(name = "alterType", required = true, value = "修改类型 1、昵称2、签名4、性别5、密码") @RequestParam("alterType") Integer alterType ,
+                          @ApiParam(name = "param1", required = true, value = "参数1") @RequestParam("param1") String param1 ,
+                          @ApiParam(name = "param2", required = true, value = "参数2") @RequestParam("param2") String param2 ,
+            HttpServletRequest request, HttpServletResponse response) throws Exception{
         User user ;
         Result result = new Result();
-        if(alterType == null || alterType.isEmpty()){
+
+        if(alterType == 0 || alterType > 5){
+            result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
+            result.setDesc("请求修改类型错误");
+            StringUtil.outputStream(response , StringUtil.result(result));
+            return;
+        }
+
+        user = userService.queryUser(uid);
+        if(user == null){
+            result.setResult(Constant.HTTP_RESULT_ERROR_NULL_DATA);
+            result.setDesc("不存在该用户");
+            StringUtil.outputStream(response , StringUtil.result(result));
+            return;
+        }
+
+        if(param1 == null || param1.isEmpty()){
             result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
             result.setDesc("请求参数为空");
             StringUtil.outputStream(response , StringUtil.result(result));
             return;
         }
 
-        if(param1 != null && !param1.isEmpty()){
-            if(StringUtil.isNumeric(uid)){
-                int id = Integer.valueOf(uid).intValue();
-                user = userService.queryUser(id);
-                if(user == null){
-                    result.setResult(Constant.HTTP_RESULT_ERROR_NULL_DATA);
-                    result.setDesc("不存在该用户");
-                    StringUtil.outputStream(response , StringUtil.result(result));
-                } else {
-                    long time = System.currentTimeMillis();
-                    time = time / 1000;
-                    user.setUpdatedAt(new Long(time).intValue());
-
-                    if(alterType.equals("1")){ // 修改昵称
-                        user.setNick(param1);
-                    } else if(alterType.equals("2")){ // 修改签名
-                        user.setSign(param1);
-                    } else if(alterType.equals("3")){ // 修改头像
-
-                    } else if(alterType.equals("4")){ // 修改性别
-                        if(StringUtil.isNumeric(param1)){
-                            int s = Integer.valueOf(param1).intValue();
-                            user.setSex(s);
-                        }else {
-                            result.setResult(Constant.HTTP_RESULT_ERROR);
-                            result.setDesc("失败");
-                            StringUtil.outputStream(response , StringUtil.result(result));
-                            return;
-                        }
-                    } else if(alterType.equals("5")){ // 修改密码
-                        if(user.getPassword().equals(param1)){
-                            if(param2  == null || param2.isEmpty()){
-                                result.setResult(Constant.HTTP_RESULT_ERROR);
-                                result.setDesc("失败");
-                                StringUtil.outputStream(response , StringUtil.result(result));
-                                return;
-                            }else {
-                                user.setPassword(param2);
-                            }
-                        }else {
-                            result.setResult(Constant.HTTP_RESULT_ERROR);
-                            result.setDesc("密码错误");
-                            StringUtil.outputStream(response , StringUtil.result(result));
-                            return;
-                        }
-                    }
-
-                    long i = userService.updateUser(user);
-                    if(i > 0){
-                        user.setPassword(null);
-                        user.setCreatedAt(null);
-                        user.setUpdatedAt(null);
-                        result.setResult(Constant.HTTP_RESULT_SUCCEED);
-                        result.setDesc("成功");
-                        result.putDataObject("user" , user);
-                        StringUtil.outputStream(response , StringUtil.result(result));
-                    } else {
-                        result.setResult(Constant.HTTP_RESULT_ERROR);
-                        result.setDesc("失败");
-                        StringUtil.outputStream(response , StringUtil.result(result));
-                    }
-                }
-            }else {
+        if(alterType == 5){
+            if(param2 == null || param2.isEmpty() || param2.equals("null")){
                 result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
                 result.setDesc("请求参数为空");
                 StringUtil.outputStream(response , StringUtil.result(result));
+                return;
             }
+        }
 
+        long time = System.currentTimeMillis();
+        time = time / 1000;
+        user.setUpdatedAt(new Long(time).intValue());
+
+        if(alterType == 1){         // 修改昵称
+            user.setNick(param1);
+        } else if(alterType == 2){  // 修改签名
+            user.setSign(param1);
+        } else if(alterType == 3){  // 修改头像
+
+        } else if(alterType == 4){  // 修改性别
+            if(StringUtil.isNumeric(param1)){
+                int s = Integer.valueOf(param1).intValue();
+                user.setSex(s);
+            }else {
+                result.setResult(Constant.HTTP_RESULT_ERROR);
+                result.setDesc("失败");
+                StringUtil.outputStream(response , StringUtil.result(result));
+                return;
+            }
+        } else if(alterType == 5){  // 修改密码
+            if(user.getPassword().equals(param1)){
+                user.setPassword(param2);
+            }else {
+                result.setResult(Constant.HTTP_RESULT_ERROR);
+                result.setDesc("密码错误");
+                StringUtil.outputStream(response , StringUtil.result(result));
+                return;
+            }
+        }
+
+        long i = userService.updateUser(user);
+        if(i > 0){
+            user.setPassword(null);
+            user.setCreatedAt(null);
+            user.setUpdatedAt(null);
+            result.setResult(Constant.HTTP_RESULT_SUCCEED);
+            result.setDesc("成功");
+            result.putDataObject("user" , user);
+            StringUtil.outputStream(response , StringUtil.result(result));
         } else {
-            result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
-            result.setDesc("请求参数为空");
+            result.setResult(Constant.HTTP_RESULT_ERROR);
+            result.setDesc("失败");
             StringUtil.outputStream(response , StringUtil.result(result));
         }
     }
@@ -437,25 +431,66 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value = "所有用户", httpMethod = "POST", produces = "application/json")
     @RequestMapping(value = "/userList" , method = {RequestMethod.POST})
     public void userList(HttpServletRequest request, HttpServletResponse response) throws Exception{
         Result result = new Result();
         List<User> userList = userService.queryUserList();
-        if(userList == null || userList.size() == 0){
+
+        if(userList == null){
             result.setResult(Constant.HTTP_RESULT_ERROR_NULL_DATA);
             result.setDesc("不存在该数据");
             StringUtil.outputStream(response , StringUtil.result(result));
-        }else {
-            result.setResult(Constant.HTTP_RESULT_SUCCEED);
-            result.setDesc("成功");
-            result.putDataArray("user" , userList);
-            StringUtil.outputStream(response , StringUtil.result(result));
+            return;
         }
+
+        result.setResult(Constant.HTTP_RESULT_SUCCEED);
+        result.setDesc("成功");
+        result.putDataArray("userList" , userList);
+        StringUtil.outputStream(response , StringUtil.result(result));
     }
 
+    @ApiOperation(value = "意见反馈", httpMethod = "POST", produces = "application/json")
+    @RequestMapping(value = "/feedback" , method = {RequestMethod.POST})
+    public void feedback(@ApiParam(name = "uid", required = true, value = "用户id") @RequestHeader("uid") Integer uid ,
+                         @ApiParam(name = "message", required = true, value = "信息") @RequestParam("message") String message ,
+            HttpServletRequest request, HttpServletResponse response) throws Exception{
+        Result result = new Result();
+        Feedback feedback = new Feedback();
+        feedback.setUid(uid);
+        feedback.setMessage(message);
+        int i = feedbackServiceImpl.save(feedback);
+        System.err.printf(i+"==============");
+        if(i <= 0){
+            result.setResult(Constant.HTTP_RESULT_ERROR_NULL_DATA);
+            result.setDesc("存储失败");
+            StringUtil.outputStream(response , StringUtil.result(result));
+            return;
+        }
 
+        result.setResult(Constant.HTTP_RESULT_SUCCEED);
+        result.setDesc("成功");
+        StringUtil.outputStream(response , StringUtil.result(result));
+    }
 
+    @ApiOperation(value = "App更新", httpMethod = "POST", produces = "application/json")
+    @RequestMapping(value = "/update" , method = {RequestMethod.POST})
+    public void update(@ApiParam(name = "versionCode", required = true, value = "版本号") @RequestParam("versionCode") Integer versionCode ,
+                         HttpServletRequest request, HttpServletResponse response) throws Exception{
+        Result result = new Result();
+        Update update = updateAppServiceImpl.queryUpdate(1);
+        if(update == null){
+            result.setResult(Constant.HTTP_RESULT_ERROR);
+            result.setDesc("无最新信息");
+            StringUtil.outputStream(response , StringUtil.result(result));
+            return;
+        }
 
+        result.setResult(Constant.HTTP_RESULT_SUCCEED);
+        result.setDesc("成功");
+        result.putDataObject("update" , update);
+        StringUtil.outputStream(response , StringUtil.result(result));
+    }
 
 
 

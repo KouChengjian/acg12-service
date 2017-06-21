@@ -2,13 +2,11 @@ package com.acg12.controller;
 
 import com.acg12.beans.Result;
 import com.acg12.conf.Constant;
-import com.acg12.service.ResourceServiceImpl;
-import com.acg12.service.base.ResourceService;
+import com.acg12.service.ResServiceImpl;
 import com.acg12.utils.StringUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,10 +24,10 @@ import javax.servlet.http.HttpServletResponse;
 @Api(value = "ResourceController"  , description = "资源控制" )
 @Controller
 @RequestMapping(value = "/res")
-public class ResourceController {
+public class ResController {
 
     @Resource
-    private ResourceServiceImpl resourceService;
+    private ResServiceImpl resourceService;
 
     @ApiOperation(value = "首页", httpMethod = "GET", produces = "application/json")
 //    @ApiResponse(code = 200, message = "success", response = Result.class)
@@ -40,11 +38,6 @@ public class ResourceController {
         JSONObject content = resourceService.getIndex();
         System.out.println("2");
         String result = StringUtil.result(content);
-//        StringUtil.outputStream(response , result);
-//        result result = new
-//        result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
-//        result.setDesc("请求参数为空");
-//        StringUtil.outputStream(response , StringUtil.result(result));
         return result;
     }
 
@@ -128,22 +121,40 @@ public class ResourceController {
         StringUtil.outputStream(response , result);
     }
 
-    @RequestMapping(value = "/v/search/album" , method = {RequestMethod.GET})
-    public void querySearchAlbum(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String key = request.getParameter("key");
-        String page = request.getParameter("page");
+    @ApiOperation(value = "搜索插画", httpMethod = "GET", produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "/v/search/album" , method = {RequestMethod.GET} , produces = "application/json ;charset=utf-8")
+    public void querySearchAlbum(@ApiParam(name = "key", required = true, value = "搜索key") @RequestParam("key") String key,
+                                 @ApiParam(name = "page", required = true, value = "页") @RequestParam("page") String page,
+            HttpServletRequest request, HttpServletResponse response) throws Exception {
         JSONObject content = resourceService.getSearchAlbum(key , page);
-        String result = StringUtil.result(content);
-        StringUtil.outputStream(response , result);
+        Result result = new Result();
+        if(content == null ) {
+            result.setResult(Constant.HTTP_RESULT_ERROR);
+            result.setDesc("获取错误");
+        } else {
+            result.setResult(Constant.HTTP_RESULT_SUCCEED);
+            result.setDesc("获取成功");
+            result.setData(content);
+        }
+        StringUtil.outputStream(response , StringUtil.result(result));
     }
 
+    @ApiOperation(value = "搜索画板", httpMethod = "GET", produces = "application/json;charset=utf-8")
     @RequestMapping(value = "/v/search/palette" , method = {RequestMethod.GET})
-    public void querySearchPalette(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String key = request.getParameter("key");
-        String page = request.getParameter("page");
+    public void querySearchPalette(@ApiParam(name = "key", required = true, value = "搜索key") @RequestParam("key") String key,
+                                   @ApiParam(name = "page", required = true, value = "页") @RequestParam("page") String page,
+            HttpServletRequest request, HttpServletResponse response) throws Exception {
         JSONObject content = resourceService.getSearchBoards(key , page);
-        String result = StringUtil.result(content);
-        StringUtil.outputStream(response , result);
+        Result result = new Result();
+        if(content == null ) {
+            result.setResult(Constant.HTTP_RESULT_ERROR);
+            result.setDesc("获取错误");
+        } else {
+            result.setResult(Constant.HTTP_RESULT_SUCCEED);
+            result.setDesc("获取成功");
+            result.setData(content);
+        }
+        StringUtil.outputStream(response , StringUtil.result(result));
     }
 
     @RequestMapping(value = "/v/search/video" , method = {RequestMethod.GET})

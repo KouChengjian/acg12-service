@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by kouchengjian on 2017/3/9.
  */
-public interface ResourceService {
+public interface ResService {
 
     JSONObject getIndex();
 

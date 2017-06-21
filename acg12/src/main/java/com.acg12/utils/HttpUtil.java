@@ -208,7 +208,7 @@ public class HttpUtil {
                     for (int i = 0 ; i < 10 ; i++) {
                         Video item = new Video();
                         item.        setAid(jsonList.get(j).getJSONObject(i+"").getString("aid").toString());
-                        item.     setTypeid(jsonList.get(j).getJSONObject(i+"").getString("typeid").toString());
+//                        item.     setTypeid(jsonList.get(j).getJSONObject(i+"").getString("typeid").toString());
                         item.      setTitle(jsonList.get(j).getJSONObject(i+"").getString("title").toString());
                         item.   setSbutitle(jsonList.get(j).getJSONObject(i+"").optString("sbutitle").toString());
                         item.       setPlay(jsonList.get(j).getJSONObject(i+"").getString("play").toString());
@@ -657,21 +657,21 @@ public class HttpUtil {
                     .data("jquery", "java").userAgent("Mozilla")
                     .cookie("auth", "token").timeout(50000).get();
             String content = document.toString();
-            //System.out.println(content);
+//            System.out.println(content);
             if(content != null && !content.isEmpty()){
                 Elements var = document.body().select("script");
-                //System.out.println(var.toString());
-                System.out.println(var.size());
+//                System.out.println(var.toString());
+//                System.out.println(var.size());
                 for (Element div : var) {
                     String str1 = "app.page[" + "\"" + "pins" + "\"" + "] = ";
-                    //System.out.println(str1);
+//                    System.out.println(str1);
                     String str2 = "app.page[" + "\"" + "page" + "\"" + "] = ";
-                    //System.out.println(str2);
+//                    System.out.println(str2);
                     String str3 = StringUtils.substringBetween(div.toString(),str1, str2);
-                    //System.out.println(str3);
+//                    System.out.println(str3);
                     if (str3 != null && !str3.isEmpty()) {
                         str3 = str3.replace(";","");
-                        System.out.println(str3);
+//                        System.out.println(str3);
                         JSONArray array = new JSONArray(str3);
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject json = (JSONObject) array.get(i);
@@ -688,7 +688,7 @@ public class HttpUtil {
                             album.setContent(json.getString("raw_text"));
                             album.setPinId(String.valueOf(json.getInt("pin_id")));
                             url.add("http://img.hb.aicdn.com/"
-                                    + jsomUrl.getString("key") + "_fw658");
+                                    + jsomUrl.getString("key") + "_fw658"); //  236
                             album.setUrlList(url);
                             album.setResWidth(width);
                             album.setResHight(height);
