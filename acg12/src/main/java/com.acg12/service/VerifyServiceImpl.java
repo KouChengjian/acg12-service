@@ -38,4 +38,9 @@ public class VerifyServiceImpl implements VerifyService {
     public int updateVerify(Verify verify) throws Exception {
         return verifyMapper.updateVerify(verify);
     }
+
+    @Override
+    public Verify query(String phone, String verify, int type) {
+        return verifyMapper.query(phone,verify,type);
+    }
 }

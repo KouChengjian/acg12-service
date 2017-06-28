@@ -42,7 +42,6 @@ public class ResController {
     }
 
     @ApiOperation(value = "获取插画", httpMethod = "GET", produces = "application/json")
-//    @ApiResponse(code = 200, message = "success", response = Result.class)
     @RequestMapping(value = "/p/album" ,method = {RequestMethod.GET}, produces = "application/json ;charset=utf-8")
     @ResponseBody
     public void queryPictrueAlbum(@ApiParam(name = "max", required = true, value = "图片的id") @RequestParam("max") String max,
@@ -57,15 +56,24 @@ public class ResController {
             result.setDesc("获取成功");
             result.setData(content);
         }
-        StringUtil.outputStream(response , StringUtil.result(result));
+        result.write(response);
     }
 
+    @ApiOperation(value = "获取插画", httpMethod = "GET", produces = "application/json")
     @RequestMapping(value = "/p/boards" , method = {RequestMethod.GET})
-    public void queryPictrueBoards(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String max = request.getParameter("max");
+    public void queryPictrueBoards(@ApiParam(name = "max", required = true, value = "画板id") @RequestParam("max") String max,
+            HttpServletRequest request, HttpServletResponse response) throws Exception {
         JSONObject content = resourceService.getBoardsList(max);
-        String result = StringUtil.result(content);
-        StringUtil.outputStream(response , result);
+        Result result = new Result();
+        if(content == null) {
+            result.setResult(Constant.HTTP_RESULT_ERROR);
+            result.setDesc("获取错误");
+        } else {
+            result.setResult(Constant.HTTP_RESULT_SUCCEED);
+            result.setDesc("获取成功");
+            result.setData(content);
+        }
+        StringUtil.outputStream(response , StringUtil.result(result));
 
     }
 

@@ -10,6 +10,7 @@ public class Verify {
     private Integer verifycode;
     private Integer duration; // 有效时间
     private Integer status; // 状态 0 未使用 1 已使用 2 已过期
+    private Integer type;
     private Integer createdAt;
 
     public Integer getId() {
@@ -58,5 +59,13 @@ public class Verify {
 
     public void setCreatedAt(Integer createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

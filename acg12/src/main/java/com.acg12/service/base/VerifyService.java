@@ -18,4 +18,5 @@ public interface VerifyService {
 
     int updateVerify(Verify verify) throws Exception;
 
+    Verify query(String phone , String verify , int type);
 }

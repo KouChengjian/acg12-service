@@ -847,6 +847,10 @@ public class HttpUtil {
                     Video video = new Video();
                     Element item = list.get(i);
                     String videourl = item.attr("href");
+                    String[] urls = videourl.split("\\?from");
+                    if(urls.length > 1){
+                        videourl = urls[0];
+                    }
                     String quarter = item.text();
                     //System.out.println(videourl);
                     //System.out.println(quarter);

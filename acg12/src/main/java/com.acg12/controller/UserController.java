@@ -43,7 +43,6 @@ public class UserController {
     private UpdateAppServiceImpl updateAppServiceImpl;
 
     @ApiOperation(value = "登录", httpMethod = "POST", produces = "application/json")
-    @ApiResponse(code = 200, message = "success", response = Result.class)
     @RequestMapping(value = "/login" , method = {RequestMethod.POST} ,produces = "application/json")
     public void login(@ApiParam(name = "username", required = true, value = "用户名") @RequestParam("username") String username,
                       @ApiParam(name = "password", required = true, value = "用户密码") @RequestParam("password") String password,
@@ -54,7 +53,7 @@ public class UserController {
         if(username.isEmpty() || password.isEmpty()){
             result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
             result.setDesc("请求参数为空");
-            StringUtil.outputStream(response , StringUtil.result(result));
+            result.write(response);
             return;
         }
 
@@ -62,14 +61,14 @@ public class UserController {
         if(user == null){
             result.setResult(Constant.HTTP_RESULT_ERROR_NULL_DATA);
             result.setDesc("不存在该用户");
-            StringUtil.outputStream(response , StringUtil.result(result));
+            result.write(response);
             return;
         }
 
         if(!user.getPassword().equals(password)) {
             result.setResult(Constant.HTTP_RESULT_ERROR_PASSWORD);
             result.setDesc("密码错误");
-            StringUtil.outputStream(response , StringUtil.result(result));
+            result.write(response);
         } else {
             user.setPassword(null);
             user.setCreatedAt(null);
@@ -77,63 +76,66 @@ public class UserController {
             result.setResult(Constant.HTTP_RESULT_SUCCEED);
             result.setDesc("成功");
             result.putDataObject("user" , user);
-            StringUtil.outputStream(response , StringUtil.result(result));
+            result.write(response);
         }
     }
 
-
+    @ApiOperation(value = "注册", httpMethod = "POST", produces = "application/json")
     @RequestMapping(value = "/register" , method = {RequestMethod.POST })
-    public void register(HttpServletRequest request, HttpServletResponse response) throws Exception{
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String verify = request.getParameter("verify");
+    public void register(@ApiParam(name = "username", required = true, value = "手机号码") @RequestParam("username") String username,
+                         @ApiParam(name = "password", required = true, value = "密码") @RequestParam("password") String password,
+                         @ApiParam(name = "verify", required = true, value = "密码") @RequestParam("verify") int verify,
+            HttpServletRequest request, HttpServletResponse response) throws Exception{
         Verify ver;
         User user = new User();
         Result result = new Result();
 
-        if(username.isEmpty()|| password.isEmpty() || verify.isEmpty()) {
+        if(username.isEmpty()|| password.isEmpty() || verify == 0) {
             result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
             result.setDesc("请求参数为空");
-            StringUtil.outputStream(response , StringUtil.result(result));
+            result.write(response);
             return;
         }
 
-        if(!StringUtil.isNumeric(verify)){
-            result.setResult(Constant.HTTP_RESULT_ERROR);
-            result.setDesc("验证码错误");
-            StringUtil.outputStream(response , StringUtil.result(result));
-            return;
-        }
-
-        ver = verifyService.queryVerifyCode(Integer.valueOf(verify).intValue());
+        ver = verifyService.query(username ,verify+"" , 1);
         if(ver == null){
             result.setResult(Constant.HTTP_RESULT_ERROR);
             result.setDesc("验证码错误");
-            StringUtil.outputStream(response , StringUtil.result(result));
+            result.write(response);
             return;
         }
 
-        user.setUsername(username);
-        user.setPassword(password);
+        int create = ver.getCreatedAt();
         long time = System.currentTimeMillis();
         time = time / 1000;
-        user.setCreatedAt(new Long(time).intValue());
-        user.setUpdatedAt(new Long(time).intValue());
-        user.setSign("这个家伙很懒，什么也不说...");
-        long id = userService.saveUser(user);
-        if(id > 0){
-            user.setPassword(null);
-            user.setCreatedAt(null);
-            user.setUpdatedAt(null);
-            result.setResult(Constant.HTTP_RESULT_SUCCEED);
-            result.setDesc("成功");
-            result.putDataObject("user" , user);
-            StringUtil.outputStream(response , StringUtil.result(result));
-        } else {
-            result.setResult(Constant.HTTP_RESULT_ERROR_SQL_SAVE);
-            result.setDesc("数据存储异常");
-            StringUtil.outputStream(response , StringUtil.result(result));
+        int present = new Long(time).intValue();
+        if(present - create > 60){
+            result.setResult(Constant.HTTP_RESULT_ERROR);
+            result.setDesc("验证码过期");
+            result.write(response);
+            return;
         }
+//        user.setUsername(username);
+//        user.setPassword(password);
+//        long time = System.currentTimeMillis();
+//        time = time / 1000;
+//        user.setCreatedAt(new Long(time).intValue());
+//        user.setUpdatedAt(new Long(time).intValue());
+//        user.setSign("这个家伙很懒，什么也不说...");
+//        long id = userService.saveUser(user);
+//        if(id > 0){
+//            user.setPassword(null);
+//            user.setCreatedAt(null);
+//            user.setUpdatedAt(null);
+//            result.setResult(Constant.HTTP_RESULT_SUCCEED);
+//            result.setDesc("成功");
+//            result.putDataObject("user" , user);
+//            StringUtil.outputStream(response , StringUtil.result(result));
+//        } else {
+//            result.setResult(Constant.HTTP_RESULT_ERROR_SQL_SAVE);
+//            result.setDesc("数据存储异常");
+//            StringUtil.outputStream(response , StringUtil.result(result));
+//        }
     }
 
     @ApiOperation(value = "获取用户信息", httpMethod = "POST", produces = "application/json")
@@ -167,14 +169,16 @@ public class UserController {
 
     }
 
+    @ApiOperation(value = "获取验证码", httpMethod = "POST", produces = "application/json")
     @RequestMapping(value = "/verify" , method = {RequestMethod.POST})
-    public void verify(HttpServletRequest request, HttpServletResponse response) throws Exception{
-        String username = request.getParameter("username");
+    public void verify(@ApiParam(name = "username", required = true, value = "手机号码") @RequestParam("username") String username,
+                       @ApiParam(name = "type", required = true, value = "验证码类型 1、注册2、重置") @RequestParam("type") int type,
+            HttpServletRequest request, HttpServletResponse response) throws Exception{
         Result result = new Result();
         if(username.isEmpty()) {
             result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
             result.setDesc("请求参数为空");
-            StringUtil.outputStream(response , StringUtil.result(result));
+            result.write(response);
             return;
         }
 
@@ -184,6 +188,7 @@ public class UserController {
         time = time / 1000;
         verify.setPhone(username);
         verify.setVerifycode(randomNum);
+        verify.setType(type);
         verify.setDuration(60 * 1000);
         verify.setCreatedAt(new Long(time).intValue());
         verify.setStatus(0);
@@ -192,14 +197,16 @@ public class UserController {
         if(code < 0){
             result.setResult(Constant.HTTP_RESULT_ERROR);
             result.setDesc("存储失败");
-            StringUtil.outputStream(response , StringUtil.result(result));
+            result.write(response);
             return;
         }
 
+        // 发送验证码
+        // ****
 
-
-
-
+        result.setResult(Constant.HTTP_RESULT_SUCCEED);
+        result.setDesc("发送成功");
+        result.write(response);
     }
 
     @RequestMapping(value = "/restPwd" , method = {RequestMethod.POST})

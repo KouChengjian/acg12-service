@@ -30,12 +30,12 @@
 
     <mvc:default-servlet-handler/>
     <!-- 视图解析器 解析jsp解析，默认使用jstl标签，classpath下的得有jstl的包 -->
-    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
-        <!--&lt;!&ndash; 配置jsp路径的前缀 &ndash;&gt;-->
-        <!--<property name="prefix" value="/WEB-INF/jsp/"/>-->
-        <!--&lt;!&ndash; 配置jsp路径的后缀 &ndash;&gt;-->
-        <!--<property name="suffix" value=".jsp"/>-->
-    <!--</bean>-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 配置jsp路径的前缀 -->
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <!-- 配置jsp路径的后缀 -->
+        <property name="suffix" value=".jsp"/>
+    </bean>
 
     <!-- 自定义参数绑定 -->
     <!--<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
@@ -84,6 +84,8 @@
 
     <!-- 将 springSwaggerConfig加载到spring容器 -->
     <bean class="com.acg12.conf.SwaggerConfig"/>
+
+    <bean class="com.acg12.conf.Config"/>
 
     <!-- 缓存配置 -->
     <!-- 启用缓存注解功能(请将其配置在Spring主配置文件中) -->

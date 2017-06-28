@@ -1,10 +1,5 @@
 package com.acg12;
 
-import com.acg12.beans.Video;
-import com.acg12.utils.HttpUtil;
-
-import java.util.List;
-
 /**
  * Created by kouchengjian on 2017/3/7.
  */
@@ -29,6 +24,7 @@ public class test {
 
         System.err.printf(System.getProperties().getProperty("os.name"));
     }
+
 
 
 }

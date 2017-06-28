@@ -9,12 +9,14 @@ public interface VerifyMapper {
 
     int insert(Verify verify);
 
+    int deleteVerify(int id);
+
+    int updateVerify(Verify verify);
+
     Verify queryVerify(int id);
 
     Verify queryVerifyCode(int code);
 
-    int deleteVerify(int id);
-
-    int updateVerify(Verify verify);
+    Verify query(String phone , String verify , int type);
 
 }

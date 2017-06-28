@@ -5,6 +5,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 /**
@@ -12,8 +15,8 @@ import java.util.List;
  */
 public class Result {
 
-    private int result;
-    private String desc;
+    private int result = -1;
+    private String desc = "未初始化";
     private JSONObject data = new JSONObject();
 
     public int getResult() {
@@ -56,6 +59,25 @@ public class Result {
             JSONArray json = new JSONArray(gson.toJson(object));
             data.put(key , json);
         }catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void write(HttpServletResponse response){
+        JSONObject json = new JSONObject();
+        try{
+            json.put("result", getResult());
+            json.put("desc",   getDesc());
+            json.put("data",   getData());
+            OutputStream outputStream = response.getOutputStream();
+            response.setHeader("content-type", "application/json;charset=UTF-8");
+            byte[] dataByteArr = json.toString().getBytes("UTF-8");
+            outputStream.write(dataByteArr);
+            outputStream.flush();
+            outputStream.close();
+        } catch (JSONException e){
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

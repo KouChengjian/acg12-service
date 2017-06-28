@@ -8,14 +8,15 @@
         <result column="verifycode" property="verifycode" jdbcType="INTEGER" />
         <result column="duration" property="duration" jdbcType="INTEGER" />
         <result column="status" property="status" jdbcType="INTEGER" />
+        <result column="type" property="type" jdbcType="INTEGER" />
         <result column="createdAt" property="createdAt" jdbcType="INTEGER" />
     </resultMap>
 
     <insert id="insert" parameterType="com.acg12.beans.Verify"
             useGeneratedKeys="true" keyProperty="id">
-        insert into verify (id,phone,verifycode,duration,status,createdAt)
+        insert into verify (id,phone,verifycode,duration,status,type,createdAt)
         values (#{id,jdbcType=INTEGER},#{phone,jdbcType=VARCHAR}, #{verifycode,jdbcType=INTEGER},
-         #{duration,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{createdAt,jdbcType=INTEGER})
+         #{duration,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{type,jdbcType=INTEGER},#{createdAt,jdbcType=INTEGER})
     </insert>
 
     <delete id="deleteUser" parameterType="int">
@@ -23,7 +24,7 @@
     </delete>
 
     <update id="updateVerify" parameterType="com.acg12.beans.Verify">
-        update verify set phone=#{phone},verifycode=#{verifycode},duration=#{duration},status=#{status} where id=#{id}
+        update verify set phone=#{phone},verifycode=#{verifycode},duration=#{duration},status=#{status},type=#{type} where id=#{id}
     </update>
 
     <select id="queryVerifyList" resultType="com.acg12.beans.Verify">
@@ -36,6 +37,10 @@
 
     <select id="queryVerifyCode" parameterType="int" resultType="com.acg12.beans.Verify">
         select * from verify where verifycode = #{verifycode}
+    </select>
+
+    <select id="query" resultType="com.acg12.beans.Verify">
+        select * from verify where phone = #{phone} or verifycode = #{verifycode} or type = #{type}
     </select>
 
 </mapper>
