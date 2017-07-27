@@ -1,6 +1,7 @@
 package com.acg12.mapper;
 
 import com.acg12.beans.Verify;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * Created by Administrator on 2017/5/31.
@@ -17,6 +18,6 @@ public interface VerifyMapper {
 
     Verify queryVerifyCode(int code);
 
-    Verify query(String phone , String verify , int type);
+    Verify query(@Param(value = "phone") String phone ,@Param(value = "verifycode") int verify ,@Param(value = "type") int type);
 
 }

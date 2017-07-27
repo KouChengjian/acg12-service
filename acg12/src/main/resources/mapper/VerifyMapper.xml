@@ -40,7 +40,7 @@
     </select>
 
     <select id="query" resultType="com.acg12.beans.Verify">
-        select * from verify where phone = #{phone} or verifycode = #{verifycode} or type = #{type}
+        select * from verify where phone = #{phone} and verifycode = #{verifycode} and type = #{type}
     </select>
 
 </mapper>

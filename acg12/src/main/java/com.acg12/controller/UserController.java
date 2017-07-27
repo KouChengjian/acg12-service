@@ -13,6 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -84,10 +85,9 @@ public class UserController {
     @RequestMapping(value = "/register" , method = {RequestMethod.POST })
     public void register(@ApiParam(name = "username", required = true, value = "手机号码") @RequestParam("username") String username,
                          @ApiParam(name = "password", required = true, value = "密码") @RequestParam("password") String password,
-                         @ApiParam(name = "verify", required = true, value = "密码") @RequestParam("verify") int verify,
+                         @ApiParam(name = "verify", required = true, value = "验证码") @RequestParam("verify") int verify,
             HttpServletRequest request, HttpServletResponse response) throws Exception{
-        Verify ver;
-        User user = new User();
+
         Result result = new Result();
 
         if(username.isEmpty()|| password.isEmpty() || verify == 0) {
@@ -97,7 +97,7 @@ public class UserController {
             return;
         }
 
-        ver = verifyService.query(username ,verify+"" , 1);
+        Verify ver = verifyService.query(username ,verify , 1);
         if(ver == null){
             result.setResult(Constant.HTTP_RESULT_ERROR);
             result.setDesc("验证码错误");
@@ -105,37 +105,53 @@ public class UserController {
             return;
         }
 
-        int create = ver.getCreatedAt();
-        long time = System.currentTimeMillis();
-        time = time / 1000;
-        int present = new Long(time).intValue();
-        if(present - create > 60){
+        int duration = ver.getDuration();
+        if(duration != 0){
+            int create = ver.getCreatedAt();
+            long time = System.currentTimeMillis();
+            int present = new Long(time).intValue();
+            if(present - create > duration){
+                result.setResult(Constant.HTTP_RESULT_ERROR);
+                result.setDesc("验证码过期");
+                result.write(response);
+                return;
+            }
+        }
+
+        User user = userService.queryUserName(username);
+        if(user != null){
             result.setResult(Constant.HTTP_RESULT_ERROR);
-            result.setDesc("验证码过期");
+            result.setDesc("当前手机已经注册");
             result.write(response);
             return;
         }
-//        user.setUsername(username);
-//        user.setPassword(password);
-//        long time = System.currentTimeMillis();
-//        time = time / 1000;
-//        user.setCreatedAt(new Long(time).intValue());
-//        user.setUpdatedAt(new Long(time).intValue());
-//        user.setSign("这个家伙很懒，什么也不说...");
-//        long id = userService.saveUser(user);
-//        if(id > 0){
-//            user.setPassword(null);
-//            user.setCreatedAt(null);
-//            user.setUpdatedAt(null);
-//            result.setResult(Constant.HTTP_RESULT_SUCCEED);
-//            result.setDesc("成功");
-//            result.putDataObject("user" , user);
-//            StringUtil.outputStream(response , StringUtil.result(result));
-//        } else {
-//            result.setResult(Constant.HTTP_RESULT_ERROR_SQL_SAVE);
-//            result.setDesc("数据存储异常");
-//            StringUtil.outputStream(response , StringUtil.result(result));
-//        }
+
+        user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+
+        long time = System.currentTimeMillis();
+        time = time / 1000;
+        user.setCreatedAt(new Long(time).intValue());
+        user.setUpdatedAt(new Long(time).intValue());
+        user.setSex(1);
+        user.setSign("这个家伙很懒，什么也不说...");
+        user.setNick("取名字最讨厌啦");
+        user.setAvatar("http://139.196.46.40:8080/res/images/defaultAvatar.png");
+        long id = userService.saveUser(user);
+        if(id > 0){
+            user.setPassword(null);
+            user.setCreatedAt(null);
+            user.setUpdatedAt(null);
+            result.setResult(Constant.HTTP_RESULT_SUCCEED);
+            result.setDesc("成功");
+            result.putDataObject("user" , user);
+            result.write(response);
+        } else {
+            result.setResult(Constant.HTTP_RESULT_ERROR_SQL_SAVE);
+            result.setDesc("数据存储异常");
+            result.write(response);
+        }
     }
 
     @ApiOperation(value = "获取用户信息", httpMethod = "POST", produces = "application/json")

@@ -3,6 +3,7 @@ package com.acg12.service;
 import com.acg12.beans.Verify;
 import com.acg12.mapper.VerifyMapper;
 import com.acg12.service.base.VerifyService;
+import org.apache.ibatis.annotations.Param;
 
 import javax.annotation.Resource;
 
@@ -40,7 +41,7 @@ public class VerifyServiceImpl implements VerifyService {
     }
 
     @Override
-    public Verify query(String phone, String verify, int type) {
+    public Verify query(String phone,int verify, int type) {
         return verifyMapper.query(phone,verify,type);
     }
 }
