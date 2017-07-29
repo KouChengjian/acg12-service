@@ -97,7 +97,7 @@ public class UserController {
             return;
         }
 
-        Verify ver = verifyService.query(username ,verify , 1);
+        Verify ver = verifyService.query(username ,verify , 0,1);
         if(ver == null){
             result.setResult(Constant.HTTP_RESULT_ERROR);
             result.setDesc("验证码错误");
@@ -152,6 +152,9 @@ public class UserController {
             result.setDesc("数据存储异常");
             result.write(response);
         }
+
+        ver.setStatus(1);
+        verifyService.updateVerify(ver);
     }
 
     @ApiOperation(value = "获取用户信息", httpMethod = "POST", produces = "application/json")

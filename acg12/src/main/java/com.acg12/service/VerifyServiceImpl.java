@@ -41,7 +41,7 @@ public class VerifyServiceImpl implements VerifyService {
     }
 
     @Override
-    public Verify query(String phone,int verify, int type) {
-        return verifyMapper.query(phone,verify,type);
+    public Verify query(String phone,int verify, int status, int type) {
+        return verifyMapper.query(phone,verify,status ,type);
     }
 }

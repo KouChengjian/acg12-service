@@ -18,6 +18,6 @@ public interface VerifyMapper {
 
     Verify queryVerifyCode(int code);
 
-    Verify query(@Param(value = "phone") String phone ,@Param(value = "verifycode") int verify ,@Param(value = "type") int type);
+    Verify query(@Param(value = "phone") String phone ,@Param(value = "verifycode") int verify , @Param(value = "status") int status,@Param(value = "type") int type);
 
 }
