@@ -22,7 +22,7 @@
         <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
     <!--</context:component-scan>-->
 
-    <!--<mvc:resources mapping="/swagger/**" location="/WEB-INF/swagger/"/>-->
+    <!--<mvc:resources mapping="/html/**" location="/resources/"/>-->
 
     <!--<mvc:annotation-driven conversion-service="conversionService"
                    validator="validator"/>-->
