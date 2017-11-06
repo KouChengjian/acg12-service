@@ -1,8 +1,7 @@
 package com.acg12.service;
 
-import com.acg12.beans.Feedback;
-import com.acg12.mapper.FeedbackMapper;
-import com.acg12.mapper.UserMapper;
+import com.acg12.entity.po.Feedback;
+import com.acg12.dao.FeedbackMapper;
 import com.acg12.service.base.FeedbackService;
 
 import javax.annotation.Resource;

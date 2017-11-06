@@ -1,9 +1,6 @@
 package com.acg12.service.base;
 
-import com.acg12.beans.User;
 import org.json.JSONObject;
-
-import java.util.List;
 
 /**
  * Created by kouchengjian on 2017/3/9.

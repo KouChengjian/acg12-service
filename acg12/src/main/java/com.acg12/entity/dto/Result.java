@@ -1,4 +1,4 @@
-package com.acg12.beans;
+package com.acg12.entity.dto;
 
 import com.google.gson.Gson;
 import org.json.JSONArray;

@@ -1,4 +1,4 @@
-package com.acg12.beans;
+package com.acg12.entity.po;
 
 import java.util.List;
 

@@ -1,8 +1,7 @@
 package com.acg12.service;
 
-import com.acg12.beans.Update;
-import com.acg12.mapper.FeedbackMapper;
-import com.acg12.mapper.UpdateAppMapper;
+import com.acg12.entity.po.Update;
+import com.acg12.dao.UpdateAppMapper;
 import com.acg12.service.base.UpdateAppService;
 
 import javax.annotation.Resource;

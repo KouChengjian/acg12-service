@@ -1,8 +1,8 @@
 package com.acg12.service;
 
-import com.acg12.beans.Album;
-import com.acg12.beans.Palette;
-import com.acg12.beans.Video;
+import com.acg12.entity.po.Album;
+import com.acg12.entity.po.Palette;
+import com.acg12.entity.po.Video;
 import com.acg12.service.base.ResService;
 import com.acg12.utils.HttpUtil;
 import com.acg12.utils.StringUtil;

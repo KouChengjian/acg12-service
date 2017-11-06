@@ -1,7 +1,7 @@
-package com.acg12.mapper;
+package com.acg12.dao;
 
 
-import com.acg12.beans.User;
+import com.acg12.entity.po.User;
 
 import java.util.List;
 

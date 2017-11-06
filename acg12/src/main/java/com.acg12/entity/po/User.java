@@ -1,4 +1,4 @@
-package com.acg12.beans;
+package com.acg12.entity.po;
 
 /**
  * Created by kouchengjian on 2017/3/2.

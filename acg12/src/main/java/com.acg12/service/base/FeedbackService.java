@@ -1,7 +1,6 @@
 package com.acg12.service.base;
 
-import com.acg12.beans.Feedback;
-import com.acg12.beans.Verify;
+import com.acg12.entity.po.Feedback;
 
 /**
  * Created by Administrator on 2017/6/21.

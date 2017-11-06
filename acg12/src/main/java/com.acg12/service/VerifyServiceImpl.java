@@ -1,9 +1,8 @@
 package com.acg12.service;
 
-import com.acg12.beans.Verify;
-import com.acg12.mapper.VerifyMapper;
+import com.acg12.entity.po.Verify;
+import com.acg12.dao.VerifyMapper;
 import com.acg12.service.base.VerifyService;
-import org.apache.ibatis.annotations.Param;
 
 import javax.annotation.Resource;
 

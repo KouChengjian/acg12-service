@@ -1,7 +1,11 @@
-package com.acg12.controller;
+package com.acg12.web.base;
 
-import com.acg12.beans.*;
 import com.acg12.conf.Constant;
+import com.acg12.entity.dto.Result;
+import com.acg12.entity.po.Feedback;
+import com.acg12.entity.po.Update;
+import com.acg12.entity.po.User;
+import com.acg12.entity.po.Verify;
 import com.acg12.service.FeedbackServiceImpl;
 import com.acg12.service.UpdateAppServiceImpl;
 import com.acg12.service.UserServiceImpl;
@@ -12,8 +16,6 @@ import com.acg12.utils.StringUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

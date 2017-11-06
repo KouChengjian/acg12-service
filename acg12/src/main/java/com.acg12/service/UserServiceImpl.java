@@ -1,7 +1,7 @@
 package com.acg12.service;
 
-import com.acg12.beans.User;
-import com.acg12.mapper.UserMapper;
+import com.acg12.entity.po.User;
+import com.acg12.dao.UserMapper;
 import com.acg12.service.base.UserService;
 
 import javax.annotation.Resource;

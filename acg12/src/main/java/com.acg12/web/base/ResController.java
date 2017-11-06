@@ -1,6 +1,6 @@
-package com.acg12.controller;
+package com.acg12.web.base;
 
-import com.acg12.beans.Result;
+import com.acg12.entity.dto.Result;
 import com.acg12.conf.Constant;
 import com.acg12.service.ResServiceImpl;
 import com.acg12.utils.StringUtil;

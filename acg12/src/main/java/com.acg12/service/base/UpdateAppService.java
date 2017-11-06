@@ -1,6 +1,6 @@
 package com.acg12.service.base;
 
-import com.acg12.beans.Update;
+import com.acg12.entity.po.Update;
 
 /**
  * Created by Administrator on 2017/6/21.

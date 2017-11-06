@@ -1,6 +1,6 @@
 package com.acg12.service.base;
 
-import com.acg12.beans.User;
+import com.acg12.entity.po.User;
 
 import java.util.List;
 
