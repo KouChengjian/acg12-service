@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -64,7 +64,7 @@
                                 <a class="J_menuItem" href="index_v2.html">图片管理</a>
                             </li>
                             <li>
-                                <a class="J_menuItem" href="admin_bangumi.html">番剧管理</a>
+                                <a class="J_menuItem" href="admin_bangumi.jsp">番剧管理</a>
                             </li>
                         </ul>
                     </li>

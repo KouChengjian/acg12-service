@@ -1,49 +1,308 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>番剧管理</title>
 
-    <link rel="shortcut icon" href="favicon.ico">
-    <link href="../css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-
-    <link href="../css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../css/admin/admin-banguimi.css" rel="stylesheet">
 </head>
-<body class="gray-bg">
-    <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>可编辑表格</h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="table_data_tables.html#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                           <ul class="dropdown-menu dropdown-user">
-                                <li><a href="table_data_tables.html#">选项1</a>
-                                </li>
-                                <li><a href="table_data_tables.html#">选项2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
+<body >
+    <div class="main-inner">
+
+        <div class="bangumi-index-content">
+
+            <div class="v_container">
+
+            </div>
+
+            <div class="bgm-index-nav">
+
+                <p class="bgm-nav-title">筛选</p>
+
+                <div class="special_selector">
+
+                    <div class="special_mbox">
+                        <div class="left">
+                            <span>类型</span>
+                        </div>
+
+                        <div class="right tab_nav" data-pid="4">
+                            <a href="javascript:" data-value="0" class="tab-i ckc on">全部</a>
+                            <a href="javascript:" data-value="1" class="tab-i ckc">正片</a>
+                            <a href="javascript:" data-value="3" class="tab-i ckc">剧场版</a>
+                            <a href="javascript:" data-value="4" class="tab-i ckc">其他</a>
+                        </div>
+
+                    </div>
+
+                    <div class="special_mbox">
+                        <div class="left">
+                            <span>地区</span>
+                        </div>
+                        <div class="right tab_area" data-pid="2">
+                            <a href="javascript:;" data-value="0" class="tab-i ckc on">全部</a>
+                            <a href="javascript:;" data-value="2" class="tab-i ckc">日本</a>
+                            <a href="javascript:;" data-value="3" class="tab-i ckc">美国</a>
+                            <a href="javascript:;" data-value="4" class="tab-i ckc">其他</a>
                         </div>
                     </div>
 
-                    <div class="ibox-content">
-                        <div class="">
-                            <a onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">添加行</a>
+                    <div class="special_mbox">
+                        <div class="left">
+                            <span>状态</span>
+                        </div>
+                        <div class="right tab_status" data-pid="5">
+                            <a href="javascript:;" data-value="0" class="tab-i ckc on">全部</a>
+                            <a href="javascript:;" data-value="2" class="tab-i ckc">完结</a>
+                            <a href="javascript:;" data-value="1" class="tab-i ckc">连载</a>
+                        </div>
+                    </div>
+
+                    <div class="special_mbox">
+                        <div class="left">
+                            <span>时间</span>
+                        </div>
+                        <div class="right tab_year" data-pid="3">
+                            <a href="javascript:;" data-value="0" class="tab-i ckc on">全部</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="2017">2017</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="2016">2016</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="2015">2015</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="2014">2014</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="2013">2013</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="2012">2012</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="2011">2011</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="2010">2010</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="2009">2009</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="2008">2008</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="2007">2007</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="2006">2006</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="2005">2005</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="2004">2004</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="2003">2003</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="2002">2002</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="2001">2001</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="2000">2000</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1999">1999</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1998">1998</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1997">1997</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1996">1996</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1995">1995</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1994">1994</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1993">1993</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1992">1992</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1991">1991</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1990">1990</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1989">1989</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1988">1988</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1987">1987</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1986">1986</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1985">1985</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1984">1984</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1983">1983</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1982">1982</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1981">1981</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1980">1980</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1979">1979</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1978">1978</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1977">1977</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1976">1976</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1975">1975</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1974">1974</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1973">1973</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1972">1972</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1970">1970</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1969">1969</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1963">1963</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1957">1957</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="1928">1928</a>
+
+                            <div class="height-trigger expand">展开</div>
+                        </div>
+                    </div>
+
+                    <div class="special_mbox">
+                        <div class="left">
+                            季度
+                        </div>
+
+                        <div class="right tab_update" data-pid="7">
+                            <a href="javascript:;" data-value="0" class="tab-i ckc on">全部</a>
+                            <a href="javascript:;" data-value="1" class="tab-i ckc">1月</a>
+                            <a href="javascript:;" data-value="2" class="tab-i ckc">4月</a>
+                            <a href="javascript:;" data-value="3" class="tab-i ckc">7月</a>
+                            <a href="javascript:;" data-value="4" class="tab-i ckc">10月</a>
+                        </div>
+
+                    </div>
+
+                    <div class="special_mbox">
+                        <div class="left">
+                            <span>风格</span>
+                        </div>
+                        <div class="right tab_style" data-pid="6">
+                            <a href="javascript:;" class="tab-i ckc on" data-value="">全部</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="117">轻改</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="81">萌系</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="70">搞笑</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="20">热血</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="104">催泪</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="5">后宫</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="105">机战</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="82">基腐</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="110">恋爱</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="6">百合</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="125">伪娘</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="71">科幻</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="115">乙女</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="57">奇幻</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="124">推理</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="72">音乐</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="93">校园</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="121">偶像</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="127">社团</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="23">运动</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="9">少女</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="94">装逼</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="103">智斗</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="95">战斗</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="16">日常</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="122">魔法</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="21">治愈</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="98">声控</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="44">泡面</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="67">历史</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="87">猎奇</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="22">致郁</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="88">时泪</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="106">美食</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="24">少儿</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="138">励志</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="140">职场</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="139">神魔</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="141">萝莉</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="135">漫改</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="137">原创</a>
+
+                            <a href="javascript:" class="tab-i ckc" data-value="136">游戏改</a>
+
+                            <div class="height-trigger expand">展开</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <script>
+            $(function(){
+                $(".height-trigger").on("click", function (e) {
+                    console.log("值为:","sssss");
+
+                    var i = $(e.currentTarget), n = i.closest(".right"),
+                        a = 30 * t.Configure.shrinkPid[n.attr("data-pid")], r = n[0].scrollHeight + 30;
+                    i.hasClass("expand") ? (n.css({
+                        maxHeight: r,
+                        height: r
+                    }), i.html("展开"), i.removeClass("expand").addClass("shrink")) : (n.css({
+                        maxHeight: a,
+                        height: a
+                    }), i.html("收起"), i.removeClass("shrink").addClass("expand")), t.resizeMinH()
+                });
+            });
+        </script>
     </div>
+
 </body>
 </html>
