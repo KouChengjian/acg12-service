@@ -2,14 +2,12 @@
 <!DOCTYPE configuration
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
-<configuration>
-
-    <!-- 全局setting配置，根据需要添加 -->
+<configuration >
 
     <!-- 配置别名 -->
     <typeAliases>
         <!-- 批量扫描别名 -->
-        <package name="com.acg12.beans"/>
+        <package name="com.acg12.entity.po"/>
     </typeAliases>
 
     <!-- 配置mapper
@@ -21,5 +19,7 @@
         <mapper resource="mapper/VerifyMapper.xml" />
         <mapper resource="mapper/FeedbackMapper.xml" />
         <mapper resource="mapper/UpdateAppMapper.xml" />
+
+        <mapper resource="mapper/BangumiMapper.xml" />
     </mappers>
 </configuration>
