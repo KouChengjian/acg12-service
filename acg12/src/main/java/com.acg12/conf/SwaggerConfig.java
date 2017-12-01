@@ -25,7 +25,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(buildApiInf())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.acg12.controller"))//controller路径
+                .apis(RequestHandlerSelectors.basePackage("com.acg12.web"))//controller路径
                 .paths(PathSelectors.any())
                 .build();
     }

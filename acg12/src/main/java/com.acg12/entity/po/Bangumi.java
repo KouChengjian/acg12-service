@@ -3,27 +3,31 @@ package com.acg12.entity.po;
 /**
  * Created by Administrator on 2017/11/14.
  */
-public class Bangumi {
+public class Bangumi extends Param {
 
-    private Integer objectId;
+    private Integer bangumitId;
     private String platform; // 来自平台
     private String title;
     private String cover;
     private String tags;
     private String intro; // 简介
-    private String startPlayTime; // 开始播放时间
-    private String nowStatus; // 现在状态
-    private String nowTotal; // 现在集数
     private String voiceActor; // 声优
-    private String createTime;
-    private String updateTime;
+    private String nowStatus; // 现在状态 1 连载 2 完结
+    private String totalCount; // 总集数
+    private String serializeWeek; // 连载更新周
+    private Integer serializeTime; // 连载更新时间
+    private Integer startPlayTime; // 开始播放时间
 
-    public Integer getObjectId() {
-        return objectId;
+
+    public Bangumi(){
     }
 
-    public void setObjectId(Integer objectId) {
-        this.objectId = objectId;
+    public Integer getBangumitId() {
+        return bangumitId;
+    }
+
+    public void setBangumitId(Integer bangumitId) {
+        this.bangumitId = bangumitId;
     }
 
     public String getPlatform() {
@@ -66,28 +70,12 @@ public class Bangumi {
         this.intro = intro;
     }
 
-    public String getStartPlayTime() {
-        return startPlayTime;
-    }
-
-    public void setStartPlayTime(String startPlayTime) {
-        this.startPlayTime = startPlayTime;
-    }
-
     public String getNowStatus() {
         return nowStatus;
     }
 
     public void setNowStatus(String nowStatus) {
         this.nowStatus = nowStatus;
-    }
-
-    public String getNowTotal() {
-        return nowTotal;
-    }
-
-    public void setNowTotal(String nowTotal) {
-        this.nowTotal = nowTotal;
     }
 
     public String getVoiceActor() {
@@ -98,19 +86,53 @@ public class Bangumi {
         this.voiceActor = voiceActor;
     }
 
-    public String getCreateTime() {
-        return createTime;
+    public String getTotalCount() {
+        return totalCount;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
+    public void setTotalCount(String totalCount) {
+        this.totalCount = totalCount;
     }
 
-    public String getUpdateTime() {
-        return updateTime;
+    public String getSerializeWeek() {
+        return serializeWeek;
     }
 
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
+    public void setSerializeWeek(String serializeWeek) {
+        this.serializeWeek = serializeWeek;
+    }
+
+    public Integer getSerializeTime() {
+        return serializeTime;
+    }
+
+    public void setSerializeTime(Integer serializeTime) {
+        this.serializeTime = serializeTime;
+    }
+
+    public Integer getStartPlayTime() {
+        return startPlayTime;
+    }
+
+    public void setStartPlayTime(Integer startPlayTime) {
+        this.startPlayTime = startPlayTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Bangumi{" +
+                "bangumitId=" + bangumitId +
+                ", platform='" + platform + '\'' +
+                ", title='" + title + '\'' +
+                ", cover='" + cover + '\'' +
+                ", tags='" + tags + '\'' +
+                ", intro='" + intro + '\'' +
+                ", voiceActor='" + voiceActor + '\'' +
+                ", nowStatus='" + nowStatus + '\'' +
+                ", totalCount='" + totalCount + '\'' +
+                ", serializeWeek='" + serializeWeek + '\'' +
+                ", serializeTime=" + serializeTime + '\'' +
+                ", startPlayTime=" + startPlayTime +
+                '}';
     }
 }

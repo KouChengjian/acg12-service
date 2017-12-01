@@ -1,198 +1,89 @@
 package com.acg12.entity.po;
 
-import java.util.List;
+/**
+ * Created by Administrator on 2017/12/1.
+ */
+public class Video extends Param {
 
-public class Video {
+    private Integer vId;
+    private Integer bangumitId;
+    private String cover;
+    private String index;
+    private String indexTitle;
+    private String danmaku; // 弹幕
+    private String bilibiliUrl; // bilibili
+    private String baiduyunUrl; // 百度
+    private String aiqiyiUrl; // 爱奇艺
 
-	private String aid;// 视频av号
-	private String typeid;// 视频类型
-	private String title;// 视频标题
-	private String sbutitle;
-	private String play;// 视频播放数
-	private String review;// 评论数
-	private String videoReview;// 视频弹幕数
-	private String favorites;// 视频收藏数
-	private String mid; // 弹幕id
-	private String author;// Up主
-	private String description;// 视频简介
-	private String create;// 视频发布时间
-	private String pic;// 视频封面地址
-	private String credit; // 创建时间
-	private String coins;// 视频硬币数
-	private String duration;// 视频长度
-	// 后续添加的字段
-	private String bmId; // 番剧id
-	private String urlInfo;// 链接详细信息
-	private String updateContent;// 更新信息
-	
-	private List<Video> bangumiVideoList; // 番剧列表
-	private List<Video> quarterVideoList; // 季度视频
+    public Integer getvId() {
+        return vId;
+    }
 
-	public String getAid() {
-		return aid;
-	}
+    public void setvId(Integer vId) {
+        this.vId = vId;
+    }
 
-	public void setAid(String aid) {
-		this.aid = aid;
-	}
+    public Integer getBangumitId() {
+        return bangumitId;
+    }
 
-	public String getTypeid() {
-		return typeid;
-	}
+    public void setBangumitId(Integer bangumitId) {
+        this.bangumitId = bangumitId;
+    }
 
-	public void setTypeid(String typeid) {
-		this.typeid = typeid;
-	}
+    public String getCover() {
+        return cover;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public String getIndex() {
+        return index;
+    }
 
-	public String getSbutitle() {
-		return sbutitle;
-	}
+    public void setIndex(String index) {
+        this.index = index;
+    }
 
-	public void setSbutitle(String sbutitle) {
-		this.sbutitle = sbutitle;
-	}
+    public String getIndexTitle() {
+        return indexTitle;
+    }
 
-	public String getPlay() {
-		return play;
-	}
+    public void setIndexTitle(String indexTitle) {
+        this.indexTitle = indexTitle;
+    }
 
-	public void setPlay(String play) {
-		this.play = play;
-	}
+    public String getDanmaku() {
+        return danmaku;
+    }
 
-	public String getReview() {
-		return review;
-	}
+    public void setDanmaku(String danmaku) {
+        this.danmaku = danmaku;
+    }
 
-	public void setReview(String review) {
-		this.review = review;
-	}
+    public String getBilibiliUrl() {
+        return bilibiliUrl;
+    }
 
-	public String getVideoReview() {
-		return videoReview;
-	}
+    public void setBilibiliUrl(String bilibiliUrl) {
+        this.bilibiliUrl = bilibiliUrl;
+    }
 
-	public void setVideoReview(String videoReview) {
-		this.videoReview = videoReview;
-	}
+    public String getBaiduyunUrl() {
+        return baiduyunUrl;
+    }
 
-	public String getFavorites() {
-		return favorites;
-	}
+    public void setBaiduyunUrl(String baiduyunUrl) {
+        this.baiduyunUrl = baiduyunUrl;
+    }
 
-	public void setFavorites(String favorites) {
-		this.favorites = favorites;
-	}
+    public String getAiqiyiUrl() {
+        return aiqiyiUrl;
+    }
 
-	public String getMid() {
-		return mid;
-	}
-
-	public void setMid(String mid) {
-		this.mid = mid;
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getCreate() {
-		return create;
-	}
-
-	public void setCreate(String create) {
-		this.create = create;
-	}
-
-	public String getPic() {
-		return pic;
-	}
-
-	public void setPic(String pic) {
-		this.pic = pic;
-	}
-
-	public String getCredit() {
-		return credit;
-	}
-
-	public void setCredit(String credit) {
-		this.credit = credit;
-	}
-
-	public String getCoins() {
-		return coins;
-	}
-
-	public void setCoins(String coins) {
-		this.coins = coins;
-	}
-
-	public String getDuration() {
-		return duration;
-	}
-
-	public void setDuration(String duration) {
-		this.duration = duration;
-	}
-
-	public String getUrlInfo() {
-		return urlInfo;
-	}
-
-	public void setUrlInfo(String urlInfo) {
-		this.urlInfo = urlInfo;
-	}
-
-	public String getUpdateContent() {
-		return updateContent;
-	}
-
-	public void setUpdateContent(String updateContent) {
-		this.updateContent = updateContent;
-	}
-
-	public List<Video> getBangumiVideoList() {
-		return bangumiVideoList;
-	}
-
-	public void setBangumiVideoList(List<Video> bangumiVideoList) {
-		this.bangumiVideoList = bangumiVideoList;
-	}
-
-	public List<Video> getQuarterVideoList() {
-		return quarterVideoList;
-	}
-
-	public void setQuarterVideoList(List<Video> quarterVideoList) {
-		this.quarterVideoList = quarterVideoList;
-	}
-
-	public String getBmId() {
-		return bmId;
-	}
-
-	public void setBmId(String bmId) {
-		this.bmId = bmId;
-	}
+    public void setAiqiyiUrl(String aiqiyiUrl) {
+        this.aiqiyiUrl = aiqiyiUrl;
+    }
 }

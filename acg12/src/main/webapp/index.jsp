@@ -14,10 +14,10 @@
 <script>
     function ssss() {
         <%
-          for (int i = 0 ; i < 10 ; i++){
-              out.println("hello world");
-              System.out.println("hello world");
-          }
+//          for (int i = 0 ; i < 10 ; i++){
+//              out.println("hello world");
+//              System.out.println("hello world");
+//          }
         %>
     }
 </script>

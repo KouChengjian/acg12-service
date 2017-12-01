@@ -1,30 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.acg12.dao.BangumiDao" >
+<mapper namespace="com.acg12.dao.BangumiDao">
 
-    <resultMap id="BaseResultMap" type="com.acg12.entity.po.Bangumi" >
-        <result column="objectId" property="objectId" jdbcType="INTEGER" />
-        <result column="platform" property="platform" jdbcType="VARCHAR" />
-        <result column="title" property="title" jdbcType="VARCHAR" />
+    <resultMap id="BaseResultMap" type="com.acg12.entity.po.Bangumi">
+        <result column="bangumitId" property="bangumitId" jdbcType="INTEGER"/>
+        <result column="platform" property="platform" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="cover" property="cover" jdbcType="VARCHAR"/>
+        <result column="tags" property="tags" jdbcType="VARCHAR"/>
+        <result column="intro" property="intro" jdbcType="VARCHAR"/>
+        <result column="voiceActor" property="voiceActor" jdbcType="VARCHAR"/>
+        <result column="nowStatus" property="nowStatus" jdbcType="VARCHAR"/>
+        <result column="totalCount" property="totalCount" jdbcType="VARCHAR"/>
+        <result column="serializeWeek" property="serializeWeek" jdbcType="VARCHAR"/>
+        <result column="serializeTime" property="serializeTime" jdbcType="INTEGER"/>
+        <result column="startPlayTime" property="startPlayTime" jdbcType="INTEGER"/>
+        <result column="createTime" property="createTime" jdbcType="INTEGER"/>
+        <result column="updateTime" property="updateTime" jdbcType="INTEGER"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.acg12.entity.po.Bangumi" useGeneratedKeys="true" keyProperty="objectId">
-        insert into acg_bangumi (objectId , platform , title)
-        values (#{objectId,jdbcType=INTEGER},#{platform,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR})
+    <insert id="insert" parameterType="com.acg12.entity.po.Bangumi" useGeneratedKeys="true" keyProperty="bangumitId">
+        insert into acg_bangumi (bangumitId , platform , title, cover, tags, intro, voiceActor, nowStatus, totalCount, serializeWeek, serializeTime, startPlayTime, createTime, updateTime)
+        values (#{bangumitId,jdbcType=INTEGER},#{platform,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{cover,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR}, #{intro,jdbcType=VARCHAR}
+        , #{voiceActor,jdbcType=VARCHAR}, #{nowStatus,jdbcType=VARCHAR}, #{totalCount,jdbcType=VARCHAR}, #{serializeWeek,jdbcType=VARCHAR}, #{serializeTime,jdbcType=INTEGER}
+        , #{startPlayTime,jdbcType=INTEGER}, #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER})
     </insert>
 
-    <insert id="insertList" parameterType="java.util.List" useGeneratedKeys="true" >
-        <selectKey resultType="INTEGER" keyProperty="objectId" order="AFTER">
+    <insert id="insertList" parameterType="java.util.List" useGeneratedKeys="true">
+        <selectKey resultType="INTEGER" keyProperty="bangumitId" order="AFTER">
             SELECT
             LAST_INSERT_ID()
         </selectKey>
         insert into acg_bangumi (platform , title)
         values
-        <foreach collection="list" item="item" index="index" separator="," >
+        <foreach collection="list" item="item" index="index" separator=",">
             (#{item.platform},#{item.title})
         </foreach>
     </insert>
 
+
+    <select id="queryList" resultType="com.acg12.entity.po.Bangumi">
+        select * from acg_bangumi
+    </select>
 
     <!--<delete id="deleteUser" parameterType="int">-->
     <!--delete from verify where id=#{id}-->

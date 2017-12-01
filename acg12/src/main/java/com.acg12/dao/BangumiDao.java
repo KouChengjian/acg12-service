@@ -1,6 +1,7 @@
 package com.acg12.dao;
 
 import com.acg12.entity.po.Bangumi;
+import com.acg12.entity.po.Tag;
 
 import java.util.List;
 
@@ -12,4 +13,6 @@ public interface BangumiDao {
     int insert(Bangumi bangumi);
 
     int insertList(List<Bangumi> bangumiList);
+
+    List<Bangumi> queryList();
 }

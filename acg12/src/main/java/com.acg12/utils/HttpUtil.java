@@ -2,7 +2,7 @@ package com.acg12.utils;
 
 import com.acg12.entity.po.Album;
 import com.acg12.entity.po.Palette;
-import com.acg12.entity.po.Video;
+import com.acg12.entity.dto.Video;
 import com.acg12.conf.Constant;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -467,18 +467,26 @@ public class HttpUtil {
             //System.out.println("previewUrl = "+previewUrl);
             Elements bangumi_info_r = main_inner.select("div.bangumi-info-r");
             //System.out.println(bangumi_info_r.toString());
-            Elements title_h = bangumi_info_r.select("h1");
+            Elements b_head = bangumi_info_r.select("div.b-head");
+            Elements title_h = b_head.select("h1");
             //System.out.println(title_h.toString());
             String title = title_h.attr("title");
             video.setTitle(title);
             //System.out.println("title = "+title);
-            Elements taga = bangumi_info_r.select("a");
+            Elements taga = b_head.select("a");
             String label = "";
             for(Element tag:taga){
                 //System.out.println("tag="+tag.text());
                 label += tag.text() +" ";
             }
             video.setSbutitle(label);
+
+            Elements info_cv = bangumi_info_r.select("div.info-row").select(".info-cv") ;
+            Elements info_row_label = info_cv.select("div.info-row-label");
+//            System.out.println(info_row_label.toString());
+            Elements voiceActor = info_row_label.select("span");
+//            System.out.println(voiceActor.size());
+
             //System.out.println("label = "+label);
             Elements info_descs = bangumi_info_r.select("div.info-row,.info-desc-wrp");
             Elements info = info_descs.select("div.info-desc");
@@ -581,7 +589,7 @@ public class HttpUtil {
                         Video vi = new Video();
                         JSONObject item = episodes.getJSONObject(i);
                         vi.setTitle(item.getString("index_title"));
-                        vi.setAid(item.getString("av_id"));
+                        vi.setAid(item.getString("episode_id"));
                         episodesVideoList.add(vi);
                     }
                     video.setBangumiVideoList(episodesVideoList);

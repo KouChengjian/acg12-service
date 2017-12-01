@@ -21,6 +21,7 @@
 
     <mappers>
         <mapper resource="mapper/BangumiMapper.xml" />
+        <mapper resource="mapper/TagsMapper.xml" />
     </mappers>
 
 </configuration>
