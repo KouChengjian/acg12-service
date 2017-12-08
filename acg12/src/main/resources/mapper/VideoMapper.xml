@@ -6,7 +6,7 @@
         <result column="vId" property="vId" jdbcType="INTEGER"/>
         <result column="bangumitId" property="bangumitId" jdbcType="INTEGER"/>
         <result column="cover" property="cover" jdbcType="VARCHAR"/>
-        <result column="index" property="index" jdbcType="VARCHAR"/>
+        <result column="indexNum" property="indexNum" jdbcType="VARCHAR"/>
         <result column="indexTitle" property="indexTitle" jdbcType="VARCHAR"/>
         <result column="danmaku" property="bulletScreen" jdbcType="VARCHAR"/>
         <result column="bilibiliUrl" property="bilibiliUrl" jdbcType="VARCHAR"/>
@@ -17,14 +17,24 @@
     </resultMap>
 
     <insert id="insert" parameterType="com.acg12.entity.po.Video" useGeneratedKeys="true" keyProperty="vId">
-        insert into acg_bangumi_video (vId , bangumitId , cover, index, indexTitle, danmaku, bilibiliUrl, baiduyunUrl, aiqiyiUrl, createTime, updateTime)
-        values (#{vId,jdbcType=INTEGER},#{bangumitId,jdbcType=INTEGER}, #{cover,jdbcType=VARCHAR}, #{index,jdbcType=VARCHAR}, #{indexTitle,jdbcType=VARCHAR}
+        insert into acg_bangumi_video (vId , bangumitId , cover, indexNum, indexTitle, danmaku, bilibiliUrl, baiduyunUrl, aiqiyiUrl, createTime, updateTime)
+        values (#{vId,jdbcType=INTEGER},#{bangumitId,jdbcType=INTEGER}, #{cover,jdbcType=VARCHAR}, #{indexNum,jdbcType=VARCHAR}, #{indexTitle,jdbcType=VARCHAR}
         , #{danmaku,jdbcType=VARCHAR}, #{bilibiliUrl,jdbcType=VARCHAR}, #{baiduyunUrl,jdbcType=VARCHAR}, #{aiqiyiUrl,jdbcType=VARCHAR}
         , #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER})
     </insert>
 
+    <update id="update" parameterType="com.acg12.entity.po.Video">
+        update acg_bangumi_video set bangumitId=#{bangumitId},cover=#{cover},indexNum=#{indexNum},indexTitle=#{indexTitle},danmaku=#{danmaku},bilibiliUrl=#{bilibiliUrl}
+        ,baiduyunUrl=#{baiduyunUrl},aiqiyiUrl=#{aiqiyiUrl},updateTime=#{updateTime}
+        where vId=#{vId}
+    </update>
+
     <select id="queryList" resultType="com.acg12.entity.po.Video">
         select * from acg_bangumi_video
+    </select>
+
+    <select id="queryByBangumiId" resultType="com.acg12.entity.po.Video">
+        select * from acg_bangumi_video where bangumitId = #{bangumitId}
     </select>
 
 </mapper>

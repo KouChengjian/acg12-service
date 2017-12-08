@@ -1,6 +1,9 @@
 package com.acg12.dao;
 
+import com.acg12.entity.po.Bangumi;
+import com.acg12.entity.po.Verify;
 import com.acg12.entity.po.Video;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -11,5 +14,9 @@ public interface VideoDao {
 
     int insert(Video bangumi);
 
+    int update(Video user);
+
     List<Video> queryList();
+
+    List<Video> queryByBangumiId(@Param(value = "bangumitId") int bangumitId);
 }

@@ -38,6 +38,11 @@
         </foreach>
     </insert>
 
+    <update id="update" parameterType="com.acg12.entity.po.Bangumi">
+        update acg_bangumi set platform=#{platform},title=#{title},cover=#{cover},tags=#{tags},intro=#{intro},voiceActor=#{voiceActor},nowStatus=#{nowStatus}
+        ,totalCount=#{totalCount},serializeWeek=#{serializeWeek},serializeTime=#{serializeTime},startPlayTime=#{startPlayTime},updateTime=#{updateTime}
+        where bangumitId=#{bangumitId}
+    </update>
 
     <select id="queryList" resultType="com.acg12.entity.po.Bangumi">
         select * from acg_bangumi

@@ -8,12 +8,16 @@ public class Video extends Param {
     private Integer vId;
     private Integer bangumitId;
     private String cover;
-    private String index;
+    private String indexNum;
     private String indexTitle;
     private String danmaku; // 弹幕
     private String bilibiliUrl; // bilibili
     private String baiduyunUrl; // 百度
     private String aiqiyiUrl; // 爱奇艺
+
+    public Video(){
+        vId = 0;
+    }
 
     public Integer getvId() {
         return vId;
@@ -39,12 +43,12 @@ public class Video extends Param {
         this.cover = cover;
     }
 
-    public String getIndex() {
-        return index;
+    public String getIndexNum() {
+        return indexNum;
     }
 
-    public void setIndex(String index) {
-        this.index = index;
+    public void setIndexNum(String indexNum) {
+        this.indexNum = indexNum;
     }
 
     public String getIndexTitle() {

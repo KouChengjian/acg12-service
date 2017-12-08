@@ -2,6 +2,7 @@ package com.acg12.utils;
 
 import com.acg12.dao.BangumiDao;
 import com.acg12.dao.TagDao;
+import com.acg12.dao.VideoDao;
 import com.acg12.entity.po.Bangumi;
 import com.acg12.entity.po.Tag;
 import com.acg12.entity.po.Video;
@@ -50,7 +51,8 @@ public class BangumiUtil {
         content = requestUrl(curl);
         jsonObject = new JSONObject(content);
         System.out.println(content);
-
+        video.setDanmaku(jsonObject.getString("cid"));
+//        video.setBilibiliUrl(jsonObject.getString("src"));
     }
 
     public String savaTags(JSONArray jsonArray) throws Exception {
@@ -104,19 +106,47 @@ public class BangumiUtil {
             bangumi.setIntro(result.getString("evaluate"));
             String tags = savaTags(result.getJSONArray("tags"));
             bangumi.setTags(tags);
-            bangumiDao.insert(bangumi);
+            if (bangumi.getBangumitId() == 0){
+                bangumiDao.insert(bangumi);
+            } else {
+                bangumiDao.update(bangumi);
+            }
             ConnectionFactory.commit();
 
+            VideoDao videoDao = ConnectionFactory.getMapper(VideoDao.class);
+            List<Video> videoList = videoDao.queryByBangumiId(bangumi.getBangumitId());
 
             JSONArray jsonArray = result.getJSONArray("episodes");
             for (int i = 0 , total = jsonArray.length() ; i < total ; i++) {
-                Video video = new Video();
                 JSONObject item = jsonArray.getJSONObject(i);
+                String index = item.getString("index");
+                String index_title = item.getString("index_title");
+                Video video = null;
+
+                for (int j = 0, num = videoList.size(); j < num; j++) {
+                    Video vi = videoList.get(j);
+                    if (vi.getIndexNum().equals(index) && vi.getIndexTitle().equals(index_title)) {
+                        video = vi;
+                        video.updateTime();
+                    }
+                }
+                if(video == null){
+                    video = new Video();
+                }
+
                 video.setBangumitId(bangumi.getBangumitId());
                 video.setCover(item.getString("cover"));
-                video.setIndex(item.getString("index"));
+                video.setIndexNum(item.getString("index"));
                 video.setIndexTitle(item.getString("index_title"));
                 getVideoInfo(video , item.getString("episode_id"));
+
+                if (video.getvId() == 0){
+                    videoDao.insert(video);
+                } else {
+                    videoDao.update(video);
+                }
+                ConnectionFactory.commit();
+
             }
         }
     }

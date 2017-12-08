@@ -43,43 +43,63 @@ public class Result {
         this.data = data;
     }
 
-    public void putDataObject(String key , Object object) {
+    public void putDataObject(String key, Object object) {
         try {
             Gson gson = new Gson();
             JSONObject json = new JSONObject(gson.toJson(object));
-            data.put(key , json);
-        }catch (JSONException e) {
+            data.put(key, json);
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public void putDataArray(String key , List object) {
+    public void putDataArray(String key, List object) {
         try {
             Gson gson = new Gson();
             JSONArray json = new JSONArray(gson.toJson(object));
-            data.put(key , json);
-        }catch (JSONException e) {
+            data.put(key, json);
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public void write(HttpServletResponse response){
+    public void write(HttpServletResponse response) {
         JSONObject json = new JSONObject();
-        try{
+        try {
             json.put("result", getResult());
-            json.put("desc",   getDesc());
-            json.put("data",   getData());
+            json.put("desc", getDesc());
+            json.put("data", getData());
             OutputStream outputStream = response.getOutputStream();
             response.setHeader("content-type", "application/json;charset=UTF-8");
             byte[] dataByteArr = json.toString().getBytes("UTF-8");
             outputStream.write(dataByteArr);
             outputStream.flush();
             outputStream.close();
-        } catch (JSONException e){
+        } catch (JSONException e) {
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void writeSucceed(int result, String desc, String key, Object object, HttpServletResponse response) {
+        setResult(result);
+        setDesc(desc);
+        putDataObject(key, object);
+        write(response);
+    }
+
+    public void writeSucceed(int result, String desc, String key, List list, HttpServletResponse response) {
+        setResult(result);
+        setDesc(desc);
+        putDataArray(key, list);
+        write(response);
+    }
+
+    public void writeFailure(int result, String desc, HttpServletResponse response) {
+        setResult(result);
+        setDesc(desc);
+        write(response);
     }
 
 }

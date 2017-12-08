@@ -3,6 +3,7 @@ package com.acg12.web.base;
 import com.acg12.entity.dto.Result;
 import com.acg12.conf.Constant;
 import com.acg12.service.ResServiceImpl;
+import com.acg12.service.base.ResService;
 import com.acg12.utils.StringUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ResController {
 
     @Resource
-    private ResServiceImpl resourceService;
+    private ResService resourceService;
 
     @ApiOperation(value = "首页", httpMethod = "GET", produces = "application/json")
 //    @ApiResponse(code = 200, message = "success", response = Result.class)

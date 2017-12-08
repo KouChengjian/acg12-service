@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 /**
  * Created by Administrator on 2017/5/31.
  */
-public interface VerifyMapper {
+public interface VerifyDao {
 
     int insert(Verify verify);
 

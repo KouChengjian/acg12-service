@@ -1,7 +1,7 @@
 package com.acg12.service;
 
 import com.acg12.entity.po.Feedback;
-import com.acg12.dao.FeedbackMapper;
+import com.acg12.dao.FeedbackDao;
 import com.acg12.service.base.FeedbackService;
 
 import javax.annotation.Resource;
@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 public class FeedbackServiceImpl implements FeedbackService {
 
     @Resource
-    private FeedbackMapper feedbackMapper;
+    private FeedbackDao feedbackMapper;
 
     @Override
     public int save(Feedback feedback) throws Exception {

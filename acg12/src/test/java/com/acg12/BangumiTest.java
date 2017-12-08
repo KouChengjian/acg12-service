@@ -29,8 +29,8 @@ public class BangumiTest {
 //        getBangumiList();
 //        initDB();
         try {
-//            new BangumiUtil().getBangumiList();
-            new BangumiUtil().getVideoInfo(null , "115138");
+            new BangumiUtil().getBangumiList();
+//            new BangumiUtil().getVideoInfo(null , "115138");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -108,9 +108,5 @@ public class BangumiTest {
         }
 
 
-    }
-
-    private static void getVideoInfo(){
-        String viderInfoUrl = "http://bangumi.bilibili.com/jsonp/seasoninfo/844.ver?callback=seasonListCallback&jsonp=jsonp&_=1511244854098";
     }
 }

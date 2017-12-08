@@ -1,7 +1,7 @@
 package com.acg12.service;
 
 import com.acg12.entity.po.Update;
-import com.acg12.dao.UpdateAppMapper;
+import com.acg12.dao.UpdateAppDao;
 import com.acg12.service.base.UpdateAppService;
 
 import javax.annotation.Resource;
@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 public class UpdateAppServiceImpl implements UpdateAppService {
 
     @Resource
-    private UpdateAppMapper updateAppMapper;
+    private UpdateAppDao updateAppMapper;
 
     @Override
     public int save(Update update) throws Exception {

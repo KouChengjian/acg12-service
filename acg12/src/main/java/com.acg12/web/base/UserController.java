@@ -50,17 +50,14 @@ public class UserController {
     public void login(@ApiParam(name = "username", required = true, value = "用户名") @RequestParam("username") String username,
                       @ApiParam(name = "password", required = true, value = "用户密码") @RequestParam("password") String password,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
-        User user ;
-        Result result = new Result();
 
+        Result result = new Result();
         if(username.isEmpty() || password.isEmpty()){
-            result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
-            result.setDesc("请求参数为空");
-            result.write(response);
+            result.writeFailure(Constant.HTTP_RESULT_ERROR_PARAM , "请求参数为空" , response);
             return;
         }
 
-        user = userService.queryUserName(username);
+        User user = userService.queryUserName(username);
         if(user == null){
             result.setResult(Constant.HTTP_RESULT_ERROR_NULL_DATA);
             result.setDesc("不存在该用户");
@@ -72,15 +69,16 @@ public class UserController {
             result.setResult(Constant.HTTP_RESULT_ERROR_PASSWORD);
             result.setDesc("密码错误");
             result.write(response);
-        } else {
-            user.setPassword(null);
-            user.setCreatedAt(null);
-            user.setUpdatedAt(null);
-            result.setResult(Constant.HTTP_RESULT_SUCCEED);
-            result.setDesc("成功");
-            result.putDataObject("user" , user);
-            result.write(response);
+            return;
         }
+
+        user.setPassword(null);
+        user.setCreatedAt(null);
+        user.setUpdatedAt(null);
+        result.setResult(Constant.HTTP_RESULT_SUCCEED);
+        result.setDesc("成功");
+        result.putDataObject("user" , user);
+        result.write(response);
     }
 
     @ApiOperation(value = "注册", httpMethod = "POST", produces = "application/json")

@@ -1,7 +1,7 @@
 package com.acg12.service;
 
 import com.acg12.entity.po.Verify;
-import com.acg12.dao.VerifyMapper;
+import com.acg12.dao.VerifyDao;
 import com.acg12.service.base.VerifyService;
 
 import javax.annotation.Resource;
@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 public class VerifyServiceImpl implements VerifyService {
 
     @Resource
-    private VerifyMapper verifyMapper;
+    private VerifyDao verifyMapper;
 
     @Override
     public int saveVerify(Verify verify) throws Exception {

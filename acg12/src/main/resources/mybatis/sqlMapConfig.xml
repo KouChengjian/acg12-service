@@ -21,6 +21,7 @@
         <mapper resource="mapper/UpdateAppMapper.xml" />
 
         <mapper resource="mapper/BangumiMapper.xml" />
+        <mapper resource="mapper/VideoMapper.xml" />
         <mapper resource="mapper/TagsMapper.xml" />
     </mappers>
 </configuration>

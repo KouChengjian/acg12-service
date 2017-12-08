@@ -27,6 +27,105 @@ a {
     background: #1E0FBE;
 }
 
+.bangumi-index-content .v_container .v_list {
+    overflow: hidden;
+    padding: 40px 0;
+}
+
+.bangumi-index-content .v_container .v_list .v_ul {
+    overflow: hidden;
+    margin-bottom: 10px;
+    min-height: 608px;
+    list-style-type: none;
+}
+
+.bangumi-index-content .v_container .v_list .v_ul li {
+    float: left;
+    margin-right: 20px;
+}
+
+.bangumi-index-content .v_container .v_list .v_ul li .preview {
+    position: relative;
+    overflow: hidden;
+}
+
+.bangumi-index-content .v_container .v_list .v_ul li .preview .cover {
+    overflow: hidden;
+    border-radius: 5px;
+    width: 160px;
+}
+
+.bangumi-index-content .v_container .v_list .v_ul li .preview .cover a {
+    display: block;
+    position: relative;
+}
+
+.bangumi-index-content .v_container .v_list .v_ul li .preview .cover a .shadow {
+    position: absolute;
+    width: 160px;
+    color: #fff;
+    bottom: 0;
+    left: 0;
+    height: 50px;
+    background: -moz-linear-gradient(bottom,rgba(0,0,0,.6) 0,transparent 100%);
+    background: -webkit-gradient(linear,left bottom,bottom bottom,color-stop(60%,#000),color-stop(100%,transparent));
+    background: -webkit-linear-gradient(bottom,rgba(0,0,0,.6) 0,transparent 100%);
+    background: -o-linear-gradient(bottom,rgba(0,0,0,.6) 0,transparent 100%);
+    background: -ms-linear-gradient(bottom,rgba(0,0,0,.6) 0,transparent 100%);
+    background: linear-gradient(to top,rgba(0,0,0,.6) 0,transparent 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00ffffff, endColorstr=#99000000, GradientType=0);
+}
+
+.bangumi-index-content .v_container .v_list .v_ul li .preview .cover a .shadow .sort-info {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    line-height: 1;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 90%;
+    text-overflow: ellipsis;
+}
+
+.bangumi-index-content .v_container .v_list .v_ul li .preview .info_wrp {
+    display: block;
+    width: 160px;
+    height: 90px;
+    overflow: hidden;
+}
+
+.bangumi-index-content .v_container .v_list .v_ul li .preview .info {
+    position: relative;
+    margin-top: 10px;
+}
+
+.bangumi-index-content .v_container .v_list .v_ul li .preview .info a {
+    display: block;
+    color: #222;
+    max-height: 44px;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+.bangumi-index-content .v_container .v_list .v_ul li .preview .info a .t {
+    line-height: 22px;
+    max-height: 44px;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.bangumi-index-content .v_container .v_list .v_ul li .preview .info .num {
+    padding-top: 4px;
+    height: 14px;
+    font-size: 12px;
+    line-height: 12px;
+    color: #99a2aa;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .bangumi-index-content .bgm-index-nav {
     position: absolute;
     top: 0;

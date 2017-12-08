@@ -1,7 +1,7 @@
 package com.acg12.service;
 
 import com.acg12.entity.po.User;
-import com.acg12.dao.UserMapper;
+import com.acg12.dao.UserDao;
 import com.acg12.service.base.UserService;
 
 import javax.annotation.Resource;
@@ -13,7 +13,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Resource
-    private UserMapper userMapper;
+    private UserDao userMapper;
 
     @Override
     public int saveUser(User u) throws Exception {
