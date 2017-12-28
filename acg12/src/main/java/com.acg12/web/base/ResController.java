@@ -75,7 +75,6 @@ public class ResController {
             result.setData(content);
         }
         StringUtil.outputStream(response , StringUtil.result(result));
-
     }
 
     @RequestMapping(value = "/p/boards/album" , method = {RequestMethod.GET})

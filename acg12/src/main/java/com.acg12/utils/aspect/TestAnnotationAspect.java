@@ -11,11 +11,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestAnnotationAspect {
 
-    public TestAnnotationAspect(){
+    public TestAnnotationAspect() {
 
     }
 
-    @Pointcut("execution(* com.acg12.service.ResServiceImpl.*())")
+    //    @Pointcut("execution(* com.acg12.service.ResServiceImpl.*())")
+    @Pointcut("execution(* com.acg12.service.ResServiceImpl.getIndex(..))")
     private void pointCutMethod() {
     }
 
@@ -24,7 +25,6 @@ public class TestAnnotationAspect {
     public void doBefore() {
         System.out.println("前置通知");
     }
-
 
     //声明后置通知
     @AfterReturning(pointcut = "pointCutMethod()") // , returning = "result"

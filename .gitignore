@@ -19,7 +19,5 @@ bin-release/
 # should NOT be excluded as they contain compiler settings and other important
 # information for Eclipse / Flash Builder.
 
-acg12-service/.apt_generated
-acg12-service/WebRoot/WEB-INF/classes
 acg12/target
 acg12/.idea
