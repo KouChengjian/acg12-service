@@ -5,7 +5,7 @@ package com.acg12.conf;
  */
 public class Config {
 
-    public Config(){
+    public Config() {
         System.err.printf("初始化");
     }
 }

@@ -1,5 +1,6 @@
 package com.acg12.service.base;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -7,14 +8,39 @@ import org.json.JSONObject;
  */
 public interface ResService {
 
+    /**
+     * --------------------------------------自定义资源-------------------------------------------
+     */
     JSONObject getIndex();
 
+    /**
+     * --------------------------------------花瓣网资源-------------------------------------------
+     */
     JSONObject getAlbumList(String max);
 
     JSONObject getBoardsList(String max);
 
     JSONObject getBoardsToAlbumList(String boardId, String max);
 
+    JSONArray getSearchAlbum(String key, String page);
+
+    JSONArray getSearchBoards(String key, String page);
+
+
+    /**
+     * --------------------------------------动漫之家资源--------------------------------------------
+     */
+    JSONArray getNews(String pager);
+
+
+    /**
+     * --------------------------------------萌娘百科资源--------------------------------------------
+     */
+    JSONArray getSearchKeyList(String key);
+
+    /**
+     * --------------------------------------bilibili资源--------------------------------------------
+     */
     JSONObject getVideoTypeList(String type, String page);
 
     JSONObject getVideoTypeInfo(String av);
@@ -25,15 +51,14 @@ public interface ResService {
 
     JSONObject getDangumiAV(String id);
 
-    JSONObject getSearchAlbum(String key, String page);
-
-    JSONObject getSearchBoards(String key, String page);
-
     JSONObject getSearchVideo(String key, String page);
 
     JSONObject getSearchDangumi(String key, String page);
 
     JSONObject getPlayInfo(String av);
+
+
+
 
 
 

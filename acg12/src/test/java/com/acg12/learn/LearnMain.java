@@ -14,10 +14,10 @@ public class LearnMain {
 //        arrayStack.push(1);
 
 
-        sort(arg);
-        for (int i = 0 ; i < arg.length ; i++){
-            System.out.print(arg[i]+" ");
-        }
+//        sort(arg);
+//        for (int i = 0 ; i < arg.length ; i++){
+//            System.out.print(arg[i]+" ");
+//        }
 
     }
 

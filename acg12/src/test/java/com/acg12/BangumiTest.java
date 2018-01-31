@@ -1,18 +1,21 @@
 package com.acg12;
 
 import com.acg12.dao.BangumiDao;
+import com.acg12.entity.po.Album;
 import com.acg12.entity.po.Bangumi;
 import com.acg12.entity.dto.Video;
+import com.acg12.entity.po.Palette;
 import com.acg12.factory.ConnectionFactory;
-import com.acg12.utils.BangumiUtil;
-import com.acg12.utils.HttpUtil;
+import com.acg12.utils.http.ResRequest;
 import com.acg12.utils.StringUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,10 +31,23 @@ public class BangumiTest {
 
 //        getBangumiList();
 //        initDB();
+//        try {
+//            new BangumiUtil().getBangumiList();
+////            new BangumiUtil().getVideoInfo(null , "115138");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+//        System.err.println(ResRequest.getNewList("0").toString());
+
         try {
-            new BangumiUtil().getBangumiList();
-//            new BangumiUtil().getVideoInfo(null , "115138");
-        } catch (Exception e) {
+            String title = URLEncoder.encode("夏娜", "UTF-8");
+//            System.err.println(title);
+//            ResRequest.getSearchKeyList(title);
+            ResRequest.getSearchKeyInfo(title);
+//            JSONArray j =  ResRequest.getSearchPalette(title, 1+"");
+//            System.err.println(j.length()+"==");
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }
@@ -88,7 +104,7 @@ public class BangumiTest {
                     bangumi.setSerializeTime(item.getInt("update_time"));
                     bangumi.setStartPlayTime(item.getInt("pub_time"));
 
-                    Video video = HttpUtil.getDangumiInfo(item.getString("season_id"));
+                    Video video = ResRequest.getDangumiInfo(item.getString("season_id"));
                     System.out.println(video.toString());
                     bangumi.setTags(video.getSbutitle());
                     bangumi.setIntro(video.getDescription());

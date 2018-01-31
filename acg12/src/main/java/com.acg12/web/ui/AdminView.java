@@ -1,4 +1,4 @@
-package com.acg12.web.admin.ui;
+package com.acg12.web.ui;
 
 import io.swagger.annotations.Api;
 import org.springframework.stereotype.Controller;

@@ -3,11 +3,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <aop:aspectj-autoproxy/>
-    <bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator"/>
-
-    <bean id="aspectBean" class="com.acg12.utils.aspect.TestAnnotationAspect"/>
-
     <!--可以在这声明，也可以使用@Service-->
     <!-- user的service -->
     <bean id="userService" class="com.acg12.service.UserServiceImpl"/>

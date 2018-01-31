@@ -6,7 +6,7 @@
     <groupId>com.acg12</groupId>
     <artifactId>acg12</artifactId>
     <packaging>war</packaging>
-    <version>2.0.2</version>
+    <version>3.0.2</version>
     <name>漫友</name>
 
     <url>http://maven.apache.org</url>
@@ -70,6 +70,19 @@
             <artifactId>javax.servlet.jsp-api</artifactId>
             <version>2.3.1</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!--短信-->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <optional>true</optional>
+            <version>3.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+            <version>1.0.0</version>
         </dependency>
 
         <!--log-->
@@ -236,7 +249,7 @@
                     <username>admin</username>
                     <password>kcj5511844067</password>
                     <update>true</update>
-                    <path>/acg</path>
+                    <path>/acg12</path>
                 </configuration>
 
             </plugin>

@@ -3,7 +3,7 @@ package com.acg12.entity.po;
 /**
  * Created by Administrator on 2017/5/31.
  */
-public class Verify {
+public class Verify extends Param{
 
     private Integer id;
     private String phone;
@@ -11,7 +11,6 @@ public class Verify {
     private Integer duration; // 有效时间
     private Integer status; // 状态 0 未使用 1 已使用 2 已过期
     private Integer type;
-    private Integer createdAt;
 
     public Integer getId() {
         return id;
@@ -51,14 +50,6 @@ public class Verify {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public Integer getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Integer createdAt) {
-        this.createdAt = createdAt;
     }
 
     public Integer getType() {

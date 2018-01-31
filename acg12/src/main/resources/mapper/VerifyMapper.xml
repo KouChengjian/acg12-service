@@ -9,14 +9,14 @@
         <result column="duration" property="duration" jdbcType="INTEGER" />
         <result column="status" property="status" jdbcType="INTEGER" />
         <result column="type" property="type" jdbcType="INTEGER" />
-        <result column="createdAt" property="createdAt" jdbcType="INTEGER" />
+        <result column="createTime" property="createTime" jdbcType="INTEGER" />
     </resultMap>
 
     <insert id="insert" parameterType="com.acg12.entity.po.Verify"
             useGeneratedKeys="true" keyProperty="id">
-        insert into verify (id,phone,verifycode,duration,status,type,createdAt)
+        insert into verify (id,phone,verifycode,duration,status,type,createTime)
         values (#{id,jdbcType=INTEGER},#{phone,jdbcType=VARCHAR}, #{verifycode,jdbcType=INTEGER},
-         #{duration,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{type,jdbcType=INTEGER},#{createdAt,jdbcType=INTEGER})
+         #{duration,jdbcType=INTEGER},#{status,jdbcType=INTEGER},#{type,jdbcType=INTEGER},#{createTime,jdbcType=INTEGER})
     </insert>
 
     <delete id="deleteUser" parameterType="int">

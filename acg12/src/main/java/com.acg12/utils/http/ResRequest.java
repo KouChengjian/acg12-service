@@ -1,9 +1,14 @@
-package com.acg12.utils;
+package com.acg12.utils.http;
 
+import com.acg12.conf.UrlConstant;
 import com.acg12.entity.po.Album;
 import com.acg12.entity.po.Palette;
 import com.acg12.entity.dto.Video;
 import com.acg12.conf.Constant;
+import com.acg12.utils.StringUtil;
+import com.acg12.utils.TimeUtil;
+import com.acg12.utils.UrlEncoderUtil;
+import com.google.gson.Gson;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,62 +22,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * Created by kouchengjian on 2017/3/7.
  */
-public class HttpUtil {
+public class ResRequest {
 
     /**
-     * 横幅
+     * -----------------------------------------花瓣网资源-------------------------------------------
      */
-    public static synchronized List<Video> getBanner() {
-        List<Video> bannerList = new ArrayList<Video>();
-        try {
-            URL url = new URL(Constant.URL_HOME_BRAND);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setConnectTimeout(5 * 1000);
-            conn.setRequestMethod("GET");
-            InputStream inStream = conn.getInputStream();
-            String content = "";
-            if ("gzip".equals(conn.getContentEncoding())) {
-                content = StringUtil.readDataForZgip(inStream, "utf-8");
-            }else{
-                content = StringUtil.readDataForZgip(inStream);
-            }
-            conn.disconnect();
-            if(content != null && !content.isEmpty()){
-                JSONObject bannerjson = new JSONObject(content);
-                JSONArray array = bannerjson.getJSONArray("result");
-                for (int i=0 , num = array.length() ; i < num ; i++) {
-                    Video item = new Video();
-                    item.setPic(array.getJSONObject(i).getString("img").toString());
-                    item.setTitle(array.getJSONObject(i).getString("title").toString());
-                    item.setUrlInfo(array.getJSONObject(i).getString("link").toString());
-                    bannerList.add(item);
-                }
-//                System.out.println(new Gson().toJson(bannerList));
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return bannerList;
-    }
-
-    /**
-     * 获取新的画集
-     */
+    // 获取新的画集
     public static synchronized List<Album> getAlbumList(String max) {
         List<Album> albumList = new ArrayList<Album>();
         try {
-            Document document = Jsoup.connect(Constant.URL_ALBUM + "&max=" + max)
+            Document document = Jsoup.connect(UrlConstant.URL_ALBUM + "&max=" + max)
                     .data("jquery", "java").userAgent("Mozilla")
                     .cookie("auth", "token").timeout(50000).get();
             String content = document.toString();
@@ -82,7 +47,7 @@ public class HttpUtil {
                 for (Element div : var) {
                     String str1 = "app.page[" + "\"" + "ads" + "\"" + "] = ";
                     String str2 = "app.page[" + "\"" + "pins" + "\"" + "] = ";
-                    String str3 = StringUtils.substringBetween(div.toString(),str2, str1);
+                    String str3 = StringUtils.substringBetween(div.toString(), str2, str1);
                     if (str3 != null && !str3.isEmpty()) {
                         JSONArray array = new JSONArray(str3);
                         for (int i = 0; i < array.length(); i++) {
@@ -121,14 +86,12 @@ public class HttpUtil {
         return albumList;
     }
 
-    /**
-     * 获取画板
-     */
+    // 获取画板
     public static synchronized List<Palette> getPaletteList(String max) {
         List<Palette> paletteList = new ArrayList<Palette>();
         try {
             Document document = Jsoup
-                    .connect(Constant.URL_PALETTE + "&max=" + max)
+                    .connect(UrlConstant.URL_PALETTE + "&max=" + max)
                     .data("jquery", "java").userAgent("Mozilla")
                     .cookie("auth", "token").timeout(50000).get();
             String content = document.toString();
@@ -138,7 +101,7 @@ public class HttpUtil {
                 for (Element div : var) {
                     String str1 = "app.page[" + "\"" + "boards" + "\"" + "] = ";
                     String str2 = "app.page[" + "\"" + "promotions" + "\"" + "] = ";
-                    String str3 = StringUtils.substringBetween(div.toString(),str1, str2);
+                    String str3 = StringUtils.substringBetween(div.toString(), str1, str2);
                     if (str3 != null && !str3.isEmpty()) {
                         JSONArray json = new JSONArray(str3);
                         for (int i = 0; i < json.length(); i++) {
@@ -170,87 +133,12 @@ public class HttpUtil {
         return paletteList;
     }
 
-    /**
-     * 视频内容
-     */
-    public static synchronized List<List<Video>> getHomeLists(){
-        List<List<Video>> videoLl = new ArrayList<List<Video>>();
-        try {
-            URL url = new URL(Constant.URL_HOME_CONTENT);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setConnectTimeout(10 * 1000);
-            conn.setRequestMethod("GET");
-            if (conn.getResponseCode() != 200)
-                throw new RuntimeException("请求url失败");
-            InputStream is = conn.getInputStream();//拿到输入流
-            String content = "";
-            if ("gzip".equals(conn.getContentEncoding())) {
-                content = StringUtil.readDataForZgip(is, "utf-8");
-            }else{
-                content = StringUtil.readDataForZgip(is);
-            }
-            conn.disconnect();
-            if(content != null && !content.isEmpty()){
-                ArrayList<JSONObject> jsonList = new ArrayList<JSONObject>();
-                JSONObject bangumijson  = new JSONObject(content);
-                JSONObject bangumiarray = bangumijson.getJSONObject("bangumi");// 新番
-                JSONObject dougaarray   = bangumijson.getJSONObject("douga");//动画
-//				JSONObject musicarray   = bangumijson.getJSONObject("music"); //音乐
-//				JSONObject kichikuarray = bangumijson.getJSONObject("kichiku"); //鬼畜
-//				JSONObject entarray     = bangumijson.getJSONObject("ent"); //娱乐
-                jsonList.add(bangumiarray);
-                jsonList.add(dougaarray);
-//				jsonList.add(musicarray);
-//				jsonList.add(kichikuarray);
-//				jsonList.add(entarray);
-                for (int j=0 ; j < jsonList.size() ; j++) {
-                    ArrayList<Video> videoList = new ArrayList<Video>();
-                    for (int i = 0 ; i < 10 ; i++) {
-                        Video item = new Video();
-                        item.        setAid(jsonList.get(j).getJSONObject(i+"").getString("aid").toString());
-//                        item.     setTypeid(jsonList.get(j).getJSONObject(i+"").getString("typeid").toString());
-                        item.      setTitle(jsonList.get(j).getJSONObject(i+"").getString("title").toString());
-                        item.   setSbutitle(jsonList.get(j).getJSONObject(i+"").optString("sbutitle").toString());
-                        item.       setPlay(jsonList.get(j).getJSONObject(i+"").getString("play").toString());
-                        item.     setReview(jsonList.get(j).getJSONObject(i+"").getString("review").toString());
-                        item.setVideoReview(jsonList.get(j).getJSONObject(i+"").getString("video_review").toString());
-                        item.  setFavorites(jsonList.get(j).getJSONObject(i+"").getString("favorites").toString());
-                        item.        setMid(jsonList.get(j).getJSONObject(i+"").getString("mid").toString());
-                        item.     setAuthor(jsonList.get(j).getJSONObject(i+"").getString("author").toString());
-                        item.setDescription(jsonList.get(j).getJSONObject(i+"").getString("description").toString());
-                        item.     setCreate(jsonList.get(j).getJSONObject(i+"").getString("create").toString());
-                        item.        setPic(jsonList.get(j).getJSONObject(i+"").getString("pic").toString());
-                        item.     setCredit(jsonList.get(j).getJSONObject(i+"").getString("credit").toString());
-                        item.      setCoins(jsonList.get(j).getJSONObject(i+"").getString("coins").toString());
-                        item.   setDuration(jsonList.get(j).getJSONObject(i+"").getString("duration").toString());
-                        videoList.add(item);
-                    }
-                    videoLl.add(videoList);
-                }
-                //System.out.println(new Gson().toJson(videoLl));
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return videoLl ;
-    }
-
-    /**
-     * 画板中详细内容
-     */
+    // 画板中详细内容
     public static synchronized List<Album> getBoardsToAlbumList(String boardId, String max) {
         List<Album> albumList = new ArrayList<Album>();
         try {
             Document document = Jsoup
-                    .connect(Constant.URL_PALETTE_ALBUM + boardId+ "/?iemf5hfr&limit=20&wfl=1&max=" + max)
+                    .connect(UrlConstant.URL_PALETTE_ALBUM + boardId + "/?iemf5hfr&limit=20&wfl=1&max=" + max)
                     .data("jquery", "java").userAgent("Mozilla")
                     .cookie("auth", "token").timeout(50000).get();
             String content = document.toString();
@@ -259,7 +147,7 @@ public class HttpUtil {
                 for (Element div : var) {
                     String str1 = "app.page[" + "\"" + "board" + "\"" + "] = ";
                     String str2 = "app._csr = true";
-                    String str3 = StringUtils.substringBetween(div.toString(),str1, str2);
+                    String str3 = StringUtils.substringBetween(div.toString(), str1, str2);
                     if (str3 != null && !str3.isEmpty()) {
                         JSONObject json = new JSONObject(str3);
                         JSONArray jsonpins = json.getJSONArray("pins");
@@ -298,14 +186,361 @@ public class HttpUtil {
         return albumList;
     }
 
+    // 搜索-图片
+    public static synchronized JSONArray getSearchAlbum(String key, String page) {
+        JSONArray jsonArray = new JSONArray();
+        try {
+            if (!UrlEncoderUtil.hasUrlEncoded(key)) {
+                key = URLEncoder.encode(key, "UTF-8");
+            }
+
+            Document document = Jsoup
+                    .connect(UrlConstant.URL_SEARCH_ALBUM + key + "&page=" + page)
+                    .data("jquery", "java").userAgent("Mozilla")
+                    .cookie("auth", "token").timeout(50000).get();
+            String content = document.toString();
+//            System.out.println(content);
+            if (content != null && !content.isEmpty()) {
+                Elements var = document.body().select("script");
+//                System.out.println(var.toString());
+//                System.out.println(var.size());
+                for (Element div : var) {
+                    String str1 = "app.page[" + "\"" + "pins" + "\"" + "] = ";
+//                    System.out.println(str1);
+                    String str2 = "app.page[" + "\"" + "page" + "\"" + "] = ";
+//                    System.out.println(str2);
+                    String str3 = StringUtils.substringBetween(div.toString(), str1, str2);
+//                    System.out.println(str3);
+                    if (str3 != null && !str3.isEmpty()) {
+                        str3 = str3.replace(";", "");
+//                        System.out.println(str3);
+                        JSONArray array = new JSONArray(str3);
+                        List<Album> albumList = new ArrayList<Album>();
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject json = (JSONObject) array.get(i);
+//                            System.out.println(json.toString());
+                            JSONObject jsomUrl = (JSONObject) json.get("file");
+                            ArrayList<String> url = new ArrayList<String>();
+                            int width = 0, height = 0;
+                            width = 720 / 2 - 30;
+                            height = width * jsomUrl.getInt("height")
+                                    / jsomUrl.getInt("width");
+                            if (height > 500) {
+                                height = 500;
+                            }
+                            Album album = new Album();
+                            album.setContent(json.getString("raw_text"));
+                            album.setPinId(String.valueOf(json.getInt("pin_id")));
+                            url.add("http://img.hb.aicdn.com/" + jsomUrl.getString("key") + "_fw658"); //  236
+                            album.setUrlList(url);
+                            album.setResWidth(width);
+                            album.setResHight(height);
+                            album.setLove(json.getInt("like_count"));
+                            album.setFavorites(json.getInt("repin_count"));
+                            albumList.add(album);
+                        }
+                        Gson gson = new Gson();
+                        jsonArray = new JSONArray(gson.toJson(albumList));
+                        continue;
+                    }
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonArray;
+    }
+
+    // 搜索-画板
+    public static synchronized JSONArray getSearchPalette(String key, String page) {
+        JSONArray jsonArray = new JSONArray();
+        try {
+            if (!UrlEncoderUtil.hasUrlEncoded(key)) {
+                key = URLEncoder.encode(key, "UTF-8");
+            }
+
+            Document document = Jsoup
+                    .connect(UrlConstant.URL_SEARCH_PALETTE + key + "&page=" + page)
+                    .data("jquery", "java").userAgent("Mozilla")
+                    .cookie("auth", "token").timeout(50000).get();
+            String content = document.toString();
+            if (content != null && !content.isEmpty()) {
+                Elements var = document.body().select("script");
+                System.out.println(UrlConstant.URL_SEARCH_PALETTE + key + "&page=" + page);
+//                System.out.println(var.toString());
+                for (Element div : var) {
+                    String str1 = "app.page[" + "\"" + "boards" + "\"" + "] = ";
+                    String str2 = "app._csr = true";
+                    String str3 = StringUtils.substringBetween(div.toString(), str1, str2);
+                    if (str3 != null && !str3.isEmpty()) {
+                        JSONArray json = new JSONArray(str3);
+                        List<Palette> paletteList = new ArrayList<Palette>();
+                        for (int i = 0; i < json.length(); i++) {
+                            Palette palette = new Palette();
+                            ArrayList<String> url = new ArrayList<String>();
+                            JSONObject boardjs = (JSONObject) json.get(i);
+                            System.out.println(boardjs.toString());
+                            JSONArray array = boardjs.getJSONArray("pins");
+                            for (int j = 0; j < array.length(); j++) {
+                                JSONObject js = (JSONObject) array.get(j);
+                                JSONObject jsfile = js.getJSONObject("file");
+                                url.add("http://img.hb.aicdn.com/"
+                                        + jsfile.getString("key") + "_fw658");
+                            }
+                            palette.setName(boardjs.getString("title"));
+                            palette.setNum(boardjs.getInt("pin_count"));
+                            palette.setUrlAlbum(url);
+                            palette.setBoardId(boardjs.getString("board_id"));
+                            paletteList.add(palette);
+                        }
+                        Gson gson = new Gson();
+                        jsonArray = new JSONArray(gson.toJson(paletteList));
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonArray;
+    }
+
+    /**
+     * --------------------------------------动漫之家资源--------------------------------------------
+     */
+
+    // 获取每日快报
+    public static synchronized JSONArray getNewList(String pager) {
+        try {
+            Document document = Jsoup.connect(String.format(UrlConstant.URL_DONGMANZHIJIA_NEWS, pager)).ignoreContentType(true)
+                    .data("jquery", "java").userAgent("Mozilla")
+                    .cookie("auth", "token").timeout(50000).get();
+            String content = document.body().text();
+            if (content == null || content.isEmpty()) {
+                return null;
+            }
+            JSONArray jsonArray = new JSONArray(content);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                jsonObject.remove("col_pic_url");
+                jsonObject.remove("comment_amount");
+                jsonObject.remove("author_uid");
+                jsonObject.remove("is_foreign");
+                jsonObject.remove("foreign_url");
+                jsonObject.remove("nickname");
+                jsonObject.remove("author_id");
+                jsonObject.remove("foreign_url");
+                jsonObject.remove("cover");
+                jsonObject.remove("from_name");
+                jsonObject.remove("from_url");
+                String row_pic_url = jsonObject.getString("row_pic_url");
+//                row_pic_url = row_pic_url.replace("http://","https://");
+                jsonObject.remove("row_pic_url");
+                jsonObject.put("pic_url", row_pic_url);
+            }
+            return jsonArray;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    //
+
+    /**
+     * --------------------------------------萌娘百科资源--------------------------------------------
+     */
+    // 萌娘百科 搜索
+    public static synchronized JSONArray getSearchKeyList(String title) {
+        JSONArray jsonArray = new JSONArray();
+        try {
+            Document document = Jsoup.connect(UrlConstant.URL_MENGNIANBAIKE_SEARCH + title).ignoreContentType(true)
+                    .data("jquery", "java").userAgent("Mozilla")
+                    .cookie("auth", "token").timeout(50000).get();
+            String content = document.body().text();
+            if (content == null || content.isEmpty()) {
+                return jsonArray;
+            }
+            System.err.println(content.toString());
+
+            JSONObject jsonObject = new JSONObject(content);
+            JSONObject query = jsonObject.getJSONObject("query");
+            JSONObject pages = query.getJSONObject("pages");
+            Iterator iterator = pages.keys();
+            while (iterator.hasNext()) {
+                String key = (String) iterator.next();
+                JSONObject value = pages.getJSONObject(key);
+                if (!value.isNull("thumbnail")) {
+                    JSONObject thumbnai = value.getJSONObject("thumbnail");
+                    String source = thumbnai.getString("source");
+                    value.remove("thumbnail");
+                    value.put("source", source);
+                }
+                jsonArray.put(value);
+                System.err.println(value.toString());
+            }
+            return jsonArray;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonArray;
+    }
+
+    // 萌娘百科 搜索详情
+    public static synchronized void getSearchKeyInfo(String title) {
+        try {
+            Document document = Jsoup.connect(UrlConstant.URL_MENGNIANBAIKE_SEARCH_INFO + title)
+                    .data("jquery", "java").userAgent("Mozilla")
+                    .cookie("auth", "token").timeout(50000).get();
+            Element mw_mf_viewport = document.body().getElementById("mw-mf-viewport");
+            Element mw_mf_page_center = mw_mf_viewport.getElementById("mw-mf-page-center");
+            Element content = mw_mf_page_center.getElementById("content");
+            Element bodyContent = content.getElementById("bodyContent");
+            Element mw_content_text = bodyContent.getElementById("mw-content-text");
+            Element mw_parser_output = mw_content_text.getElementsByClass("mw-parser-output").first();
+            Element mf_section_0 = mw_parser_output.getElementById("mf-section-0");
+//            System.err.println(mf_section_0);
+            DataParse.parseInfoHeader(mf_section_0);
+            DataParse.parseInfoBody(mw_parser_output);
+
+            return;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return;
+    }
+
+    /**
+     * ---------------------------------------bilibili资源-------------------------------------------
+     */
+
+    /**
+     * 横幅
+     */
+    public static synchronized List<Video> getBanner() {
+        List<Video> bannerList = new ArrayList<Video>();
+        try {
+            URL url = new URL(Constant.URL_HOME_BRAND);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(5 * 1000);
+            conn.setRequestMethod("GET");
+            InputStream inStream = conn.getInputStream();
+            String content = "";
+            if ("gzip".equals(conn.getContentEncoding())) {
+                content = StringUtil.readDataForZgip(inStream, "utf-8");
+            } else {
+                content = StringUtil.readDataForZgip(inStream);
+            }
+            conn.disconnect();
+            if (content != null && !content.isEmpty()) {
+                JSONObject bannerjson = new JSONObject(content);
+                JSONArray array = bannerjson.getJSONArray("result");
+                for (int i = 0, num = array.length(); i < num; i++) {
+                    Video item = new Video();
+                    item.setPic(array.getJSONObject(i).getString("img").toString());
+                    item.setTitle(array.getJSONObject(i).getString("title").toString());
+                    item.setUrlInfo(array.getJSONObject(i).getString("link").toString());
+                    bannerList.add(item);
+                }
+//                System.out.println(new Gson().toJson(bannerList));
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bannerList;
+    }
+
+    /**
+     * 视频内容
+     */
+    public static synchronized List<List<Video>> getHomeLists() {
+        List<List<Video>> videoLl = new ArrayList<List<Video>>();
+        try {
+            URL url = new URL(Constant.URL_HOME_CONTENT);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(10 * 1000);
+            conn.setRequestMethod("GET");
+            if (conn.getResponseCode() != 200)
+                throw new RuntimeException("请求url失败");
+            InputStream is = conn.getInputStream();//拿到输入流
+            String content = "";
+            if ("gzip".equals(conn.getContentEncoding())) {
+                content = StringUtil.readDataForZgip(is, "utf-8");
+            } else {
+                content = StringUtil.readDataForZgip(is);
+            }
+            conn.disconnect();
+            if (content != null && !content.isEmpty()) {
+                ArrayList<JSONObject> jsonList = new ArrayList<JSONObject>();
+                JSONObject bangumijson = new JSONObject(content);
+                JSONObject bangumiarray = bangumijson.getJSONObject("bangumi");// 新番
+                JSONObject dougaarray = bangumijson.getJSONObject("douga");//动画
+//				JSONObject musicarray   = bangumijson.getJSONObject("music"); //音乐
+//				JSONObject kichikuarray = bangumijson.getJSONObject("kichiku"); //鬼畜
+//				JSONObject entarray     = bangumijson.getJSONObject("ent"); //娱乐
+                jsonList.add(bangumiarray);
+                jsonList.add(dougaarray);
+//				jsonList.add(musicarray);
+//				jsonList.add(kichikuarray);
+//				jsonList.add(entarray);
+                for (int j = 0; j < jsonList.size(); j++) {
+                    ArrayList<Video> videoList = new ArrayList<Video>();
+                    for (int i = 0; i < 10; i++) {
+                        Video item = new Video();
+                        item.setAid(jsonList.get(j).getJSONObject(i + "").getString("aid").toString());
+//                        item.     setTypeid(jsonList.get(j).getJSONObject(i+"").getString("typeid").toString());
+                        item.setTitle(jsonList.get(j).getJSONObject(i + "").getString("title").toString());
+                        item.setSbutitle(jsonList.get(j).getJSONObject(i + "").optString("sbutitle").toString());
+                        item.setPlay(jsonList.get(j).getJSONObject(i + "").getString("play").toString());
+                        item.setReview(jsonList.get(j).getJSONObject(i + "").getString("review").toString());
+                        item.setVideoReview(jsonList.get(j).getJSONObject(i + "").getString("video_review").toString());
+                        item.setFavorites(jsonList.get(j).getJSONObject(i + "").getString("favorites").toString());
+                        item.setMid(jsonList.get(j).getJSONObject(i + "").getString("mid").toString());
+                        item.setAuthor(jsonList.get(j).getJSONObject(i + "").getString("author").toString());
+                        item.setDescription(jsonList.get(j).getJSONObject(i + "").getString("description").toString());
+                        item.setCreate(jsonList.get(j).getJSONObject(i + "").getString("create").toString());
+                        item.setPic(jsonList.get(j).getJSONObject(i + "").getString("pic").toString());
+                        item.setCredit(jsonList.get(j).getJSONObject(i + "").getString("credit").toString());
+                        item.setCoins(jsonList.get(j).getJSONObject(i + "").getString("coins").toString());
+                        item.setDuration(jsonList.get(j).getJSONObject(i + "").getString("duration").toString());
+                        videoList.add(item);
+                    }
+                    videoLl.add(videoList);
+                }
+                //System.out.println(new Gson().toJson(videoLl));
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return videoLl;
+    }
+
     /**
      * 主页 - 更多视频
      */
-    public static synchronized List<Video> getVideoTypeList(String url, String page){
+    public static synchronized List<Video> getVideoTypeList(String url, String page) {
         List<Video> videoList = new ArrayList<Video>();
         try {
-            System.out.println(url + page+ "-" + TimeUtil.getTimeOld(System.currentTimeMillis())+".html");
-            Document document = Jsoup.connect(url + page+ "-" + TimeUtil.getTimeOld(System.currentTimeMillis())+".html").data("jquery", "java")
+            System.out.println(url + page + "-" + TimeUtil.getTimeOld(System.currentTimeMillis()) + ".html");
+            Document document = Jsoup.connect(url + page + "-" + TimeUtil.getTimeOld(System.currentTimeMillis()) + ".html").data("jquery", "java")
                     .userAgent("Mozilla").cookie("auth", "token")
                     .timeout(50000).get();
             String content = document.toString();
@@ -314,7 +549,7 @@ public class HttpUtil {
                 for (Element div : divs) {
                     Elements l_l = div.select("div.l-l");
                     Elements aa = l_l.select("a");
-                    String aid = aa.attr("href").split("av")[1].replace("/","");
+                    String aid = aa.attr("href").split("av")[1].replace("/", "");
                     System.out.println(aid);
                     String title = aa.attr("title");
                     System.out.println(title);
@@ -333,19 +568,19 @@ public class HttpUtil {
                     String gk = "0";
                     Elements gks = v_info.select("v-info-i,.gk");
                     Elements gknum = gks.select("span");
-                    if(gknum.size() == 2){
+                    if (gknum.size() == 2) {
                         gk = gknum.get(1).attr("number");
                     }
                     String dm = "0";
                     Elements dms = v_info.select("v-info-i,.dm");
                     Elements dmnum = dms.select("span");
-                    if(dmnum.size() == 2){
+                    if (dmnum.size() == 2) {
                         dm = dmnum.get(1).attr("number");
                     }
                     String sc = "0";
                     Elements scs = v_info.select("v-info-i,.sc");
                     Elements scnum = scs.select("span");
-                    if(scnum.size() == 2){
+                    if (scnum.size() == 2) {
                         sc = scnum.get(1).attr("number");
                     }
                     Video item = new Video();
@@ -376,7 +611,7 @@ public class HttpUtil {
         List<Video> videoList = new ArrayList<Video>();
         try {
             //System.out.println(String.format(Constant.URL_HOME_VIDEO_INFO , av));
-            Document document = Jsoup.connect(String.format(Constant.URL_HOME_VIDEO_INFO , av)).data("jquery", "java")
+            Document document = Jsoup.connect(String.format(Constant.URL_HOME_VIDEO_INFO, av)).data("jquery", "java")
                     .userAgent("Mozilla").cookie("auth", "token")
                     .timeout(50000).get();
 
@@ -402,7 +637,7 @@ public class HttpUtil {
     /**
      * 发现 - 番剧
      */
-    public static synchronized List<Video> getDangumiList(String page){
+    public static synchronized List<Video> getDangumiList(String page) {
         final List<Video> videoList = new ArrayList<Video>();
         try {
             URL url = new URL(Constant.URL_FIND_BANKUN + page);
@@ -415,22 +650,22 @@ public class HttpUtil {
             String content = "";
             if ("gzip".equals(conn.getContentEncoding())) {
                 content = StringUtil.readDataForZgip(is, "utf-8");
-            }else{
+            } else {
                 content = StringUtil.readDataForZgip(is);
             }
             conn.disconnect();
-            if(content != null && !content.isEmpty()){
+            if (content != null && !content.isEmpty()) {
                 JSONObject json = new JSONObject(content);
                 JSONObject result = json.getJSONObject("result");
                 JSONArray list = result.getJSONArray("list");
-                for(int i = 0 ; i < list.length() ; i++){
-                    JSONObject jsonObject =  list.getJSONObject(i);
+                for (int i = 0; i < list.length(); i++) {
+                    JSONObject jsonObject = list.getJSONObject(i);
                     Video item = new Video();
                     //item.setUrlInfo(jsonObject.getString("url"));
                     item.setBmId(jsonObject.getString("url").split("/anime/")[1]);
                     item.setPic(jsonObject.getString("cover"));
                     item.setTitle(jsonObject.getString("title"));
-                    item.setUpdateContent("更新至"+jsonObject.getString("newest_ep_index")+"话");
+                    item.setUpdateContent("更新至" + jsonObject.getString("newest_ep_index") + "话");
                     videoList.add(item);
                 }
 //                Gson gson = new Gson();
@@ -453,8 +688,8 @@ public class HttpUtil {
     public static synchronized Video getDangumiInfo(String bmId) {
         Video video = new Video();
         try {
-            System.out.println(Constant.URL_FIND_BANKUN_INFO+bmId);
-            Document document = Jsoup.connect(Constant.URL_FIND_BANKUN_INFO+bmId).data("jquery", "java")
+            System.out.println(Constant.URL_FIND_BANKUN_INFO + bmId);
+            Document document = Jsoup.connect(Constant.URL_FIND_BANKUN_INFO + bmId).data("jquery", "java")
                     .userAgent("Mozilla").cookie("auth", "token").timeout(50000).get();
             //System.out.println(document.toString());
 
@@ -475,13 +710,13 @@ public class HttpUtil {
             //System.out.println("title = "+title);
             Elements taga = b_head.select("a");
             String label = "";
-            for(Element tag:taga){
+            for (Element tag : taga) {
                 //System.out.println("tag="+tag.text());
-                label += tag.text() +" ";
+                label += tag.text() + " ";
             }
             video.setSbutitle(label);
 
-            Elements info_cv = bangumi_info_r.select("div.info-row").select(".info-cv") ;
+            Elements info_cv = bangumi_info_r.select("div.info-row").select(".info-cv");
             Elements info_row_label = info_cv.select("div.info-row-label");
 //            System.out.println(info_row_label.toString());
             Elements voiceActor = info_row_label.select("span");
@@ -502,7 +737,7 @@ public class HttpUtil {
             //System.out.println(slider_part_wrapper.size());
             Elements v1_bangumi_list_part_child = slider_part_wrapper.select("li.v1-bangumi-list-part-child");
             //System.out.println("episode_list = "+v1_bangumi_list_part_child.size());
-            for(Element element :v1_bangumi_list_part_child){
+            for (Element element : v1_bangumi_list_part_child) {
                 Video vi = new Video();
                 Elements v1_complete_text = element.select("a[href]");
                 //System.out.println(v1_complete_text.toString());
@@ -522,14 +757,14 @@ public class HttpUtil {
             Elements v1_bangumi_list_season = slider_list_content.select("ul.v1-bangumi-list-season,.clearfix,.slider-list");
             Elements li_items = v1_bangumi_list_season.select("li");
             //System.out.println(li_items.size());
-            for(Element item: li_items) {
+            for (Element item : li_items) {
                 Video quarterVideo = new Video();
                 String quarter_title = item.text();
                 String data_season_id = item.attr("data-season-id");
                 //System.out.println(quarter_title);
                 //System.out.println(Constant.URL_FIND_BANKUN_INFO+data_season_id);
                 quarterVideo.setTitle(quarter_title);
-                quarterVideo.setUrlInfo(Constant.URL_FIND_BANKUN_INFO+data_season_id);
+                quarterVideo.setUrlInfo(Constant.URL_FIND_BANKUN_INFO + data_season_id);
                 quarterVideo.setPic(previewUrl);
                 quarterViewList.add(quarterVideo);
             }
@@ -537,7 +772,7 @@ public class HttpUtil {
             video.setQuarterVideoList(quarterViewList);
 //            Gson gson = new Gson();
 //            content = gson.toJson(video);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return video;
@@ -557,18 +792,18 @@ public class HttpUtil {
             String response = "";
             if ("gzip".equals(conn.getContentEncoding())) {
                 response = StringUtil.readDataForZgip(is, "utf-8");
-            }else{
+            } else {
                 response = StringUtil.readDataForZgip(is);
             }
             conn.disconnect();
-            if(response != null && !response.isEmpty()){
+            if (response != null && !response.isEmpty()) {
                 String str1 = "seasonListCallback(";
                 String str2 = ");";
-                String str3 = StringUtils.substringBetween(response,str1, str2);
+                String str3 = StringUtils.substringBetween(response, str1, str2);
 
                 JSONObject json = new JSONObject(str3);
                 int code = json.getInt("code");
-                if(code == 0){
+                if (code == 0) {
                     JSONObject result = json.getJSONObject("result");
                     System.out.println(result.toString());
                     video.setTitle(result.getString("bangumi_title"));
@@ -577,15 +812,15 @@ public class HttpUtil {
 
                     JSONArray tags = result.getJSONArray("tags");
                     String label = "";
-                    for (int i = 0 , num = tags.length() ; i < num ; i++) {
+                    for (int i = 0, num = tags.length(); i < num; i++) {
                         JSONObject item = tags.getJSONObject(i);
-                        label += item.getString("tag_name") +" ";
+                        label += item.getString("tag_name") + " ";
                     }
                     video.setSbutitle(label);
 
                     JSONArray episodes = result.getJSONArray("episodes");
                     List<Video> episodesVideoList = new ArrayList<Video>();
-                    for (int i = 0 , num = episodes.length() ; i < num ; i++) {
+                    for (int i = 0, num = episodes.length(); i < num; i++) {
                         Video vi = new Video();
                         JSONObject item = episodes.getJSONObject(i);
                         vi.setTitle(item.getString("index_title"));
@@ -596,7 +831,7 @@ public class HttpUtil {
 
                     JSONArray seasons = result.getJSONArray("seasons");
                     List<Video> seasonsViewList = new ArrayList<Video>();
-                    for (int i = 0 , num = seasons.length() ; i < num ; i++) {
+                    for (int i = 0, num = seasons.length(); i < num; i++) {
                         Video vi = new Video();
                         JSONObject item = seasons.getJSONObject(i);
                         vi.setTitle(item.getString("title"));
@@ -608,7 +843,7 @@ public class HttpUtil {
                     video.setQuarterVideoList(seasonsViewList);
                 }
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return video;
@@ -633,145 +868,35 @@ public class HttpUtil {
             String response = "";
             if ("gzip".equals(conn.getContentEncoding())) {
                 response = StringUtil.readDataForZgip(is, "utf-8");
-            }else{
+            } else {
                 response = StringUtil.readDataForZgip(is);
             }
             conn.disconnect();
-            if(response != null && !response.isEmpty()){
+            if (response != null && !response.isEmpty()) {
                 JSONObject json = new JSONObject(response);
                 int code = json.getInt("code");
-                if(code == 0){
+                if (code == 0) {
                     JSONObject result = json.getJSONObject("result");
                     JSONObject currentEpisode = result.getJSONObject("currentEpisode");
                     content = currentEpisode.getString("avId");
                 }
             }
-        }catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return content;
     }
 
     /**
-     * 搜索-图片
-     */
-    public static synchronized List<Album> getSearchAlbum(String key , String page ){
-        List<Album> albumList = new ArrayList<Album>();
-        try {
-            Document document = Jsoup
-                    .connect(Constant.URL_SEARCH_ALBUM + URLEncoder.encode(key, "UTF-8") +"&page="+page)
-                    .data("jquery", "java").userAgent("Mozilla")
-                    .cookie("auth", "token").timeout(50000).get();
-            String content = document.toString();
-//            System.out.println(content);
-            if(content != null && !content.isEmpty()){
-                Elements var = document.body().select("script");
-//                System.out.println(var.toString());
-//                System.out.println(var.size());
-                for (Element div : var) {
-                    String str1 = "app.page[" + "\"" + "pins" + "\"" + "] = ";
-//                    System.out.println(str1);
-                    String str2 = "app.page[" + "\"" + "page" + "\"" + "] = ";
-//                    System.out.println(str2);
-                    String str3 = StringUtils.substringBetween(div.toString(),str1, str2);
-//                    System.out.println(str3);
-                    if (str3 != null && !str3.isEmpty()) {
-                        str3 = str3.replace(";","");
-//                        System.out.println(str3);
-                        JSONArray array = new JSONArray(str3);
-                        for (int i = 0; i < array.length(); i++) {
-                            JSONObject json = (JSONObject) array.get(i);
-                            JSONObject jsomUrl = (JSONObject) json.get("file");
-                            ArrayList<String> url = new ArrayList<String>();
-                            int width = 0, height = 0;
-                            width = 720 / 2 - 30;
-                            height = width * jsomUrl.getInt("height")
-                                    / jsomUrl.getInt("width");
-                            if (height > 500) {
-                                height = 500;
-                            }
-                            Album album = new Album();
-                            album.setContent(json.getString("raw_text"));
-                            album.setPinId(String.valueOf(json.getInt("pin_id")));
-                            url.add("http://img.hb.aicdn.com/"
-                                    + jsomUrl.getString("key") + "_fw658"); //  236
-                            album.setUrlList(url);
-                            album.setResWidth(width);
-                            album.setResHight(height);
-                            album.setLove(json.getInt("like_count"));
-                            album.setFavorites(json.getInt("repin_count"));
-                            albumList.add(album);
-                        }
-                        continue;
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return albumList;
-    }
-
-    /**
-     * 搜索-画板
-     */
-    public static synchronized List<Palette> getSearchPalette(String key , String page ) {
-        List<Palette> paletteList = new ArrayList<Palette>();
-        try {
-            Document document = Jsoup
-                    .connect(Constant.URL_SEARCH_PALETTE + URLEncoder.encode(key, "UTF-8") +"&page="+page)
-                    .data("jquery", "java").userAgent("Mozilla")
-                    .cookie("auth", "token").timeout(50000).get();
-            String content = document.toString();
-            if(content != null && !content.isEmpty()){
-                Elements var = document.body().select("script");
-                //System.out.println(var.toString());
-                for (Element div : var) {
-                    String str1 = "app.page[" + "\"" + "boards" + "\"" + "] = ";
-                    String str2 = "app._csr = true";
-                    String str3 = StringUtils.substringBetween(div.toString(),str1, str2);
-                    if (str3 != null && !str3.isEmpty()) {
-                        JSONArray json = new JSONArray(str3);
-                        for (int i = 0; i < json.length(); i++) {
-                            Palette palette = new Palette();
-                            ArrayList<String> url = new ArrayList<String>();
-                            JSONObject boardjs = (JSONObject) json.get(i);
-                            JSONArray array = boardjs.getJSONArray("pins");
-                            for (int j = 0; j < array.length(); j++) {
-                                JSONObject js = (JSONObject) array.get(j);
-                                JSONObject jsfile = js.getJSONObject("file");
-                                url.add("http://img.hb.aicdn.com/"
-                                        + jsfile.getString("key") + "_fw658");
-                            }
-                            palette.setName(boardjs.getString("title"));
-                            palette.setNum(boardjs.getInt("pin_count"));
-                            palette.setUrlAlbum(url);
-                            palette.setBoardId(boardjs.getString("board_id"));
-                            paletteList.add(palette);
-                        }
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return paletteList;
-    }
-
-    /**
      * 搜索-视频
      */
-    public static synchronized List<Video> getSearchVideo(String key , String page ){
+    public static synchronized List<Video> getSearchVideo(String key, String page) {
         List<Video> videoList = new ArrayList<Video>();
         try {
             //System.out.println(Constant.URL_SEARCH_VIDEO + "&keyword="+URLEncoder.encode(key, "UTF-8")+"&page="+page);
-            Document document = Jsoup.connect(Constant.URL_SEARCH_VIDEO + "&keyword="+URLEncoder.encode(key, "UTF-8")+"&page="+page).data("jquery", "java")
+            Document document = Jsoup.connect(Constant.URL_SEARCH_VIDEO + "&keyword=" + URLEncoder.encode(key, "UTF-8") + "&page=" + page).data("jquery", "java")
                     .userAgent("Mozilla").cookie("auth", "token")
                     .timeout(50000).get();
             String content = document.toString();
@@ -781,7 +906,7 @@ public class HttpUtil {
                 //System.out.println(so_wrap.toString());
                 Elements li = so_wrap.select("li");
                 //System.out.println(li.size());
-                for(int i = 0 ; i < li.size() ; i++){
+                for (int i = 0; i < li.size(); i++) {
                     Element item = li.get(i);
                     System.out.println(item.toString());
                     Video video = new Video();
@@ -796,7 +921,7 @@ public class HttpUtil {
                     //System.out.println(str1);
                     String str2 = "?from=search";
                     //System.out.println(str2);
-                    String str3 = StringUtils.substringBetween(img.attr("href"),str1, str2);
+                    String str3 = StringUtils.substringBetween(img.attr("href"), str1, str2);
                     video.setAid(str3);
                     //System.out.println(img.attr("href"));
                     //System.out.println(str3);
@@ -828,10 +953,10 @@ public class HttpUtil {
     /**
      * 搜索-番剧
      */
-    public static synchronized List<Video> getSearchBangunmi(String key , String page ){
+    public static synchronized List<Video> getSearchBangunmi(String key, String page) {
         List<Video> videoList = new ArrayList<Video>();
         try {
-            Document document = Jsoup.connect(Constant.URL_SEARCH_SERIES + "&keyword="+URLEncoder.encode(key, "UTF-8")+"&page="+page).data("jquery", "java")
+            Document document = Jsoup.connect(Constant.URL_SEARCH_SERIES + "&keyword=" + URLEncoder.encode(key, "UTF-8") + "&page=" + page).data("jquery", "java")
                     .userAgent("Mozilla").cookie("auth", "token")
                     .timeout(50000).get();
             String content = document.toString();
@@ -851,12 +976,12 @@ public class HttpUtil {
                 //System.out.println(so_episode.toString());
                 Elements list = so_episode.select("a");
                 //System.out.println(list.size());
-                for(int i = 0 ; i < list.size() ; i++){
+                for (int i = 0; i < list.size(); i++) {
                     Video video = new Video();
                     Element item = list.get(i);
                     String videourl = item.attr("href");
                     String[] urls = videourl.split("\\?from");
-                    if(urls.length > 1){
+                    if (urls.length > 1) {
                         videourl = urls[0];
                     }
                     String quarter = item.text();
@@ -864,7 +989,7 @@ public class HttpUtil {
                     //System.out.println(quarter);
                     video.setUrlInfo(videourl);
                     video.setPic(imgurl);
-                    video.setTitle(title+quarter);
+                    video.setTitle(title + quarter);
                     video.setDescription(des);
                     video.setUpdateContent("");
 
@@ -878,10 +1003,10 @@ public class HttpUtil {
     }
 
     public static synchronized JSONObject getPlayUrl(String av) {
-        JSONObject content = new JSONObject() ;
+        JSONObject content = new JSONObject();
         try {
 
-            String u = String.format(Constant.URL_PLAY_VIDEO_INFO,av);
+            String u = String.format(Constant.URL_PLAY_VIDEO_INFO, av);
             System.out.println(u);
             URL url = new URL(u);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -894,22 +1019,22 @@ public class HttpUtil {
             String s = "";
             if ("gzip".equals(conn.getContentEncoding())) {
                 s = StringUtil.readDataForZgip(is, "utf-8");
-            }else{
+            } else {
                 s = StringUtil.readDataForZgip(is);
             }
             conn.disconnect();
             System.out.println(s);
             s = s.replace("jQuery172024279008170264427_1478221268354(", "");
             s = s.replace(");", "");
-            if(s != null && !s.isEmpty()){
+            if (s != null && !s.isEmpty()) {
                 JSONObject json = new JSONObject(s);
-                if(json.isNull("code") ){
+                if (json.isNull("code")) {
                     //System.out.println("code");
                     String mp4url = "";
                     String cid = json.getString("cid");
                     String img = json.getString("img");
                     JSONArray durl = json.getJSONArray("durl");
-                    for(int i = 0, num = durl.length(); i < num; i++){
+                    for (int i = 0, num = durl.length(); i < num; i++) {
                         JSONObject item = durl.getJSONObject(i);
                         mp4url = item.getString("url");
                     }
@@ -930,7 +1055,6 @@ public class HttpUtil {
         }
         return content;
     }
-
 
 
 }

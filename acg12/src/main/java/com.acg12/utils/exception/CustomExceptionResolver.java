@@ -41,11 +41,12 @@ public class CustomExceptionResolver implements HandlerExceptionResolver {
         } else {
             customException = new CustomException("未知错误");
         }
-        try {
-            response.getWriter().write("{\"res\":-1,\"msg\":\"" + customException.getMessage() + "\"}");
-        } catch (IOException e) {
-
-        }
+        System.err.println(customException.getMessage());
+//        try {
+////            response.getWriter().write("{\"res\":-1,\"msg\":\"" + customException.getMessage() + "\"}");
+//        } catch (IOException e) {
+//
+//        }
         return modelAndView;
     }
 }
