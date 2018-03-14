@@ -4,19 +4,19 @@
 <!--   maxElementsInMemory->maxEntriesLocalHeap -->
 <!--   maxElementsOnDisk->maxEntriesLocalDisk -->
 <ehcache>
-    <diskStore path="java.io.tmpdir"/>
+    <diskStore path="java.io.tmpdir/ehcache"/>
     <defaultCache
             maxElementsInMemory="1000"
             eternal="false"
             timeToIdleSeconds="120"
             timeToLiveSeconds="120"
             overflowToDisk="false"/>
-    <cache name="myCache"
-           maxElementsOnDisk="20000"
-           maxElementsInMemory="2000"
-           eternal="true"
-           overflowToDisk="true"
-           diskPersistent="true"/>
+    <!--<cache name="myCache"-->
+           <!--maxElementsOnDisk="20000"-->
+           <!--maxElementsInMemory="2000"-->
+           <!--eternal="true"-->
+           <!--overflowToDisk="true"-->
+           <!--diskPersistent="true"/>-->
 
     <cache name="resource_cache"
            maxElementsOnDisk="20000"

@@ -16,45 +16,33 @@
 
     <!-- 启用spring mvc 注解 -->
     <mvc:annotation-driven/>
-    <!--<mvc:annotation-driven conversion-service="conversionService"
-                   validator="validator"/>-->
+
     <!-- 组件扫描器 可以扫描controller、service、...这里让扫描controller，指定controller的包 -->
     <context:component-scan base-package="com.acg12"/>
 
+    <!-- 面向切面 -->
     <aop:aspectj-autoproxy/>
-    <!--<aop:aspectj-autoproxy proxy-target-class="true"/>-->
-    <!--<bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator"/>-->
     <bean id="aspectBean" class="com.acg12.utils.aspect.TestAnnotationAspect"/>
     <bean id="userAspect" class="com.acg12.utils.aspect.UserAspect"/>
 
     <!--开启这个配置，spring才能识别@Scheduled注解   -->
-    <task:annotation-driven executor="myExecutor" scheduler="myScheduler" />
-    <task:executor id="myExecutor" pool-size="5" />
-    <task:scheduler id="myScheduler" pool-size="10" />
+    <task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
+    <task:executor id="myExecutor" pool-size="5"/>
+    <task:scheduler id="myScheduler" pool-size="10"/>
 
-    <mvc:resources mapping="/admin/**" location="/resources/" />
-
-
+    <!--本地路径映射-->
+    <mvc:resources location="/client/" mapping="/admin/**"/>
 
     <mvc:default-servlet-handler/>
 
     <!-- 视图解析器 解析jsp解析，默认使用jstl标签，classpath下的得有jstl的包 -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="order" value="0"/>
-        <property name="viewNames" value="*jsp" />
-        <!-- 配置jsp路径的前缀 -->
-        <property name="prefix" value="/WEB-INF/jsp/"/>
-        <!-- 配置jsp路径的后缀 -->
-        <property name="suffix" value=".jsp"/>
-    </bean>
-
-    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
-        <!--<property name="order" value="1"/>-->
-        <!--<property name="viewNames" value="*html" />-->
-        <!--&lt;!&ndash; 配置jsp路径的前缀 &ndash;&gt;-->
-        <!--<property name="prefix" value="/resources/"/>-->
-        <!--&lt;!&ndash; 配置jsp路径的后缀 &ndash;&gt;-->
-        <!--<property name="suffix" value=".html"/>-->
+    <!--<bean  class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+    <!--<property name="order" value="0"/>-->
+    <!--<property name="viewNames" value="*jsp" />-->
+    <!--配置jsp路径的前缀-->
+    <!--<property name="prefix" value="/WEB-INF/jsp/"/>-->
+    <!-- 配置jsp路径的后缀 -->
+    <!--<property name="suffix" value=".jsp"/>-->
     <!--</bean>-->
 
     <!-- 自定义参数绑定 -->
@@ -78,29 +66,29 @@
 
     <!-- 校验器 -->
     <!--<bean id="validator"-->
-          <!--class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">-->
-        <!--&lt;!&ndash; hibernate校验器&ndash;&gt;-->
-        <!--<property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>-->
-        <!--&lt;!&ndash; 指定校验使用的资源文件，在文件中配置校验错误信息，如果不指定则默认使用classpath下的ValidationMessages.properties &ndash;&gt;-->
-        <!--<property name="validationMessageSource" ref="messageSource"/>-->
+    <!--class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">-->
+    <!--&lt;!&ndash; hibernate校验器&ndash;&gt;-->
+    <!--<property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>-->
+    <!--&lt;!&ndash; 指定校验使用的资源文件，在文件中配置校验错误信息，如果不指定则默认使用classpath下的ValidationMessages.properties &ndash;&gt;-->
+    <!--<property name="validationMessageSource" ref="messageSource"/>-->
     <!--</bean>-->
     <!-- 校验错误信息配置文件 -->
     <!--<bean id="messageSource"-->
-          <!--class="org.springframework.context.support.ReloadableResourceBundleMessageSource">-->
-        <!--&lt;!&ndash; 资源文件名&ndash;&gt;-->
-        <!--<property name="basenames">-->
-            <!--<list>-->
-                <!--<value>classpath:CustomValidationMessages</value>-->
-            <!--</list>-->
-        <!--</property>-->
-        <!--&lt;!&ndash; 资源文件编码格式 &ndash;&gt;-->
-        <!--<property name="fileEncodings" value="utf-8"/>-->
-        <!--&lt;!&ndash; 对资源文件内容缓存时间，单位秒 &ndash;&gt;-->
-        <!--<property name="cacheSeconds" value="120"/>-->
+    <!--class="org.springframework.context.support.ReloadableResourceBundleMessageSource">-->
+    <!--&lt;!&ndash; 资源文件名&ndash;&gt;-->
+    <!--<property name="basenames">-->
+    <!--<list>-->
+    <!--<value>classpath:CustomValidationMessages</value>-->
+    <!--</list>-->
+    <!--</property>-->
+    <!--&lt;!&ndash; 资源文件编码格式 &ndash;&gt;-->
+    <!--<property name="fileEncodings" value="utf-8"/>-->
+    <!--&lt;!&ndash; 对资源文件内容缓存时间，单位秒 &ndash;&gt;-->
+    <!--<property name="cacheSeconds" value="120"/>-->
     <!--</bean>-->
 
     <!--全局异常处理器 只要实现HandlerExceptionResolver接口就是全局异常处理器-->
-    <bean class ="com.acg12.utils.exception.CustomExceptionResolver"></bean>
+    <bean class="com.acg12.utils.exception.CustomExceptionResolver"></bean>
 
     <!-- 将 springSwaggerConfig加载到spring容器 -->
     <bean class="com.acg12.conf.SwaggerConfig"/>
@@ -110,19 +98,7 @@
     <!-- 缓存配置 -->
     <!-- 启用缓存注解功能(请将其配置在Spring主配置文件中) -->
     <cache:annotation-driven cache-manager="cacheManager"/>
-
-    <!-- Spring自己的基于java.util.concurrent.ConcurrentHashMap实现的缓存管理器(该功能是从Spring3.1开始提供的) -->
-    <!--
-    <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
-        <property name="caches">
-            <set>
-                <bean name="myCache" class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"/>
-            </set>
-        </property>
-    </bean>
-
-    <!- 若只想使用Spring自身提供的缓存器,则注释掉下面的两个关于Ehcache配置的bean,并启用上面的SimpleCacheManager即可 -->
-    <!-- Spring提供的基于的Ehcache实现的缓存管理器 -->
+    <!--Spring提供的基于的Ehcache实现的缓存管理器 -->
     <bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
         <property name="configLocation" value="classpath:cache/ehcache.xml"/>
     </bean>

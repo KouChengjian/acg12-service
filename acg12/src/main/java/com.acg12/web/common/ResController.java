@@ -1,4 +1,4 @@
-package com.acg12.web.api;
+package com.acg12.web.common;
 
 import com.acg12.entity.dto.Result;
 import com.acg12.conf.Constant;

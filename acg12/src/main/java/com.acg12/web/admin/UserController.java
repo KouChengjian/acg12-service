@@ -1,4 +1,4 @@
-package com.acg12.web.api;
+package com.acg12.web.admin;
 
 import com.acg12.conf.Constant;
 import com.acg12.entity.dto.Result;
@@ -12,7 +12,6 @@ import com.acg12.service.UserServiceImpl;
 import com.acg12.service.VerifyServiceImpl;
 import com.acg12.utils.FileUpload;
 import com.acg12.utils.ListUtil;
-import com.acg12.utils.SendSMSUtli;
 import com.acg12.utils.StringUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -218,11 +217,11 @@ public class UserController {
         }
 
         // 发送验证码
-        if (SendSMSUtli.sendSMS(username, randomNum + "")) {
-            result.writeSucceed(response);
-        } else {
-            result.writeFailure("发送验证码失败", response);
-        }
+//        if (SendSMSUtli.sendSMS(username, randomNum + "")) {
+//            result.writeSucceed(response);
+//        } else {
+//            result.writeFailure("发送验证码失败", response);
+//        }
     }
 
     @ApiOperation(value = "重置密码", httpMethod = "POST", produces = "application/json")
