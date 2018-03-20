@@ -8,7 +8,6 @@ import org.json.JSONObject;
  */
 public class SearchServiceImpl implements SearchService {
 
-
     @Override
     public JSONObject getIndex() {
         return null;

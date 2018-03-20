@@ -18,6 +18,9 @@ public class MainSearchController {
     @RequestMapping(value = "/subject", method = {RequestMethod.GET}, produces = "application/json ;charset=utf-8")
     @ResponseBody
     public void subjectSearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // 查询数据库是否存在
+
+        // 获取资源
 
     }
 

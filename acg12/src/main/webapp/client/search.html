@@ -2,13 +2,99 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-
+    <title>搜索</title>
+    <link href="css/index.css" rel="stylesheet">
+    <link href="css/search.css" rel="stylesheet">
 
 </head>
-<body>
+<body class="bangumi">
+
+<div >
+    <div class="title"></div>
+
+    <div class="search-box">
+        <form action="/search/" method="get" class="new-searching-unit" data-regestered="regestered">
+            <input id="query" type="text" size="27" name="q" autocomplete="off" placeholder="搜索你喜欢的" value="">
+            <a href="#" onclick="return false;" class="go"></a>
+        </form>
+
+    </div>
+
+    <div class="columns">
+
+        <div id="columnSearchA" class="column">
+        </div>
+
+        <div class="columnSearchB column">
+            <div class="browserTools">
+                <ul class="browserTypeSelector">
+                    <li><a href="javascript:void(0);" class="full_selector active" id="full_selector"><span>列表</span></a></li>
+                    <li><a href="javascript:void(0);" class="grid_selector" id="grid_selector"><span>网格</span></a></li>
+                </ul>
+            </div>
+
+            <ul class="browserItemList">
+                <li class="browserItem" >
+                    <div class="list">
+                        <div class="left">
+                            <a>
+                                <img src="//lain.bgm.tv/pic/cover/l/e9/fb/3110_ucarX.jpg" class="cover">
+                            </a>
+                        </div>
+                        <div class="right">
+
+                            <h3>
+                                <a href="//www.bilibili.com/video/av20642794/" target="_blank" title="灼眼的夏娜S" class="t">灼眼的夏娜S</a>
+                                <small class="grey">灼眼のシャナS</small>
+                            </h3>
+
+                            <div class="desc">视频类型: 动漫杂谈
+                                简介: 这里什么都有→微博@凉风有性胖次君 http://weibo.com/10112015</div>
+
+                            <p class="info">
+                                2009年10月23日 / 渡部高志 </p>
+                        </div>
+                    </div>
+                </li>
+                <li class="browserItem" >
+                    <div class="list">
+                        <div class="left">
+                            <a>
+                                <img src="//lain.bgm.tv/pic/cover/l/e9/fb/3110_ucarX.jpg" class="cover">
+                            </a>
+                        </div>
+                        <div class="right">
+
+                            <h3>
+                                <a href="//www.bilibili.com/video/av20642794/" target="_blank" title="灼眼的夏娜S" class="t">灼眼的夏娜S</a>
+                                <small class="grey">灼眼のシャナS</small>
+                            </h3>
+
+                            <div class="desc">视频类型: 动漫杂谈
+                                简介: 这里什么都有→微博@凉风有性胖次君 http://weibo.com/10112015</div>
+
+                            <p class="info">
+                                2009年10月23日 / 渡部高志 </p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
+        <div id="columnSearchC" class="column">
+        </div>
+
+    </div>
+
+</div>
 
 
 
+
+
+
+
+<script type="text/javascript" src="js/search.js"></script>
 </body>
 </html>

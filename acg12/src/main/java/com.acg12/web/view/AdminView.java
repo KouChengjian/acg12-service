@@ -18,15 +18,21 @@ import javax.servlet.http.HttpServletResponse;
 public class AdminView {
 
     @ResponseBody
-    @RequestMapping(value = "/index1" )
-    public String toExitPage() {
-        return "/WEB-INF/jsp/index.jsp";
+    @RequestMapping(value = "/index" )
+    public ModelAndView index() {
+        return new ModelAndView("/client/index.html");
     }
 
     @ResponseBody
-    @RequestMapping(value = "/index3" )
-    public ModelAndView toExitPage111() {
-        return new ModelAndView("/client/index.jsp");
+    @RequestMapping(value = "/search" )
+    public ModelAndView search() {
+        return new ModelAndView("/client/search.html");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/index1" )
+    public String toExitPage() {
+        return "/WEB-INF/jsp/index.jsp";
     }
 
     @RequestMapping(value="/index2" )
