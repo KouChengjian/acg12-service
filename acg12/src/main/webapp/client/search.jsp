@@ -1,5 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page import="com.acg12.utils.search.SearchUtli" %>
+<%@ page import="org.json.JSONObject" %><%--
+  Created by IntelliJ IDEA.
+  User: Administrator
+  Date: 2018/3/23
+  Time: 8:43
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
     <meta charset="UTF-8">
     <title>搜索</title>
@@ -36,10 +44,23 @@
             </div>
 
             <ul class="browserItemList">
+                <%
+                    String key = request.getParameter("key");
+                    String start = request.getParameter("start");
+                    JSONObject msg = SearchUtli.getSubjectSearchList(key, 0, start);
+                    for (int i = 0 , total = msg.length() ; i< total ; i++){
+                        JSONObject results = msg.getString("results");
 
+                %>
+
+                <%
+                    }
+                %>
             </ul>
 
-
+            <div class="loaddingNull">
+                没有更多内容哦，请更换条词。
+            </div>
         </div>
 
         <div id="columnSearchC" class="column">
@@ -47,17 +68,13 @@
 
     </div>
 
-    <div id="page" class="page">
+    <div class="page">
         <div class="m-style M-box3"></div>
     </div>
 
 </div>
 
-
-
-
-
-
 <script type="text/javascript" src="js/search.js"></script>
+
 </body>
 </html>

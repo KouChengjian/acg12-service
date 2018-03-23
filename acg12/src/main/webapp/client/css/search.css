@@ -1,5 +1,5 @@
 
-a{
+a {
     text-decoration: none;
 }
 
@@ -8,7 +8,7 @@ ol, ul {
     display: block;
 }
 
-.title{
+.title {
     width: 337px;
     height: 81px;
     margin: 100px auto 20px;
@@ -92,23 +92,23 @@ ol, ul {
     background-position: -334px -911px;
 }
 
-.columnSearchB .browserItemList{
+.columnSearchB .browserItemList {
     width: 100%;
     margin: 0px;
     padding: 0;
 }
 
-.columnSearchB .browserItemList .browserItem{
+.columnSearchB .browserItemList .browserItem {
     margin: 0;
     padding: 0;
 }
 
-.columnSearchB .browserItemList .browserItem .list{
+.columnSearchB .browserItemList .browserItem .list {
     width: 100%;
     /*height: 150px;*/
 }
 
-.columnSearchB .browserItemList .browserItem .list .left{
+.columnSearchB .browserItemList .browserItem .list .left {
     width: 150px;
     height: 150px;
     float: left;
@@ -116,13 +116,14 @@ ol, ul {
     margin: 20px auto;
 }
 
-.columnSearchB .browserItemList .browserItem .list .left a{
+.columnSearchB .browserItemList .browserItem .list .left a {
     cursor: pointer;
     margin: 0px auto;
 }
 
-.columnSearchB .browserItemList .browserItem .list .left img{
+.columnSearchB .browserItemList .browserItem .list .left img {
     width: 100px;
+    height: 155px;
     background-color: #FFF;
     margin-bottom: 5px;
     padding: 2px;
@@ -135,7 +136,7 @@ ol, ul {
     box-shadow: 0 1px 5px #AAA;
 }
 
-.columnSearchB .browserItemList .browserItem .list .right{
+.columnSearchB .browserItemList .browserItem .list .right {
     width: 850px;
     height: 150px;
     margin: 20px 0px;
@@ -168,7 +169,7 @@ ol, ul {
     padding: 10px 0 0 0;
 }
 
-.columnSearchB .browserItemList .browserItem .grid{
+.columnSearchB .browserItemList .browserItem .grid {
     width: 160px;
     height: 310px;
     float: left;
@@ -176,21 +177,21 @@ ol, ul {
     margin-left: 30px;
 }
 
-
-.columnSearchB .browserItemList .browserItem .grid .top{
+.columnSearchB .browserItemList .browserItem .grid .top {
     width: 160px;
     height: 228px;
     float: left;
     text-align: center;
 }
 
-.columnSearchB .browserItemList .browserItem .grid .top a{
+.columnSearchB .browserItemList .browserItem .grid .top a {
     cursor: pointer;
     margin: 0px auto;
 }
 
-.columnSearchB .browserItemList .browserItem .grid .top img{
+.columnSearchB .browserItemList .browserItem .grid .top img {
     width: 160px;
+    height: 228px;
     background-color: #FFF;
     margin-bottom: 5px;
     border-top: 1px solid #C7C7C9;
@@ -209,13 +210,22 @@ ol, ul {
 }
 
 .columnSearchB .browserItemList .browserItem .grid .botton .t {
-    width: 100%;
+    display: block;
+    /*width: 140px;*/
+    max-width: 150px;
     overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     color: #222;
     margin: 0px;
 }
 
-.columnSearchB .browserItemList .browserItem .grid .botton small.grey{
+.columnSearchB .browserItemList .browserItem .grid .botton small.grey {
+    display: block;
+    max-width: 150px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     float: left;
     font-size: 10px;
     color: #333;
@@ -229,6 +239,46 @@ ol, ul {
     font-size: 8px;
 }
 
+.columnSearchB .loaddingNull {
+    width: 100%;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    /*display: none;*/
+}
+
+#page {
+    width: 100%;
+    margin: 0 auto;
+    height: 50px;
+    margin-bottom: 40px;
+    float: left;
+    text-align: center;
+    position: relative;
+    left: 24%;
+}
+
+.page {
+    display: none;
+}
+
+.m-style a {
+    background: rgba(255, 255, 255, .5) !important;
+    border: 1px solid #ebebeb;
+    color: #eee !important;
+}
+
+.m-style .active {
+    background: #fff !important;
+    color: #222 !important;
+    border: 1px solid #fff !important;
+}
+
+.m-style  input {
+    background: rgba(255, 255, 255, .5) !important;
+    color: #eee !important;
+}
 
 
 

@@ -31,7 +31,7 @@
     <task:scheduler id="myScheduler" pool-size="10"/>
 
     <!--本地路径映射-->
-    <mvc:resources location="/client/" mapping="/admin/**"/>
+    <mvc:resources location="/client/" mapping="/view/**"/>
 
     <mvc:default-servlet-handler/>
 

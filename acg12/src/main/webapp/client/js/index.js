@@ -3,6 +3,7 @@
 document.getElementsByClassName("go")[0].onclick = function () {
     var key = document.getElementById("query").value;
     console.log(key);
+    window.location.href='/acg12/view/search?k='+key;
 }
 
 document.onkeydown=function(event){

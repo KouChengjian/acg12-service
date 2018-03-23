@@ -32,7 +32,7 @@
     }
 
     function openClientHtml() {
-        window.open("http://localhost:8080/acg12/admin/index");
+        window.open("http://localhost:8080/acg12/view/index");
     }
 </script>
 

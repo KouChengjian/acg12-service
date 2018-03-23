@@ -1,5 +1,7 @@
 package com.acg12.utils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.BitSet;
 
 /**
@@ -80,5 +82,14 @@ public class UrlEncoderUtil {
      */
     private static boolean isDigit16Char(char c) {
         return (c >= '0' && c <= '9') || (c >= 'A' && c <= 'F');
+    }
+
+    public static String encode(String k){
+        try {
+            return URLEncoder.encode(k , "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

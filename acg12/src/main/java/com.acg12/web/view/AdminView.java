@@ -17,17 +17,17 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "/admin")
 public class AdminView {
 
-    @ResponseBody
-    @RequestMapping(value = "/index" )
-    public ModelAndView index() {
-        return new ModelAndView("/client/index.html");
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/search" )
-    public ModelAndView search() {
-        return new ModelAndView("/client/search.html");
-    }
+//    @ResponseBody
+//    @RequestMapping(value = "/index" )
+//    public ModelAndView index() {
+//        return new ModelAndView("/client/index.html");
+//    }
+//
+//    @ResponseBody
+//    @RequestMapping(value = "/search" )
+//    public ModelAndView search() {
+//        return new ModelAndView("/client/search.html");
+//    }
 
     @ResponseBody
     @RequestMapping(value = "/index1" )
