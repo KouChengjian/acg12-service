@@ -19,6 +19,7 @@ ol, ul {
     padding: 0 0 10px 0;
     width: 1000px;
     margin: 0 auto;
+    overflow:hidden
 }
 
 .column {
@@ -249,14 +250,14 @@ ol, ul {
 }
 
 #page {
-    width: 100%;
+    width: 1000px;
     margin: 0 auto;
     height: 50px;
     margin-bottom: 40px;
-    float: left;
-    text-align: center;
-    position: relative;
-    left: 24%;
+    /*float: left;*/
+    /*text-align: center;*/
+    /*position: relative;*/
+    /*left: 24%;*/
 }
 
 .page {

@@ -1,7 +1,6 @@
 package com.acg12.utils.search;
 
 import com.acg12.entity.po.SubjectEntity;
-import com.acg12.utils.StringUtil;
 import com.acg12.utils.UrlEncoderUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,11 +10,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,16 +19,20 @@ import java.util.List;
 public class SearchUtli {
 
     // 搜索关键字获取列表
-    public static synchronized JSONObject getSubjectSearchList(String key , int type ,int start){
-        String u = String.format("http://api.bgm.tv/search/subject/%s?type=%d&responseGroup=large&start=%d&max_results=10" , UrlEncoderUtil.hasUrlEncoded(key) ? key : UrlEncoderUtil.encode(key), type , start);
+    public static synchronized JSONObject getSubjectSearchList(String key, int type, int start) {
+//        System.setProperty("http.proxyHost", "localhost");
+//        System.setProperty("http.proxyPort", "8888");
+//        System.setProperty("https.proxyHost", "localhost");
+//        System.setProperty("https.proxyPort", "8888");
+        String u = String.format("http://api.bgm.tv/search/subject/%s?type=%d&responseGroup=large&start=%d&max_results=10", UrlEncoderUtil.hasUrlEncoded(key) ? key : UrlEncoderUtil.encode(key), type, start);
         try {
             Document document = Jsoup.connect(u).ignoreContentType(true)
                     .data("jquery", "java").userAgent("Mozilla")
                     .cookie("auth", "token").timeout(50000).get();
 
             JSONObject jsonObject = new JSONObject(document.body().text());
-            JSONArray list= jsonObject.getJSONArray("list");
-            for (int i = 0 , total = list.length() ; i < total ; i++) {
+            JSONArray list = jsonObject.getJSONArray("list");
+            for (int i = 0, total = list.length(); i < total; i++) {
                 JSONObject item = list.getJSONObject(i);
                 item.remove("rating");
                 item.remove("rank");
@@ -80,55 +78,84 @@ public class SearchUtli {
 
     }
 
-    public static synchronized void getSubjectSearch11(){
-        System.setProperty("http.proxyHost", "localhost");
-        System.setProperty("http.proxyPort", "8888");
-        System.setProperty("https.proxyHost", "localhost");
-        System.setProperty("https.proxyPort", "8888");
+    // 关键字详情
+    public static synchronized void getSubjectInfo(int subjectid) {
+        String url1 = String.format("http://api.bgm.tv/subject/%d?responseGroup=large", subjectid);
+        String url2 = String.format("http://bangumi.tv/subject/%d", subjectid);
+
         try {
-            URL url = new URL("http://api.bgm.tv/search/subject/%E5%A4%8F%E5%A8%9C?type=2&responseGroup=large&start=0");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestProperty("User-agent","Mozilla/4.0");
-//            conn.setRequestProperty("Cookie", "buvid3=C4C5E5DA-AA7A-488F-90B6-1D9F6630601B12546infoc");
-            conn.setRequestMethod("GET");
-            if (conn.getResponseCode() != 200)
-                throw new RuntimeException("请求url失败  " +conn.getResponseCode());
-            InputStream is = conn.getInputStream();//拿到输入流
-            String s = "";
-            if ("gzip".equals(conn.getContentEncoding())) {
-                s = StringUtil.readDataForZgip(is, "utf-8");
-            } else {
-                s = StringUtil.readDataForZgip(is);
+            Document document = Jsoup.connect(url1).ignoreContentType(true)
+                    .data("jquery", "java").userAgent("Mozilla")
+                    .cookie("auth", "token").timeout(50000).get();
+
+            String content = document.body().text();
+            if (content == null || content.isEmpty()) {
+                return;
             }
-            conn.disconnect();
-            System.err.println(s);
-        } catch (IOException e) {
-            e.printStackTrace();
+            JSONObject result = new JSONObject(content);
+            SubjectEntity subjectEntity = new SubjectEntity();
+            subjectEntity.setsId(result.getInt("id"));
+            subjectEntity.setType(result.getInt("type"));
+            subjectEntity.setName(result.getString("name"));
+            subjectEntity.setNameCn(result.getString("name_cn"));
+            subjectEntity.setSummary(result.getString("summary"));
+            subjectEntity.setImage(result.getJSONObject("images").getString("large"));
+            subjectEntity.setEpsCount(result.getInt("eps_count"));
+            subjectEntity.setAirDate(result.getString("air_date"));
+            subjectEntity.setAirWeekday(result.getInt("air_weekday"));
+            System.err.println(subjectEntity.toString());
+
+            List<String> ignoreList = new ArrayList<>();
+            ignoreList.add("中文名");
+            ignoreList.add("话数");
+            ignoreList.add("放送开始");
+
+            document = Jsoup.connect(url2).ignoreContentType(true)
+                    .data("jquery", "java").userAgent("Mozilla")
+                    .cookie("auth", "token").timeout(50000).get();
+
+            Element infobox = document.getElementById("infobox");
+            Elements lis = infobox.select("li");
+            for (int i = 0, total = lis.size(); i < total; i++) {
+                String key, value , link = null;
+                Element item = lis.get(i);
+                Elements span = item.select("span");
+
+                key = span.text().replace(":", "");
+                if (ignoreList.contains(key)) {
+                    continue;
+                }
+                System.err.println(key);
+                Elements a = item.select("a");
+                if (a.isEmpty()) {
+                    item.select("span").remove();
+                    System.err.println(item.text());
+                } else {
+                    for (int j = 0 , num = a.size() ; j < num ; j++){
+                        Element element = a.get(j);
+                        System.err.println(element.text());
+                        System.err.println(element.attr("href"));
+
+                    }
+                }
+            }
+//            System.err.println(infobox.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
     }
 
-    // 关键字详情
-    public static synchronized void getSubjectInfo(int subjectid ){
-        String url = String.format("https://api.bgm.tv/subject/%d?responseGroup=large" , subjectid );
+    public static synchronized void getPersonInfo(int personId){
         try {
-            Document document = Jsoup.connect(url).ignoreContentType(true)
+            String url3 = String.format("http://bangumi.tv/person/%s", personId);
+            Document document = Jsoup.connect(url3).ignoreContentType(true)
                     .data("jquery", "java").userAgent("Mozilla")
                     .cookie("auth", "token").timeout(50000).get();
-            String content = document.toString();
-            System.err.println(document.body().text());
-
-
+            System.err.println(document.body());
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
 
 }

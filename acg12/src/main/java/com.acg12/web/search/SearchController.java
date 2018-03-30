@@ -33,8 +33,6 @@ public class SearchController {
     @ResponseBody
     public void characterSearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
 //        SearchUtli.getSubjectSearchList("夏娜" , 2 , 0);
-
-        SearchUtli.getSubjectSearch11();
     }
 
 }

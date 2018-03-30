@@ -5,25 +5,24 @@ package com.acg12.entity.po;
  */
 public class SubjectEntity extends Param {
 
-    private Integer subject_id;
+    private Integer subjectId;
     private Integer sId;
     private String url;
     private Integer type; // 标题类型
     private String name;
-    private String name_cn;
+    private String nameCn; // 中文
     private String  summary; // 概况
     private String image;
-    private Integer eps_count; // 画数
-    private String air_date;// 放送开始
-    private Integer air_weekday;// 放送时间
-    private String otherParam; // 其他参数
+    private Integer epsCount; // 话数
+    private String airDate;// 放送开始
+    private Integer airWeekday;// 放送星期
 
-    public Integer getSubject_id() {
-        return subject_id;
+    public Integer getSubjectId() {
+        return subjectId;
     }
 
-    public void setSubject_id(Integer subject_id) {
-        this.subject_id = subject_id;
+    public void setSubjectId(Integer subjectId) {
+        this.subjectId = subjectId;
     }
 
     public Integer getsId() {
@@ -58,12 +57,12 @@ public class SubjectEntity extends Param {
         this.name = name;
     }
 
-    public String getName_cn() {
-        return name_cn;
+    public String getNameCn() {
+        return nameCn;
     }
 
-    public void setName_cn(String name_cn) {
-        this.name_cn = name_cn;
+    public void setNameCn(String nameCn) {
+        this.nameCn = nameCn;
     }
 
     public String getSummary() {
@@ -82,35 +81,46 @@ public class SubjectEntity extends Param {
         this.image = image;
     }
 
-    public Integer getEps_count() {
-        return eps_count;
+    public Integer getEpsCount() {
+        return epsCount;
     }
 
-    public void setEps_count(Integer eps_count) {
-        this.eps_count = eps_count;
+    public void setEpsCount(Integer epsCount) {
+        this.epsCount = epsCount;
     }
 
-    public String getAir_date() {
-        return air_date;
+    public String getAirDate() {
+        return airDate;
     }
 
-    public void setAir_date(String air_date) {
-        this.air_date = air_date;
+    public void setAirDate(String airDate) {
+        this.airDate = airDate;
     }
 
-    public Integer getAir_weekday() {
-        return air_weekday;
+    public Integer getAirWeekday() {
+        return airWeekday;
     }
 
-    public void setAir_weekday(Integer air_weekday) {
-        this.air_weekday = air_weekday;
+    public void setAirWeekday(Integer airWeekday) {
+        this.airWeekday = airWeekday;
     }
 
-    public String getOtherParam() {
-        return otherParam;
+    @Override
+    public String toString() {
+        return "SubjectEntity{" +
+                "subjectId=" + subjectId +
+                ", sId=" + sId +
+                ", url='" + url + '\'' +
+                ", type=" + type +
+                ", name='" + name + '\'' +
+                ", nameCn='" + nameCn + '\'' +
+                ", summary='" + summary + '\'' +
+                ", image='" + image + '\'' +
+                ", epsCount=" + epsCount +
+                ", airDate='" + airDate + '\'' +
+                ", airWeekday=" + airWeekday +
+                '}';
     }
 
-    public void setOtherParam(String otherParam) {
-        this.otherParam = otherParam;
-    }
+
 }
