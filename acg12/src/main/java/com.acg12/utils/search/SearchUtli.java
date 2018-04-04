@@ -1,5 +1,6 @@
 package com.acg12.utils.search;
 
+import com.acg12.conf.search.SubjectStaff;
 import com.acg12.entity.po.SubjectEntity;
 import com.acg12.utils.UrlEncoderUtil;
 import org.json.JSONArray;
@@ -18,6 +19,12 @@ import java.util.List;
  */
 public class SearchUtli {
 
+    /**
+     * @param key
+     * @param type  1 书籍 2 动画 3 音乐 4 游戏
+     * @param start
+     * @return
+     */
     // 搜索关键字获取列表
     public static synchronized JSONObject getSubjectSearchList(String key, int type, int start) {
 //        System.setProperty("http.proxyHost", "localhost");
@@ -46,64 +53,40 @@ public class SearchUtli {
             e.printStackTrace();
         }
         return null;
-        /*System.err.println(u);
-        try {
-            Document document = Jsoup.connect(u).ignoreContentType(true)
-                    .data("jquery", "java").userAgent("Mozilla")
-                    .cookie("auth", "token").timeout(50000).get();
-            System.err.println(document.toString());
-
-            Element elementList = document.getElementById("browserItemList");
-            Elements elements = elementList.select("li");
-
-            List<SubjectEntity> entityList = new ArrayList<>();
-            for (Element element : elements){
-                SubjectEntity subjectEntity = new SubjectEntity();
-                subjectEntity.setsId(Integer.valueOf(element.select("a").get(0).attr("href").split("/")[2]).intValue());
-                subjectEntity.setImage(element.select("img").get(0).attr("src").replace("s/" , "l/"));
-                subjectEntity.setName(element.select("h3").get(0).select("small").text());
-                subjectEntity.setName_cn(element.select("h3").get(0).select("a").text());
-                subjectEntity.setOtherParam(element.select("p").get(0).text());
-                entityList.add(subjectEntity);
-                System.err.println(element.select("a").get(0).attr("href").split("/")[2]);
-                System.err.println(element.select("img").get(0).attr("src"));
-                System.err.println(element.select("h3").get(0).select("a").text());
-                System.err.println(element.select("h3").get(0).select("small").text());
-                System.err.println(element.select("p").get(0).text());
-            }
-            return entityList;
-        } catch (IOException e) {
-            return null;
-        }*/
-
     }
 
     // 关键字详情
-    public static synchronized void getSubjectInfo(int subjectid) {
+    public static synchronized JSONObject getSubjectInfo(int subjectid) {
         String url1 = String.format("http://api.bgm.tv/subject/%d?responseGroup=large", subjectid);
         String url2 = String.format("http://bangumi.tv/subject/%d", subjectid);
-
+        String url3 = String.format("http://bangumi.tv/subject/%d/characters", subjectid);
         try {
             Document document = Jsoup.connect(url1).ignoreContentType(true)
                     .data("jquery", "java").userAgent("Mozilla")
                     .cookie("auth", "token").timeout(50000).get();
-
             String content = document.body().text();
             if (content == null || content.isEmpty()) {
-                return;
+                return null;
             }
-            JSONObject result = new JSONObject(content);
-            SubjectEntity subjectEntity = new SubjectEntity();
-            subjectEntity.setsId(result.getInt("id"));
-            subjectEntity.setType(result.getInt("type"));
-            subjectEntity.setName(result.getString("name"));
-            subjectEntity.setNameCn(result.getString("name_cn"));
-            subjectEntity.setSummary(result.getString("summary"));
-            subjectEntity.setImage(result.getJSONObject("images").getString("large"));
-            subjectEntity.setEpsCount(result.getInt("eps_count"));
-            subjectEntity.setAirDate(result.getString("air_date"));
-            subjectEntity.setAirWeekday(result.getInt("air_weekday"));
-            System.err.println(subjectEntity.toString());
+
+            JSONObject contentJson = new JSONObject(content);
+            JSONObject result = new JSONObject();
+            result.put("sId", contentJson.getInt("id"));
+            result.put("type", contentJson.getInt("type"));
+            result.put("name", contentJson.getString("name"));
+            result.put("name_cn", contentJson.getString("name_cn"));
+            result.put("summary", contentJson.getString("summary"));
+            result.put("image", contentJson.getJSONObject("images").getString("large"));
+            result.put("eps_count", contentJson.getInt("eps_count"));
+            result.put("air_date", contentJson.getString("air_date"));
+            result.put("air_weekday", contentJson.getInt("air_weekday"));
+
+            JSONArray detailsJSON = new JSONArray();
+            JSONArray crtJSON = new JSONArray();
+            JSONArray staffJSON = new JSONArray();
+            result.put("details", detailsJSON);
+            result.put("crt", crtJSON);
+            result.put("staff", staffJSON);
 
             List<String> ignoreList = new ArrayList<>();
             ignoreList.add("中文名");
@@ -117,45 +100,226 @@ public class SearchUtli {
             Element infobox = document.getElementById("infobox");
             Elements lis = infobox.select("li");
             for (int i = 0, total = lis.size(); i < total; i++) {
-                String key, value , link = null;
                 Element item = lis.get(i);
                 Elements span = item.select("span");
-
-                key = span.text().replace(":", "");
+                String key = span.text().replace(":", "");
                 if (ignoreList.contains(key)) {
                     continue;
                 }
-                System.err.println(key);
-                Elements a = item.select("a");
-                if (a.isEmpty()) {
-                    item.select("span").remove();
-                    System.err.println(item.text());
-                } else {
-                    for (int j = 0 , num = a.size() ; j < num ; j++){
-                        Element element = a.get(j);
-                        System.err.println(element.text());
-                        System.err.println(element.attr("href"));
+//                System.out.println(key);
 
+                if (SubjectStaff.animationMap.containsKey(key)) {
+                    Elements a = item.select("a");
+                    if (a.isEmpty()) {
+                        item.select("span").remove();
+//                        System.out.println(item.text());
+                        JSONObject itemJson = new JSONObject();
+                        itemJson.put("key", key);
+                        itemJson.put("value", item.text());
+                        detailsJSON.put(itemJson);
+                    } else {
+                        for (int j = 0, num = a.size(); j < num; j++) {
+                            Element element = a.get(j);
+                            String pId = element.attr("href").split("person/")[1];
+//                            System.out.println(element.text());
+//                            System.out.println(pId);
+                            JSONObject staff = getPersonInfo(Integer.valueOf(pId).intValue());
+                            staffJSON.put(staff);
+                        }
                     }
+
+                } else {
+                    item.select("span").remove();
+//                    System.out.println(item.text());
+                    JSONObject itemJson = new JSONObject();
+                    itemJson.put("key", key);
+                    itemJson.put("value", item.text());
+                    detailsJSON.put(itemJson);
                 }
             }
-//            System.err.println(infobox.toString());
+
+            document = Jsoup.connect(url3).ignoreContentType(true)
+                    .data("jquery", "java").userAgent("Mozilla")
+                    .cookie("auth", "token").timeout(50000).get();
+            Element columnInSubjectA = document.getElementById("columnInSubjectA");
+            Elements light_odd = columnInSubjectA.getElementsByClass("light_odd");
+//            System.err.println(light_odd.size());
+            for (int i = 0 , total = light_odd.size() ; i < total ; i++){
+                Element item = light_odd.get(i);
+                Integer cId = Integer.valueOf(item.getElementsByClass("avatar").select("a").attr("href").split("character/")[1]).intValue();
+                String role_name = "";
+                Integer pId  = 0;
+                Elements clearit = item.getElementsByClass("clearit");
+                if(clearit != null && clearit.size() > 0){
+                    Elements crt_info = clearit.get(0).getElementsByClass("crt_info");
+                    if(crt_info != null && crt_info.size() > 0){
+                        Elements badge_job = crt_info.get(0).getElementsByClass("badge_job");
+                        if(badge_job != null && badge_job.size() > 0){
+                            role_name = badge_job.get(0).text();
+                        }
+                    }
+                    Elements actorBadge = clearit.get(0).getElementsByClass("actorBadge");
+                    if(actorBadge != null && actorBadge.size() > 0){
+                        pId = Integer.valueOf(actorBadge.select("a").attr("href").split("person/")[1]).intValue();
+                    }
+
+                }
+
+//                System.err.println("cId = "+cId);
+//                System.err.println("role_name = "+role_name);
+//                System.err.println("pId = "+pId);
+                JSONObject itemJson =  getCharacterInfo(cId);
+                itemJson.put("role_name" , role_name);
+                if(pId != 0){
+                    itemJson.put("actors",getPersonInfo(pId));
+                }
+
+
+                crtJSON.put(itemJson);
+
+            }
+            System.err.println(result.toString());
+            return result ;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
-    public static synchronized void getPersonInfo(int personId){
+    public static synchronized JSONObject getPersonInfo(int personId) {
         try {
-            String url3 = String.format("http://bangumi.tv/person/%s", personId);
+            String url3 = String.format("http://bangumi.tv/person/%d", personId);
             Document document = Jsoup.connect(url3).ignoreContentType(true)
                     .data("jquery", "java").userAgent("Mozilla")
                     .cookie("auth", "token").timeout(50000).get();
-            System.err.println(document.body());
 
-        } catch (IOException e) {
+            JSONObject jsonObject = new JSONObject();
+            JSONArray aliasJson = new JSONArray();
+            JSONArray otherJson = new JSONArray();
+            JSONArray jobJson = new JSONArray();
+
+            Element headerSubject = document.getElementById("headerSubject");
+            Element columnCrtB = document.getElementById("columnCrtB");
+            Elements clearit = columnCrtB.getElementsByClass("clearit").select("h2");
+            Elements detail = columnCrtB.getElementsByClass("detail");
+            Elements center = document.getElementsByClass("infobox");
+            String image = center.select("img").attr("src");
+
+            jsonObject.put("pId", personId);
+            jsonObject.put("image", image);
+            jsonObject.put("name", headerSubject.select("h1").select("a").text());
+            jsonObject.put("summary", detail.text());
+            jsonObject.put("alias", aliasJson);
+            jsonObject.put("other", otherJson);
+            jsonObject.put("jobs", jobJson);
+
+            String[] jobs = clearit.text().split(":")[1].split(" ");
+            for (int i = 0, num = jobs.length; i < num; i++) {
+                if (jobs[i] == null || jobs[i].isEmpty()) {
+                    continue;
+                }
+                jobJson.put(jobs[i]);
+            }
+
+            Element infobox = document.getElementById("infobox");
+            Elements lis = infobox.select("li");
+            for (int i = 0, total = lis.size(); i < total; i++) {
+                Element item = lis.get(i);
+                Elements span = item.select("span");
+
+                String key = span.text().replace(":", "");
+//                System.err.println(key);
+                item.select("span").remove();
+                if (key.equals("简体中文名")) {
+                    jsonObject.put("name_cn", item.text());
+                } else if (key.equals("性别")) {
+                    jsonObject.put("gender", item.text());
+                } else if (key.equals("生日")) {
+                    jsonObject.put("birth", item.text());
+                } else if (key.equals("血型")) {
+                    jsonObject.put("blood_type", item.text());
+                } else if (key.equals("体重")) {
+                    jsonObject.put("weight", item.text());
+                } else if (key.equals("别名")) {
+                    JSONObject js = new JSONObject();
+                    js.put("alias", item.text());
+                    aliasJson.put(js);
+                } else {
+                    JSONObject js = new JSONObject();
+                    js.put("key", key);
+                    js.put("value", item.text());
+                    otherJson.put(js);
+                }
+            }
+
+//            System.err.println(jsonObject.toString());
+            return jsonObject;
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
+    public static synchronized JSONObject getCharacterInfo(int characterId) {
+        try {
+            String url3 = String.format("http://bangumi.tv/character/%d", characterId);
+            Document document = Jsoup.connect(url3).ignoreContentType(true)
+                    .data("jquery", "java").userAgent("Mozilla")
+                    .cookie("auth", "token").timeout(50000).get();
+
+            JSONObject jsonObject = new JSONObject();
+            JSONArray aliasJson = new JSONArray();
+            JSONArray otherJson = new JSONArray();
+
+            Element headerSubject = document.getElementById("headerSubject");
+            Element columnCrtB = document.getElementById("columnCrtB");
+            Elements detail = columnCrtB.getElementsByClass("detail");
+            Elements center = document.getElementsByClass("infobox");
+            String image = center.select("img").attr("src");
+
+            jsonObject.put("cId", characterId);
+            jsonObject.put("image", image);
+            jsonObject.put("name", headerSubject.select("h1").select("a").text());
+            jsonObject.put("summary", detail.text());
+            jsonObject.put("alias", aliasJson);
+            jsonObject.put("other", otherJson);
+
+            Element infobox = document.getElementById("infobox");
+            Elements lis = infobox.select("li");
+            for (int i = 0, total = lis.size(); i < total; i++) {
+                Element item = lis.get(i);
+                Elements span = item.select("span");
+
+                String key = span.text().replace(":", "");
+//                System.err.println(key);
+                item.select("span").remove();
+                if (key.equals("简体中文名")) {
+                    jsonObject.put("name_cn", item.text());
+                } else if (key.equals("性别")) {
+                    jsonObject.put("gender", item.text());
+                } else if (key.equals("生日")) {
+                    jsonObject.put("birth", item.text());
+                } else if (key.equals("血型")) {
+                    jsonObject.put("blood_type", item.text());
+                } else if (key.equals("体重")) {
+                    jsonObject.put("weight", item.text());
+                } else if (key.equals("别名")) {
+                    JSONObject js = new JSONObject();
+                    js.put("alias", item.text());
+                    aliasJson.put(js);
+                } else {
+                    JSONObject js = new JSONObject();
+                    js.put("key", key);
+                    js.put("value", item.text());
+                    otherJson.put(js);
+                }
+            }
+
+//            System.err.println(jsonObject.toString());
+            return jsonObject;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

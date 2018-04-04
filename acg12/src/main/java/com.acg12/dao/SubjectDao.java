@@ -8,7 +8,6 @@ import java.util.List;
 /**
  * Created by Administrator on 2018/3/28.
  */
-@Mapper
 public interface SubjectDao {
 
     int insert(SubjectEntity subjectEntity);

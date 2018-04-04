@@ -23,6 +23,8 @@
         <mapper resource="mapper/BangumiMapper.xml" />
         <mapper resource="mapper/VideoMapper.xml" />
         <mapper resource="mapper/TagsMapper.xml" />
+        <mapper resource="mapper/SubjectsMapper.xml" />
+        <mapper resource="mapper/SubjectDetailsMapper.xml" />
     </mappers>
 
 </configuration>

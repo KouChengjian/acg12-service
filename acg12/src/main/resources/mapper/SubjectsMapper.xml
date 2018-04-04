@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.acg12.dao.SubjectDao">
 
-    <resultMap id="BaseResultMap" type="com.acg12.entity.po.SubjectEntity">
+    <resultMap id="baseResultMap" type="com.acg12.entity.po.SubjectEntity">
         <result column="subjectId" property="subjectId" jdbcType="INTEGER"/>
         <result column="sId" property="sId" jdbcType="INTEGER"/>
         <result column="url" property="url" jdbcType="VARCHAR"/>
@@ -14,13 +14,16 @@
         <result column="epsCount" property="epsCount" jdbcType="INTEGER"/>
         <result column="airDate" property="airDate" jdbcType="VARCHAR"/>
         <result column="airWeekday" property="airWeekday" jdbcType="INTEGER"/>
+        <result column="createTime" property="createTime" jdbcType="INTEGER"/>
+        <result column="updateTime" property="updateTime" jdbcType="INTEGER"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.acg12.entity.po.SubjectEntity" useGeneratedKeys="true" keyProperty="subjectId">
-        insert into acg_subject (subjectId , sId , url, type, name, nameCn, summary, image, epsCount, airDate, airWeekday, startPlayTime, createTime, updateTime)
-        values (#{bangumitId,jdbcType=INTEGER},#{platform,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{cover,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR}, #{intro,jdbcType=VARCHAR}
-        , #{voiceActor,jdbcType=VARCHAR}, #{nowStatus,jdbcType=VARCHAR}, #{totalCount,jdbcType=VARCHAR}, #{serializeWeek,jdbcType=VARCHAR}, #{serializeTime,jdbcType=INTEGER}
-        , #{startPlayTime,jdbcType=INTEGER}, #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER})
+    <insert id="insert" parameterType="com.acg12.entity.po.SubjectEntity" useGeneratedKeys="true"
+            keyProperty="subjectId">
+        insert into acg_subject (subjectId , sId , url, type, name, nameCn, summary, image, epsCount, airDate, airWeekday, createTime, updateTime)
+        values (#{subjectId,jdbcType=INTEGER},#{sId,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nameCn,jdbcType=VARCHAR}
+        , #{summary,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{epsCount,jdbcType=INTEGER}, #{airDate,jdbcType=VARCHAR}, #{airWeekday,jdbcType=INTEGER}
+        , #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER})
     </insert>
 
     <insert id="insertList" parameterType="java.util.List" useGeneratedKeys="true">
