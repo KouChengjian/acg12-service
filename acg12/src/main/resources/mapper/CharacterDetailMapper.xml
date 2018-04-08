@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.acg12.dao.CharacterDetailDao">
+
+    <resultMap id="baseResultMap" type="com.acg12.entity.po.CharacterDetailEntity">
+        <result column="characterDetailId" property="characterDetailId" jdbcType="INTEGER"/>
+        <result column="characterId" property="characterId" jdbcType="INTEGER"/>
+        <result column="alias" property="alias" jdbcType="VARCHAR"/>
+        <result column="otherTitle" property="otherTitle" jdbcType="INTEGER"/>
+        <result column="otherValue" property="otherValue" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.acg12.entity.po.CharacterDetailEntity" useGeneratedKeys="true"
+            keyProperty="characterDetailId">
+        insert into acg_character_detail (characterDetailId , characterId , alias, otherTitle, otherValue)
+        values (#{characterDetailId,jdbcType=INTEGER},#{characterId,jdbcType=INTEGER}, #{alias,jdbcType=VARCHAR}, #{otherTitle,jdbcType=VARCHAR}, #{otherValue,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="update" parameterType="com.acg12.entity.po.SubjectEntity">
+        update acg_bangumi set platform=#{platform},title=#{title},cover=#{cover},tags=#{tags},intro=#{intro},voiceActor=#{voiceActor},nowStatus=#{nowStatus}
+        ,totalCount=#{totalCount},serializeWeek=#{serializeWeek},serializeTime=#{serializeTime},startPlayTime=#{startPlayTime},updateTime=#{updateTime}
+        where bangumitId=#{bangumitId}
+    </update>
+
+    <select id="queryList" resultType="com.acg12.entity.po.SubjectEntity">
+        select * from acg_bangumi
+    </select>
+
+
+</mapper>

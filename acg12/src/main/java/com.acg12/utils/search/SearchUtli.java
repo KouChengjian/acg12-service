@@ -114,8 +114,8 @@ public class SearchUtli {
                         item.select("span").remove();
 //                        System.out.println(item.text());
                         JSONObject itemJson = new JSONObject();
-                        itemJson.put("key", key);
-                        itemJson.put("value", item.text());
+                        itemJson.put("otherTitle", key);
+                        itemJson.put("otherValue", item.text());
                         detailsJSON.put(itemJson);
                     } else {
                         for (int j = 0, num = a.size(); j < num; j++) {
@@ -132,8 +132,8 @@ public class SearchUtli {
                     item.select("span").remove();
 //                    System.out.println(item.text());
                     JSONObject itemJson = new JSONObject();
-                    itemJson.put("key", key);
-                    itemJson.put("value", item.text());
+                    itemJson.put("otherTitle", key);
+                    itemJson.put("otherValue", item.text());
                     detailsJSON.put(itemJson);
                 }
             }
@@ -246,8 +246,8 @@ public class SearchUtli {
                     aliasJson.put(js);
                 } else {
                     JSONObject js = new JSONObject();
-                    js.put("key", key);
-                    js.put("value", item.text());
+                    js.put("otherTitle", key);
+                    js.put("otherValue", item.text());
                     otherJson.put(js);
                 }
             }
@@ -309,8 +309,8 @@ public class SearchUtli {
                     aliasJson.put(js);
                 } else {
                     JSONObject js = new JSONObject();
-                    js.put("key", key);
-                    js.put("value", item.text());
+                    js.put("otherTitle", key);
+                    js.put("otherValue", item.text());
                     otherJson.put(js);
                 }
             }

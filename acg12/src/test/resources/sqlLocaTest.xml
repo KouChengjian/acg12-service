@@ -24,7 +24,11 @@
         <mapper resource="mapper/VideoMapper.xml" />
         <mapper resource="mapper/TagsMapper.xml" />
         <mapper resource="mapper/SubjectsMapper.xml" />
-        <mapper resource="mapper/SubjectDetailsMapper.xml" />
+        <mapper resource="mapper/SubjectDetailMapper.xml" />
+        <mapper resource="mapper/PersonMapper.xml" />
+        <mapper resource="mapper/PersonDetailMapper.xml" />
+        <mapper resource="mapper/CharacterMapper.xml" />
+        <mapper resource="mapper/CharacterDetailMapper.xml" />
     </mappers>
 
 </configuration>

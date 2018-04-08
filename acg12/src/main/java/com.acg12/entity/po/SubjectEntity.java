@@ -106,10 +106,17 @@ public class SubjectEntity extends Param {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if(toString().hashCode() == obj.toString().hashCode()){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "SubjectEntity{" +
-                "subjectId=" + subjectId +
-                ", sId=" + sId +
+                "sId=" + sId +
                 ", url='" + url + '\'' +
                 ", type=" + type +
                 ", name='" + name + '\'' +
@@ -121,6 +128,4 @@ public class SubjectEntity extends Param {
                 ", airWeekday=" + airWeekday +
                 '}';
     }
-
-
 }

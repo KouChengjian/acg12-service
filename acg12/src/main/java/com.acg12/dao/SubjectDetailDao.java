@@ -12,14 +12,16 @@ import java.util.List;
  */
 public interface SubjectDetailDao {
 
-    @Insert("insert into acg_subject_detail (detailId,subjectId,title,value) values (#{detailId,jdbcType=INTEGER},#{subjectId,jdbcType=INTEGER},#{title,jdbcType=VARCHAR},#{value,jdbcType=VARCHAR})")
-    @Options(useGeneratedKeys = true, keyProperty = "detailId")
+    @Insert("insert into acg_subject_detail (subjectDetailId, subjectId, otherTitle, otherValue) values (#{subjectDetailId,jdbcType=INTEGER},#{subjectId,jdbcType=INTEGER},#{otherTitle,jdbcType=VARCHAR},#{otherValue,jdbcType=VARCHAR})")
+    @Options(useGeneratedKeys = true, keyProperty = "subjectDetailId")
     @ResultMap("subjectDetailResultMap")
     int insert(SubjectDetailEntity subjectEntity);
 
-    int insertList(List<SubjectDetailEntity> subjectList);
+    int insertList(List<SubjectDetailEntity> list);
 
     int update(SubjectDetailEntity subjectEntity);
 
     List<SubjectDetailEntity> queryList();
+
+    List<SubjectDetailEntity> queryById(int subjectId);
 }

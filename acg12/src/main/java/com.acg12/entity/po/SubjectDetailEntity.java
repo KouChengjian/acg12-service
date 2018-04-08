@@ -5,18 +5,17 @@ package com.acg12.entity.po;
  */
 public class SubjectDetailEntity {
 
-    private Integer detailId;
+    private Integer subjectDetailId;
     private Integer subjectId;
-    private String title;
-    private String value;
+    private String otherTitle;
+    private String otherValue;
 
-
-    public Integer getDetailId() {
-        return detailId;
+    public Integer getSubjectDetailId() {
+        return subjectDetailId;
     }
 
-    public void setDetailId(Integer detailId) {
-        this.detailId = detailId;
+    public void setSubjectDetailId(Integer subjectDetailId) {
+        this.subjectDetailId = subjectDetailId;
     }
 
     public Integer getSubjectId() {
@@ -27,21 +26,19 @@ public class SubjectDetailEntity {
         this.subjectId = subjectId;
     }
 
-
-
-    public String getValue() {
-        return value;
+    public String getOtherTitle() {
+        return otherTitle;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setOtherTitle(String otherTitle) {
+        this.otherTitle = otherTitle;
     }
 
-    public String getTitle() {
-        return title;
+    public String getOtherValue() {
+        return otherValue;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setOtherValue(String otherValue) {
+        this.otherValue = otherValue;
     }
 }

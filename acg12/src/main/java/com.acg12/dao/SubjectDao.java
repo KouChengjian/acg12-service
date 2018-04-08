@@ -1,6 +1,7 @@
 package com.acg12.dao;
 
 import com.acg12.entity.po.SubjectEntity;
+import com.acg12.entity.po.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,9 +13,11 @@ public interface SubjectDao {
 
     int insert(SubjectEntity subjectEntity);
 
-    int insertList(List<SubjectEntity> subjectList);
-
     int update(SubjectEntity subjectEntity);
 
     List<SubjectEntity> queryList();
+
+    SubjectEntity queryBySId(int sId);
+
+    SubjectEntity queryBySubjectId(int subjectId);
 }

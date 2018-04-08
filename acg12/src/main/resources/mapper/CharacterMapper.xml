@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.acg12.dao.CharacterDao">
+
+    <resultMap id="baseResultMap" type="com.acg12.entity.po.CharacterEntity">
+        <result column="characterId" property="characterId" jdbcType="INTEGER"/>
+        <result column="cId" property="cId" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="nameCn" property="nameCn" jdbcType="INTEGER"/>
+        <result column="image" property="image" jdbcType="VARCHAR"/>
+        <result column="summary" property="summary" jdbcType="VARCHAR"/>
+        <result column="roleName" property="roleName" jdbcType="VARCHAR"/>
+        <result column="weight" property="weight" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="INTEGER"/>
+        <result column="updateTime" property="updateTime" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.acg12.entity.po.CharacterEntity" useGeneratedKeys="true"
+            keyProperty="characterId">
+        insert into acg_character (characterId , cId , name, nameCn,image, summary, gender, roleName, weight, createTime, updateTime)
+        values (#{characterId,jdbcType=INTEGER},#{cId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nameCn,jdbcType=VARCHAR}
+        , #{summary,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{roleName,jdbcType=INTEGER}, #{weight,jdbcType=INTEGER}
+        , #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER})
+    </insert>
+
+    <update id="update" parameterType="com.acg12.entity.po.SubjectEntity">
+        update acg_bangumi set platform=#{platform},title=#{title},cover=#{cover},tags=#{tags},intro=#{intro},voiceActor=#{voiceActor},nowStatus=#{nowStatus}
+        ,totalCount=#{totalCount},serializeWeek=#{serializeWeek},serializeTime=#{serializeTime},startPlayTime=#{startPlayTime},updateTime=#{updateTime}
+        where bangumitId=#{bangumitId}
+    </update>
+
+    <select id="queryList" resultType="com.acg12.entity.po.SubjectEntity">
+        select * from acg_bangumi
+    </select>
+
+
+</mapper>

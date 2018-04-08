@@ -26,46 +26,22 @@
         , #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER})
     </insert>
 
-    <insert id="insertList" parameterType="java.util.List" useGeneratedKeys="true">
-        <selectKey resultType="INTEGER" keyProperty="bangumitId" order="AFTER">
-            SELECT
-            LAST_INSERT_ID()
-        </selectKey>
-        insert into acg_bangumi (platform , title)
-        values
-        <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.platform},#{item.title})
-        </foreach>
-    </insert>
-
-    <update id="update" parameterType="com.acg12.entity.po.Bangumi">
-        update acg_bangumi set platform=#{platform},title=#{title},cover=#{cover},tags=#{tags},intro=#{intro},voiceActor=#{voiceActor},nowStatus=#{nowStatus}
-        ,totalCount=#{totalCount},serializeWeek=#{serializeWeek},serializeTime=#{serializeTime},startPlayTime=#{startPlayTime},updateTime=#{updateTime}
-        where bangumitId=#{bangumitId}
+    <update id="update" parameterType="com.acg12.entity.po.SubjectEntity">
+        update acg_subject set sId=#{sId},url=#{url},type=#{type},name=#{name},nameCn=#{nameCn},summary=#{summary},image=#{image}
+        ,epsCount=#{epsCount},airDate=#{airDate},airWeekday=#{airWeekday},updateTime=#{updateTime}
+        where subjectId=#{subjectId}
     </update>
 
-    <select id="queryList" resultType="com.acg12.entity.po.Bangumi">
-        select * from acg_bangumi
+    <select id="queryList" resultType="com.acg12.entity.po.SubjectEntity">
+        select * from acg_subject
     </select>
 
-    <!--<delete id="deleteUser" parameterType="int">-->
-    <!--delete from verify where id=#{id}-->
-    <!--</delete>-->
+    <select id="queryBySId" parameterType="int" resultType="com.acg12.entity.po.SubjectEntity">
+        select * from acg_subject where sId = #{sId}
+    </select>
 
-    <!--<update id="updateVerify" parameterTycom.acg12.entity1tity.Verifyrify">-->
-    <!--update verify set phone=#{phone},verifycode=#{verifycode},duration=#{duration},status=#{status} where id=#{id}-->
-    <!--</update>-->
-
-    <!--<select id="queryVerifyList" resultTycom.acg12.entity1tity.Verifyrify">-->
-    <!--select * from verify-->
-    <!--</select>-->
-
-    <!--<select id="queryVerify" parameterType="int" resultTycom.acg12.entity1tity.Verifyrify">-->
-    <!--select * from verify where id = #{id}-->
-    <!--</select>-->
-
-    <!--<select id="queryVerifyCode" parameterType="int" resultTycom.acg12.entity1tity.Verifyrify">-->
-    <!--select * from verify where verifycode = #{verifycode}-->
-    <!--</select>-->
+    <select id="queryBySubjectId" parameterType="int" resultType="com.acg12.entity.po.SubjectEntity">
+        select * from acg_subject where subjectId = #{subjectId}
+    </select>
 
 </mapper>
