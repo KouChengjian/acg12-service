@@ -1,7 +1,7 @@
 package com.acg12.service;
 
-import com.acg12.entity.po.User;
-import com.acg12.dao.UserDao;
+import com.acg12.entity.po.user.User;
+import com.acg12.dao.user.UserDao;
 import com.acg12.service.base.UserService;
 
 import javax.annotation.Resource;

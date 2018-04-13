@@ -2,10 +2,10 @@ package com.acg12.web.admin;
 
 import com.acg12.conf.Constant;
 import com.acg12.entity.dto.Result;
-import com.acg12.entity.po.Feedback;
-import com.acg12.entity.po.Update;
-import com.acg12.entity.po.User;
-import com.acg12.entity.po.Verify;
+import com.acg12.entity.po.user.Feedback;
+import com.acg12.entity.po.user.Update;
+import com.acg12.entity.po.user.User;
+import com.acg12.entity.po.user.Verify;
 import com.acg12.service.FeedbackServiceImpl;
 import com.acg12.service.UpdateAppServiceImpl;
 import com.acg12.service.UserServiceImpl;

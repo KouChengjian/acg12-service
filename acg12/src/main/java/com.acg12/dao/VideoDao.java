@@ -1,7 +1,5 @@
 package com.acg12.dao;
 
-import com.acg12.entity.po.Bangumi;
-import com.acg12.entity.po.Verify;
 import com.acg12.entity.po.Video;
 import org.apache.ibatis.annotations.Param;
 

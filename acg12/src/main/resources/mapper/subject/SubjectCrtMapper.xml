@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.acg12.dao.subject.SubjectCrtDao">
+
+    <resultMap id="baseResultMap" type="com.acg12.entity.po.subject.SubjectCrtEntity">
+        <result column="subjectCrtId" property="subjectCrtId" jdbcType="INTEGER"/>
+        <result column="subjectId" property="subjectId" jdbcType="INTEGER"/>
+        <result column="characterId" property="characterId" jdbcType="INTEGER"/>
+        <result column="personId" property="personId" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="nameCn" property="nameCn" jdbcType="VARCHAR"/>
+        <result column="image" property="image" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="VARCHAR"/>
+        <result column="personName" property="personName" jdbcType="VARCHAR"/>
+        <result column="personNameCn" property="personNameCn" jdbcType="VARCHAR"/>
+        <result column="personImage" property="personImage" jdbcType="VARCHAR"/>
+        <result column="personGender" property="personGender" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="INTEGER"/>
+        <result column="updateTime" property="updateTime" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.acg12.entity.po.subject.SubjectCrtEntity" useGeneratedKeys="true"
+            keyProperty="subjectCrtId">
+        insert into acg_subject_crt (subjectCrtId , subjectId , characterId ,personId, name, nameCn, image, gender, personName , personNameCn ,personImage , personGender ,createTime, updateTime)
+        values (#{subjectCrtId,jdbcType=INTEGER},#{subjectId,jdbcType=INTEGER}, #{characterId,jdbcType=INTEGER},#{personId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nameCn,jdbcType=VARCHAR}
+        , #{image,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{personName,jdbcType=VARCHAR}, #{personNameCn,jdbcType=VARCHAR}, #{personImage,jdbcType=VARCHAR}, #{personGender,jdbcType=VARCHAR}
+        , #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER})
+    </insert>
+
+    <insert id="insertList" parameterType="java.util.List">
+        insert into acg_subject_crt (subjectCrtId , subjectId , characterId ,personId, name, nameCn, image, gender, personName , personNameCn ,personImage , personGender ,createTime, updateTime)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.subjectStaffId,jdbcType=INTEGER},#{item.subjectId,jdbcType=INTEGER}, #{item.characterId,jdbcType=INTEGER},#{item.personId,jdbcType=INTEGER}, #{item.name,jdbcType=VARCHAR}, #{item.nameCn,jdbcType=VARCHAR}
+            , #{item.image,jdbcType=VARCHAR}, #{item.gender,jdbcType=VARCHAR}, #{item.personName,jdbcType=VARCHAR}, #{item.personNameCn,jdbcType=VARCHAR}, #{item.personImage,jdbcType=VARCHAR}, #{item.personGender,jdbcType=VARCHAR}
+            , #{item.createTime,jdbcType=INTEGER}, #{item.updateTime,jdbcType=INTEGER})
+        </foreach>
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="subjectCrtId">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
+    </insert>
+
+    <update id="update" parameterType="com.acg12.entity.po.subject.SubjectCrtEntity">
+        update acg_subject_crt set subjectId=#{subjectId},personId=#{personId},name=#{name},nameCn=#{nameCn},image=#{image}
+        ,job=#{job},gender=#{gender},updateTime=#{updateTime}
+        where subjectStaffId=#{subjectStaffId}
+    </update>
+
+    <select id="queryBySubjectCrtId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectCrtEntity">
+        select * from acg_subject_crt where subjectCrtId = #{subjectCrtId}
+    </select>
+
+    <select id="queryByCrt" resultType="com.acg12.entity.po.subject.SubjectCrtEntity">
+        select * from acg_subject_crt where subjectId = #{subjectId} and characterId = #{characterId}
+    </select>
+
+    <select id="queryBySubjectId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectCrtEntity">
+        select * from acg_subject_crt where subjectId = #{subjectId}
+    </select>
+
+    <select id="queryByCharacterId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectCrtEntity">
+        select * from acg_subject_crt where characterId = #{characterId}
+    </select>
+
+    <select id="queryByPersonId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectCrtEntity">
+        select * from acg_subject_crt where personId = #{personId}
+    </select>
+
+</mapper>

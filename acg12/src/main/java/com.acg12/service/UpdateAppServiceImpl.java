@@ -1,7 +1,7 @@
 package com.acg12.service;
 
-import com.acg12.entity.po.Update;
-import com.acg12.dao.UpdateAppDao;
+import com.acg12.entity.po.user.Update;
+import com.acg12.dao.user.UpdateAppDao;
 import com.acg12.service.base.UpdateAppService;
 
 import javax.annotation.Resource;

@@ -1,7 +1,6 @@
 package com.acg12.utils.search;
 
-import com.acg12.conf.search.SubjectStaff;
-import com.acg12.entity.po.SubjectEntity;
+import com.acg12.conf.search.SubjectStaffConstant;
 import com.acg12.utils.UrlEncoderUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -108,7 +107,7 @@ public class SearchUtli {
                 }
 //                System.out.println(key);
 
-                if (SubjectStaff.animationMap.containsKey(key)) {
+                if (SubjectStaffConstant.animationMap.containsKey(key)) {
                     Elements a = item.select("a");
                     if (a.isEmpty()) {
                         item.select("span").remove();
@@ -124,6 +123,7 @@ public class SearchUtli {
 //                            System.out.println(element.text());
 //                            System.out.println(pId);
                             JSONObject staff = getPersonInfo(Integer.valueOf(pId).intValue());
+                            staff.put("curJob", key);
                             staffJSON.put(staff);
                         }
                     }

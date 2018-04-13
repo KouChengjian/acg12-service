@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.acg12.dao.person.PersonDao">
+
+    <resultMap id="baseResultMap" type="com.acg12.entity.po.person.PersonEntity">
+        <result column="personId" property="personId" jdbcType="INTEGER"/>
+        <result column="pId" property="pId" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="nameCn" property="nameCn" jdbcType="INTEGER"/>
+        <result column="image" property="image" jdbcType="VARCHAR"/>
+        <result column="summary" property="summary" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="INTEGER"/>
+        <result column="updateTime" property="updateTime" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.acg12.entity.po.person.PersonEntity" useGeneratedKeys="true"
+            keyProperty="personId">
+        insert into acg_person (personId , pId , name, nameCn, image, summary, gender, createTime, updateTime)
+        values (#{personId,jdbcType=INTEGER},#{pId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nameCn,jdbcType=VARCHAR}
+        , #{image,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}
+        , #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER})
+    </insert>
+
+    <update id="update" parameterType="com.acg12.entity.po.person.PersonEntity">
+        update acg_person set pId=#{pId},name=#{name},nameCn=#{nameCn},image=#{image},summary=#{summary},gender=#{gender},updateTime=#{updateTime}
+        where personId=#{personId}
+    </update>
+
+    <select id="queryList" resultType="com.acg12.entity.po.person.PersonEntity">
+        select * from acg_person
+    </select>
+
+    <select id="queryByPId" parameterType="int" resultType="com.acg12.entity.po.person.PersonEntity">
+        select * from acg_person where pId = #{pId}
+    </select>
+
+    <select id="queryByPersonId" parameterType="int" resultType="com.acg12.entity.po.person.PersonEntity">
+        select * from acg_person where personId = #{personId}
+    </select>
+
+
+</mapper>

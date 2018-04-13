@@ -1,7 +1,7 @@
 package com.acg12.service;
 
-import com.acg12.entity.po.Verify;
-import com.acg12.dao.VerifyDao;
+import com.acg12.entity.po.user.Verify;
+import com.acg12.dao.user.VerifyDao;
 import com.acg12.service.base.VerifyService;
 
 import javax.annotation.Resource;

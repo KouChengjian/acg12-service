@@ -1,7 +1,7 @@
 package com.acg12.service;
 
-import com.acg12.entity.po.Feedback;
-import com.acg12.dao.FeedbackDao;
+import com.acg12.entity.po.user.Feedback;
+import com.acg12.dao.user.FeedbackDao;
 import com.acg12.service.base.FeedbackService;
 
 import javax.annotation.Resource;

@@ -1,18 +1,14 @@
 package com.acg12.service.search.impl;
 
-import com.acg12.conf.Condition;
-import com.acg12.entity.po.SubjectEntity;
+import com.acg12.entity.dto.Condition;
 import com.acg12.service.search.SearchService;
-import com.acg12.utils.StringUtil;
 import com.acg12.utils.search.SearchUtli;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.Map;
 
 /**
