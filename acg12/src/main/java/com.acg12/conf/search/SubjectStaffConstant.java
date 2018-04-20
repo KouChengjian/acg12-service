@@ -86,16 +86,6 @@ public class SubjectStaffConstant {
         animationMap.put("制作助手","制作アシスタント 制作補佐 製作補");
         animationMap.put("制作协调","制作コーディネーター");
         animationMap.put("友情協力","特别鸣谢");
-        animationMap.put("","");
-        animationMap.put("","");
-        animationMap.put("","");
-        animationMap.put("","");
-        animationMap.put("","");
-        animationMap.put("","");
-        animationMap.put("","");
-        animationMap.put("","");
-        animationMap.put("","");
-        animationMap.put("","");
     }
 
     static {

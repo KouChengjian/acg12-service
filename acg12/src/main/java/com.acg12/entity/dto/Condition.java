@@ -1,13 +1,14 @@
 package com.acg12.entity.dto;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Condition { 
-	
+public class Condition {
+
 	public static Map<String,Object> create(String s1,String s2){
 		Map<String,Object> hashmap = new HashMap<String,Object>();
 		hashmap.put("code", s1);

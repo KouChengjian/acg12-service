@@ -23,5 +23,16 @@
         <mapper resource="mapper/BangumiMapper.xml" />
         <mapper resource="mapper/VideoMapper.xml" />
         <mapper resource="mapper/TagsMapper.xml" />
+
+
+        <mapper resource="mapper/subject/SubjectsMapper.xml" />
+        <mapper resource="mapper/subject/SubjectDetailMapper.xml" />
+        <mapper resource="mapper/subject/SubjectStaffMapper.xml" />
+        <mapper resource="mapper/subject/SubjectCrtMapper.xml" />
+        <mapper resource="mapper/person/PersonMapper.xml" />
+        <mapper resource="mapper/person/PersonDetailMapper.xml" />
+        <mapper resource="mapper/character/CharacterMapper.xml" />
+        <mapper resource="mapper/character/CharacterDetailMapper.xml" />
+        <mapper resource="mapper/character/CharacterActorsMapper.xml" />
     </mappers>
 </configuration>

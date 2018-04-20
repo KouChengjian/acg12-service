@@ -11,12 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/5/24.
  */
 public class Result {
+
 
     // 返回json
     private int result = -1;
@@ -106,23 +109,25 @@ public class Result {
         }
     }
 
-    /** --------------------------------------------成功object----------------------------------------------- */
+    /**
+     * --------------------------------------------成功object-----------------------------------------------
+     */
     public void writeSucceed(HttpServletResponse response) {
-        writeSucceed("成功",response);
+        writeSucceed("成功", response);
     }
 
-    public void writeSucceed(String desc,HttpServletResponse response) {
+    public void writeSucceed(String desc, HttpServletResponse response) {
         setResult(Constant.HTTP_RESULT_SUCCEED);
         setDesc(desc);
         write(response);
     }
 
     public void writeSucceed(String key, Object object, HttpServletResponse response) {
-        writeSucceed("成功" , key , object, response);
+        writeSucceed("成功", key, object, response);
     }
 
     public void writeSucceed(String desc, String key, Object object, HttpServletResponse response) {
-        writeSucceed(Constant.HTTP_RESULT_SUCCEED , desc, key , object, response);
+        writeSucceed(Constant.HTTP_RESULT_SUCCEED, desc, key, object, response);
     }
 
     public void writeSucceed(int result, String desc, String key, Object object, HttpServletResponse response) {
@@ -132,13 +137,15 @@ public class Result {
         write(response);
     }
 
-    /** --------------------------------------------成功objectList----------------------------------------------- */
+    /**
+     * --------------------------------------------成功objectList-----------------------------------------------
+     */
     public void writeSucceed(String key, List object, HttpServletResponse response) {
-        writeSucceed("成功" , key , object, response);
+        writeSucceed("成功", key, object, response);
     }
 
     public void writeSucceed(String desc, String key, List object, HttpServletResponse response) {
-        writeSucceed(Constant.HTTP_RESULT_SUCCEED , desc, key , object, response);
+        writeSucceed(Constant.HTTP_RESULT_SUCCEED, desc, key, object, response);
     }
 
     public void writeSucceed(int result, String desc, String key, List list, HttpServletResponse response) {
@@ -148,17 +155,19 @@ public class Result {
         write(response);
     }
 
-    /** --------------------------------------------成功JSONObject----------------------------------------------- */
+    /**
+     * --------------------------------------------成功JSONObject-----------------------------------------------
+     */
     public void writeSucceed(JSONObject object, HttpServletResponse response) {
-        writeSucceed("list" , object, response);
+        writeSucceed("list", object, response);
     }
 
-    public void writeSucceed(String key , JSONObject object, HttpServletResponse response) {
-        writeSucceed("成功" , key , object, response);
+    public void writeSucceed(String key, JSONObject object, HttpServletResponse response) {
+        writeSucceed("成功", key, object, response);
     }
 
-    public void writeSucceed(String desc , String key , JSONObject object, HttpServletResponse response) {
-        writeSucceed(Constant.HTTP_RESULT_SUCCEED ,desc , key , object, response);
+    public void writeSucceed(String desc, String key, JSONObject object, HttpServletResponse response) {
+        writeSucceed(Constant.HTTP_RESULT_SUCCEED, desc, key, object, response);
     }
 
     public void writeSucceed(int result, String desc, String key, JSONObject object, HttpServletResponse response) {
@@ -168,17 +177,19 @@ public class Result {
         write(response);
     }
 
-    /** --------------------------------------------成功JSONArray----------------------------------------------- */
+    /**
+     * --------------------------------------------成功JSONArray-----------------------------------------------
+     */
     public void writeSucceed(JSONArray object, HttpServletResponse response) {
-        writeSucceed("list" , object, response);
+        writeSucceed("list", object, response);
     }
 
-    public void writeSucceed(String key , JSONArray object, HttpServletResponse response) {
-        writeSucceed("成功" , key , object, response);
+    public void writeSucceed(String key, JSONArray object, HttpServletResponse response) {
+        writeSucceed("成功", key, object, response);
     }
 
-    public void writeSucceed(String desc , String key , JSONArray object, HttpServletResponse response) {
-        writeSucceed(Constant.HTTP_RESULT_SUCCEED ,desc , key , object, response);
+    public void writeSucceed(String desc, String key, JSONArray object, HttpServletResponse response) {
+        writeSucceed(Constant.HTTP_RESULT_SUCCEED, desc, key, object, response);
     }
 
     public void writeSucceed(int result, String desc, String key, JSONArray object, HttpServletResponse response) {
@@ -188,13 +199,15 @@ public class Result {
         write(response);
     }
 
-    /** --------------------------------------------失败----------------------------------------------- */
-    public void writeFailure( HttpServletResponse response) {
-        writeFailure("操作失败" , response);
+    /**
+     * --------------------------------------------失败-----------------------------------------------
+     */
+    public void writeFailure(HttpServletResponse response) {
+        writeFailure("操作失败", response);
     }
 
     public void writeFailure(String desc, HttpServletResponse response) {
-        writeFailure(Constant.HTTP_RESULT_ERROR , desc , response);
+        writeFailure(Constant.HTTP_RESULT_ERROR, desc, response);
     }
 
     public void writeFailure(int result, String desc, HttpServletResponse response) {
@@ -216,10 +229,10 @@ public class Result {
         String g = request.getHeader("g"); // 签名（未获取到默认'unknown'）
 //        System.err.println("u = " + u +" p = " + p + "  s = " + s + "  n = " + n + "  d = " + d + "  v = " + v + "  a = " + a + "  t = " + t + "  g = " + g);
         String sign = MD5Util.encryption(p + s + n + d + v + a + t + u + Constant.USER_KEY);
-        if(g == null){
+        if (g == null) {
             return true;
         }
-        if(g.equals(sign)){
+        if (g.equals(sign)) {
             return true;
         } else {
             return true;
@@ -233,5 +246,177 @@ public class Result {
                 ", desc='" + desc + '\'' +
                 ", data=" + data +
                 '}';
+    }
+
+
+    /**
+     * -----------------------------------------------------静态函数----------------------------------------------------
+     */
+    public static Map<String, Object> create(String s1, String s2) {
+        Map<String, Object> hashmap = new HashMap<String, Object>();
+        hashmap.put("code", s1);
+        hashmap.put("msg", s2);
+        return hashmap;
+    }
+
+    public static Map<String, Object> create(String s1, String s2, Map<String, Object> map) {
+        Map<String, Object> hashmap = new HashMap<String, Object>();
+        hashmap.put("code", s1);
+        hashmap.put("msg", s2);
+        hashmap.put("data", map);
+        return hashmap;
+    }
+
+    public static Map<String, Object> create(String s1, String s2, List<Object> list) {
+        Map<String, Object> hashmap = new HashMap<String, Object>();
+        hashmap.put("code", s1);
+        hashmap.put("msg", s2);
+        hashmap.put("data", list);
+        return hashmap;
+    }
+
+    public static Map<String, Object> create109() {
+        Map<String, Object> hashmap = new HashMap<String, Object>();
+        hashmap.put("code", 10099);
+        hashmap.put("msg", "请先登录");
+        return hashmap;
+    }
+
+    public static Map<String, Object> create200() {
+        Map<String, Object> hashmap = new HashMap<String, Object>();
+        hashmap.put("code", 20000);
+        hashmap.put("msg", "执行成功");
+        return hashmap;
+    }
+
+    public static Map<String, Object> create200(Object obj) {
+        Map<String, Object> hashmap = new HashMap<String, Object>();
+        hashmap.put("code", 20000);
+        hashmap.put("msg", "请求成功");
+        hashmap.put("data", obj);
+        return hashmap;
+    }
+
+    public static Map<String, Object> create200(Map<String, Object> map) {
+        Map<String, Object> hashmap = new HashMap<String, Object>();
+        hashmap.put("code", 20000);
+        hashmap.put("msg", "请求成功");
+        hashmap.put("data", map);
+        return hashmap;
+    }
+
+    public static Map<String, Object> create200(Map<String, Object> map, HashMap<String, Object> m) {
+        Map<String, Object> hashmap = new HashMap<String, Object>();
+        Map<String, Object> map2 = new HashMap<String, Object>();
+        hashmap.put("code", 20000);
+        hashmap.put("msg", "请求成功");
+        if (m.get("total") != null) {
+            map2.put("total", m.get("total"));
+        }
+        if (m.get("page") != null) {
+            map2.put("page", (int) m.get("page") + 1);
+        }
+        if (m.get("rows") != null) {
+            map2.put("rows", m.get("rows"));
+        }
+        map2.put("data", map);
+        hashmap.put("data", map2);
+        return hashmap;
+    }
+
+    public static Map<String, Object> create200(Map<String, Object> map, Map<String, Object> m) {
+        Map<String, Object> hashmap = new HashMap<String, Object>();
+        Map<String, Object> map2 = new HashMap<String, Object>();
+        hashmap.put("code", 20000);
+        hashmap.put("msg", "请求成功");
+        if (m.get("total") != null) {
+            map2.put("total", m.get("total"));
+        }
+        if (m.get("page") != null) {
+            map2.put("page", (int) m.get("page") + 1);
+        }
+        if (m.get("rows") != null) {
+            map2.put("rows", m.get("rows"));
+        }
+        map2.put("data", map);
+        hashmap.put("data", map2);
+        return hashmap;
+    }
+
+    public static Map<String, Object> create200(List<?> list) {
+        Map<String, Object> hashmap = new HashMap<String, Object>();
+        hashmap.put("code", 20000);
+        hashmap.put("msg", "请求成功");
+        hashmap.put("data", list);
+        return hashmap;
+    }
+
+    public static Map<String, Object> create200(List<?> list, HashMap<String, Object> m) {
+        Map<String, Object> hashmap = new HashMap<String, Object>();
+        Map<String, Object> map2 = new HashMap<String, Object>();
+        hashmap.put("code", 20000);
+        hashmap.put("msg", "请求成功");
+        if (m.get("total") != null) {
+            map2.put("total", m.get("total"));
+        }
+        if (m.get("page") != null) {
+            map2.put("page", (int) m.get("page") + 1);
+        }
+        if (m.get("rows") != null) {
+            map2.put("rows", m.get("rows"));
+        }
+        map2.put("data", list);
+        hashmap.put("data", map2);
+        return hashmap;
+    }
+
+    public static Map<String, Object> create200(List<?> list, Map<String, Object> m) {
+        Map<String, Object> hashmap = new HashMap<String, Object>();
+        Map<String, Object> map2 = new HashMap<String, Object>();
+        hashmap.put("code", 20000);
+        hashmap.put("msg", "请求成功");
+        if (m.get("total") != null) {
+            map2.put("total", m.get("total"));
+        }
+        if (m.get("page") != null) {
+            map2.put("page", (int) m.get("page") + 1);
+        }
+        if (m.get("rows") != null) {
+            map2.put("rows", m.get("rows"));
+        }
+        map2.put("data", list);
+        hashmap.put("data", map2);
+        return hashmap;
+    }
+
+    public static void create200(HttpServletResponse response, JSONObject data) {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("code", 20000);
+            json.put("msg", "请求成功");
+            json.put("data", data);
+            OutputStream outputStream = response.getOutputStream();
+            response.setHeader("content-type", "application/json;charset=UTF-8");
+            byte[] dataByteArr = json.toString().getBytes("UTF-8");
+            outputStream.write(dataByteArr);
+            outputStream.flush();
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Map<String, Object> create202() {
+        Map<String, Object> hashmap = new HashMap<String, Object>();
+        hashmap.put("code", 20002);
+        hashmap.put("msg", "所查数据不存在");
+        return hashmap;
+    }
+
+    public static Map<String, Object> create206() {
+        Map<String, Object> hashmap = new HashMap<String, Object>();
+        hashmap.put("code", 20006);
+        hashmap.put("msg", "程序运行时报错");
+        return hashmap;
     }
 }

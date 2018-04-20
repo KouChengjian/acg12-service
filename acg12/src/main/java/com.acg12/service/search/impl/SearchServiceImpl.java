@@ -23,6 +23,8 @@ public class SearchServiceImpl implements SearchService {
         HttpSession session = (HttpSession) requestAttributes.resolveReference(RequestAttributes.REFERENCE_SESSION);
         String key = (String) map.get("key");
         String start = (String) map.get("start");
+        String type = (String) map.get("type");
+        System.err.println(type+"===");
         JSONObject msg = SearchUtli.getSubjectSearchList(key, 0, Integer.valueOf(start).intValue());
         if (msg == null) {
             return Condition.create202();

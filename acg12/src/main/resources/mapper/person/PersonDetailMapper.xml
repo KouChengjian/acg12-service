@@ -5,26 +5,22 @@
     <resultMap id="baseResultMap" type="com.acg12.entity.po.person.PersonDetailEntity">
         <result column="personDetailId" property="personDetailId" jdbcType="INTEGER"/>
         <result column="personId" property="personId" jdbcType="INTEGER"/>
-        <result column="job" property="job" jdbcType="VARCHAR"/>
-        <result column="alias" property="alias" jdbcType="INTEGER"/>
+        <result column="summary" property="summary" jdbcType="VARCHAR"/>
         <result column="otherTitle" property="otherTitle" jdbcType="VARCHAR"/>
         <result column="otherValue" property="otherValue" jdbcType="VARCHAR"/>
     </resultMap>
 
     <insert id="insert" parameterType="com.acg12.entity.po.person.PersonDetailEntity" useGeneratedKeys="true"
             keyProperty="personDetailId">
-        insert into acg_person_detail (personDetailId , personId , job, alias, otherTitle, otherValue)
-        values (#{personDetailId,jdbcType=INTEGER},#{personId,jdbcType=INTEGER}, #{job,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}
-        , #{otherTitle,jdbcType=VARCHAR}, #{otherValue,jdbcType=VARCHAR})
+        insert into acg_person_detail (personDetailId , personId ,summary, otherTitle, otherValue)
+        values (#{personDetailId,jdbcType=INTEGER},#{personId,jdbcType=INTEGER}, #{summary,jdbcType=VARCHAR}, #{otherTitle,jdbcType=VARCHAR}, #{otherValue,jdbcType=VARCHAR})
     </insert>
 
     <insert id="insertList" parameterType="java.util.List" >
-        insert into acg_person_detail (personDetailId , personId , job, alias, otherTitle, otherValue)
+        insert into acg_person_detail (personDetailId , personId , summary, otherTitle, otherValue)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.personDetailId,jdbcType=INTEGER}, #{item.personId,jdbcType=INTEGER},
-            #{item.job,jdbcType=VARCHAR},#{item.alias,jdbcType=VARCHAR},#{item.otherTitle,jdbcType=VARCHAR},#{item.otherValue,jdbcType=VARCHAR}
-            )
+            (#{item.personDetailId,jdbcType=INTEGER}, #{item.personId,jdbcType=INTEGER}, #{item.summary,jdbcType=VARCHAR},#{item.otherTitle,jdbcType=VARCHAR},#{item.otherValue,jdbcType=VARCHAR})
         </foreach>
         <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="subjectDetailId">
             SELECT LAST_INSERT_ID();

@@ -6,13 +6,18 @@ import com.acg12.entity.po.Param;
  * Created by Administrator on 2018/4/8.
  */
 public class PersonEntity extends Param {
-    private Integer personId ;
-    private Integer pId ;
+    private Integer personId;
+    private Integer pId;
     private String name;
     private String nameCn;
     private String image;
-    private String summary;
-    private String gender;
+    private String height; // 身高
+    private String weight; // 体重
+    private String alias;  // 别名 （、分割）
+    private String type; // 职业 1、声优 2、漫画家 3、制作人 4、音乐人 5、 6、演员 7、绘师 8、作家
+    private Integer gender;  // 性别 // 1、男 2、女
+    private Integer bloodtype; // 血型  1、A   2、B   3、AB   4、O
+    private String birthday; // 生日
 
     public Integer getPersonId() {
         return personId;
@@ -54,25 +59,65 @@ public class PersonEntity extends Param {
         this.image = image;
     }
 
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public String getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
+    }
+
+    public String getHeight() {
+        return height;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Integer getBloodtype() {
+        return bloodtype;
+    }
+
+    public void setBloodtype(Integer bloodtype) {
+        this.bloodtype = bloodtype;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(toString().hashCode() == obj.toString().hashCode()){
+        if (toString().hashCode() == obj.toString().hashCode()) {
             return true;
         }
         return false;
@@ -85,8 +130,13 @@ public class PersonEntity extends Param {
                 ", name='" + name + '\'' +
                 ", nameCn='" + nameCn + '\'' +
                 ", image='" + image + '\'' +
-                ", summary='" + summary + '\'' +
-                ", gender='" + gender + '\'' +
+                ", height='" + height + '\'' +
+                ", weight='" + weight + '\'' +
+                ", alias='" + alias + '\'' +
+                ", type='" + type + '\'' +
+                ", gender=" + gender +
+                ", bloodtype=" + bloodtype +
+                ", birthday='" + birthday + '\'' +
                 '}';
     }
 }

@@ -9,6 +9,7 @@
         <result column="personId" property="personId" jdbcType="INTEGER"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="nameCn" property="nameCn" jdbcType="VARCHAR"/>
+        <result column="roleName" property="roleName" jdbcType="VARCHAR"/>
         <result column="image" property="image" jdbcType="VARCHAR"/>
         <result column="gender" property="gender" jdbcType="VARCHAR"/>
         <result column="personName" property="personName" jdbcType="VARCHAR"/>
@@ -21,17 +22,17 @@
 
     <insert id="insert" parameterType="com.acg12.entity.po.subject.SubjectCrtEntity" useGeneratedKeys="true"
             keyProperty="subjectCrtId">
-        insert into acg_subject_crt (subjectCrtId , subjectId , characterId ,personId, name, nameCn, image, gender, personName , personNameCn ,personImage , personGender ,createTime, updateTime)
-        values (#{subjectCrtId,jdbcType=INTEGER},#{subjectId,jdbcType=INTEGER}, #{characterId,jdbcType=INTEGER},#{personId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nameCn,jdbcType=VARCHAR}
+        insert into acg_subject_crt (subjectCrtId , subjectId , characterId ,personId, name, nameCn, roleName, image, gender, personName , personNameCn ,personImage , personGender ,createTime, updateTime)
+        values (#{subjectCrtId,jdbcType=INTEGER},#{subjectId,jdbcType=INTEGER}, #{characterId,jdbcType=INTEGER},#{personId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nameCn,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}
         , #{image,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{personName,jdbcType=VARCHAR}, #{personNameCn,jdbcType=VARCHAR}, #{personImage,jdbcType=VARCHAR}, #{personGender,jdbcType=VARCHAR}
         , #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER})
     </insert>
 
     <insert id="insertList" parameterType="java.util.List">
-        insert into acg_subject_crt (subjectCrtId , subjectId , characterId ,personId, name, nameCn, image, gender, personName , personNameCn ,personImage , personGender ,createTime, updateTime)
+        insert into acg_subject_crt (subjectCrtId , subjectId , characterId ,personId, name, nameCn, roleName , image, gender, personName , personNameCn ,personImage , personGender ,createTime, updateTime)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.subjectStaffId,jdbcType=INTEGER},#{item.subjectId,jdbcType=INTEGER}, #{item.characterId,jdbcType=INTEGER},#{item.personId,jdbcType=INTEGER}, #{item.name,jdbcType=VARCHAR}, #{item.nameCn,jdbcType=VARCHAR}
+            (#{item.subjectStaffId,jdbcType=INTEGER},#{item.subjectId,jdbcType=INTEGER}, #{item.characterId,jdbcType=INTEGER},#{item.personId,jdbcType=INTEGER}, #{item.name,jdbcType=VARCHAR}, #{item.nameCn,jdbcType=VARCHAR}}, #{item.roleName,jdbcType=VARCHAR}
             , #{item.image,jdbcType=VARCHAR}, #{item.gender,jdbcType=VARCHAR}, #{item.personName,jdbcType=VARCHAR}, #{item.personNameCn,jdbcType=VARCHAR}, #{item.personImage,jdbcType=VARCHAR}, #{item.personGender,jdbcType=VARCHAR}
             , #{item.createTime,jdbcType=INTEGER}, #{item.updateTime,jdbcType=INTEGER})
         </foreach>
@@ -41,9 +42,9 @@
     </insert>
 
     <update id="update" parameterType="com.acg12.entity.po.subject.SubjectCrtEntity">
-        update acg_subject_crt set subjectId=#{subjectId},personId=#{personId},name=#{name},nameCn=#{nameCn},image=#{image}
-        ,job=#{job},gender=#{gender},updateTime=#{updateTime}
-        where subjectStaffId=#{subjectStaffId}
+        update acg_subject_crt set subjectId=#{subjectId},characterId=#{characterId},personId=#{personId},name=#{name},nameCn=#{nameCn},roleName=#{roleName},image=#{image}
+        ,gender=#{gender},personName=#{personName},personNameCn=#{personNameCn},personImage=#{personImage},personGender=#{personGender},updateTime=#{updateTime}
+        where subjectCrtId=#{subjectCrtId}
     </update>
 
     <select id="queryBySubjectCrtId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectCrtEntity">

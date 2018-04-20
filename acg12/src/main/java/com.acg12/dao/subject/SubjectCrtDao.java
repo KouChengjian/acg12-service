@@ -20,7 +20,7 @@ public interface SubjectCrtDao {
 
     SubjectCrtEntity queryByCrt(@Param(value = "subjectId")int subjectId , @Param(value = "characterId")int characterId);
 
-    SubjectCrtEntity queryBySubjectId(int subjectId);
+    List<SubjectCrtEntity> queryBySubjectId(int subjectId);
 
     SubjectCrtEntity queryByCharacterId(int characterId);
 

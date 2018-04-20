@@ -25,6 +25,12 @@ public class ClientViewController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/subject" )
+    public ModelAndView subjectInfo() {
+        return new ModelAndView("/client/subject-info.jsp");
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/search1" )
     public ModelAndView index1() {
         ModelAndView mav=new ModelAndView();

@@ -124,4 +124,30 @@ public class SubjectCrtEntity extends Param{
     public void setPersonGender(String personGender) {
         this.personGender = personGender;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(toString().hashCode() == obj.toString().hashCode()){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "SubjectCrtEntity{" +
+                "subjectId=" + subjectId +
+                ", characterId=" + characterId +
+                ", name='" + name + '\'' +
+                ", nameCn='" + nameCn + '\'' +
+                ", roleName='" + roleName + '\'' +
+                ", image='" + image + '\'' +
+                ", gender='" + gender + '\'' +
+                ", personId=" + personId +
+                ", personName='" + personName + '\'' +
+                ", personNameCn='" + personNameCn + '\'' +
+                ", personImage='" + personImage + '\'' +
+                ", personGender='" + personGender + '\'' +
+                '}';
+    }
 }

@@ -4,10 +4,10 @@ package com.acg12.entity.po.person;
  * Created by Administrator on 2018/4/8.
  */
 public class PersonDetailEntity {
+
     private Integer personDetailId;
     private Integer personId;
-    private String job;
-    private String alias;
+    private String summary;
     private String otherTitle;
     private String otherValue;
 
@@ -27,20 +27,12 @@ public class PersonDetailEntity {
         this.personId = personId;
     }
 
-    public String getJob() {
-        return job;
+    public String getSummary() {
+        return summary;
     }
 
-    public void setJob(String job) {
-        this.job = job;
-    }
-
-    public String getAlias() {
-        return alias;
-    }
-
-    public void setAlias(String alias) {
-        this.alias = alias;
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     public String getOtherTitle() {

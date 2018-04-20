@@ -11,5 +11,5 @@
     <bean id="feedbackServiceImpl" class="com.acg12.service.FeedbackServiceImpl"/>
     <bean id="updateAppServiceImpl" class="com.acg12.service.UpdateAppServiceImpl"/>
     <bean id="searchServiceImpl" class="com.acg12.service.search.impl.SearchServiceImpl"/>
-
+    <bean id="subjectServiceImpl" class="com.acg12.service.subject.impl.SubjectServiceImpl"/>
 </beans>

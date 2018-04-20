@@ -20,9 +20,9 @@ public class SearchUtli {
 
     /**
      * @param key
-     * @param type  1 书籍 2 动画 3 音乐 4 游戏
+     * @param type  1 书籍 2 动画 3 音乐 4 游戏 6 三次元
      * @param start
-     * @return
+     * 书籍包括漫画和小说 分成 7、8
      */
     // 搜索关键字获取列表
     public static synchronized JSONObject getSubjectSearchList(String key, int type, int start) {
@@ -30,7 +30,7 @@ public class SearchUtli {
 //        System.setProperty("http.proxyPort", "8888");
 //        System.setProperty("https.proxyHost", "localhost");
 //        System.setProperty("https.proxyPort", "8888");
-        String u = String.format("http://api.bgm.tv/search/subject/%s?type=%d&responseGroup=large&start=%d&max_results=10", UrlEncoderUtil.hasUrlEncoded(key) ? key : UrlEncoderUtil.encode(key), type, start);
+        String u = String.format("http://api.bgm.tv/search/subject/%s?type=%s&responseGroup=large&start=%d&max_results=10", UrlEncoderUtil.hasUrlEncoded(key) ? key : UrlEncoderUtil.encode(key), type, start);
         try {
             Document document = Jsoup.connect(u).ignoreContentType(true)
                     .data("jquery", "java").userAgent("Mozilla")
@@ -199,6 +199,10 @@ public class SearchUtli {
             JSONArray jobJson = new JSONArray();
 
             Element headerSubject = document.getElementById("headerSubject");
+            if (headerSubject.select("h1").select("a").text().isEmpty()){
+                return jsonObject;
+            }
+
             Element columnCrtB = document.getElementById("columnCrtB");
             Elements clearit = columnCrtB.getElementsByClass("clearit").select("h2");
             Elements detail = columnCrtB.getElementsByClass("detail");
@@ -230,6 +234,7 @@ public class SearchUtli {
                 String key = span.text().replace(":", "");
 //                System.err.println(key);
                 item.select("span").remove();
+
                 if (key.equals("简体中文名")) {
                     jsonObject.put("name_cn", item.text());
                 } else if (key.equals("性别")) {
@@ -240,10 +245,10 @@ public class SearchUtli {
                     jsonObject.put("blood_type", item.text());
                 } else if (key.equals("体重")) {
                     jsonObject.put("weight", item.text());
+                } else if (key.equals("身高")) {
+                    jsonObject.put("height", item.text());
                 } else if (key.equals("别名")) {
-                    JSONObject js = new JSONObject();
-                    js.put("alias", item.text());
-                    aliasJson.put(js);
+                    aliasJson.put(item.text());
                 } else {
                     JSONObject js = new JSONObject();
                     js.put("otherTitle", key);
@@ -251,7 +256,6 @@ public class SearchUtli {
                     otherJson.put(js);
                 }
             }
-
 //            System.err.println(jsonObject.toString());
             return jsonObject;
         } catch (Exception e) {
@@ -303,10 +307,10 @@ public class SearchUtli {
                     jsonObject.put("blood_type", item.text());
                 } else if (key.equals("体重")) {
                     jsonObject.put("weight", item.text());
+                } else if (key.equals("身高")) {
+                    jsonObject.put("height", item.text());
                 } else if (key.equals("别名")) {
-                    JSONObject js = new JSONObject();
-                    js.put("alias", item.text());
-                    aliasJson.put(js);
+                    aliasJson.put(item.text());
                 } else {
                     JSONObject js = new JSONObject();
                     js.put("otherTitle", key);
@@ -315,7 +319,7 @@ public class SearchUtli {
                 }
             }
 
-//            System.err.println(jsonObject.toString());
+            System.err.println(jsonObject.toString());
             return jsonObject;
         } catch (Exception e) {
             e.printStackTrace();

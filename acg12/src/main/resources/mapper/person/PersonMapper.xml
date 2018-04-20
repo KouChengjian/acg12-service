@@ -8,22 +8,28 @@
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="nameCn" property="nameCn" jdbcType="INTEGER"/>
         <result column="image" property="image" jdbcType="VARCHAR"/>
-        <result column="summary" property="summary" jdbcType="VARCHAR"/>
-        <result column="gender" property="gender" jdbcType="VARCHAR"/>
+        <result column="height" property="height" jdbcType="VARCHAR"/>
+        <result column="weight" property="weight" jdbcType="VARCHAR"/>
+        <result column="alias" property="alias" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="INTEGER"/>
+        <result column="bloodtype" property="bloodtype" jdbcType="INTEGER"/>
+        <result column="birthday" property="birthday" jdbcType="VARCHAR"/>
         <result column="createTime" property="createTime" jdbcType="INTEGER"/>
         <result column="updateTime" property="updateTime" jdbcType="INTEGER"/>
     </resultMap>
 
     <insert id="insert" parameterType="com.acg12.entity.po.person.PersonEntity" useGeneratedKeys="true"
             keyProperty="personId">
-        insert into acg_person (personId , pId , name, nameCn, image, summary, gender, createTime, updateTime)
-        values (#{personId,jdbcType=INTEGER},#{pId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nameCn,jdbcType=VARCHAR}
-        , #{image,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}
-        , #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER})
+        insert into acg_person (personId , pId , name, nameCn, image,  height, weight, alias, type, gender, bloodtype, birthday, createTime, updateTime)
+        values (#{personId,jdbcType=INTEGER},#{pId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nameCn,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}
+        , #{height,jdbcType=VARCHAR}, #{weight,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}
+        , #{gender,jdbcType=INTEGER}, #{bloodtype,jdbcType=INTEGER}, #{birthday,jdbcType=VARCHAR}, #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER})
     </insert>
 
     <update id="update" parameterType="com.acg12.entity.po.person.PersonEntity">
-        update acg_person set pId=#{pId},name=#{name},nameCn=#{nameCn},image=#{image},summary=#{summary},gender=#{gender},updateTime=#{updateTime}
+        update acg_person set pId=#{pId},name=#{name},nameCn=#{nameCn},image=#{image},summary=#{summary},height=#{height},weight=#{weight},alias=#{alias},type=#{type}
+        ,gender=#{gender},bloodtype=#{bloodtype},birthday=#{birthday},updateTime=#{updateTime}
         where personId=#{personId}
     </update>
 
@@ -36,7 +42,7 @@
     </select>
 
     <select id="queryByPersonId" parameterType="int" resultType="com.acg12.entity.po.person.PersonEntity">
-        select * from acg_person where personId = #{personId}
+        select personId from acg_person where personId = #{personId}
     </select>
 
 
