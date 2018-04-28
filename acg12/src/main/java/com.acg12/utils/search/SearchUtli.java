@@ -54,7 +54,6 @@ public class SearchUtli {
         return null;
     }
 
-    // 关键字详情
     public static synchronized JSONObject getSubjectInfo(int subjectid) {
         String url1 = String.format("http://api.bgm.tv/subject/%d?responseGroup=large", subjectid);
         String url2 = String.format("http://bangumi.tv/subject/%d", subjectid);
@@ -276,6 +275,9 @@ public class SearchUtli {
             JSONArray otherJson = new JSONArray();
 
             Element headerSubject = document.getElementById("headerSubject");
+            if(headerSubject == null){
+                return jsonObject;
+            }
             Element columnCrtB = document.getElementById("columnCrtB");
             Elements detail = columnCrtB.getElementsByClass("detail");
             Elements center = document.getElementsByClass("infobox");
@@ -325,5 +327,87 @@ public class SearchUtli {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static synchronized List<Integer> characterType2(){
+        List<Integer> engineAllId = new ArrayList<>();
+        String url = "http://bangumi.tv/character?type=2&page=%d";
+        for (int i = 1 ; i <= 13 ; i++){
+            try {
+                Document document = Jsoup.connect(String.format(url , i)).ignoreContentType(true)
+                        .data("jquery", "java").userAgent("Mozilla")
+                        .cookie("auth", "token").timeout(50000).get();
+                Element columnCrtBrowserB = document.getElementById("columnCrtBrowserB");
+                Elements browserCrtList = columnCrtBrowserB.getElementsByClass("browserCrtList");
+                Elements light_odd = browserCrtList.get(0).getElementsByClass("light_odd");
+                for (int j = 0 , total = light_odd.size() ; j < total ; j++){
+                    Element item = light_odd.get(j);
+                    Elements avatar = item.getElementsByClass("avatar");
+                    String str = avatar.select("a").attr("href");
+                    engineAllId.add(Integer.valueOf(str.split("/character/")[1]).intValue());
+//                    System.out.println(Integer.valueOf(str.split("/character/")[1]).intValue());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println(engineAllId.size());
+        System.out.println(engineAllId.toString());
+        return engineAllId;
+    }
+
+    public static synchronized List<Integer> characterType3(){
+        List<Integer> engineAllId = new ArrayList<>();
+        String url = "http://bangumi.tv/character?type=3&page=%d";
+        for (int i = 1 ; i <= 13 ; i++){
+            try {
+                Document document = Jsoup.connect(String.format(url , i)).ignoreContentType(true)
+                        .data("jquery", "java").userAgent("Mozilla")
+                        .cookie("auth", "token").timeout(50000).get();
+                Element columnCrtBrowserB = document.getElementById("columnCrtBrowserB");
+                Elements browserCrtList = columnCrtBrowserB.getElementsByClass("browserCrtList");
+                Elements light_odd = browserCrtList.get(0).getElementsByClass("light_odd");
+                for (int j = 0 , total = light_odd.size() ; j < total ; j++){
+                    Element item = light_odd.get(j);
+                    Elements avatar = item.getElementsByClass("avatar");
+                    String str = avatar.select("a").attr("href");
+                    engineAllId.add(Integer.valueOf(str.split("/character/")[1]).intValue());
+//                    System.out.println(Integer.valueOf(str.split("/character/")[1]).intValue());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        System.out.println(engineAllId.size());
+        System.out.println(engineAllId.toString());
+        return engineAllId;
+    }
+
+    public static synchronized List<Integer> characterType4(){
+        List<Integer> engineAllId = new ArrayList<>();
+        String url = "http://bangumi.tv/character?type=4&page=%d";
+        for (int i = 1 ; i <= 20 ; i++){
+            try {
+                Document document = Jsoup.connect(String.format(url , i)).ignoreContentType(true)
+                        .data("jquery", "java").userAgent("Mozilla")
+                        .cookie("auth", "token").timeout(50000).get();
+                Element columnCrtBrowserB = document.getElementById("columnCrtBrowserB");
+                Elements browserCrtList = columnCrtBrowserB.getElementsByClass("browserCrtList");
+                Elements light_odd = browserCrtList.get(0).getElementsByClass("light_odd");
+                for (int j = 0 , total = light_odd.size() ; j < total ; j++){
+                    Element item = light_odd.get(j);
+                    Elements avatar = item.getElementsByClass("avatar");
+                    String str = avatar.select("a").attr("href");
+                    engineAllId.add(Integer.valueOf(str.split("/character/")[1]).intValue());
+//                    System.out.println(Integer.valueOf(str.split("/character/")[1]).intValue());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println(engineAllId.size());
+        System.out.println(engineAllId.toString());
+        return engineAllId;
     }
 }

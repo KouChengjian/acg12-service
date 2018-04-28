@@ -5,11 +5,11 @@
 
     <!--可以在这声明，也可以使用@Service-->
     <!-- user的service -->
-    <bean id="userService" class="com.acg12.service.UserServiceImpl"/>
-    <bean id="verifyService" class="com.acg12.service.VerifyServiceImpl"/>
+    <bean id="userService" class="com.acg12.service.user.UserServiceImpl"/>
+    <bean id="verifyService" class="com.acg12.service.user.VerifyServiceImpl"/>
     <bean id="resServiceImpl" class="com.acg12.service.ResServiceImpl"/>
-    <bean id="feedbackServiceImpl" class="com.acg12.service.FeedbackServiceImpl"/>
-    <bean id="updateAppServiceImpl" class="com.acg12.service.UpdateAppServiceImpl"/>
+    <bean id="feedbackServiceImpl" class="com.acg12.service.user.FeedbackServiceImpl"/>
+    <bean id="updateAppServiceImpl" class="com.acg12.service.user.UpdateAppServiceImpl"/>
     <bean id="searchServiceImpl" class="com.acg12.service.search.impl.SearchServiceImpl"/>
     <bean id="subjectServiceImpl" class="com.acg12.service.subject.impl.SubjectServiceImpl"/>
 </beans>

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.acg12.dao.person.PersonDao">
 
-    <resultMap id="baseResultMap" type="com.acg12.entity.po.person.PersonEntity">
+    <resultMap id="personResultMap" type="com.acg12.entity.po.person.PersonEntity">
         <result column="personId" property="personId" jdbcType="INTEGER"/>
         <result column="pId" property="pId" jdbcType="INTEGER"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
@@ -37,6 +37,28 @@
         select * from acg_person
     </select>
 
+    <select id="queryByPersonListPage" resultType="com.acg12.entity.po.person.PersonEntity">
+        select * from acg_person
+        <where>
+            <if test="type != null">
+                <if test="type > 0">
+                    type like "%"#{type}"%"
+                </if>
+            </if>
+
+            <if test="gender > 0">
+                and gender = #{gender}
+            </if>
+            <if test="bloodtype > 0">
+                and bloodtype = #{bloodtype}
+            </if>
+            <if test="birthday != null">
+                and birthday like "%"#{birthday}"%"
+            </if>
+
+        </where>
+    </select>
+
     <select id="queryByPId" parameterType="int" resultType="com.acg12.entity.po.person.PersonEntity">
         select * from acg_person where pId = #{pId}
     </select>
@@ -44,6 +66,7 @@
     <select id="queryByPersonId" parameterType="int" resultType="com.acg12.entity.po.person.PersonEntity">
         select personId from acg_person where personId = #{personId}
     </select>
+
 
 
 </mapper>

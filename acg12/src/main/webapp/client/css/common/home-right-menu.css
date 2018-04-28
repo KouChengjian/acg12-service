@@ -1,0 +1,113 @@
+
+#container-centerB {
+    width: 990px;
+    margin: 0;
+    float: left;
+    margin: 10px 0px 0px 0px;
+}
+
+.tab-sort {
+    color: #222;
+    font-size: 14px;
+    line-height: 1;
+    height: 14px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    position: relative;
+    z-index: -1;
+}
+
+.tab-sort a:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 60px;
+    margin: 0 2px;
+    top: 0;
+    width: 0;
+    height: 0;
+    border: 5px dashed #ddd;
+    border-bottom-style: solid;
+    border-top: none;
+    border-left-color: transparent;
+    border-right-color: transparent;
+}
+
+.tab-sort a:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 60px;
+    margin: 0 2px;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border: 5px dashed #ddd;
+    border-top-style: solid;
+    border-bottom: none;
+    border-left-color: transparent;
+    border-right-color: transparent;
+}
+
+.tab-sort a.on.desc:after {
+    border-color: #00a1d6 transparent;
+    border-bottom: none;
+}
+
+.tab-sort a.on.asc:before {
+    border-color: #00a1d6 transparent;
+    border-top: none;
+}
+
+.browser-list {
+    margin: 0;
+    padding: 0;
+}
+
+.browser-item {
+    border-bottom: 1px dotted #EAEAEA;
+    font-size: 12px;
+    padding: 10px 5px;
+    white-space: normal;
+    overflow: hidden;
+}
+
+.browser-item .avatar {
+    float: left;
+}
+
+.browser-item img.avatar {
+    width: 77px;
+    height: 77px;
+    background-color: #FFF;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: inset 0px 0px 2px #BBB;
+    -webkit-box-shadow: inset 0px 0px 2px #BBB;
+    box-shadow: inset 0px 0px 2px #BBB;
+    padding: 1px;
+    -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+    transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+
+.browser-item .prsn-info{
+    margin-top: 5px;
+}
+
+.browser-item .prsn-info .tip {
+    font-size: 12px;
+    color: #252525;
+}
+
+.browser-item .content {
+    font-size: 13px;
+    color: #666;
+    margin-top: 5px;
+    line-height: 20px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}

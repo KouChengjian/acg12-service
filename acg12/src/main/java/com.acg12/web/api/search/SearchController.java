@@ -1,9 +1,6 @@
-package com.acg12.web.search;
+package com.acg12.web.api.search;
 
 import com.acg12.service.search.SearchService;
-import com.acg12.utils.search.SearchUtli;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

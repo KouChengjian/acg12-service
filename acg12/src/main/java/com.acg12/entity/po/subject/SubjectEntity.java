@@ -16,8 +16,9 @@ public class SubjectEntity extends Param {
     private String  summary; // 概况
     private String image;
     private Integer epsCount; // 话数
-    private String airDate;// 放送开始
-    private Integer airWeekday;// 放送星期
+    private String airDate;// 放送开始 2015-10-10
+    private Integer airWeekday;// 放送星期  3
+    private String endDate; // 播放结束
 
     public Integer getSubjectId() {
         return subjectId;

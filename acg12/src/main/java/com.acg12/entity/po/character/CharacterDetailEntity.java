@@ -7,7 +7,7 @@ public class CharacterDetailEntity {
 
     private Integer characterDetailId;
     private Integer characterId;
-    private String alias;
+    private String summary;
     private String otherTitle;
     private String otherValue;
 
@@ -27,14 +27,6 @@ public class CharacterDetailEntity {
         this.characterId = characterId;
     }
 
-    public String getAlias() {
-        return alias;
-    }
-
-    public void setAlias(String alias) {
-        this.alias = alias;
-    }
-
     public String getOtherTitle() {
         return otherTitle;
     }
@@ -49,5 +41,13 @@ public class CharacterDetailEntity {
 
     public void setOtherValue(String otherValue) {
         this.otherValue = otherValue;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 }

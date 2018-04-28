@@ -1,9 +1,7 @@
-package com.acg12.web.subject;
+package com.acg12.web.api.subject;
 
 import com.acg12.entity.dto.Result;
-import com.acg12.service.search.SearchService;
 import com.acg12.service.subject.SubjectService;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

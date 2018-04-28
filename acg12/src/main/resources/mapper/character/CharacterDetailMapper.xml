@@ -5,23 +5,23 @@
     <resultMap id="baseResultMap" type="com.acg12.entity.po.character.CharacterDetailEntity">
         <result column="characterDetailId" property="characterDetailId" jdbcType="INTEGER"/>
         <result column="characterId" property="characterId" jdbcType="INTEGER"/>
-        <result column="alias" property="alias" jdbcType="VARCHAR"/>
+        <result column="summary" property="summary" jdbcType="VARCHAR"/>
         <result column="otherTitle" property="otherTitle" jdbcType="INTEGER"/>
         <result column="otherValue" property="otherValue" jdbcType="VARCHAR"/>
     </resultMap>
 
     <insert id="insert" parameterType="com.acg12.entity.po.character.CharacterDetailEntity" useGeneratedKeys="true"
             keyProperty="characterDetailId">
-        insert into acg_character_detail (characterDetailId , characterId , alias, otherTitle, otherValue)
-        values (#{characterDetailId,jdbcType=INTEGER},#{characterId,jdbcType=INTEGER}, #{alias,jdbcType=VARCHAR}, #{otherTitle,jdbcType=VARCHAR}, #{otherValue,jdbcType=VARCHAR})
+        insert into acg_character_detail (characterDetailId , characterId , summary, otherTitle, otherValue)
+        values (#{characterDetailId,jdbcType=INTEGER},#{characterId,jdbcType=INTEGER}, #{summary,jdbcType=VARCHAR}, #{otherTitle,jdbcType=VARCHAR}, #{otherValue,jdbcType=VARCHAR})
     </insert>
 
     <insert id="insertList" parameterType="java.util.List" >
-        insert into acg_character_detail (characterDetailId , characterId , alias, otherTitle, otherValue)
+        insert into acg_character_detail (characterDetailId , characterId , summary, otherTitle, otherValue)
         values
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.characterDetailId,jdbcType=INTEGER}, #{item.characterId,jdbcType=INTEGER},
-            #{item.alias,jdbcType=VARCHAR},#{item.otherTitle,jdbcType=VARCHAR},#{item.otherValue,jdbcType=VARCHAR}
+            #{item.summary,jdbcType=VARCHAR},#{item.otherTitle,jdbcType=VARCHAR},#{item.otherValue,jdbcType=VARCHAR}
             )
         </foreach>
         <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="characterDetailId">

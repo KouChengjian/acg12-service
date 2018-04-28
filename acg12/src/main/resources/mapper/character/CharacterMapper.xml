@@ -8,36 +8,57 @@
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="nameCn" property="nameCn" jdbcType="INTEGER"/>
         <result column="image" property="image" jdbcType="VARCHAR"/>
-        <result column="summary" property="summary" jdbcType="VARCHAR"/>
-        <result column="roleName" property="roleName" jdbcType="VARCHAR"/>
+        <result column="height" property="weight" jdbcType="VARCHAR"/>
         <result column="weight" property="weight" jdbcType="VARCHAR"/>
-        <result column="gender" property="gender" jdbcType="VARCHAR"/>
+        <result column="alias" property="weight" jdbcType="VARCHAR"/>
+        <result column="type" property="weight" jdbcType="VARCHAR"/>
+        <result column="gender" property="weight" jdbcType="INTEGER"/>
+        <result column="bloodtype" property="gender" jdbcType="INTEGER"/>
+        <result column="birthday" property="personId" jdbcType="VARCHAR"/>
         <result column="createTime" property="createTime" jdbcType="INTEGER"/>
         <result column="updateTime" property="updateTime" jdbcType="INTEGER"/>
-        <result column="personId" property="personId" jdbcType="INTEGER"/>
-        <result column="personName" property="personName" jdbcType="VARCHAR"/>
-        <result column="personNameCn" property="personNameCn" jdbcType="VARCHAR"/>
-        <result column="personImage" property="personImage" jdbcType="VARCHAR"/>
-        <result column="personGender" property="personGender" jdbcType="VARCHAR"/>
     </resultMap>
 
     <insert id="insert" parameterType="com.acg12.entity.po.character.CharacterEntity" useGeneratedKeys="true"
             keyProperty="characterId">
-        insert into acg_character (characterId , cId , name, nameCn, image, summary, gender, roleName, weight, createTime, updateTime ,personId, personName, personNameCn, personImage, personGender)
-        values (#{characterId,jdbcType=INTEGER},#{cId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nameCn,jdbcType=VARCHAR}
-        , #{image,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{roleName,jdbcType=INTEGER}, #{weight,jdbcType=INTEGER}
-        , #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER} , #{personId,jdbcType=INTEGER}, #{personName,jdbcType=VARCHAR}, #{personNameCn,jdbcType=VARCHAR}
-        , #{personImage,jdbcType=VARCHAR}, #{personGender,jdbcType=VARCHAR})
+        insert into acg_character (characterId , cId , name, nameCn, image, height, weight, alias, type, gender, bloodtype, birthday ,createTime, updateTime)
+        values (#{characterId,jdbcType=INTEGER},#{cId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nameCn,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}
+        , #{height,jdbcType=VARCHAR}, #{weight,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}
+        , #{bloodtype,jdbcType=INTEGER}, #{birthday,jdbcType=VARCHAR}, #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER})
     </insert>
 
     <update id="update" parameterType="com.acg12.entity.po.character.CharacterEntity">
-        update acg_character set cId=#{cId},name=#{name},nameCn=#{nameCn},image=#{image},summary=#{summary},gender=#{gender},roleName=#{roleName}
-        ,weight=#{weight},personId=#{personId},personName=#{personName},personNameCn=#{personNameCn},personImage=#{personImage},personGender=#{personGender},updateTime=#{updateTime}
+        update acg_character set cId=#{cId},name=#{name},nameCn=#{nameCn},image=#{image},height=#{height},weight=#{weight},alias=#{alias}
+        ,type=#{type},gender=#{gender},bloodtype=#{bloodtype},birthday=#{birthday},updateTime=#{updateTime}
         where characterId=#{characterId}
     </update>
 
     <select id="queryList" resultType="com.acg12.entity.po.character.CharacterEntity">
         select * from acg_character
+    </select>
+
+    <select id="queryByCharacterListPage" resultType="com.acg12.entity.po.character.CharacterEntity">
+        select * from acg_character
+        <where>
+            <if test="type != null">
+                <if test="type > 0">
+                    type like "%"#{type}"%"
+                </if>
+            </if>
+
+            <if test="gender > 0">
+                and gender = #{gender}
+            </if>
+            <if test="bloodtype > 0">
+                and bloodtype = #{bloodtype}
+            </if>
+            <if test="birthday != null">
+                <if test="birthday > 0">
+                    and birthday like "%"#{birthday}"%"
+                </if>
+            </if>
+
+        </where>
     </select>
 
     <select id="queryByCId" parameterType="int" resultType="com.acg12.entity.po.character.CharacterEntity">

@@ -1,4 +1,4 @@
-package com.acg12.service;
+package com.acg12.service.user;
 
 import com.acg12.entity.po.user.User;
 import com.acg12.dao.user.UserDao;

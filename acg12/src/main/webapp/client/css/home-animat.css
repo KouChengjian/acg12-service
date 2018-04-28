@@ -1,0 +1,125 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    padding-top: 45px;
+    /*background: #fff;*/
+}
+
+ul {
+    list-style: none;
+}
+
+/*a.l, a.l:link, a.l:visited, a.l:active {*/
+    /*color: #888;*/
+    /*border: 0;*/
+    /*text-decoration: none;*/
+/*}*/
+
+
+a.on{
+    color: #00a1d6 !important;
+}
+
+a.focus ,a.l:hover{
+    background: #00a1d6;
+    color: #FFF;
+    text-decoration: none;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+a.expand:hover{
+    background: #fff;
+    border: 1px solid #00a1d6;
+    border-radius: 4px;
+    color: #00a1d6;
+}
+
+a.expand{
+    border: 1px solid #ccd0d7 ;
+    border-radius: 4px;
+    color: #99a2aa;
+    background: #FAFBFC;
+    position: absolute;
+    top: -191px;
+    left: 0px;
+    width: 39px;
+}
+
+a.shrink{
+
+}
+
+
+
+.container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.container-center {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+#container-centerA{
+    width: 260px;
+    background-color: #FAFBFC;
+    margin: 10px 10px 0px 0px;
+    float: left;
+    overflow: hidden;
+}
+
+#container-centerA h3 {
+    background-color: #EAEAEA;
+    margin: 0 0 0 0;
+    padding: 5px 0 5px 15px;
+    font-size: 13px;
+    font-weight: normal;
+    color: #777;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#EAEAEA');
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#EAEAEA));
+    background: -moz-linear-gradient(top, #FFF, #EAEAEA);
+    background: -o-linear-gradient(top, #FFF, #EAEAEA);
+}
+
+#container-centerA ul {
+    margin-top: 5px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#container-centerA .clearit:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+#container-centerA ul li {
+    float: left;
+    width: 65px;
+    padding: 10px 0;
+    position: relative;
+}
+
+#container-centerA ul li a {
+    display: block;
+    padding: 2px 5px;
+    text-align: center;
+    margin: 0 5px;
+    cursor: pointer;
+    z-index: -1;
+}
+
+#container-centerB{
+    width: 930px;
+    margin: 0 ;
+    float: left;
+    height: 1000px;
+}
+

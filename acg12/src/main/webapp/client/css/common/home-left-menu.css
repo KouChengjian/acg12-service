@@ -1,0 +1,110 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    padding-top: 45px;
+}
+
+ul {
+    list-style: none;
+}
+
+a.l, a.l:link, a.l:visited, a.l:active {
+    color: #888;
+    border: 0;
+    text-decoration: none;
+}
+
+a.l:hover{
+    /*color: #00a1d6;*/
+    background: #00a1d6;
+    color: #FFF;
+    text-decoration: none;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+
+
+
+.clearit:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.on{
+    color: #00a1d6 !important;
+}
+
+a.focus {
+    background: #00a1d6;
+    color: #FFF;
+    /*opacity: 0.6;*/
+    text-decoration: none;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+
+
+
+
+
+.container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.container-center {
+    width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: url(http://bangumi.tv/img/bg/bg_left_side.png) repeat-y -24px 0;
+}
+
+#container-centerA{
+    width: 175px;
+    background-color: #FAFBFC;
+    margin: 10px 10px 0px 0px;
+    float: left;
+    overflow: hidden;
+}
+
+#container-centerA h3 {
+    background-color: #EAEAEA;
+    margin: 0 0 0 0;
+    padding: 5px 0 5px 15px;
+    font-size: 13px;
+    font-weight: normal;
+    color: #777;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#EAEAEA');
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#EAEAEA));
+    background: -moz-linear-gradient(top, #FFF, #EAEAEA);
+    background: -o-linear-gradient(top, #FFF, #EAEAEA);
+}
+
+#container-centerA ul {
+    margin-top: 5px;
+    margin: 0;
+    padding: 0;
+}
+
+#container-centerA ul li {
+    float: left;
+    width: 66px;
+    padding: 10px 0 10px 10px;
+}
+
+#container-centerA ul li a {
+    display: block;
+    padding: 2px 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+

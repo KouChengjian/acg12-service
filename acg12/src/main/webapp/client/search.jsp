@@ -13,9 +13,9 @@
     <title>搜索</title>
     <link href="css/index.css" rel="stylesheet">
     <link href="css/search.css" rel="stylesheet">
-    <link href="css/pagination.css" rel="stylesheet">
-    <script type="text/javascript" src="js/jquery-3.2.0.js"></script>
-    <script src="js/jquery.pagination.js"></script>
+    <link href="css/common/pagination/pagination.css" rel="stylesheet">
+    <script type="text/javascript" src="js/common/jquery-3.2.0.js"></script>
+    <script src="js/common/pagination/jquery.pagination.js"></script>
 </head>
 <body class="bangumi">
 

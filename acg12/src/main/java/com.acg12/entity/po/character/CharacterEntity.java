@@ -10,16 +10,14 @@ public class CharacterEntity extends Param {
     private Integer cId;
     private String name;
     private String nameCn;
-    private String roleName;
-    private String summary;
     private String image;
-    private String weight;
-    private String gender;
-    private Integer personId ;
-    private String personName;
-    private String personNameCn;
-    private String personImage;
-    private String personGender;
+    private String height; // 身高
+    private String weight; // 体重
+    private String alias;  // 别名 （、分割）
+    private String type; // 职业 1、角色 2、机体 3、舰船 4、组织机构
+    private Integer gender;
+    private Integer bloodtype; // 血型  1、A   2、B   3、AB   4、O
+    private String birthday; // 生日
 
     public Integer getCharacterId() {
         return characterId;
@@ -53,22 +51,6 @@ public class CharacterEntity extends Param {
         this.nameCn = nameCn;
     }
 
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
     public String getImage() {
         return image;
     }
@@ -85,52 +67,52 @@ public class CharacterEntity extends Param {
         this.weight = weight;
     }
 
-    public String getGender() {
+    public String getHeight() {
+        return height;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 
-    public Integer getPersonId() {
-        return personId;
+    public Integer getBloodtype() {
+        return bloodtype;
     }
 
-    public void setPersonId(Integer personId) {
-        this.personId = personId;
+    public void setBloodtype(Integer bloodtype) {
+        this.bloodtype = bloodtype;
     }
 
-    public String getPersonName() {
-        return personName;
+    public String getBirthday() {
+        return birthday;
     }
 
-    public void setPersonName(String personName) {
-        this.personName = personName;
-    }
-
-    public String getPersonNameCn() {
-        return personNameCn;
-    }
-
-    public void setPersonNameCn(String personNameCn) {
-        this.personNameCn = personNameCn;
-    }
-
-    public String getPersonImage() {
-        return personImage;
-    }
-
-    public void setPersonImage(String personImage) {
-        this.personImage = personImage;
-    }
-
-    public String getPersonGender() {
-        return personGender;
-    }
-
-    public void setPersonGender(String personGender) {
-        this.personGender = personGender;
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
     @Override
@@ -147,16 +129,14 @@ public class CharacterEntity extends Param {
                 "cId=" + cId +
                 ", name='" + name + '\'' +
                 ", nameCn='" + nameCn + '\'' +
-                ", roleName='" + roleName + '\'' +
-                ", summary='" + summary + '\'' +
                 ", image='" + image + '\'' +
+                ", height='" + height + '\'' +
                 ", weight='" + weight + '\'' +
-                ", gender='" + gender + '\'' +
-                ", personId=" + personId +
-                ", personName='" + personName + '\'' +
-                ", personNameCn='" + personNameCn + '\'' +
-                ", personImage='" + personImage + '\'' +
-                ", personGender='" + personGender + '\'' +
+                ", alias='" + alias + '\'' +
+                ", type='" + type + '\'' +
+                ", gender=" + gender +
+                ", bloodtype=" + bloodtype +
+                ", birthday='" + birthday + '\'' +
                 '}';
     }
 }

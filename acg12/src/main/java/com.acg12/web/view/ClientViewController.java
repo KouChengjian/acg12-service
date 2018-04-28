@@ -19,6 +19,12 @@ public class ClientViewController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/person" )
+    public ModelAndView homePerson() {
+        return new ModelAndView("/client/home-person.html");
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/search" )
     public ModelAndView search() {
         return new ModelAndView("/client/search.html");
