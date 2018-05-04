@@ -13,5 +13,5 @@ public interface PersonService {
 
     List<PersonEntity> queryByPersonList(PageInfo pageInfo , String type, int gender, int bloodtype, String birthday);
 
-
+    PersonEntity queryByPersonIdJoinDetail(int personId);
 }

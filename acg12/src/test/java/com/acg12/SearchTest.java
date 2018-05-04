@@ -56,25 +56,30 @@ public class SearchTest {
 //        searchTest.getSubjectInfo();
 
 
-        searchTest.personStep();
+//        searchTest.personStep();
 //        searchTest.characterStep();
-//        searchTest.testDb();
+        searchTest.testDb();
 
 
         long endTime = System.currentTimeMillis();
         float excTime = (float) (endTime - startTime) / 1000;
-        System.out.println("执行时间：" + excTime + "s");
+        if(excTime < 60){
+            System.out.println("执行时间：" + excTime + "s");
+        } else if(excTime < 3600 ){
+            System.out.println("执行时间：" + excTime / 60 + "分钟");
+        } else {
+            System.out.println("执行时间：" + excTime + "s");
+        }
+
 
 
     }
 
     private void testDb(){
         PersonDao personDao = ConnectionFactory.getMapper(PersonDao.class);
-        PageInfo page = new PageInfo();
-        page.setShowCount(20);
-        page.setCurrentResult(1);
-        List<PersonEntity> list = personDao.queryByPersonListPage(page ,"3" , 0 , 0  , null);
-        System.out.println(list.size()+"====");
+        PersonEntity personEntity = personDao.queryByPersonIdJoinDetail(10);
+        System.out.println(personEntity.toString());
+        System.out.println(personEntity.getSummary());
     }
 
     // 查本地数据库
@@ -440,8 +445,15 @@ public class SearchTest {
                 String s1 = JsonParse.getString(aliasJSONArray, i);
                 if (i == 0) {
                     alias += "" + s1;
+                    if(s1.length() < 400){
+
+                    } else {
+
+                    }
                 } else {
-                    alias += "、" + s1;
+                    if(s1.length() < 400){
+                        alias += "、" + s1;
+                    }
                 }
             }
             personEntity.setAlias(alias);
@@ -626,16 +638,15 @@ public class SearchTest {
 
 
     /**------------------------------------------爬虫实例-----------------------------------------------------*/
-    /**
+    /** 32537条
      * 1、先抓取三次元人物信息    关联词条
      * 2、在抓取二次元人物信息    关联词条
      * 3、抓取词条 关联词条
      */
-
     private void personStep() {
         PersonDao personDao = ConnectionFactory.getMapper(PersonDao.class);
         PersonDetailDao personDetailDao = ConnectionFactory.getMapper(PersonDetailDao.class);
-        for (int i = 1111, total = 2000; i <= total; i++) {
+        for (int i = 4064, total = 5000; i <= total; i++) {
             JSONObject item = SearchUtli.getPersonInfo(i);
             PersonEntity personEntity = savaPerson(personDao, personDetailDao, item);
         }

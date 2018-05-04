@@ -15,6 +15,17 @@ public class SubjectStaffConstant {
     public static HashMap<String , String> gameMap = new HashMap<>();
 
     static {
+        booksMap.put("原作","原作");
+        booksMap.put("作者","作者");
+        booksMap.put("作画","作画");
+        booksMap.put("插图","イラスト");
+        booksMap.put("出版社","出版社");
+        booksMap.put("连载杂志","掲載誌");
+        booksMap.put("译者","译者");
+        booksMap.put("客串","ゲスト");
+    }
+
+    static {
         animationMap.put("原作","原作");
         animationMap.put("总导演","総監督");
         animationMap.put("导演","監督 シリーズ監督");
@@ -89,6 +100,37 @@ public class SubjectStaffConstant {
     }
 
     static {
+        gameMap.put("开发","開発元");
+        gameMap.put("发行","発売元");
+        gameMap.put("遊戲設計師"," ゲームクリエイター");
+        gameMap.put("原作","");
+        gameMap.put("导演","監督 演出 シリーズ監督");
+        gameMap.put("企画","");
+        gameMap.put("监修","監修");
+        gameMap.put("剧本","腳本");
+        gameMap.put("系列构成","シリーズ構成");
+        gameMap.put("作画监督","作画監督");
+        gameMap.put("原画","");
+        gameMap.put("人物设定","キャラ設定 キャラクターデザイン");
+        gameMap.put("机械设定","メカニック設定");
+        gameMap.put("美工","美術");
+        gameMap.put("CG监修","CG監修");
+        gameMap.put("SD原画","");
+        gameMap.put("背景","");
+        gameMap.put("音响监督","");
+        gameMap.put("音乐","音楽");
+        gameMap.put("程序","プログラム");
+        gameMap.put("动画制作","アニメーション制作 アニメ制作 アニメーション");
+        gameMap.put("动画监督","アニメーション監督");
+        gameMap.put("动画剧本","アニメーション脚本");
+        gameMap.put("制作总指挥","");
+        gameMap.put("QC","");
+        gameMap.put("关卡设计","");
+        gameMap.put("主题歌作曲","");
+        gameMap.put("主题歌作词","");
+        gameMap.put("主题歌演出","");
+        gameMap.put("插入歌演出","");
+        gameMap.put("协力","協力");
     }
 
 }

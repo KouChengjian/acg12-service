@@ -131,4 +131,12 @@ public class SubjectEntity extends Param {
                 ", airWeekday=" + airWeekday +
                 '}';
     }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
 }

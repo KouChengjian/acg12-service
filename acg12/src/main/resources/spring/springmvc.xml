@@ -30,19 +30,18 @@
     <task:executor id="myExecutor" pool-size="5"/>
     <task:scheduler id="myScheduler" pool-size="10"/>
 
-    <!--本地路径映射-->
-    <mvc:resources location="/client/" mapping="/view/**"/>
-
     <mvc:default-servlet-handler/>
+    <!--本地路径映射-->
+    <mvc:resources location="/client/" mapping="/view/**/"/>
 
     <!-- 视图解析器 解析jsp解析，默认使用jstl标签，classpath下的得有jstl的包 -->
-    <!--<bean  class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
-    <!--<property name="order" value="0"/>-->
-    <!--<property name="viewNames" value="*jsp" />-->
-    <!--配置jsp路径的前缀-->
-    <!--<property name="prefix" value="/WEB-INF/jsp/"/>-->
-    <!-- 配置jsp路径的后缀 -->
-    <!--<property name="suffix" value=".jsp"/>-->
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+        <!--<property name="order" value="0"/>-->
+        <!--<property name="viewNames" value="*jsp"/>-->
+        <!--配置jsp路径的前缀-->
+        <!--<property name="prefix" value="/WEB-INF/jsp/"/>-->
+        <!--配置jsp路径的后缀 -->
+        <!--<property name="suffix" value=".jsp"/>-->
     <!--</bean>-->
 
     <!-- 自定义参数绑定 -->

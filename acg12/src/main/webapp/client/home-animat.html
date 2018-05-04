@@ -24,7 +24,7 @@
                     <li><a class="l ">其他</a></li>
                 </ul>
                 <h3>时间</h3>
-                <ul class="clearit" style="max-height: 120px; height: 120px;">
+                <ul class="clearit" id="time-type" style="max-height: 120px; height: 120px;">
                     <li><a class="l focus">全部</a></li>
                     <li><a class="l ">2018</a></li>
                     <li><a class="l ">2017</a></li>
@@ -56,7 +56,7 @@
                     <li><a class="l ">1991</a></li>
                     <li><a class="l ">1990</a></li>
                     <li><a class="l ">其他</a></li>
-                    <li><a class="l expand">展开</a></li>
+                    <li><a class="l expand" id="item-time">展开</a></li>
                 </ul>
                 <h3>季度</h3>
                 <ul class="clearit">
@@ -74,7 +74,265 @@
                 </ul>
             </div>
             <div id="container-centerB">
+                <div class="tab-sort">
+                    <a href="javascript:" data-value="1" class="tab-i on desc">更新时间</a>
+                    <a href="javascript:" data-value="1" class="tab-i on asc">开播时间</a>
+                </div>
 
+                <div class="browser-list">
+                    <div class="list-item">
+                        <div class="preview">
+                            <div class="cover">
+                                <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                    <img data-img="" src="https://i0.hdslb.com/bfs/bangumi/b6e3986355efc081b7f4aaf9f576c9ce8116e193.jpg@160w_214h.webp" loaded="loaded" alt="紫罗兰永恒花园" style="opacity: 1;">
+                                    <div class="shadow">
+                                        <span class="sort-info">387.4万人追番</span>
+                                    </div>
+                                    <div class="cover-tag-payfast">付费抢先</div>
+                                </a>
+                            </div>
+                            <div class="info-wrp">
+                                <div class="info">
+                                    <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                        <div class="t" style="word-wrap: break-word;">紫罗兰永恒花园</div>
+                                    </a>
+                                    <p class="num">全13话</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="preview">
+                            <div class="cover">
+                                <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                    <img data-img="" src="https://i0.hdslb.com/bfs/bangumi/b6e3986355efc081b7f4aaf9f576c9ce8116e193.jpg@160w_214h.webp" loaded="loaded" alt="紫罗兰永恒花园" style="opacity: 1;">
+                                    <div class="shadow">
+                                        <span class="sort-info">387.4万人追番</span>
+                                    </div>
+                                    <div class="cover-tag-payfast">付费抢先</div>
+                                </a>
+                            </div>
+                            <div class="info-wrp">
+                                <div class="info">
+                                    <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                        <div class="t" style="word-wrap: break-word;">紫罗兰永恒花园</div>
+                                    </a>
+                                    <p class="num">全13话</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                    <div class="preview">
+                        <div class="cover">
+                            <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                <img data-img="" src="https://i0.hdslb.com/bfs/bangumi/b6e3986355efc081b7f4aaf9f576c9ce8116e193.jpg@160w_214h.webp" loaded="loaded" alt="紫罗兰永恒花园" style="opacity: 1;">
+                                <div class="shadow">
+                                    <span class="sort-info">387.4万人追番</span>
+                                </div>
+                                <div class="cover-tag-payfast">付费抢先</div>
+                            </a>
+                        </div>
+                        <div class="info-wrp">
+                            <div class="info">
+                                <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                    <div class="t" style="word-wrap: break-word;">紫罗兰永恒花园</div>
+                                </a>
+                                <p class="num">全13话</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="list-item">
+                        <div class="preview">
+                            <div class="cover">
+                                <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                    <img data-img="" src="https://i0.hdslb.com/bfs/bangumi/b6e3986355efc081b7f4aaf9f576c9ce8116e193.jpg@160w_214h.webp" loaded="loaded" alt="紫罗兰永恒花园" style="opacity: 1;">
+                                    <div class="shadow">
+                                        <span class="sort-info">387.4万人追番</span>
+                                    </div>
+                                    <div class="cover-tag-payfast">付费抢先</div>
+                                </a>
+                            </div>
+                            <div class="info-wrp">
+                                <div class="info">
+                                    <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                        <div class="t" style="word-wrap: break-word;">紫罗兰永恒花园</div>
+                                    </a>
+                                    <p class="num">全13话</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="preview">
+                            <div class="cover">
+                                <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                    <img data-img="" src="https://i0.hdslb.com/bfs/bangumi/b6e3986355efc081b7f4aaf9f576c9ce8116e193.jpg@160w_214h.webp" loaded="loaded" alt="紫罗兰永恒花园" style="opacity: 1;">
+                                    <div class="shadow">
+                                        <span class="sort-info">387.4万人追番</span>
+                                    </div>
+                                    <div class="cover-tag-payfast">付费抢先</div>
+                                </a>
+                            </div>
+                            <div class="info-wrp">
+                                <div class="info">
+                                    <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                        <div class="t" style="word-wrap: break-word;">紫罗兰永恒花园</div>
+                                    </a>
+                                    <p class="num">全13话</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="preview">
+                            <div class="cover">
+                                <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                    <img data-img="" src="https://i0.hdslb.com/bfs/bangumi/b6e3986355efc081b7f4aaf9f576c9ce8116e193.jpg@160w_214h.webp" loaded="loaded" alt="紫罗兰永恒花园" style="opacity: 1;">
+                                    <div class="shadow">
+                                        <span class="sort-info">387.4万人追番</span>
+                                    </div>
+                                    <div class="cover-tag-payfast">付费抢先</div>
+                                </a>
+                            </div>
+                            <div class="info-wrp">
+                                <div class="info">
+                                    <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                        <div class="t" style="word-wrap: break-word;">紫罗兰永恒花园</div>
+                                    </a>
+                                    <p class="num">全13话</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="preview">
+                            <div class="cover">
+                                <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                    <img data-img="" src="https://i0.hdslb.com/bfs/bangumi/b6e3986355efc081b7f4aaf9f576c9ce8116e193.jpg@160w_214h.webp" loaded="loaded" alt="紫罗兰永恒花园" style="opacity: 1;">
+                                    <div class="shadow">
+                                        <span class="sort-info">387.4万人追番</span>
+                                    </div>
+                                    <div class="cover-tag-payfast">付费抢先</div>
+                                </a>
+                            </div>
+                            <div class="info-wrp">
+                                <div class="info">
+                                    <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                        <div class="t" style="word-wrap: break-word;">紫罗兰永恒花园</div>
+                                    </a>
+                                    <p class="num">全13话</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="preview">
+                            <div class="cover">
+                                <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                    <img data-img="" src="https://i0.hdslb.com/bfs/bangumi/b6e3986355efc081b7f4aaf9f576c9ce8116e193.jpg@160w_214h.webp" loaded="loaded" alt="紫罗兰永恒花园" style="opacity: 1;">
+                                    <div class="shadow">
+                                        <span class="sort-info">387.4万人追番</span>
+                                    </div>
+                                    <div class="cover-tag-payfast">付费抢先</div>
+                                </a>
+                            </div>
+                            <div class="info-wrp">
+                                <div class="info">
+                                    <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                        <div class="t" style="word-wrap: break-word;">紫罗兰永恒花园</div>
+                                    </a>
+                                    <p class="num">全13话</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="preview">
+                            <div class="cover">
+                                <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                    <img data-img="" src="https://i0.hdslb.com/bfs/bangumi/b6e3986355efc081b7f4aaf9f576c9ce8116e193.jpg@160w_214h.webp" loaded="loaded" alt="紫罗兰永恒花园" style="opacity: 1;">
+                                    <div class="shadow">
+                                        <span class="sort-info">387.4万人追番</span>
+                                    </div>
+                                    <div class="cover-tag-payfast">付费抢先</div>
+                                </a>
+                            </div>
+                            <div class="info-wrp">
+                                <div class="info">
+                                    <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                        <div class="t" style="word-wrap: break-word;">紫罗兰永恒花园</div>
+                                    </a>
+                                    <p class="num">全13话</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="preview">
+                            <div class="cover">
+                                <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                    <img data-img="" src="https://i0.hdslb.com/bfs/bangumi/b6e3986355efc081b7f4aaf9f576c9ce8116e193.jpg@160w_214h.webp" loaded="loaded" alt="紫罗兰永恒花园" style="opacity: 1;">
+                                    <div class="shadow">
+                                        <span class="sort-info">387.4万人追番</span>
+                                    </div>
+                                    <div class="cover-tag-payfast">付费抢先</div>
+                                </a>
+                            </div>
+                            <div class="info-wrp">
+                                <div class="info">
+                                    <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                        <div class="t" style="word-wrap: break-word;">紫罗兰永恒花园</div>
+                                    </a>
+                                    <p class="num">全13话</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="preview">
+                            <div class="cover">
+                                <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                    <img data-img="" src="https://i0.hdslb.com/bfs/bangumi/b6e3986355efc081b7f4aaf9f576c9ce8116e193.jpg@160w_214h.webp" loaded="loaded" alt="紫罗兰永恒花园" style="opacity: 1;">
+                                    <div class="shadow">
+                                        <span class="sort-info">387.4万人追番</span>
+                                    </div>
+                                    <div class="cover-tag-payfast">付费抢先</div>
+                                </a>
+                            </div>
+                            <div class="info-wrp">
+                                <div class="info">
+                                    <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                        <div class="t" style="word-wrap: break-word;">紫罗兰永恒花园</div>
+                                    </a>
+                                    <p class="num">全13话</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="preview">
+                            <div class="cover">
+                                <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                    <img data-img="" src="https://i0.hdslb.com/bfs/bangumi/b6e3986355efc081b7f4aaf9f576c9ce8116e193.jpg@160w_214h.webp" loaded="loaded" alt="紫罗兰永恒花园" style="opacity: 1;">
+                                    <div class="shadow">
+                                        <span class="sort-info">387.4万人追番</span>
+                                    </div>
+                                    <div class="cover-tag-payfast">付费抢先</div>
+                                </a>
+                            </div>
+                            <div class="info-wrp">
+                                <div class="info">
+                                    <a href="https://bangumi.bilibili.com/anime/21542" target="_blank" title="紫罗兰永恒花园">
+                                        <div class="t" style="word-wrap: break-word;">紫罗兰永恒花园</div>
+                                    </a>
+                                    <p class="num">全13话</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

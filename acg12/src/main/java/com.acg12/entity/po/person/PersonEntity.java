@@ -18,6 +18,8 @@ public class PersonEntity extends Param {
     private Integer gender;  // 性别 // 1、男 2、女
     private Integer bloodtype; // 血型  1、A   2、B   3、AB   4、O
     private String birthday; // 生日
+    // 额外数据
+    private String summary;
 
     public Integer getPersonId() {
         return personId;
@@ -138,5 +140,13 @@ public class PersonEntity extends Param {
                 ", bloodtype=" + bloodtype +
                 ", birthday='" + birthday + '\'' +
                 '}';
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 }

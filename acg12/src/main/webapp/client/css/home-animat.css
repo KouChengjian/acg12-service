@@ -11,17 +11,16 @@ ul {
 }
 
 /*a.l, a.l:link, a.l:visited, a.l:active {*/
-    /*color: #888;*/
-    /*border: 0;*/
-    /*text-decoration: none;*/
+/*color: #888;*/
+/*border: 0;*/
+/*text-decoration: none;*/
 /*}*/
 
-
-a.on{
+a.on {
     color: #00a1d6 !important;
 }
 
-a.focus ,a.l:hover{
+a.focus, a.l:hover {
     background: #00a1d6;
     color: #FFF;
     text-decoration: none;
@@ -30,33 +29,37 @@ a.focus ,a.l:hover{
     border-radius: 5px;
 }
 
-a.expand:hover{
+a.expand:hover {
     background: #fff;
     border: 1px solid #00a1d6;
     border-radius: 4px;
     color: #00a1d6;
 }
 
-a.expand{
-    border: 1px solid #ccd0d7 ;
+a.expand {
+    position: relative;
+    top: -200px;
+    left: 0px;
+    border: 1px solid #ccd0d7;
     border-radius: 4px;
     color: #99a2aa;
     background: #FAFBFC;
-    position: absolute;
-    top: -191px;
+}
+
+a.shrink {
+    position: relative;
+    top: 0px;
     left: 0px;
-    width: 39px;
+    border: 1px solid #ccd0d7;
+    border-radius: 4px;
+    color: #99a2aa;
+    background: #FAFBFC;
 }
-
-a.shrink{
-
-}
-
-
 
 .container {
     width: 100%;
     overflow: hidden;
+    margin-top: 10px;
 }
 
 .container-center {
@@ -64,7 +67,7 @@ a.shrink{
     margin: 0 auto;
 }
 
-#container-centerA{
+#container-centerA {
     width: 260px;
     background-color: #FAFBFC;
     margin: 10px 10px 0px 0px;
@@ -113,13 +116,183 @@ a.shrink{
     text-align: center;
     margin: 0 5px;
     cursor: pointer;
-    z-index: -1;
 }
 
-#container-centerB{
+#container-centerB {
     width: 930px;
-    margin: 0 ;
+    margin: 10px 0px 0px 0px;
     float: left;
     height: 1000px;
 }
 
+#container-centerB .tab-sort {
+    color: #222;
+    font-size: 14px;
+    line-height: 1;
+    height: 14px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    position: relative;
+}
+
+.tab-i {
+    margin-right: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.tab-sort a:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 60px;
+    margin: 0 2px;
+    top: 0;
+    width: 0;
+    height: 0;
+    border: 5px dashed #ddd;
+    border-bottom-style: solid;
+    border-top: none;
+    border-left-color: transparent;
+    border-right-color: transparent;
+}
+
+.tab-sort a:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 60px;
+    margin: 0 2px;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border: 5px dashed #ddd;
+    border-top-style: solid;
+    border-bottom: none;
+    border-left-color: transparent;
+    border-right-color: transparent;
+}
+
+.tab-sort a.on.desc:after {
+    border-color: #00a1d6 transparent;
+    border-bottom: none;
+}
+
+.tab-sort a.on.asc:before {
+    border-color: #00a1d6 transparent;
+    border-top: none;
+}
+
+.browser-list {
+    margin: 0;
+    padding: 0;
+}
+
+.list-item {
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.list-item .preview {
+    position: relative;
+    overflow: hidden;
+}
+
+.list-item .preview .cover {
+    overflow: hidden;
+    border-radius: 5px;
+    width: 160px;
+}
+
+.list-item .preview .cover a {
+     display: block;
+     position: relative;
+ }
+
+.list-item .preview .cover a img{
+    width: 160px;
+    height: 214px;
+}
+
+.list-item .preview .cover a .shadow {
+    position: absolute;
+    width: 160px;
+    color: #fff;
+    bottom: 0;
+    left: 0;
+    height: 50px;
+    background: -moz-linear-gradient(bottom,rgba(0,0,0,.6) 0,transparent 100%);
+    background: -webkit-gradient(linear,left bottom,bottom bottom,color-stop(60%,#000),color-stop(100%,transparent));
+    background: -webkit-linear-gradient(bottom,rgba(0,0,0,.6) 0,transparent 100%);
+    background: -o-linear-gradient(bottom,rgba(0,0,0,.6) 0,transparent 100%);
+    background: -ms-linear-gradient(bottom,rgba(0,0,0,.6) 0,transparent 100%);
+    background: linear-gradient(to top,rgba(0,0,0,.6) 0,transparent 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00ffffff, endColorstr=#99000000, GradientType=0);
+}
+
+.list-item .preview .cover a .shadow .sort-info {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    line-height: 1;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 90%;
+    text-overflow: ellipsis;
+}
+
+.list-item .preview .cover  a .cover-tag-payfast {
+    position: absolute;
+    width: 60px;
+    height: 24px;
+    top: 0;
+    right: 0;
+    font-size: 12px;
+    line-height: 24px;
+    text-align: center;
+    background-color: #ffa726;
+    color: #fff;
+    border-radius: 0 4px;
+}
+
+.list-item .preview .info-wrp {
+    display: block;
+    width: 160px;
+    height: 90px;
+    overflow: hidden;
+}
+
+.list-item .preview .info {
+    position: relative;
+    margin-top: 10px;
+}
+
+.list-item .preview .info a {
+    display: block;
+    color: #222;
+    max-height: 44px;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+.list-item .preview .info a .t {
+    line-height: 22px;
+    max-height: 44px;
+    word-break: break-all;
+    word-wrap: break-word;
+    font-size: 14px;
+    color: #222;
+}
+
+.list-item .preview .info .num {
+    padding-top: 4px;
+    height: 14px;
+    font-size: 12px;
+    line-height: 12px;
+    color: #99a2aa;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

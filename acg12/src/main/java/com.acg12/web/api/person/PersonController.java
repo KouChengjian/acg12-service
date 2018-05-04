@@ -44,4 +44,14 @@ public class PersonController {
             return new ResponseEntity<>(Result.create200(new PersonList(pageInfo.getTotalResult(), list)), HttpStatus.OK);
         }
     }
+
+    @RequestMapping(value = "/person/info", method = {RequestMethod.GET})
+    public ResponseEntity<?> queryByPersonInfo(@RequestParam("personId") Integer personId) throws Exception {
+        PersonEntity personEntity = personService.queryByPersonIdJoinDetail(personId);
+        if (personEntity == null) {
+            return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(Result.create200(personEntity), HttpStatus.OK);
+        }
+    }
 }

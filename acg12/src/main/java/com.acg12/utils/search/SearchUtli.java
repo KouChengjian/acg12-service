@@ -198,6 +198,9 @@ public class SearchUtli {
             JSONArray jobJson = new JSONArray();
 
             Element headerSubject = document.getElementById("headerSubject");
+            if(headerSubject == null){
+                return jsonObject;
+            }
             if (headerSubject.select("h1").select("a").text().isEmpty()){
                 return jsonObject;
             }

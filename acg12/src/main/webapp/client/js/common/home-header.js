@@ -4,12 +4,12 @@
 function loaddingHeader(){
     var header =
     "<div class=\"header-container\">"+
-    "<a href=\"\"><img class=\"header-logo\" src=\"http://css99tel.cdndm5.com/v201804091412/blue/images/header-logo.png\"></a>"
+    "<a href=\"home.html\"><img class=\"header-logo\" src=\"http://css99tel.cdndm5.com/v201804091412/blue/images/header-logo.png\"></a>"
     +"<nav class=\"nav nav1\"> <ul>"
         +" <li><a href=\"home-animat.html\">动画</a></li>"
-        +" <li><a href=\"\">游戏</a></li>"
-        +" <li><a href=\"\">小说</a></li>"
-        +" <li><a href=\"\">漫画</a></li>"
+        +" <li><a href=\"home-caricature.html\">漫画</a></li>"
+        +" <li><a href=\"home-game.html\">游戏</a></li>"
+        +" <li><a href=\"home-novel.html\">小说</a></li>"
         +" <li><a href=\"home-person.html\">人物</a></li>"
     +"</ul> </nav>";
 

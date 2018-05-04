@@ -24,4 +24,9 @@ public class PersonServiceImpl implements PersonService {
         return list;
     }
 
+    @Override
+    public PersonEntity queryByPersonIdJoinDetail(int personId) {
+        return personDao.queryByPersonIdJoinDetail(personId);
+    }
+
 }
