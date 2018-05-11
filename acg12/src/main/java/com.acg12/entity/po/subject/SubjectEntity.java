@@ -10,14 +10,15 @@ public class SubjectEntity extends Param {
     private Integer subjectId;
     private Integer sId;
     private String url;
-    private Integer type; // 标题类型
+    private Integer type; // 类型   1、书籍 2、动画 3、音乐 4、游戏 6、三次元
+    private String typeName; // 类型名称
     private String name;
     private String nameCn; // 中文
     private String  summary; // 概况
     private String image;
     private Integer epsCount; // 话数
     private String airDate;// 放送开始 2015-10-10
-    private Integer airWeekday;// 放送星期  3
+    private Integer airWeekday;// 放送星期 3
     private String endDate; // 播放结束
 
     public Integer getSubjectId() {
@@ -50,6 +51,14 @@ public class SubjectEntity extends Param {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
     public String getName() {
@@ -116,22 +125,6 @@ public class SubjectEntity extends Param {
         return false;
     }
 
-    @Override
-    public String toString() {
-        return "SubjectEntity{" +
-                "sId=" + sId +
-                ", url='" + url + '\'' +
-                ", type=" + type +
-                ", name='" + name + '\'' +
-                ", nameCn='" + nameCn + '\'' +
-                ", summary='" + summary + '\'' +
-                ", image='" + image + '\'' +
-                ", epsCount=" + epsCount +
-                ", airDate='" + airDate + '\'' +
-                ", airWeekday=" + airWeekday +
-                '}';
-    }
-
     public String getEndDate() {
         return endDate;
     }
@@ -139,4 +132,24 @@ public class SubjectEntity extends Param {
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
+
+    @Override
+    public String toString() {
+        return "SubjectEntity{" +
+                "sId=" + sId +
+                ", url='" + url + '\'' +
+                ", type=" + type +
+                ", typeName=" + typeName +
+                ", name='" + name + '\'' +
+                ", nameCn='" + nameCn + '\'' +
+                ", summary='" + summary + '\'' +
+                ", image='" + image + '\'' +
+                ", epsCount=" + epsCount +
+                ", airDate='" + airDate + '\'' +
+                ", airWeekday=" + airWeekday +
+                ", endDate='" + endDate + '\'' +
+                '}';
+    }
+
+
 }

@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * Created by Administrator on 2018/4/26.
  */
-@Service
 public class CharacterServiceImpl implements CharacterService {
 
     @Resource
@@ -21,5 +20,10 @@ public class CharacterServiceImpl implements CharacterService {
     @Override
     public List<CharacterEntity> queryByCharacterList(PageInfo pageInfo, String type, int gender, int bloodtype, String birthday) {
         return characterDao.queryByCharacterListPage(pageInfo ,type, gender, bloodtype, birthday);
+    }
+
+    @Override
+    public CharacterEntity queryByCharacterIdJoinDetail(int characterId) {
+        return characterDao.queryByCharacterIdJoinDetail(characterId);
     }
 }

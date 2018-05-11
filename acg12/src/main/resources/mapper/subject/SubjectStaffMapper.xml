@@ -5,31 +5,28 @@
     <resultMap id="baseResultMap" type="com.acg12.entity.po.subject.SubjectStaffEntity">
         <result column="subjectStaffId" property="subjectStaffId" jdbcType="INTEGER"/>
         <result column="subjectId" property="subjectId" jdbcType="INTEGER"/>
+        <result column="sId" property="sId" jdbcType="INTEGER"/>
         <result column="personId" property="personId" jdbcType="INTEGER"/>
+        <result column="pId" property="pId" jdbcType="INTEGER"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
-        <result column="nameCn" property="nameCn" jdbcType="VARCHAR"/>
-        <result column="image" property="image" jdbcType="VARCHAR"/>
         <result column="job" property="job" jdbcType="VARCHAR"/>
-        <result column="gender" property="gender" jdbcType="VARCHAR"/>
         <result column="createTime" property="createTime" jdbcType="INTEGER"/>
         <result column="updateTime" property="updateTime" jdbcType="INTEGER"/>
     </resultMap>
 
     <insert id="insert" parameterType="com.acg12.entity.po.subject.SubjectStaffEntity" useGeneratedKeys="true"
             keyProperty="subjectStaffId">
-        insert into acg_subject_staff (subjectStaffId , subjectId , personId, name, nameCn, image, job, gender, createTime, updateTime)
-        values (#{subjectStaffId,jdbcType=INTEGER},#{subjectId,jdbcType=INTEGER}, #{personId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nameCn,jdbcType=VARCHAR}
-        , #{image,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}
-        , #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER})
+        insert into acg_subject_staff (subjectStaffId , subjectId , sId ,personId ,pId , name, job, createTime, updateTime)
+        values (#{subjectStaffId,jdbcType=INTEGER},#{subjectId,jdbcType=INTEGER}, #{sId,jdbcType=INTEGER}, #{personId,jdbcType=INTEGER}, #{pId,jdbcType=INTEGER}
+        ,#{name,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER})
     </insert>
 
     <insert id="insertList" parameterType="java.util.List" >
-        insert into acg_subject_staff (subjectStaffId , subjectId , personId, name, nameCn, image, job, gender, createTime, updateTime)
+        insert into acg_subject_staff (subjectStaffId , subjectId , sId ,personId ,pId , name, job, createTime, updateTime)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.subjectStaffId,jdbcType=INTEGER},#{item.subjectId,jdbcType=INTEGER}, #{item.personId,jdbcType=INTEGER}, #{item.name,jdbcType=VARCHAR}
-            , #{item.nameCn,jdbcType=VARCHAR}, #{item.image,jdbcType=VARCHAR}, #{item.job,jdbcType=VARCHAR}, #{item.gender,jdbcType=VARCHAR}
-            , #{item.createTime,jdbcType=INTEGER}, #{item.updateTime,jdbcType=INTEGER}
+            (#{item.subjectStaffId,jdbcType=INTEGER},#{item.subjectId,jdbcType=INTEGER}, #{item.sId,jdbcType=INTEGER}, #{item.personId,jdbcType=INTEGER}, #{item.pId,jdbcType=INTEGER}
+            , #{item.name,jdbcType=VARCHAR}, #{item.job,jdbcType=VARCHAR}, #{item.createTime,jdbcType=INTEGER}, #{item.updateTime,jdbcType=INTEGER}
             )
         </foreach>
         <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="subjectStaffId">
@@ -38,8 +35,8 @@
     </insert>
 
     <update id="update" parameterType="com.acg12.entity.po.subject.SubjectStaffEntity">
-        update acg_subject_staff set subjectId=#{subjectId},personId=#{personId},name=#{name},nameCn=#{nameCn},image=#{image}
-        ,job=#{job},gender=#{gender},updateTime=#{updateTime}
+        update acg_subject_staff set subjectId=#{subjectId},personId=#{personId},name=#{name},sId=#{sId},image=#{image}
+        ,job=#{job},updateTime=#{updateTime}
         where subjectStaffId=#{subjectStaffId}
     </update>
 
@@ -47,8 +44,8 @@
         select * from acg_subject_staff where subjectStaffId = #{subjectStaffId}
     </select>
 
-    <select id="queryByStaff" resultType="com.acg12.entity.po.subject.SubjectStaffEntity">
-        select * from acg_subject_staff where subjectId = #{subjectId} and personId = #{personId} and job = #{job}
+    <select id="queryByStaffByPId" resultType="com.acg12.entity.po.subject.SubjectStaffEntity">
+        select * from acg_subject_staff where subjectId = #{subjectId} and pId = #{pId} and job = #{job}
     </select>
 
     <select id="queryBySubjectId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectStaffEntity">

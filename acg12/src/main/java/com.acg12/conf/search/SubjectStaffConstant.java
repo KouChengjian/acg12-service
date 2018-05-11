@@ -13,6 +13,10 @@ public class SubjectStaffConstant {
     public static HashMap<String , String> animationMap = new HashMap<>();
     // 游戏
     public static HashMap<String , String> gameMap = new HashMap<>();
+    // 音乐
+    public static HashMap<String , String> musicMap = new HashMap<>();
+    // 三次元
+    public static HashMap<String , String> realMap = new HashMap<>();
 
     static {
         booksMap.put("原作","原作");
@@ -133,4 +137,36 @@ public class SubjectStaffConstant {
         gameMap.put("协力","協力");
     }
 
+    static {
+        musicMap.put("艺术家","");
+        musicMap.put("制作人","");
+        musicMap.put("作曲","");
+        musicMap.put("作词","");
+        musicMap.put("编曲","");
+        musicMap.put("插图","");
+        musicMap.put("录音","");
+        musicMap.put("厂牌","");
+        musicMap.put("原作","");
+    }
+
+    static {
+        realMap.put("原作","");
+        realMap.put("导演","");
+        realMap.put("创意总监","");
+        realMap.put("编剧","");
+        realMap.put("音乐","");
+        realMap.put("执行制片人","製作総指揮");
+        realMap.put("共同执行制作","");
+        realMap.put("制片人/制作人","プロデューサー");
+        realMap.put("监制","");
+        realMap.put("副制作人/制作顾问","");
+        realMap.put("故事","");
+        realMap.put("编审","");
+        realMap.put("剪辑","");
+        realMap.put("摄影","");
+        realMap.put("主题歌演出","");
+        realMap.put("主演","");
+        realMap.put("配角","");
+        realMap.put("制作","製作");
+    }
 }

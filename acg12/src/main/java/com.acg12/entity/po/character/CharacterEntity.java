@@ -18,6 +18,7 @@ public class CharacterEntity extends Param {
     private Integer gender;
     private Integer bloodtype; // 血型  1、A   2、B   3、AB   4、O
     private String birthday; // 生日
+    private String summary;
 
     public Integer getCharacterId() {
         return characterId;
@@ -138,5 +139,13 @@ public class CharacterEntity extends Param {
                 ", bloodtype=" + bloodtype +
                 ", birthday='" + birthday + '\'' +
                 '}';
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 }

@@ -96,7 +96,6 @@ ul li {
 #container-centerA .info-right .name{
     font-size: 14px;
     color: #252525;
-    margin-left: 10px;
 }
 
 #container-centerA .info-right .subtitle {
@@ -107,7 +106,7 @@ ul li {
 
 #container-centerA .info-right .subtitle a {
     font-size: 14px;
-    color: #252525;
+    color: #666;
 }
 
 #container-centerA .info-right .status {
@@ -116,7 +115,7 @@ ul li {
 
 #container-centerA .info-right .status a {
     font-size: 14px;
-    color: #252525;
+    color: #666;
 }
 
 #container-centerA .info-right .status .block {
@@ -131,7 +130,7 @@ ul li {
 }
 
 #container-centerA .info-right .content {
-    font-size: 13px;
+    font-size: 14px;
     color: #666;
     margin-top: 10px;
     margin-right: 20px;

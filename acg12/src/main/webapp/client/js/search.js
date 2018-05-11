@@ -111,18 +111,18 @@ function loaddingPagination(num, cur) {
 }
 
 
-$('.M-box3').pagination({
-    pageCount: 3,
-    jump: true,
-    coping: true,
-    homePage: '首页',
-    endPage: '末页',
-    prevContent: '上页',
-    nextContent: '下页',
-    callback: function (api) {
-        console.log(api.getCurrent())
-    }
-});
+// $('.M-box3').pagination({
+//     pageCount: 3,
+//     jump: true,
+//     coping: true,
+//     homePage: '首页',
+//     endPage: '末页',
+//     prevContent: '上页',
+//     nextContent: '下页',
+//     callback: function (api) {
+//         console.log(api.getCurrent())
+//     }
+// });
 
 var haslist = true;
 

@@ -1,46 +1,15 @@
-var belong_ = 2, type_ = 0, gender_ = 0, bloodtype_ = 0, birthday_ = 0, full_ = 0;
+var belong_ = 1, type_ = 0, gender_ = 0, bloodtype_ = 0, birthday_ = 0, full_ = 0;
 var type_id = 0, gender_id = 0, bloodtype_id = 0, birthday_id = "", full_id = 0, page_id = 1;
 
 window.onload = function () {
     loaddingHeader();
     trimTowHtml();
-
-    // var belong = document.getElementById("belong").getElementsByTagName("li");
-    // for (var i = 0; i < belong.length; i++) {
-    //     (function (i) {
-    //         belong[i].onclick = function () {
-    //             if (i == 0) {
-    //                 belong_ = 1;
-    //                 gender_id = 0, bloodtype_id = 0, birthday_id = "", full_id = 0, page_id = 1;
-    //                 belong[0].getElementsByTagName("a")[0].classList.add("focus");
-    //                 belong[1].getElementsByTagName("a")[0].classList.remove("focus");
-    //                 // menuTow(belong);
-    //                 trimTowHtml();
-    //             } else {
-    //                 belong_ = 2;
-    //                 gender_id = 0, bloodtype_id = 0, birthday_id = "", full_id = 0, page_id = 1;
-    //                 belong[0].getElementsByTagName("a")[0].classList.remove("focus");
-    //                 belong[1].getElementsByTagName("a")[0].classList.add("focus");
-    //                 // menuThree(belong);
-    //                 trimTowHtml();
-    //             }
-    //         };
-    //     })(i);
-    // }
-
     querySearchList(belong_, type_id, gender_id, bloodtype_id, birthday_id, full_id ,page_id);
 }
 
 $("img").one("error", function(e){
-    console.log("ssssss")
-    $(this).attr("src", "img/bg_loading_pic.png");
+    $(this).attr("src", "/acg12/view/img/bg_loading_pic.png");
 });
-
-function imgError(image) {
-    image.onerror = "";
-    image.src = "";
-    return true;
-}
 
 function querySearchList(belong, type, gender, bloodtype, birthday, full, page) {
     var xhr;
@@ -78,19 +47,19 @@ function querySearchList(belong, type, gender, bloodtype, birthday, full, page) 
             }
         }
     }
-    xhr.open("GET", URL_PERSON + "?type=" + type + "&gender=" + gender + "&bloodtype=" + bloodtype + "&birthday=" + birthday + "&page=" + page, true);
+    xhr.open("GET", (belong == 1 ? URL_CHARACTER : URL_PERSON )+ "?type=" + type + "&gender=" + gender + "&bloodtype=" + bloodtype + "&birthday=" + birthday + "&page=" + page, true);
     xhr.send(null);
 }
 
 function paddingHtml(item) {
     var h = "<div class=\"browser-item\">";
-    h += "<a href=\"person/"+ item.personId +"\" class=\"avatar\">";
+    h += "<a href=\"character/"+ item.characterId +"\" class=\"avatar\">";
     h += "<img src=\"" + item.image + "\"onerror="+ "this.src=\"img/bg_loading_pic.png\""  + "  class=\"avatar\">";
     h += "</a>";
     h += "<div style=\"padding-left: 90px;\">";
-    h += "<h3><a href=\"person/"+ item.personId +"\" class=\"on\">" + getTitle(item) + "</a></h3>";
+    h += "<h3><a href=\"character/"+ item.characterId + "\" class=\"on\">" + getTitle(item) + "</a></h3>";
     h += "<div class=\"prsn-info\">";
-    h += "<span class=\"tip\"> " +   getSubject(item) +"</span>";
+    h += "<span class=\"tip\"> " + getSubject(item) + "</span>";
     h += "</div>";
     h += "<p class=\"content\">";
     // h += item.;
@@ -300,4 +269,3 @@ function loaddingPagination(num, cur) {
 //         console.log(api.getCurrent())
 //     }
 // });
-

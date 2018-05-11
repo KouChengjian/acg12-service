@@ -22,9 +22,8 @@ public interface PersonDao {
 
     PersonEntity queryByPId(int pId);
 
-    PersonEntity queryByPersonIdJoinDetail(int personId);
-
     PersonEntity queryByPersonId(int personId);
 
+    PersonEntity queryByPersonIdJoinDetail(int personId);
 
 }

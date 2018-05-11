@@ -34,7 +34,9 @@ a:link {
 
 #header-menu  .header-container .header-logo {
     float: left;
-    margin-right: 20px;
+    width: 138px;
+    height: 35px;
+    margin-top: 4px;
 }
 
 .nav {
@@ -71,7 +73,7 @@ a:link {
     padding: 0 20px;
     line-height: 45px;
     color: #252525;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .nav a:hover {
@@ -95,6 +97,70 @@ a:link {
 
 .nav li ul a:hover {
     background: rgba(0, 0, 0, 0.2);
+}
+
+.header-login {
+    width: 40px;
+    height: 40px;
+    margin-top: 4px;
+    float: right;
+}
+
+.header-login #header-login-btn{
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.heaser-search{
+    width: 268px;
+    float: right;
+    margin-top: 5px;
+    margin-right: 10px;
+    position: relative;
+}
+
+.heaser-search .search-form{
+    background-color: #fff;
+    background-color: hsla(0,0%,100%,.88);
+    display: block;
+    height: 32px;
+    border-radius: 4px;
+    -webkit-transition: background-color .2s;
+    -o-transition: .2s background-color;
+    transition: background-color .2s;
+    border: 1px solid #DDD;
+}
+
+.heaser-search .search-form .search-keyword {
+    float: left;
+    width: 200px;
+    color: #222;
+    font-size: 12px;
+    overflow: hidden;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 12px;
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background-color: transparent;
+    text-align: left;
+}
+
+.heaser-search .search-form button.search-submit {
+    display: block;
+    position: absolute;
+    right: 0;
+    width: 48px;
+    min-width: 0;
+    cursor: pointer;
+    height: 32px;
+    /*background: url(//static.hdslb.com/images/base/icons.png) -653px -720px;*/
+    background-image: url(../../img/search.png) ;
+    margin-right: 2px;
+    padding: 0;
+    border: 0;
 }
 
 /* Not Animated

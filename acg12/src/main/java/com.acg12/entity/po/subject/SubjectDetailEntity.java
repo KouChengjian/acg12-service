@@ -7,6 +7,7 @@ public class SubjectDetailEntity {
 
     private Integer subjectDetailId;
     private Integer subjectId;
+    private Integer sId;
     private String otherTitle;
     private String otherValue;
 
@@ -26,6 +27,14 @@ public class SubjectDetailEntity {
         this.subjectId = subjectId;
     }
 
+    public Integer getsId() {
+        return sId;
+    }
+
+    public void setsId(Integer sId) {
+        this.sId = sId;
+    }
+
     public String getOtherTitle() {
         return otherTitle;
     }
@@ -41,4 +50,5 @@ public class SubjectDetailEntity {
     public void setOtherValue(String otherValue) {
         this.otherValue = otherValue;
     }
+
 }

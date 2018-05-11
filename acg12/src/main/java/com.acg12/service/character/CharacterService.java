@@ -11,4 +11,6 @@ import java.util.List;
 public interface CharacterService {
 
     List<CharacterEntity> queryByCharacterList(PageInfo pageInfo , String type, int gender, int bloodtype, String birthday);
+
+    CharacterEntity queryByCharacterIdJoinDetail(int characterId);
 }

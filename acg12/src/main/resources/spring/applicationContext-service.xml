@@ -11,5 +11,10 @@
     <bean id="feedbackServiceImpl" class="com.acg12.service.user.FeedbackServiceImpl"/>
     <bean id="updateAppServiceImpl" class="com.acg12.service.user.UpdateAppServiceImpl"/>
     <bean id="searchServiceImpl" class="com.acg12.service.search.impl.SearchServiceImpl"/>
+
+
     <bean id="subjectServiceImpl" class="com.acg12.service.subject.impl.SubjectServiceImpl"/>
+
+    <bean id="personServiceImpl" class="com.acg12.service.person.impl.PersonServiceImpl"/>
+    <bean id="characterServiceImpl" class="com.acg12.service.character.impl.CharacterServiceImpl"/>
 </beans>

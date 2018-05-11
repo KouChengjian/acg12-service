@@ -9,17 +9,16 @@ public class SubjectCrtEntity extends Param{
 
     private Integer subjectCrtId;
     private Integer subjectId;
-    private Integer characterId ;
+    private Integer sId;
+    private Integer cId ;
+    private Integer pId ;
     private String name;
     private String nameCn;
     private String roleName;
     private String image;
-    private String gender;
-    private Integer personId ;
-    private String personName;
-    private String personNameCn;
-    private String personImage;
-    private String personGender;
+    private String pName;
+    private String pNameCn;
+    private String pImage;
 
     public Integer getSubjectCrtId() {
         return subjectCrtId;
@@ -37,12 +36,28 @@ public class SubjectCrtEntity extends Param{
         this.subjectId = subjectId;
     }
 
-    public Integer getCharacterId() {
-        return characterId;
+    public Integer getsId() {
+        return sId;
     }
 
-    public void setCharacterId(Integer characterId) {
-        this.characterId = characterId;
+    public void setsId(Integer sId) {
+        this.sId = sId;
+    }
+
+    public Integer getcId() {
+        return cId;
+    }
+
+    public void setcId(Integer cId) {
+        this.cId = cId;
+    }
+
+    public Integer getpId() {
+        return pId;
+    }
+
+    public void setpId(Integer pId) {
+        this.pId = pId;
     }
 
     public String getName() {
@@ -77,52 +92,28 @@ public class SubjectCrtEntity extends Param{
         this.image = image;
     }
 
-    public String getGender() {
-        return gender;
+    public String getpName() {
+        return pName;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setpName(String pName) {
+        this.pName = pName;
     }
 
-    public Integer getPersonId() {
-        return personId;
+    public String getpNameCn() {
+        return pNameCn;
     }
 
-    public void setPersonId(Integer personId) {
-        this.personId = personId;
+    public void setpNameCn(String pNameCn) {
+        this.pNameCn = pNameCn;
     }
 
-    public String getPersonName() {
-        return personName;
+    public String getpImage() {
+        return pImage;
     }
 
-    public void setPersonName(String personName) {
-        this.personName = personName;
-    }
-
-    public String getPersonNameCn() {
-        return personNameCn;
-    }
-
-    public void setPersonNameCn(String personNameCn) {
-        this.personNameCn = personNameCn;
-    }
-
-    public String getPersonImage() {
-        return personImage;
-    }
-
-    public void setPersonImage(String personImage) {
-        this.personImage = personImage;
-    }
-
-    public String getPersonGender() {
-        return personGender;
-    }
-
-    public void setPersonGender(String personGender) {
-        this.personGender = personGender;
+    public void setpImage(String pImage) {
+        this.pImage = pImage;
     }
 
     @Override
@@ -137,17 +128,16 @@ public class SubjectCrtEntity extends Param{
     public String toString() {
         return "SubjectCrtEntity{" +
                 "subjectId=" + subjectId +
-                ", characterId=" + characterId +
+                ", sId=" + sId +
+                ", cId=" + cId +
+                ", pId=" + pId +
                 ", name='" + name + '\'' +
                 ", nameCn='" + nameCn + '\'' +
                 ", roleName='" + roleName + '\'' +
                 ", image='" + image + '\'' +
-                ", gender='" + gender + '\'' +
-                ", personId=" + personId +
-                ", personName='" + personName + '\'' +
-                ", personNameCn='" + personNameCn + '\'' +
-                ", personImage='" + personImage + '\'' +
-                ", personGender='" + personGender + '\'' +
+                ", pName='" + pName + '\'' +
+                ", pNameCn='" + pNameCn + '\'' +
+                ", pImage='" + pImage + '\'' +
                 '}';
     }
 }

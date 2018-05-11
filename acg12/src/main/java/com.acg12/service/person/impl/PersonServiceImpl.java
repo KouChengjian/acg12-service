@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * Created by Administrator on 2018/4/26.
  */
-@Service
 public class PersonServiceImpl implements PersonService {
 
     @Resource

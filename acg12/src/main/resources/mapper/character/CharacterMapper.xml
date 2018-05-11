@@ -69,4 +69,13 @@
         select * from acg_character where characterId = #{characterId}
     </select>
 
+    <select id="queryByCharacterIdJoinDetail" parameterType="int" resultType="com.acg12.entity.po.character.CharacterEntity">
+        select acg_character.characterId, acg_character.name, acg_character.nameCn, acg_character.image, acg_character.height, acg_character.weight,
+        acg_character.alias, acg_character.type, acg_character.gender, acg_character.bloodtype, acg_character.birthday, acg_character_detail.summary
+
+        from acg_character
+        INNER JOIN acg_character_detail
+        ON acg_character.characterId = acg_character_detail.characterId AND  acg_character_detail.characterId = #{characterId} AND acg_character_detail.summary IS  NOT NULL
+
+    </select>
 </mapper>

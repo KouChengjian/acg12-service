@@ -18,7 +18,7 @@ public interface SubjectStaffDao {
 
     SubjectStaffEntity queryBySubjectStaffId(int subjectStaffId);
 
-    SubjectStaffEntity queryByStaff(@Param(value = "subjectId")int subjectId , @Param(value = "personId")int personId, @Param(value = "job")String job);
+    SubjectStaffEntity queryByStaffByPId(@Param(value = "subjectId")int subjectId , @Param(value = "pId")int pId, @Param(value = "job")String job);
 
     List<SubjectStaffEntity> queryBySubjectId(int subjectId);
 

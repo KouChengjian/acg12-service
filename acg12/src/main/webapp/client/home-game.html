@@ -2,9 +2,123 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>游戏</title>
+    <link rel="stylesheet" href="css/common/home-header.css">
+    <link rel="stylesheet" href="css/common/pagination/pagination.css" >
+    <link rel="stylesheet" href="css/home-animat.css">
+
+    <script type="text/javascript" src="js/common/home-header.js"></script>
+    <script type="text/javascript" src="js/common/jquery-3.2.0.js"></script>
+    <script type="text/javascript" src="js/common/pagination/jquery.pagination.js"></script>
+    <script type="text/javascript" src="js/common/util.js"></script>
 </head>
 <body>
+<div>
+    <header id="header-menu"></header>
+    <div class="container">
+        <div class="container-center">
+            <div id="container-centerA">
+                <h3>类型</h3>
+                <ul class="clearit">
+                    <li class="auto"> <a class="l focus">全部</a></li>
+                    <li class="auto"> <a class="l " title="动作游戏">ACT</a></li>
+                    <li class="auto"> <a class="l " title="冒险游戏">AVG</a></li>
+                    <li class="auto"> <a class="l " title="第一人称视点射击游戏">FPS</a></li>
+                    <li class="auto"> <a class="l " title="格斗游戏">FTG</a></li>
+                    <li class="auto"> <a class="l " title="音乐游戏">MUG </a></li>
+                    <li class="auto"> <a class="l " title="益智类游戏">PUZ </a></li>
+                    <li class="auto"> <a class="l " title="赛车游戏">RAC </a></li>
+                    <li class="auto"> <a class="l " title="角色扮演游戏">RPG</a></li>
+                    <li class="auto"> <a class="l " title="即时战略游戏">RTS</a></li>
+                    <li class="auto"> <a class="l " title="模拟/战棋式战略游戏">SLG</a></li>
+                    <li class="auto"> <a class="l " title="体育运动游戏">SPG</a></li>
+                    <li class="auto"> <a class="l " title="射击游戏">STG</a></li>
+                    <li class="auto"> <a class="l " title="桌面游戏">TAB</a></li>
+                    <li class="auto"> <a class="l " title="恋爱养成游戏">AVG/ADV</a></li>
+                </ul>
+                <h3>平台</h3>
+                <ul class="clearit">
+                    <li class="auto"> <a class="l focus">全部</a></li>
+                    <li class="auto"><a class="l ">PC</a></li>
+                    <li class="auto"><a class="l ">Android</a></li>
+                    <li class="auto"><a class="l ">IOS</a></li>
+                    <li class="auto"><a class="l ">Mac OS</a></li>
+                    <li class="auto"><a class="l ">PSP</a></li>
+                    <li class="auto"><a class="l ">PS4</a></li>
+                    <li class="auto"><a class="l ">PS3</a></li>
+                    <li class="auto"><a class="l ">PS2</a></li>
+                    <li class="auto"><a class="l ">Xbox</a></li>
+                    <li class="auto"><a class="l ">Xbox One</a></li>
+                    <li class="auto"><a class="l ">Xbox360</a></li>
+                    <li class="auto"><a class="l ">街机</a></li>
+                    <li class="auto"><a class="l ">Nintendo Switch</a></li>
+                    <li class="auto"><a class="l ">Wii</a></li>
+                    <li class="auto"><a class="l ">Wii U</a></li>
+                    <li class="auto"><a class="l ">NDS</a></li>
+                    <li class="auto"><a class="l ">GameCube</a></li>
+                    <li class="auto"><a class="l ">Dreamcast</a></li>
+                    <li class="auto"><a class="l ">Nintendo 64</a></li>
+                    <li class="auto"><a class="l ">PlayStation</a></li>
+                    <li class="auto"><a class="l ">SFC</a></li>
+                    <li class="auto"><a class="l ">FC</a></li>
+                    <li class="auto"><a class="l ">WonderSwan</a></li>
+                    <li class="auto"><a class="l ">WonderSwan Color</a></li>
+                    <li class="auto"><a class="l ">NEOGEO Pocket Color</a></li>
+                    <li class="auto"><a class="l ">GBA</a></li>
+                    <li class="auto"><a class="l ">GB</a></li>
+                    <li class="auto"><a class="l ">Virtual Boy</a></li>
+                </ul>
+                <h3>时间</h3>
+                <ul class="clearit" id="time-type" style="max-height: 120px; height: 120px;">
+                    <li><a class="l focus">全部</a></li>
+                    <li><a class="l ">2018</a></li>
+                    <li><a class="l ">2017</a></li>
+                    <li><a class="l ">2016</a></li>
+                    <li><a class="l ">2015</a></li>
+                    <li><a class="l ">2014</a></li>
+                    <li><a class="l ">2013</a></li>
+                    <li><a class="l ">2012</a></li>
+                    <li><a class="l ">2011</a></li>
+                    <li><a class="l ">2010</a></li>
+                    <li><a class="l ">2009</a></li>
+                    <li><a class="l ">2008</a></li>
+                    <li><a class="l ">2007</a></li>
+                    <li><a class="l ">2006</a></li>
+                    <li><a class="l ">2005</a></li>
+                    <li><a class="l ">2004</a></li>
+                    <li><a class="l ">2003</a></li>
+                    <li><a class="l ">2002</a></li>
+                    <li><a class="l ">2001</a></li>
+                    <li><a class="l ">2000</a></li>
+                    <li><a class="l ">1999</a></li>
+                    <li><a class="l ">1998</a></li>
+                    <li><a class="l ">1997</a></li>
+                    <li><a class="l ">1996</a></li>
+                    <li><a class="l ">1995</a></li>
+                    <li><a class="l ">1994</a></li>
+                    <li><a class="l ">1993</a></li>
+                    <li><a class="l ">1992</a></li>
+                    <li><a class="l ">1991</a></li>
+                    <li><a class="l ">1990</a></li>
+                    <li><a class="l ">其他</a></li>
+                    <li><a class="l expand" id="item-time">展开</a></li>
+                </ul>
+            </div>
+            <div id="container-centerB">
+                <div class="tab-sort">
+                    <a href="javascript:" data-value="1" class="tab-i on desc">更新时间</a>
+                    <a href="javascript:" data-value="1" class="tab-i on asc">开播时间</a>
+                </div>
+                <div class="browser-list">
+                </div>
+                <div id="page" class="page" style="margin-top: 40px ; margin-bottom: 40px">
+                    <div class="m-style M-box3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<script src="js/home-game.js"></script>
 </body>
 </html>

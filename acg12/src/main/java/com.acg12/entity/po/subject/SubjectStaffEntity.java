@@ -9,12 +9,11 @@ public class SubjectStaffEntity extends Param{
 
     private Integer subjectStaffId;
     private Integer subjectId;
+    private Integer sId;
     private Integer personId;
+    private Integer pId;
     private String name;
-    private String nameCn;
-    private String image;
     private String job;
-    private String gender;
 
     public Integer getSubjectStaffId() {
         return subjectStaffId;
@@ -32,12 +31,28 @@ public class SubjectStaffEntity extends Param{
         this.subjectId = subjectId;
     }
 
+    public Integer getsId() {
+        return sId;
+    }
+
+    public void setsId(Integer sId) {
+        this.sId = sId;
+    }
+
     public Integer getPersonId() {
         return personId;
     }
 
     public void setPersonId(Integer personId) {
         this.personId = personId;
+    }
+
+    public Integer getpId() {
+        return pId;
+    }
+
+    public void setpId(Integer pId) {
+        this.pId = pId;
     }
 
     public String getName() {
@@ -48,22 +63,6 @@ public class SubjectStaffEntity extends Param{
         this.name = name;
     }
 
-    public String getNameCn() {
-        return nameCn;
-    }
-
-    public void setNameCn(String nameCn) {
-        this.nameCn = nameCn;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public String getJob() {
         return job;
     }
@@ -72,11 +71,6 @@ public class SubjectStaffEntity extends Param{
         this.job = job;
     }
 
-    public String getGender() {
-        return gender;
-    }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
+
 }

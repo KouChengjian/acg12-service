@@ -23,4 +23,6 @@ public interface CharacterDao {
     CharacterEntity queryByCId(int cId);
 
     CharacterEntity queryByCharacterId(int characterId);
+
+    CharacterEntity queryByCharacterIdJoinDetail(int characterId);
 }

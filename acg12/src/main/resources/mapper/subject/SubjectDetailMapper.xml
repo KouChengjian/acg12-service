@@ -5,16 +5,17 @@
     <resultMap id="subjectDetailResultMap" type="com.acg12.entity.po.subject.SubjectDetailEntity">
         <result column="subjectDetailId" property="subjectDetailId" jdbcType="INTEGER"/>
         <result column="subjectId" property="subjectId" jdbcType="INTEGER"/>
+        <result column="sId" property="sId" jdbcType="INTEGER"/>
         <result column="otherTitle" property="otherTitle" jdbcType="VARCHAR"/>
         <result column="otherValue" property="otherValue" jdbcType="VARCHAR"/>
     </resultMap>
 
     <insert id="insertList" parameterType="java.util.List" >
-        insert into acg_subject_detail (subjectDetailId, subjectId, otherTitle,otherValue)
+        insert into acg_subject_detail (subjectDetailId, subjectId, sId, otherTitle, otherValue)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.subjectDetailId,jdbcType=INTEGER}, #{item.subjectId,jdbcType=INTEGER},
-            #{item.otherTitle,jdbcType=VARCHAR},#{item.otherValue,jdbcType=VARCHAR}
+            (#{item.subjectDetailId,jdbcType=INTEGER}, #{item.subjectId,jdbcType=INTEGER}, #{item.sId,jdbcType=INTEGER},
+            #{item.otherTitle,jdbcType=VARCHAR}, #{item.otherValue,jdbcType=VARCHAR}
             )
         </foreach>
         <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="subjectDetailId">

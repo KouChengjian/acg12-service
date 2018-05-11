@@ -26,17 +26,56 @@ public class ClientViewController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/view/animat")
+    public ModelAndView homeAnimat() {
+        return new ModelAndView("/client/home-animat.html");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/view/caricature")
+    public ModelAndView homeCaricature() {
+        return new ModelAndView("/client/home-caricature.html");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/view/game")
+    public ModelAndView homeGame() {
+        return new ModelAndView("/client/home-game.html");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/view/novel")
+    public ModelAndView homeNovel() {
+        return new ModelAndView("/client/home-novel.html");
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/view/person")
     public ModelAndView homePerson() {
         return new ModelAndView("/client/home-person.html");
     }
 
     @ResponseBody
-    @RequestMapping(value = "/view/person/{pId}")
-    public ModelAndView homePersonInfo(@PathVariable String pId) {
+    @RequestMapping(value = "/view/character")
+    public ModelAndView homeCharacter() {
+        return new ModelAndView("/client/home-character.html");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/view/person/{personId}")
+    public ModelAndView homePersonInfo(@PathVariable String personId) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/client/jsp/subject/home-subject-info.jsp");
-        modelAndView.addObject("pId" ,pId);
+        modelAndView.setViewName("/client/jsp/person/home-person-info.jsp");
+        modelAndView.addObject("personId" ,personId);
+        return modelAndView;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/view/character/{characterId}")
+    public ModelAndView homeCharacterInfo(@PathVariable String characterId) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/client/jsp/character/home-character-info.jsp");
+        modelAndView.addObject("characterId" ,characterId);
         return modelAndView;
     }
 

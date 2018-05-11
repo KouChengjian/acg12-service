@@ -15,8 +15,11 @@ function getQueryVariable(variable) {
 
 var URL = "http://localhost:8080/acg12/api/";
 
+var URL_SUBJECT = URL + "subject";
+
 var URL_PERSON = URL + "person";
+
+var URL_CHARACTER = URL + "character";
 
 var URL_PERSON_INFO = URL + "person/info";
 
-var URL_CHARACTER = URL + "character";

@@ -6,8 +6,12 @@ window.onload = function () {
     // console.log(window.location);
     // var pId = getQueryVariable("pId");
 
-    queryPersonInfo(pId);
+    // queryPersonInfo(pId);
 }
+
+$("img").one("error", function(e){
+    $(this).attr("src", "/acg12/view/img/bg_loading_pic.png");
+});
 
 
 function queryPersonInfo(pId) {
@@ -117,3 +121,4 @@ function getSubject(item) {
     }
     return s1;
 }
+

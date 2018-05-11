@@ -4,14 +4,29 @@
 function loaddingHeader(){
     var header =
     "<div class=\"header-container\">"+
-    "<a href=\"home.html\"><img class=\"header-logo\" src=\"http://css99tel.cdndm5.com/v201804091412/blue/images/header-logo.png\"></a>"
+    "<a href=\"#\"><img class=\"header-logo\" src=\"img/logo.png\"></a>"
+
     +"<nav class=\"nav nav1\"> <ul>"
-        +" <li><a href=\"home-animat.html\">动画</a></li>"
-        +" <li><a href=\"home-caricature.html\">漫画</a></li>"
-        +" <li><a href=\"home-game.html\">游戏</a></li>"
-        +" <li><a href=\"home-novel.html\">小说</a></li>"
-        +" <li><a href=\"home-person.html\">人物</a></li>"
-    +"</ul> </nav>";
+        +" <li><a href=\"animat\">动画</a></li>"
+        +" <li><a href=\"caricature\">漫画</a></li>"
+        +" <li><a href=\"game\">游戏</a></li>"
+        +" <li><a href=\"novel\">小说</a></li>"
+        +" <li><a href=\"character\">人物</a></li>"
+    +"</ul> </nav>"
+
+    +"<div class=\"header-login\">"
+    +"<a href=\"javascript:void(0);\" id=\"header-login-btn\">"
+    +"<img data-isload=\"0\" class=\"header-avatar\" src=\"img/login.gif\">"
+    +"</a>"
+    +"</div>"
+
+    +"<div class=\"heaser-search\">"
+    +"<form class=\"search-form\">"
+    +"<input type=\"text\" autocomplete=\"off\" accesskey=\"s\" x-webkit-speech=\"\" x-webkit-grammar=\"builtin:translate\" placeholder=\"这个夏天我们还要在一起❤\" value=\"\" class=\"search-keyword\">"
+    +"<button type=\"submit\" class=\"search-submit\"></button>"
+    +"</form>"
+    +"</div>"
+    +"</div>";
 
     var element = document.getElementById("header-menu");
     if(element !=null){

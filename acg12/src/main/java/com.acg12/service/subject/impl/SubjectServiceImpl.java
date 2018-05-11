@@ -9,6 +9,7 @@ import com.acg12.entity.po.subject.SubjectDetailEntity;
 import com.acg12.entity.po.subject.SubjectEntity;
 import com.acg12.entity.po.subject.SubjectStaffEntity;
 import com.acg12.service.subject.SubjectService;
+import com.acg12.utils.pagination.PageInfo;
 import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -31,12 +32,17 @@ public class SubjectServiceImpl implements SubjectService {
     private SubjectCrtDao subjectCrtDao;
 
     @Override
-    public JSONObject getSubjectInfo(int subjectId) throws Exception{
+    public List<SubjectEntity> queryBySubjectList(PageInfo pageInfo,String type, String typeName, String year, String month, String status) {
+        return subjectDao.queryBySubjectListPage(pageInfo, type,typeName, year, month, status);
+    }
+
+    @Override
+    public JSONObject getSubjectInfo(int subjectId) throws Exception {
         SubjectEntity subjectEntity = subjectDao.queryBySubjectId(2);
         List<SubjectDetailEntity> subjectDetailEntityList = subjectDetailsDao.queryBySubjectId(subjectEntity.getSubjectId());
         List<SubjectStaffEntity> subjectStaffEntityList = subjectStaffDao.queryBySubjectId(subjectEntity.getSubjectId());
         List<SubjectCrtEntity> subjectCrtEntityList = subjectCrtDao.queryBySubjectId(subjectEntity.getSubjectId());
-        if(subjectEntity == null){
+        if (subjectEntity == null) {
             return null;
         }
         JSONObject subjectJsonObject = new JSONObject(new Gson().toJson(subjectEntity));
@@ -48,6 +54,6 @@ public class SubjectServiceImpl implements SubjectService {
         subjectJsonObject.put("staff", subjectStaffJsonObject);
         subjectJsonObject.put("crt", subjectCrtJsonObject);
         System.err.println(subjectJsonObject.toString());
-        return  subjectJsonObject;
+        return subjectJsonObject;
     }
 }

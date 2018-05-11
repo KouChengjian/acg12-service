@@ -39,7 +39,7 @@ a.l:hover{
 
 a.focus {
     background: #00a1d6;
-    color: #FFF;
+    color: #FFF !important;
     /*opacity: 0.6;*/
     text-decoration: none;
     -moz-border-radius: 5px;

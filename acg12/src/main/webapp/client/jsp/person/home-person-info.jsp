@@ -19,8 +19,10 @@
     <link rel="stylesheet" href="/acg12/view/css/common/home-header.css">
     <link rel="stylesheet" href="/acg12/view/css/home-person-info.css">
 
+    <script type="text/javascript" src="/acg12/view/js/common/jquery-3.2.0.js"></script>
     <script type="text/javascript" src="/acg12/view/js/common/home-header.js"></script>
     <script type="text/javascript" src="/acg12/view/js/common/util.js"></script>
+
 </head>
 <body>
 
@@ -28,8 +30,8 @@
     ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(request.getSession().getServletContext());
     PersonService personService = (PersonServiceImpl) ctx.getBean("personServiceImpl");
     PersonEntity result = new PersonEntity();
-    String personId = (String)request.getAttribute("personId");
-    if(StringUtil.isNumeric(personId)){
+    String personId = (String) request.getAttribute("personId");
+    if (StringUtil.isNumeric(personId)) {
         result = personService.queryByPersonIdJoinDetail(Integer.valueOf(Integer.valueOf(personId).intValue()));
     }
 %>
@@ -41,37 +43,23 @@
             <div id="container-centerA">
                 <div class="info-left">
                     <div class="cover">
-                        <%--<img src="//lain.bgm.tv/pic/cover/l/e9/fb/3110_ucarX.jpg">--%>
+                        <img src= <%= result.getImage()%> >
                     </div>
-                    <ul id="info-box" style="height: 0px">
-                        <li><span class="tip">中文名: </span>
-                            大雄与动物行星
-                        </li>
-                        <li><span class="tip">原作: </span>
-                            <a href="/person/1523" class="l" title="藤子·F·不二雄">藤子・F・不二雄</a>
-                        </li>
-                        <li><span class="tip">原作: </span>
-                            <a href="/person/1523" class="l" title="藤子·F·不二雄">藤子・F・不二雄</a>
-                        </li>
-                    </ul>
                 </div>
 
                 <div class="info-right">
                     <p class="title">
-                        <%--<a href="/manhua3566/" title="灼眼夏娜eternal song" style="color: #252525;">灼眼夏娜</a>--%>
-                        <%--<a class="name" title="灼眼夏娜eternal song">灼眼夏娜</a>--%>
+                        <a title="<%= result.getNameCn()%>" style="color: #252525;"><%= result.getName()%></a>
+                        <a class="name" title=<%= result.getNameCn()%>><%= result.getNameCn()%></a>
                     </p>
                     <p class="subtitle">
-                        <%--作者：<a >高桥弥七郎</a>--%>
+                        <a >职业：<%= StringUtil.getJob(result.getType())%></a>
                     </p>
                     <p class="status">
-                        <%--<span class="block">开始时间：<span>2011-10-20</span></span>--%>
-                        <%--<span class="block">话数：<span>4</span></span>--%>
-                        <!--<span class="block">题材<a href="/manhua-rexue/"><span>热血</span></a></span>-->
+                        <a><%=StringUtil.getPersonInfo(result)%></a>
                     </p>
                     <p class="content">
-                        时间是十六世纪初叶，地点是在欧洲，那是个还没有封绝的时代，曾有着那样的一场大战。这是一场被当时经历的人们以及名世听闻的人们称之以“大战”的巨大的……但是未曾被载入人类史书的秘密的战役
-                        电
+                        <%=result.getSummary()%>
                     </p>
 
                     <div class="info-expand">
@@ -94,7 +82,7 @@
 </div>
 
 <%--<script type="text/javascript" >--%>
-    <%--var pId = ${requestScope.personId};--%>
+<%--var pId = ${requestScope.personId};--%>
 <%--//    console.log(pId);--%>
 <%--</script>--%>
 <script type="text/javascript" src="/acg12/view/js/home-person-info.js"></script>

@@ -1,8 +1,8 @@
 /**
- * Created by Administrator on 2018/4/27.
+ * Created by Administrator on 2018/5/10.
  */
 var typeName_ = 1, year_ = 0, month_ = 0, status_ = 0;
-var type = 2, typeName = 0, year = 0, month = 0, status = "", page = 1;
+var type = 1, typeName = 0, year = 0, month = 0, status = "", page = 1;
 window.onload = function () {
     loaddingHeader();
 
