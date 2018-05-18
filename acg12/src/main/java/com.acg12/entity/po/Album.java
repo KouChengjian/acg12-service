@@ -6,7 +6,7 @@ public class Album {
 
 	private String pinId = "";
 	private String content; // 内容
-	private ArrayList<String> urlList; // URl  
+	private String image;
 	private Integer resWidth; // 资源宽度
 	private Integer resHight; // 资源高度
 	private Integer love; // 喜欢的个数  点赞
@@ -26,14 +26,6 @@ public class Album {
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public ArrayList<String> getUrlList() {
-		return urlList;
-	}
-
-	public void setUrlList(ArrayList<String> urlList) {
-		this.urlList = urlList;
 	}
 
 	public Integer getResWidth() {
@@ -68,12 +60,11 @@ public class Album {
 		this.favorites = favorites;
 	}
 
-	@Override
-	public String toString() {
-		return "Album [pin_id=" + pinId + ", content=" + content
-				+ ", urlList=" + urlList + ", resWidth=" + resWidth
-				+ ", resHight=" + resHight + ", love=" + love + ", favorites="
-				+ favorites + "]";
+	public String getImage() {
+		return image;
 	}
-	
+
+	public void setImage(String image) {
+		this.image = image;
+	}
 }

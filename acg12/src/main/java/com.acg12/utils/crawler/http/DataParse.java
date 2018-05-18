@@ -1,6 +1,5 @@
-package com.acg12.utils.http;
+package com.acg12.utils.crawler.http;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.nodes.Element;

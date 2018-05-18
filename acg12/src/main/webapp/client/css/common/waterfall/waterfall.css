@@ -1,0 +1,73 @@
+#wrap {
+    width: 1200px;
+    height: auto !important;
+    margin: 0 auto;
+    position: relative;
+    background-color: #fff;
+}
+
+#wrap .box {
+    width: 230px;
+    height: auto;
+    padding: 10px;
+    border: none;
+    float: left;
+}
+
+#wrap .box .info {
+    width: 230px;
+    height: auto;
+    box-shadow: 0 1px 3px rgba(0,0,0,.3);
+    background: #fff;
+}
+
+#wrap .box .info .image{
+    height: auto;
+    display: block;
+    position: relative;
+}
+
+#wrap .box .info .image img{
+    width: 230px;
+}
+
+#wrap .box .info .description{
+    display: block;
+    padding: 0 16px;
+    margin: 10px 0;
+    line-height: 1.35em;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+#wrap .box .info .stats {
+    /*padding: 0 15px;*/
+    padding: 0 15px 10px 15px;
+    margin: 10px 0;
+}
+
+#wrap .box .info .stats>span {
+    display: inline-block;
+    width: auto;
+    height: 12px;
+    line-height: 12px;
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+#wrap .box .info .stats>span i {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 4px;
+    vertical-align: bottom;
+    background: url(/acg12/view/img/bt_action_icons.svg) 0 0 no-repeat;
+}
+
+#wrap .box .info .stats .repin i {
+    background-position: -30px 0;
+}
+
+#wrap .box .info .stats .like i {
+    background-position: 0 0;
+}

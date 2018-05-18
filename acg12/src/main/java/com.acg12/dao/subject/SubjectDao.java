@@ -19,7 +19,11 @@ public interface SubjectDao {
 
     List<SubjectEntity> queryBySubjectListPage(@Param("page") PageInfo page, @Param("type") String type, @Param("typeName") String typeName, @Param("year") String year, @Param("month") String month, @Param("status") String status);
 
+    List<SubjectEntity> queryBySubjectGameListPage(@Param("page") PageInfo page, @Param("type") String type, @Param("typeName") String typeName, @Param("platform") String platform, @Param("year") String year);
+
     SubjectEntity queryBySId(int sId);
 
     SubjectEntity queryBySubjectId(int subjectId);
+
+    SubjectEntity queryBySubjectIdJoinDetail(int subjectId);
 }

@@ -22,5 +22,7 @@ public interface SubjectStaffDao {
 
     List<SubjectStaffEntity> queryBySubjectId(int subjectId);
 
+    List<SubjectStaffEntity> queryBySId(int subjectId);
+
     List<SubjectStaffEntity> queryByPersonId(int personId);
 }

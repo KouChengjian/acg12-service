@@ -1,10 +1,9 @@
-package com.acg12.utils.search;
+package com.acg12.utils.crawler.search;
 
 import com.acg12.conf.search.SubjectStaffConstant;
 import com.acg12.utils.JsonParse;
 import com.acg12.utils.StringUtil;
 import com.acg12.utils.UrlEncoderUtil;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -13,7 +12,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -207,7 +205,8 @@ public class SearchUtli {
                 return null;
             }
 //            System.out.println(content);
-
+//            System.out.println(StringUtil.stringToJson(content));
+            content = StringUtil.stringToJson(content);
             JSONObject contentJson = new JSONObject(content);
             if(!contentJson.isNull("code")){
                 return null;
@@ -235,11 +234,12 @@ public class SearchUtli {
             List<String> ignoreList = new ArrayList<>();
             ignoreList.add("中文名");
             ignoreList.add("话数");
-            ignoreList.add("放送开始");
+            ignoreList.add("集数");
+            ignoreList.add("放送开始"); // 动画
             ignoreList.add("发售日"); // 书籍
-            ignoreList.add("开始");
             ignoreList.add("发行日期"); // 游戏
             ignoreList.add("发售日期"); // 音乐
+            ignoreList.add("开始");
 
             document = Jsoup.connect(url2).ignoreContentType(true)
                     .data("jquery", "java").userAgent("Mozilla")
@@ -247,6 +247,30 @@ public class SearchUtli {
 
             Element headerSubject = document.getElementById("headerSubject");
             if(headerSubject == null){
+                return null;
+            }
+
+            HashMap<String , String> hashMap = null;
+            if(type == 1){
+                hashMap = SubjectStaffConstant.booksMap;
+                String typeName = headerSubject.select("h1").select("small").text();
+                if(!typeName.isEmpty()){
+                    result.put("type_name", typeName);
+                }
+            } else if(type == 2){
+                hashMap = SubjectStaffConstant.animationMap;
+                String typeName = headerSubject.select("h1").select("small").text();
+                if(!typeName.isEmpty()){
+                    result.put("type_name", typeName);
+                }
+            } else if(type == 3){
+                hashMap = SubjectStaffConstant.musicMap;
+                result.put("type_name", "音乐");
+            } else if(type == 4){
+                hashMap = SubjectStaffConstant.gameMap;
+            } else if(type == 6){
+                hashMap = SubjectStaffConstant.realMap;
+            } else {
                 return null;
             }
 
@@ -264,30 +288,6 @@ public class SearchUtli {
                         }
                     }
                     continue;
-                }
-
-                HashMap<String , String> hashMap = null;
-                if(type == 1){
-                    hashMap = SubjectStaffConstant.booksMap;
-                    String typeName = headerSubject.select("h1").select("small").text();
-                    if(!typeName.isEmpty()){
-                        result.put("type_name", typeName);
-                    }
-                } else if(type == 2){
-                    hashMap = SubjectStaffConstant.animationMap;
-                    String typeName = headerSubject.select("h1").select("small").text();
-                    if(!typeName.isEmpty()){
-                        result.put("type_name", typeName);
-                    }
-                } else if(type == 3){
-                    hashMap = SubjectStaffConstant.musicMap;
-                    result.put("type_name", "音乐");
-                } else if(type == 4){
-                    hashMap = SubjectStaffConstant.gameMap;
-                } else if(type == 6){
-                    hashMap = SubjectStaffConstant.realMap;
-                } else {
-                    return null;
                 }
 
                 if (hashMap.containsKey(key)) {
@@ -314,10 +314,6 @@ public class SearchUtli {
                     item.select("span").remove();
                     if(type == 1){
                     } else if(type == 2){
-                        if(key.contains("结束")){
-                            result.put("end_date", item.text());
-                            continue;
-                        }
                     } else if(type == 3){
                     } else if(type == 4){
                         if(key.contains("游戏类型")){
@@ -330,10 +326,15 @@ public class SearchUtli {
                             continue;
                         }
                     }
-                    JSONObject itemJson = new JSONObject();
-                    itemJson.put("otherTitle", key);
-                    itemJson.put("otherValue", item.text());
-                    detailsJSON.put(itemJson);
+                    if(key.contains("结束")){
+                        result.put("end_date", item.text());
+                        continue;
+                    } else {
+                        JSONObject itemJson = new JSONObject();
+                        itemJson.put("otherTitle", key);
+                        itemJson.put("otherValue", item.text());
+                        detailsJSON.put(itemJson);
+                    }
                 }
             }
 
@@ -371,7 +372,6 @@ public class SearchUtli {
                         songJSON.put(text);
                     }
                 }
-
             }
 
             document = Jsoup.connect(url3).ignoreContentType(true)

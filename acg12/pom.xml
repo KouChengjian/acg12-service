@@ -6,7 +6,7 @@
     <groupId>com.acg12</groupId>
     <artifactId>acg12</artifactId>
     <packaging>war</packaging>
-    <version>3.0.2</version>
+    <version>3.1.0</version>
     <name>漫友</name>
 
     <url>http://maven.apache.org</url>
@@ -237,8 +237,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
 
@@ -247,7 +247,7 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
-                    <url>http://139.196.46.40:8080/manager/text</url>
+                    <url>http://139.196.46.40/manager/text</url>
                     <username>admin</username>
                     <password>kcj5511844067</password>
                     <update>true</update>

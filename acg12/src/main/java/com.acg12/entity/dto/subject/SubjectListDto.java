@@ -7,13 +7,13 @@ import java.util.List;
 /**
  * Created by Administrator on 2018/5/9.
  */
-public class SubjectDto {
+public class SubjectListDto {
 
     // 总记录数
     private int totalResult;
     private List<SubjectEntity> list;
 
-    public SubjectDto(int totalResult , List<SubjectEntity> list){
+    public SubjectListDto(int totalResult , List<SubjectEntity> list){
         this.totalResult = totalResult;
         this.list = list;
     }

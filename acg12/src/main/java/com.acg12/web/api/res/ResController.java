@@ -1,12 +1,13 @@
-package com.acg12.web.common;
+package com.acg12.web.api.res;
 
 import com.acg12.entity.dto.Result;
 import com.acg12.conf.Constant;
-import com.acg12.service.ResServiceImpl;
+import com.acg12.entity.dto.res.AlbumDto;
+import com.acg12.entity.dto.res.PaletteDto;
+import com.acg12.entity.po.Album;
+import com.acg12.entity.po.Palette;
 import com.acg12.service.base.ResService;
 import com.acg12.utils.StringUtil;
-import com.acg12.utils.UrlEncoderUtil;
-import com.acg12.utils.search.SearchUtli;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -23,16 +24,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.Map;
+import java.util.List;
 
 /**
  * Created by kouchengjian on 2017/3/6.
  */
 @Api(value = "ResourceController", description = "资源控制")
 @Controller
-@RequestMapping(value = "/res")
+@RequestMapping(value = "/api")
 public class ResController {
 
     @Resource
@@ -60,73 +59,58 @@ public class ResController {
     @ApiOperation(value = "获取插画", httpMethod = "GET", produces = "application/json")
     @RequestMapping(value = "/p/album", method = {RequestMethod.GET}, produces = "application/json ;charset=utf-8")
     @ResponseBody
-    public void queryPictrueAlbum(@ApiParam(name = "max", required = true, value = "图片的id") @RequestParam("max") String max,
-                                  HttpServletRequest request, HttpServletResponse response) throws Exception {
-        JSONObject content = resourceService.getAlbumList(max);
-        Result result = new Result();
-        if (content == null) {
-            result.setResult(Constant.HTTP_RESULT_ERROR);
-            result.setDesc("获取错误");
+    public ResponseEntity<?> queryPictrueAlbum(@ApiParam(name = "max", required = true, value = "图片的id") @RequestParam("max") String max) throws Exception {
+        List<Album> albumList = resourceService.getHuaBanImages(max);
+        if (albumList == null || albumList.size() == 0) {
+            return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
         } else {
-            result.setResult(Constant.HTTP_RESULT_SUCCEED);
-            result.setDesc("获取成功");
-            result.setData(content);
+            return new ResponseEntity<>(Result.create200(new AlbumDto(albumList)), HttpStatus.OK);
         }
-        result.write(response);
     }
 
     @ApiOperation(value = "获取插画", httpMethod = "GET", produces = "application/json")
     @RequestMapping(value = "/p/boards", method = {RequestMethod.GET})
-    public void queryPictrueBoards(@ApiParam(name = "max", required = true, value = "画板id") @RequestParam("max") String max,
-                                   HttpServletRequest request, HttpServletResponse response) throws Exception {
-        JSONObject content = resourceService.getBoardsList(max);
-        Result result = new Result();
-        if (content == null) {
-            result.setResult(Constant.HTTP_RESULT_ERROR);
-            result.setDesc("获取错误");
+    public ResponseEntity<?> queryPictrueBoards(@ApiParam(name = "max", required = true, value = "画板id") @RequestParam("max") String max) throws Exception {
+        List<Palette> paletteList = resourceService.getHuaBanBoards(max);
+        if (paletteList == null || paletteList.size() == 0) {
+            return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
         } else {
-            result.setResult(Constant.HTTP_RESULT_SUCCEED);
-            result.setDesc("获取成功");
-            result.setData(content);
+            return new ResponseEntity<>(Result.create200(new PaletteDto(paletteList)), HttpStatus.OK);
         }
-        StringUtil.outputStream(response, StringUtil.result(result));
     }
 
+    @ApiOperation(value = "插画内容", httpMethod = "GET", produces = "application/json;charset=utf-8")
     @RequestMapping(value = "/p/boards/album", method = {RequestMethod.GET})
-    public void queryPictrueBoardsAlbum(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String max = request.getParameter("max");
-        String boardId = request.getParameter("boardId");
-        JSONObject content = resourceService.getBoardsToAlbumList(boardId, max);
-        String result = StringUtil.result(content);
-        StringUtil.outputStream(response, result);
-
+    public ResponseEntity<?> queryPictrueBoardsAlbum(@RequestParam("max") String max , @RequestParam("boardId") String boardId) throws Exception {
+        List<Album> albumList = resourceService.getHuaBanBoardsToImages(boardId, max);
+        if (albumList == null || albumList.size() == 0) {
+            return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(Result.create200(new AlbumDto(albumList)), HttpStatus.OK);
+        }
     }
 
     @ApiOperation(value = "搜索插画", httpMethod = "GET", produces = "application/json;charset=utf-8")
     @RequestMapping(value = "/search/album", method = {RequestMethod.GET}, produces = "application/json ;charset=utf-8")
-    public void querySearchAlbum(@ApiParam(name = "key", required = true, value = "搜索key") @RequestParam("key") String key,
-                                 @ApiParam(name = "page", required = true, value = "页") @RequestParam("page") String page,
-                                 HttpServletRequest request, HttpServletResponse response) throws Exception {
-        JSONArray content = resourceService.getSearchAlbum(key, page);
-        Result result = new Result();
-        if(content == null || content.length() == 0){
-            result.writeFailure("由于技术原因，暂时停止服务" ,response);
+    public ResponseEntity<?> querySearchAlbum(@ApiParam(name = "key", required = true, value = "搜索key") @RequestParam("key") String key,
+                                 @ApiParam(name = "page", required = true, value = "页") @RequestParam("page") String page) throws Exception {
+        List<Album> albumList = resourceService.getHuaBanSearchImages(key, page);
+        if (albumList == null || albumList.size() == 0) {
+            return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
         } else {
-            result.writeSucceed(content , response);
+            return new ResponseEntity<>(Result.create200(new AlbumDto(albumList)), HttpStatus.OK);
         }
     }
 
     @ApiOperation(value = "搜索画板", httpMethod = "GET", produces = "application/json;charset=utf-8")
     @RequestMapping(value = "/search/palette", method = {RequestMethod.GET} , produces = "application/json ;charset=utf-8")
-    public void querySearchPalette(@ApiParam(name = "key", required = true, value = "搜索key") @RequestParam("key") String key,
-                                   @ApiParam(name = "page", required = true, value = "页") @RequestParam("page") String page,
-                                   HttpServletRequest request, HttpServletResponse response) throws Exception {
-        JSONArray content = resourceService.getSearchBoards(key, page);
-        Result result = new Result();
-        if(content == null || content.length() == 0){
-            result.writeFailure("由于技术原因，暂时停止服务" ,response);
+    public ResponseEntity<?> querySearchPalette(@ApiParam(name = "key", required = true, value = "搜索key") @RequestParam("key") String key,
+                                   @ApiParam(name = "page", required = true, value = "页") @RequestParam("page") String page) throws Exception {
+        List<Palette> paletteList = resourceService.getHuaBanSearchBoards(key, page);
+        if (paletteList == null || paletteList.size() == 0) {
+            return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
         } else {
-            result.writeSucceed(content , response);
+            return new ResponseEntity<>(Result.create200(new PaletteDto(paletteList)), HttpStatus.OK);
         }
     }
 

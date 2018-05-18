@@ -26,4 +26,6 @@ public interface SubjectDetailDao {
     List<SubjectDetailEntity> queryBySubjectDetailId(int subjectDetailId);
 
     List<SubjectDetailEntity> queryBySubjectId(int subjectId);
+
+    List<SubjectDetailEntity> queryBySId(int sId);
 }

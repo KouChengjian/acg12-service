@@ -117,20 +117,20 @@ public class SubjectEntity extends Param {
         this.airWeekday = airWeekday;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if(toString().hashCode() == obj.toString().hashCode()){
-            return true;
-        }
-        return false;
-    }
-
     public String getEndDate() {
         return endDate;
     }
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(toString().hashCode() == obj.toString().hashCode()){
+            return true;
+        }
+        return false;
     }
 
     @Override

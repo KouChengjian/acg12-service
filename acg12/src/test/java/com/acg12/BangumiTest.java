@@ -1,12 +1,10 @@
 package com.acg12;
 
 import com.acg12.dao.BangumiDao;
-import com.acg12.entity.po.Album;
 import com.acg12.entity.po.Bangumi;
 import com.acg12.entity.dto.Video;
-import com.acg12.entity.po.Palette;
 import com.acg12.factory.ConnectionFactory;
-import com.acg12.utils.http.ResRequest;
+import com.acg12.utils.crawler.http.ResRequest;
 import com.acg12.utils.StringUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;

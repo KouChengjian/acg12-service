@@ -1,7 +1,11 @@
 package com.acg12.service.base;
 
+import com.acg12.entity.po.Album;
+import com.acg12.entity.po.Palette;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.List;
 
 /**
  * Created by kouchengjian on 2017/3/9.
@@ -9,22 +13,24 @@ import org.json.JSONObject;
 public interface ResService {
 
     /**
+     * --------------------------------------花瓣网资源-------------------------------------------
+     */
+    List<Album> getHuaBanImages(String max);
+
+    List<Palette> getHuaBanBoards(String max);
+
+    List<Album> getHuaBanBoardsToImages(String boardId, String max);
+
+    List<Album> getHuaBanSearchImages(String key, String page);
+
+    List<Palette> getHuaBanSearchBoards(String key, String page);
+
+    /**
      * --------------------------------------自定义资源-------------------------------------------
      */
     JSONObject getIndex();
 
-    /**
-     * --------------------------------------花瓣网资源-------------------------------------------
-     */
-    JSONObject getAlbumList(String max);
 
-    JSONObject getBoardsList(String max);
-
-    JSONObject getBoardsToAlbumList(String boardId, String max);
-
-    JSONArray getSearchAlbum(String key, String page);
-
-    JSONArray getSearchBoards(String key, String page);
 
 
     /**

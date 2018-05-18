@@ -2,10 +2,10 @@
  * Created by Administrator on 2018/5/10.
  */
 var typeName_ = 1, year_ = 0, month_ = 0, status_ = 0;
-var type = 1, typeName = 0, year = 0, month = 0, status = "", page = 1;
+var type = 8, typeName = 0, year = 0, month = 0, status = "", page = 1;
 window.onload = function () {
     loaddingHeader();
-
+    chooseTypeClickListener();
     querySearchList(type, typeName, year, month, status, page);
 }
 
@@ -27,15 +27,13 @@ function querySearchList(type, typeName, year, month, status, page) {
                     for (var i = 0, total = data.data.list.length; i < total; i++) {
                         html += paddingHtml(data.data.list[i]);
                     }
-                    if(data.data.list.length >= 20){
-                        loaddingPagination(Math.ceil(data.data.totalResult / 10), page);
-                    }
-
+                    var pagehtml = document.getElementById("page");
+                    pagehtml.style.cssText="display:inline;";
+                    loaddingPagination(Math.ceil(data.data.totalResult / 20), page);
                 } else {
-                    // var pagehtml = document.getElementById("page");
-                    // var m_stylehtml = document.getElementsByClassName("m-style");
-                    // pagehtml.removeChild(m_stylehtml[0])
-                    // html = "<div class=\"loaddingNull\">没有更多内容哦，请更换条词再次搜索。 </div>"
+                    var pagehtml = document.getElementById("page");
+                    pagehtml.style.cssText="display:none;";
+                    html = "<div class=\"loaddingNull\">没有更多内容哦，请更换条词再次搜索。 </div>"
                 }
                 document.getElementsByClassName('browser-list')[0].innerHTML = html;
             }
@@ -49,23 +47,39 @@ function paddingHtml(item) {
     var h = "<div class=\"list-item\">";
     h+="<div class=\"preview\">"
     h += "<div class=\"cover\">";
-    h+="<a href=" + item.image + " target=\"_blank\" title="+ item.name+">";
+    h+="<a href=" + LINK_SUBJECT + item.sId + " target=\"_blank\" title="+ item.name+">";
     h+= "<img  src="+ item.image +" alt=" + item.name +">";
-    h+="<div class=\"shadow\">"   +"<span class=\"sort-info\">387.4万人追番</span>"+ "</div>";
-    h+="<div class=\"cover-tag-payfast\">付费抢先</div>";
+    h+="<div class=\"shadow\">"   +"<span class=\"sort-info\"></span>"+ "</div>";
+    // h+="<div class=\"cover-tag-payfast\">付费抢先</div>";
     h += "</a>";
     h += "</div>";
     h+="<div class=\"info-wrp\">";
     h+="<div class=\"info\">"
-    h+="<a href=\"https://bangumi.bilibili.com/anime/21542\" target=\"_blank\" title="+ item.name +">";
+    h+="<a href=" + LINK_SUBJECT + item.sId +" target=\"_blank\" title="+ item.name +">";
     h+=" <div class=\"t\" style=\"word-wrap: break-word;\">"+ item.name +"</div>"
     h += "</a>";
-    h+="<p class=\"num\">全13话</p>"
+    // h+="<p class=\"num\">全13话</p>"
     h += "</div>";
     h += "</div>";
     h += "</div>";
     h += "</div>";
     return h;
+}
+
+function chooseTypeClickListener() {
+    var time_type = document.getElementById("time-type");
+    var time_type_li = time_type.getElementsByTagName("li");
+    for (var i = 0; i < time_type_li.length - 1; i++) {
+        (function (i) {
+            time_type_li[i].onclick = function () {
+                time_type_li[year_].getElementsByTagName("a")[0].classList.remove("focus");
+                time_type_li[i].getElementsByTagName("a")[0].classList.add("focus");
+                year_ = i;
+                year = time_type_li[i].getElementsByTagName("a")[0].dataset.time;
+                querySearchList(type, typeName, year, month, status, page);
+            };
+        })(i);
+    }
 }
 
 // 分页
@@ -80,8 +94,8 @@ function loaddingPagination(num, cur) {
         prevContent: '上页',
         nextContent: '下页',
         callback: function (api) {
-            page_id = api.getCurrent();
-            querySearchList(belong_, type_id, gender_id, bloodtype_id, birthday_id, full_id ,page_id);
+            page = api.getCurrent();
+            querySearchList(type, typeName, year, month, status, page);
         }
     });
 }

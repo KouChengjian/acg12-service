@@ -1,11 +1,11 @@
 /**
  * Created by Administrator on 2018/4/27.
  */
-var typeName_ = 1, year_ = 0, month_ = 0, status_ = 0;
+var typeName_ = 0, year_ = 0, month_ = 0, status_ = 0;
 var type = 2, typeName = 0, year = 0, month = 0, status = "", page = 1;
 window.onload = function () {
     loaddingHeader();
-
+    chooseTypeClickListener();
     querySearchList(type, typeName, year, month, status, page);
 }
 
@@ -20,22 +20,20 @@ function querySearchList(type, typeName, year, month, status, page) {
         if (xhr.readyState == 4) {  //状态等于4的时候返回值
             if (xhr.status == 200 || xhr.status == 304) {
                 var data = eval('(' + xhr.responseText + ')');
-                console.log(data)
+                // console.log(data)
                 var html = '';
                 if (data.code == 20000) {
                     var html = '';
                     for (var i = 0, total = data.data.list.length; i < total; i++) {
                         html += paddingHtml(data.data.list[i]);
                     }
-                    if(data.data.list.length >= 20){
-                        loaddingPagination(Math.ceil(data.data.totalResult / 10), page);
-                    }
-
+                    var pagehtml = document.getElementById("page");
+                    pagehtml.style.cssText="display:inline;";
+                    loaddingPagination(Math.ceil(data.data.totalResult / 20), page);
                 } else {
-                    // var pagehtml = document.getElementById("page");
-                    // var m_stylehtml = document.getElementsByClassName("m-style");
-                    // pagehtml.removeChild(m_stylehtml[0])
-                    // html = "<div class=\"loaddingNull\">没有更多内容哦，请更换条词再次搜索。 </div>"
+                    var pagehtml = document.getElementById("page");
+                    pagehtml.style.cssText="display:none;";
+                    html = "<div class=\"loaddingNull\">没有更多内容哦，请更换条词再次搜索。 </div>"
                 }
                 document.getElementsByClassName('browser-list')[0].innerHTML = html;
             }
@@ -49,23 +47,75 @@ function paddingHtml(item) {
     var h = "<div class=\"list-item\">";
     h+="<div class=\"preview\">"
     h += "<div class=\"cover\">";
-    h+="<a href=" + item.image + " target=\"_blank\" title="+ item.name+">";
+    h+="<a href=" + LINK_SUBJECT + item.sId + " target=\"_blank\" title="+ item.name+">";
     h+= "<img  src="+ item.image +" alt=" + item.name +">";
-    h+="<div class=\"shadow\">"   +"<span class=\"sort-info\">387.4万人追番</span>"+ "</div>";
-    h+="<div class=\"cover-tag-payfast\">付费抢先</div>";
+    h+="<div class=\"shadow\">"   +"<span class=\"sort-info\">"+ getEpsCount(item.epsCount) +"</span>"+ "</div>";
+    // h+="<div class=\"cover-tag-payfast\">付费抢先</div>";
     h += "</a>";
     h += "</div>";
     h+="<div class=\"info-wrp\">";
     h+="<div class=\"info\">"
-    h+="<a href=\"https://bangumi.bilibili.com/anime/21542\" target=\"_blank\" title="+ item.name +">";
+    h+="<a href=" + LINK_SUBJECT + item.sId +" target=\"_blank\" title="+ item.name +">";
     h+=" <div class=\"t\" style=\"word-wrap: break-word;\">"+ item.name +"</div>"
     h += "</a>";
-    h+="<p class=\"num\">全13话</p>"
+    // h+="<p class=\"num\">全13话</p>"
     h += "</div>";
     h += "</div>";
     h += "</div>";
     h += "</div>";
     return h;
+}
+
+function getEpsCount(epsCount) {
+    if(parseInt(epsCount) == 0){
+        return "";
+    } else {
+        return "全"+epsCount+"话";
+    }
+}
+
+function chooseTypeClickListener() {
+    var attribute_type = document.getElementById("attribute-type");
+    var attribute_type_li = attribute_type.getElementsByTagName("li");
+    for (var i = 0; i < attribute_type_li.length; i++) {
+        (function (i) {
+            attribute_type_li[i].onclick = function () {
+                attribute_type_li[typeName_].getElementsByTagName("a")[0].classList.remove("focus");
+                attribute_type_li[i].getElementsByTagName("a")[0].classList.add("focus");
+                typeName_ = i;
+                typeName = attribute_type_li[i].getElementsByTagName("a")[0].dataset.attributeType;
+                querySearchList(type, typeName, year, month, status, page);
+            };
+        })(i);
+    }
+
+    var time_type = document.getElementById("time-type");
+    var time_type_li = time_type.getElementsByTagName("li");
+    for (var i = 0; i < time_type_li.length - 1; i++) {
+        (function (i) {
+            time_type_li[i].onclick = function () {
+                time_type_li[year_].getElementsByTagName("a")[0].classList.remove("focus");
+                time_type_li[i].getElementsByTagName("a")[0].classList.add("focus");
+                year_ = i;
+                year = time_type_li[i].getElementsByTagName("a")[0].dataset.time;
+                querySearchList(type, typeName, year, month, status, page);
+            };
+        })(i);
+    }
+
+    // var month_type = document.getElementById("month-type");
+    // var month_type_li = month_type.getElementsByTagName("li");
+    // for (var i = 0; i < month_type_li.length; i++) {
+    //     (function (i) {
+    //         month_type_li[i].onclick = function () {
+    //             month_type_li[month_].getElementsByTagName("a")[0].classList.remove("focus");
+    //             month_type_li[i].getElementsByTagName("a")[0].classList.add("focus");
+    //             month_ = i;
+    //             month = month_type_li[i].getElementsByTagName("a")[0].dataset.month;
+    //             querySearchList(type, typeName, year, month, status, page);
+    //         };
+    //     })(i);
+    // }
 }
 
 // 分页

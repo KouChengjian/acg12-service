@@ -57,6 +57,10 @@
         select * from acg_subject_crt where subjectId = #{subjectId}
     </select>
 
+    <select id="queryBySId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectCrtEntity">
+        select * from acg_subject_crt where sId = #{sId}
+    </select>
+
     <select id="queryByCharacterId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectCrtEntity">
         select * from acg_subject_crt where characterId = #{characterId}
     </select>

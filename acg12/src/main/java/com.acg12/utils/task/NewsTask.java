@@ -1,7 +1,5 @@
 package com.acg12.utils.task;
 
-import com.acg12.utils.search.SearchUtli;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**

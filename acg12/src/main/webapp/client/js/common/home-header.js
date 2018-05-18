@@ -4,19 +4,19 @@
 function loaddingHeader(){
     var header =
     "<div class=\"header-container\">"+
-    "<a href=\"#\"><img class=\"header-logo\" src=\"img/logo.png\"></a>"
+    "<a href=\"#\"><img class=\"header-logo\" src=\"/acg12/view/img/logo.png\"></a>"
 
     +"<nav class=\"nav nav1\"> <ul>"
-        +" <li><a href=\"animat\">动画</a></li>"
-        +" <li><a href=\"caricature\">漫画</a></li>"
-        +" <li><a href=\"game\">游戏</a></li>"
-        +" <li><a href=\"novel\">小说</a></li>"
-        +" <li><a href=\"character\">人物</a></li>"
+        +" <li><a href="+ LINK_HOME_ANIMAT +">动画</a></li>"
+        +" <li><a href="+ LINK_HOME_CARICATURE +">漫画</a></li>"
+        +" <li><a href="+ LINK_HOME_GAME +">游戏</a></li>"
+        +" <li><a href="+ LINK_HOME_NOVEL +">小说</a></li>"
+        +" <li><a href="+ LINK_HOME_CHARACTER +">人物</a></li>"
     +"</ul> </nav>"
 
     +"<div class=\"header-login\">"
     +"<a href=\"javascript:void(0);\" id=\"header-login-btn\">"
-    +"<img data-isload=\"0\" class=\"header-avatar\" src=\"img/login.gif\">"
+    +"<img data-isload=\"0\" class=\"header-avatar\" src=\"/acg12/view/img/login.gif\">"
     +"</a>"
     +"</div>"
 

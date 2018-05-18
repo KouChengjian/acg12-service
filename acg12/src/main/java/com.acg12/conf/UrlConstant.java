@@ -8,16 +8,7 @@ public class UrlConstant {
     /**
      * -----------------------------------------花瓣网资源-------------------------------------------
      */
-    // 获取画集
-    public static final String URL_ALBUM = "http://huaban.com/favorite/anime/?ieks59gh&limit=20&wfl=1";//&max=474845357
-    // 获取画板
-    public static final String URL_PALETTE = "http://huaban.com/boards/favorite/anime/?iemf5hf8&limit=20&wfl=1"; //&max=24465404
-    // 获取画板中的画集
-    public static final String URL_PALETTE_ALBUM = "http://huaban.com/boards/";
-    // 搜索 - 图片
-    public static final String URL_SEARCH_ALBUM   = "http://huaban.com/search/?category=anime&q=";
-    // 搜索 - 画集
-    public static final String URL_SEARCH_PALETTE = "http://huaban.com/search/boards/?q=";
+
     /**
      * --------------------------------------动漫之家资源--------------------------------------------
      */

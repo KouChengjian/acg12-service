@@ -2,7 +2,7 @@ package com.acg12.service.search.impl;
 
 import com.acg12.entity.dto.Condition;
 import com.acg12.service.search.SearchService;
-import com.acg12.utils.search.SearchUtli;
+import com.acg12.utils.crawler.search.SearchUtli;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestAttributes;

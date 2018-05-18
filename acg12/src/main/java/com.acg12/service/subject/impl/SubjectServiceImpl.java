@@ -1,13 +1,8 @@
 package com.acg12.service.subject.impl;
 
-import com.acg12.dao.subject.SubjectCrtDao;
-import com.acg12.dao.subject.SubjectDao;
-import com.acg12.dao.subject.SubjectDetailDao;
-import com.acg12.dao.subject.SubjectStaffDao;
-import com.acg12.entity.po.subject.SubjectCrtEntity;
-import com.acg12.entity.po.subject.SubjectDetailEntity;
-import com.acg12.entity.po.subject.SubjectEntity;
-import com.acg12.entity.po.subject.SubjectStaffEntity;
+import com.acg12.dao.subject.*;
+import com.acg12.entity.dto.subject.SubjectInfoDto;
+import com.acg12.entity.po.subject.*;
 import com.acg12.service.subject.SubjectService;
 import com.acg12.utils.pagination.PageInfo;
 import com.google.gson.Gson;
@@ -15,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.annotation.Resource;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -30,10 +26,54 @@ public class SubjectServiceImpl implements SubjectService {
     private SubjectStaffDao subjectStaffDao;
     @Resource
     private SubjectCrtDao subjectCrtDao;
+    @Resource
+    private SubjectOffprintDao subjectOffprintDao;
+    @Resource
+    private SubjectSongDao subjectSongDao;
 
     @Override
-    public List<SubjectEntity> queryBySubjectList(PageInfo pageInfo,String type, String typeName, String year, String month, String status) {
-        return subjectDao.queryBySubjectListPage(pageInfo, type,typeName, year, month, status);
+    public List<SubjectEntity> queryBySubjectList(PageInfo pageInfo, String type, String typeName, String year, String month, String status) {
+        return subjectDao.queryBySubjectListPage(pageInfo, type, typeName, year, month, status);
+    }
+
+    @Override
+    public List<SubjectEntity> queryBySubjectList(PageInfo pageInfo, String type, String typeName, String platform, String year) {
+        return subjectDao.queryBySubjectGameListPage(pageInfo, type, typeName, platform, year);
+    }
+
+    @Override
+    public SubjectInfoDto queryBySIdJoinDetail(int sId) {
+        SubjectInfoDto subjectInfoDto = new SubjectInfoDto();
+        SubjectEntity subjectEntity = subjectDao.queryBySId(sId);
+        if (subjectEntity == null) {
+            return subjectInfoDto;
+        }
+        List<SubjectDetailEntity> subjectDetailEntityList = subjectDetailsDao.queryBySId(subjectEntity.getsId());
+        List<SubjectStaffEntity> subjectStaffEntityList = subjectStaffDao.queryBySId(subjectEntity.getsId());
+        List<SubjectCrtEntity> subjectCrtEntityList = subjectCrtDao.queryBySId(subjectEntity.getsId());
+
+        subjectInfoDto.copy(subjectEntity);
+        subjectInfoDto.setDetails(subjectDetailEntityList);
+        subjectInfoDto.setStaff(subjectStaffEntityList);
+        subjectInfoDto.setCrt(subjectCrtEntityList);
+        Iterator<SubjectStaffEntity> iterator = subjectStaffEntityList.iterator();
+        while (iterator.hasNext()) {
+            SubjectStaffEntity subjectStaffEntity = iterator.next();
+            if (subjectStaffEntity.getJob().equals("作者") || subjectStaffEntity.getJob().equals("原作")) {
+                subjectInfoDto.setAuthor(subjectStaffEntity.getName());
+                iterator.remove();
+                continue;
+            }
+        }
+
+        if (subjectEntity.getType() == 1) {
+            List<SubjectOffprintEntity> subjectOffprintEntityList = subjectOffprintDao.queryBySId(subjectEntity.getsId());
+            subjectInfoDto.setOffprint(subjectOffprintEntityList);
+        } else if (subjectEntity.getType() == 3) {
+            List<SubjectSongEntity> subjectSongEntityList = subjectSongDao.queryBySId(subjectEntity.getsId());
+            subjectInfoDto.setSong(subjectSongEntityList);
+        }
+        return subjectInfoDto;
     }
 
     @Override

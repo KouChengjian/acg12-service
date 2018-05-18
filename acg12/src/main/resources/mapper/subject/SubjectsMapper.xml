@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.acg12.dao.subject.SubjectDao">
 
-    <resultMap id="baseResultMap" type="com.acg12.entity.po.subject.SubjectEntity">
-        <result column="subjectId" property="subjectId" jdbcType="INTEGER"/>
+    <resultMap id="subjectMap" type="com.acg12.entity.po.subject.SubjectEntity">
+        <id column="subjectId" property="subjectId" jdbcType="INTEGER"/>
         <result column="sId" property="sId" jdbcType="INTEGER"/>
         <result column="url" property="url" jdbcType="VARCHAR"/>
         <result column="type" property="type" jdbcType="INTEGER"/>
@@ -48,30 +48,91 @@
             </if>
 
             <if test="typeName != ''">
-                <if test="typeName > 0">
-                    typeName like "%"#{typeName}"%"
-                </if>
+                and typeName like "%"#{typeName}"%"
             </if>
 
             <if test="year != ''">
                 <if test="year > 0">
-                    year like "%"#{year}"%"
+                    and airDate like "%"#{year}"%"
                 </if>
             </if>
 
             <if test="month != ''">
                 <if test="month > 0">
-                    month like "%"#{month}"%"
+                    and airDate >
+                    or airDate like "%"#{month}"%"
                 </if>
             </if>
 
             <if test="status != ''">
                 <if test="status > 0">
-                    status like "%"#{status}"%"
+                    and status like "%"#{status}"%"
                 </if>
             </if>
 
         </where>
+    </select>
+
+    <!--<select id="queryBySubjectGameListPage" resultType="com.acg12.entity.po.subject.SubjectEntity">-->
+        <!--select * from acg_subject ,acg_subject_detail-->
+        <!--<where>-->
+            <!--acg_subject.subjectId  = acg_subject_detail.subjectId-->
+            <!--<if test="type != ''">-->
+                <!--<if test="type > 0">-->
+                    <!--and type like "%"#{type}"%"-->
+                <!--</if>-->
+            <!--</if>-->
+
+            <!--<if test="typeName != ''">-->
+                <!--and typeName like "%"#{typeName}"%"-->
+            <!--</if>-->
+
+            <!--<if test="year != ''">-->
+                <!--<if test="year > 0">-->
+                    <!--and airDate like "%"#{year}"%"-->
+                <!--</if>-->
+            <!--</if>-->
+
+            <!--&lt;!&ndash;<if test="platform != ''">&ndash;&gt;-->
+                <!--&lt;!&ndash;<if test="platform > 0">&ndash;&gt;-->
+                    <!--&lt;!&ndash;and acg_subject_detail.otherTitle = '平台'&ndash;&gt;-->
+                    <!--&lt;!&ndash;and acg_subject_detail.otherValue like "%"#{platform}"%"&ndash;&gt;-->
+                <!--&lt;!&ndash;</if>&ndash;&gt;-->
+            <!--&lt;!&ndash;</if>&ndash;&gt;-->
+
+        <!--</where>-->
+    <!--</select>-->
+
+    <select id="queryBySubjectGameListPage" resultType="com.acg12.entity.po.subject.SubjectEntity">
+        <choose>
+            <when test="platform == ''">
+                select * from acg_subject
+                where type like "%"#{type}"%"
+                <if test="typeName != ''">
+                    and typeName like "%"#{typeName}"%"
+                </if>
+                <if test="year != ''">
+                    <if test="year > 0">
+                        and airDate like "%"#{year}"%"
+                    </if>
+                </if>
+            </when>
+            <otherwise>
+                select acg_subject.subjectId ,acg_subject.sId ,acg_subject.type, acg_subject.image,acg_subject.name,acg_subject_detail.otherTitle ,acg_subject_detail.otherValue
+                from acg_subject
+                JOIN acg_subject_detail
+                ON acg_subject.type like "%"#{type}"%" and acg_subject_detail.otherTitle='平台' and  acg_subject_detail.otherValue like "%"#{platform}"%"
+                and acg_subject.sId = acg_subject_detail.sId
+                <if test="typeName != ''">
+                    and acg_subject.typeName like "%"#{typeName}"%"
+                </if>
+                <if test="year != ''">
+                    <if test="year > 0">
+                        and acg_subject.airDate like "%"#{year}"%"
+                    </if>
+                </if>
+            </otherwise>
+        </choose>
     </select>
 
     <select id="queryBySId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectEntity">
@@ -82,4 +143,12 @@
         select * from acg_subject where subjectId = #{subjectId}
     </select>
 
+    <select id="queryBySubjectIdJoinDetail" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectEntity">
+        select acg_person.personId, acg_person.name, acg_person.nameCn, acg_person.image, acg_person.height, acg_person.weight,
+        acg_person.alias, acg_person.type, acg_person.gender, acg_person.bloodtype, acg_person.birthday, acg_person_detail.summary
+        from acg_person
+        INNER JOIN acg_person_detail
+        ON acg_person.personId = acg_person_detail.personId AND acg_person_detail.personId = #{personId} AND acg_person_detail.summary IS  NOT NULL
+
+    </select>
 </mapper>

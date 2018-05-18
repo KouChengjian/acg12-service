@@ -33,6 +33,9 @@
     String personId = (String) request.getAttribute("personId");
     if (StringUtil.isNumeric(personId)) {
         result = personService.queryByPersonIdJoinDetail(Integer.valueOf(Integer.valueOf(personId).intValue()));
+        if (result == null){
+            result = new PersonEntity();
+        }
     }
 %>
 

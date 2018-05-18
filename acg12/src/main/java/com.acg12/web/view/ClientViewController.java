@@ -80,30 +80,40 @@ public class ClientViewController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/view/subject/{sId}")
+    public ModelAndView homeSubjectInfo(@PathVariable String sId) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/client/jsp/subject/home-subject-info.jsp");
+        modelAndView.addObject("sId" ,sId);
+        return modelAndView;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/view/subject/{sId}/images")
+    public ModelAndView homeSubjectImage(@PathVariable String sId) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/client/jsp/subject/home-subject-image.jsp");
+        modelAndView.addObject("sId" ,sId);
+        return modelAndView;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/view/subject/{sId}/boards")
+    public ModelAndView homeSubjectBoards(@PathVariable String sId) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/client/jsp/subject/home-subject-image.jsp");
+        modelAndView.addObject("sId" ,sId);
+        return modelAndView;
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/view/search")
     public ModelAndView search() {
         return new ModelAndView("/client/search.html");
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/subject")
-    public ModelAndView subjectInfo() {
-        return new ModelAndView("/client/subject-info.jsp");
-    }
 
-    @ResponseBody
-    @RequestMapping(value = "/subject/{sId}")
-    public ModelAndView homeSubjectInfo(@PathVariable String sId) {
-        return new ModelAndView("/client/home-person-info.html?sId=" + sId);
-    }
 
-    @ResponseBody
-    @RequestMapping(value = "/search1")
-    public ModelAndView index1() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("/client/search.jsp");
-        return mav;
-    }
 
     /**
      * @param @return

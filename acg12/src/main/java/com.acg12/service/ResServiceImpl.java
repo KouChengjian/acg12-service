@@ -4,8 +4,9 @@ import com.acg12.entity.po.Album;
 import com.acg12.entity.po.Palette;
 import com.acg12.entity.dto.Video;
 import com.acg12.service.base.ResService;
-import com.acg12.utils.http.ResRequest;
+import com.acg12.utils.crawler.http.ResRequest;
 import com.acg12.utils.StringUtil;
+import com.acg12.utils.crawler.huaban.HuaBanCrawler;
 import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,6 +18,43 @@ import java.util.List;
  * Created by kouchengjian on 2017/3/9.
  */
 public class ResServiceImpl implements ResService {
+
+    /**
+     * --------------------------------------花瓣网资源-------------------------------------------
+     */
+    @Cacheable(value = "resource_cache" , key = "'albumList_max=' + #max")
+    @Override
+    public List<Album> getHuaBanImages(String max) {
+        return HuaBanCrawler.getAlbumList(max);
+    }
+
+    @Cacheable(value = "resource_cache" , key = "'paletteList_max=' + #max")
+    @Override
+    public List<Palette> getHuaBanBoards(String max) {
+        return HuaBanCrawler.getPaletteList(max);
+    }
+
+    @Cacheable(value = "resource_cache" , key = "'paletteAlbumList_boardId=' + #boardId +',max=' + #max")
+    @Override
+    public List<Album> getHuaBanBoardsToImages(String boardId, String max) {
+        return HuaBanCrawler.getBoardsToAlbumList(boardId , max);
+    }
+
+    @Cacheable(value = "resource_cache" , key = "'searchAlbum_key=' + #key + ',Page=' + #page")
+    @Override
+    public List<Album> getHuaBanSearchImages(String key, String page) {
+        return HuaBanCrawler.getSearchAlbum(key , page);
+    }
+
+    @Cacheable(value = "resource_cache" , key = "'searchBoards_key=' + #key + ',Page=' + #page")
+    @Override
+    public List<Palette> getHuaBanSearchBoards(String key, String page) {
+        return HuaBanCrawler.getSearchPalette(key , page);
+    }
+
+
+
+
 
     /**
      * --------------------------------------自定义资源-------------------------------------------
@@ -58,71 +96,7 @@ public class ResServiceImpl implements ResService {
         return null;
     }
 
-    /**
-     * --------------------------------------花瓣网资源-------------------------------------------
-     */
-    @Cacheable(value = "resource_cache" , key = "'albumList_max=' + #max")
-    @Override
-    public JSONObject getAlbumList(String max) {
-        List<Album> albumList  = ResRequest.getAlbumList(max);
-        try {
-            Gson gson = new Gson();
-            JSONArray albumJson = new JSONArray(gson.toJson(albumList));
-            JSONObject array = new JSONObject();
-            array.put("album",albumJson);
-            return array;
-        } catch (Exception e) {
-            System.err.println("ResServiceImpl->getAlbumList()"
-                    +e.toString());
-        }
-        return null;
-    }
 
-    @Cacheable(value = "resource_cache" , key = "'paletteList_max=' + #max")
-    @Override
-    public JSONObject getBoardsList(String max) {
-        List<Palette> paletteList  = ResRequest.getPaletteList(max);
-        try {
-            Gson gson = new Gson();
-            JSONArray paletteJson = new JSONArray(gson.toJson(paletteList));
-            JSONObject array = new JSONObject();
-            array.put("palette",paletteJson);
-            return array;
-        } catch (Exception e) {
-            System.err.println("ResServiceImpl->getBoardsList()"
-                    +e.toString());
-        }
-        return null;
-    }
-
-    @Cacheable(value = "resource_cache" , key = "'paletteAlbumList_boardId=' + #boardId +',max=' + #max")
-    @Override
-    public JSONObject getBoardsToAlbumList(String boardId, String max) {
-        List<Album> albumList  = ResRequest.getBoardsToAlbumList(boardId , max);
-        try {
-            Gson gson = new Gson();
-            JSONArray paletteJson = new JSONArray(gson.toJson(albumList));
-            JSONObject array = new JSONObject();
-            array.put("album",paletteJson);
-            return array;
-        } catch (Exception e) {
-            System.err.println("ResServiceImpl->getBoardsToAlbumList()"
-                    +e.toString());
-        }
-        return null;
-    }
-
-    @Cacheable(value = "resource_cache" , key = "'searchAlbum_key=' + #key + ',Page=' + #page")
-    @Override
-    public JSONArray getSearchAlbum(String key, String page) {
-        return ResRequest.getSearchAlbum(key , page);
-    }
-
-    @Cacheable(value = "resource_cache" , key = "'searchBoards_key=' + #key + ',Page=' + #page")
-    @Override
-    public JSONArray getSearchBoards(String key, String page) {
-        return ResRequest.getSearchPalette(key , page);
-    }
 
     /**
      * --------------------------------------动漫之家资源--------------------------------------------

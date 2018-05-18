@@ -18,7 +18,7 @@ public class TestAnnotationAspect {
 
     }
 
-//    @Pointcut("execution(* com.acg12.web.admin.UserController.*(..))")
+//    @Pointcut("execution(* com.acg12.web.api.admin.UserController.*(..))")
     private void pointCutMethod1() {
     }
 

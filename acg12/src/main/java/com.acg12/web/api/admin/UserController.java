@@ -1,4 +1,4 @@
-package com.acg12.web.admin;
+package com.acg12.web.api.admin;
 
 import com.acg12.conf.Constant;
 import com.acg12.entity.dto.Result;
@@ -33,7 +33,7 @@ import java.util.List;
  */
 @Api(value = "UserController", description = "用户控制")
 @Controller
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/user")
 public class UserController {
 
     @Resource

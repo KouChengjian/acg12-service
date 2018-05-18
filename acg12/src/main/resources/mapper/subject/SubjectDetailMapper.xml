@@ -30,4 +30,8 @@
     <select id="queryBySubjectId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectDetailEntity">
         select * from acg_subject_detail where subjectId = #{subjectId}
     </select>
+
+    <select id="queryBySId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectDetailEntity">
+        select * from acg_subject_detail where sId = #{sId}
+    </select>
 </mapper>

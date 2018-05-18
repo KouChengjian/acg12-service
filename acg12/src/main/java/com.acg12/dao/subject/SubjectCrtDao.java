@@ -22,6 +22,8 @@ public interface SubjectCrtDao {
 
     List<SubjectCrtEntity> queryBySubjectId(int subjectId);
 
+    List<SubjectCrtEntity> queryBySId(int subjectId);
+
     SubjectCrtEntity queryByCharacterId(int characterId);
 
     SubjectCrtEntity queryByPersonId(int personId);

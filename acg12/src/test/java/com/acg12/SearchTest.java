@@ -1,42 +1,29 @@
 package com.acg12;
 
-import com.acg12.conf.Constant;
 import com.acg12.dao.character.CharacterActorsDao;
 import com.acg12.dao.character.CharacterDao;
 import com.acg12.dao.character.CharacterDetailDao;
 import com.acg12.dao.person.PersonDao;
 import com.acg12.dao.person.PersonDetailDao;
-import com.acg12.dao.subject.SubjectCrtDao;
-import com.acg12.dao.subject.SubjectDao;
-import com.acg12.dao.subject.SubjectDetailDao;
-import com.acg12.dao.subject.SubjectStaffDao;
+import com.acg12.dao.subject.*;
 import com.acg12.entity.po.character.CharacterActorsEntity;
 import com.acg12.entity.po.character.CharacterDetailEntity;
 import com.acg12.entity.po.character.CharacterEntity;
 import com.acg12.entity.po.person.PersonDetailEntity;
 import com.acg12.entity.po.person.PersonEntity;
-import com.acg12.entity.po.subject.SubjectCrtEntity;
-import com.acg12.entity.po.subject.SubjectDetailEntity;
-import com.acg12.entity.po.subject.SubjectEntity;
-import com.acg12.entity.po.subject.SubjectStaffEntity;
+import com.acg12.entity.po.subject.*;
 import com.acg12.factory.ConnectionFactory;
 import com.acg12.utils.JsonParse;
 import com.acg12.utils.StringUtil;
-import com.acg12.utils.TimeUtil;
 import com.acg12.utils.pagination.PageInfo;
-import com.acg12.utils.search.SearchUtli;
+import com.acg12.utils.crawler.search.SearchUtli;
 import com.google.gson.Gson;
-import com.mysql.jdbc.log.LogUtils;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -67,22 +54,20 @@ public class SearchTest {
 //        searchTest.testDb();
 
 
-
         long endTime = System.currentTimeMillis();
         float excTime = (float) (endTime - startTime) / 1000;
-        if(excTime < 60){
+        if (excTime < 60) {
             System.out.println("执行时间：" + excTime + "s");
-        } else if(excTime < 3600 ){
+        } else if (excTime < 3600) {
             System.out.println("执行时间：" + excTime / 60 + "分钟");
         } else {
             System.out.println("执行时间：" + excTime + "s");
         }
 
 
-
     }
 
-    private void testDb(){
+    private void testDb() {
 //        PersonDao personDao = ConnectionFactory.getMapper(PersonDao.class);
 //        PersonEntity personEntity = personDao.queryByPersonIdJoinDetail(10);
 //        System.out.println(personEntity.toString());
@@ -91,8 +76,9 @@ public class SearchTest {
 //        CharacterEntity characterEntity = characterDao.queryByCharacterIdJoinDetail(8);
 //        System.out.println(characterEntity.toString());
 
-//        SubjectDao subjectDao = ConnectionFactory.getMapper(SubjectDao.class);
-//        SubjectEntity subjectEntity = subjectDao.q
+        SubjectDao subjectDao = ConnectionFactory.getMapper(SubjectDao.class);
+        List<SubjectEntity> subjectEntityList = subjectDao.queryBySubjectGameListPage(new PageInfo(), "4", "", StringUtil.getPlatform("16"), "");
+        System.out.println("subjectEntityList = " + subjectEntityList.size());
     }
 
     // 查本地数据库
@@ -385,11 +371,13 @@ public class SearchTest {
 //        ConnectionFactory.close();
 //    }
 
-    /** ------------------------------------------保存-----------------------------------------*/
-
-    private SubjectEntity savaSubject(SubjectDao subjectDao ,SubjectDetailDao subjectDetailsDao ,SubjectStaffDao subjectStaffDao ,SubjectCrtDao subjectCrtDao ,JSONObject item) {
+    /**
+     * ------------------------------------------保存-----------------------------------------
+     */
+    private SubjectEntity savaSubject(SubjectDao subjectDao, SubjectDetailDao subjectDetailsDao, SubjectStaffDao subjectStaffDao
+            , SubjectCrtDao subjectCrtDao, SubjectOffprintDao subjectOffprintDao, SubjectSongDao subjectSongDao, JSONObject item) {
         int sId = JsonParse.getInt(item, "sId");
-        if(sId == 0){
+        if (sId == 0) {
             return null;
         }
         SubjectEntity subjectEntity = new SubjectEntity();
@@ -420,54 +408,46 @@ public class SearchTest {
         }
 
         List<SubjectDetailEntity> subjectDetailList = subjectDetailsDao.queryBySubjectId(subjectEntity.getSubjectId());
-        JSONArray subjectDetailsJSONArray = JsonParse.getJSONArray(item , "details");
+        JSONArray subjectDetailsJSONArray = JsonParse.getJSONArray(item, "details");
         if (subjectDetailList.size() == 0) {
             for (int i = 0, total = subjectDetailsJSONArray.length(); i < total; i++) {
-                JSONObject item1 = JsonParse.getJSONObject(subjectDetailsJSONArray , i);
+                JSONObject item1 = JsonParse.getJSONObject(subjectDetailsJSONArray, i);
                 SubjectDetailEntity subjectDetailEntity = new SubjectDetailEntity();
                 subjectDetailEntity.setSubjectId(subjectEntity.getSubjectId());
                 subjectDetailEntity.setsId(subjectEntity.getsId());
-                subjectDetailEntity.setOtherTitle(JsonParse.getString(item1 , "otherTitle"));
-                subjectDetailEntity.setOtherValue(JsonParse.getString(item1 , "otherValue"));
+                subjectDetailEntity.setOtherTitle(JsonParse.getString(item1, "otherTitle"));
+                subjectDetailEntity.setOtherValue(JsonParse.getString(item1, "otherValue"));
                 subjectDetailList.add(subjectDetailEntity);
             }
-            if (subjectDetailList.size() > 0){
+            if (subjectDetailList.size() > 0) {
                 subjectDetailsDao.insertList(subjectDetailList);
                 ConnectionFactory.commit();
             }
         }
 
         // 参与人物
-        List<SubjectStaffEntity> subjectStaffEntities = new ArrayList<>();
-        JSONArray staffJSONArray = JsonParse.getJSONArray(item , "staff");
+//        List<SubjectStaffEntity> subjectStaffEntities = new ArrayList<>();
+        JSONArray staffJSONArray = JsonParse.getJSONArray(item, "staff");
         for (int i = 0, total = staffJSONArray.length(); i < total; i++) {
-            JSONObject item1 = JsonParse.getJSONObject(staffJSONArray , i);
-//                PersonEntity personEntity = savaPerson(personDao, personDetailDao, item);
-
-            // 关联
+            JSONObject item1 = JsonParse.getJSONObject(staffJSONArray, i);
             SubjectStaffEntity subjectStaffEntity = subjectStaffDao.queryByStaffByPId(subjectEntity.getSubjectId(), JsonParse.getInt(item1, "pId"), JsonParse.getString(item1, "curJob"));
             if (subjectStaffEntity == null) {
                 subjectStaffEntity = new SubjectStaffEntity();
                 subjectStaffEntity.setSubjectId(subjectEntity.getSubjectId());
                 subjectStaffEntity.setsId(subjectEntity.getsId());
-//                    subjectStaffEntity.setPersonId(personEntity.getPersonId());
+                // subjectStaffEntity.setPersonId(personEntity.getPersonId());
                 subjectStaffEntity.setpId(JsonParse.getInt(item1, "pId"));
                 subjectStaffEntity.setName(JsonParse.getString(item1, "name"));
                 subjectStaffEntity.setJob(JsonParse.getString(item1, "curJob"));
-                subjectStaffEntities.add(subjectStaffEntity);
+                subjectStaffDao.insert(subjectStaffEntity);
+                ConnectionFactory.commit();
             }
-        }
-        if (subjectStaffEntities.size() != 0) {
-            subjectStaffDao.insertList(subjectStaffEntities);
         }
 
         // 人物
-        JSONArray crtJSONArray = JsonParse.getJSONArray(item , "crt");
+        JSONArray crtJSONArray = JsonParse.getJSONArray(item, "crt");
         for (int i = 0, total = crtJSONArray.length(); i < total; i++) {
-            JSONObject item1 = JsonParse.getJSONObject(crtJSONArray , i);
-//                CharacterEntity characterEntity = savaCharacter(personDao, personDetailDao, characterDao, characterDetailDao, characterActorsDao, item);
-
-            // 关联
+            JSONObject item1 = JsonParse.getJSONObject(crtJSONArray, i);
             SubjectCrtEntity subjectCrtEntity = subjectCrtDao.queryByCrt(subjectEntity.getSubjectId(), JsonParse.getInt(item1, "cId"));
             if (subjectCrtEntity == null) {
                 subjectCrtEntity = new SubjectCrtEntity();
@@ -478,7 +458,7 @@ public class SearchTest {
                 subjectCrtEntity.setNameCn(JsonParse.getString(item1, "nameCn"));
                 subjectCrtEntity.setRoleName(JsonParse.getString(item1, "role_name"));
                 subjectCrtEntity.setImage(JsonParse.getString(item1, "image"));
-                JSONObject actors = JsonParse.getJSONObject(item1 , "actors");
+                JSONObject actors = JsonParse.getJSONObject(item1, "actors");
                 subjectCrtEntity.setpId(JsonParse.getInt(actors, "pId"));
                 subjectCrtEntity.setpName(JsonParse.getString(actors, "name"));
                 subjectCrtEntity.setpNameCn(JsonParse.getString(actors, "nameCn"));
@@ -487,6 +467,42 @@ public class SearchTest {
                 ConnectionFactory.commit();
             }
         }
+
+        // 单行本
+        if (subjectEntity.getType() == 1) {
+            JSONArray offprintJSONArray = JsonParse.getJSONArray(item, "offprint");
+            for (int i = 0, total = offprintJSONArray.length(); i < total; i++) {
+                JSONObject item1 = JsonParse.getJSONObject(offprintJSONArray, i);
+                SubjectOffprintEntity subjectOffprintEntity = subjectOffprintDao.queryByOffprint(subjectEntity.getsId() , JsonParse.getInt(item1, "sId"));
+                if (subjectOffprintEntity == null) {
+                    subjectOffprintEntity = new SubjectOffprintEntity();
+                    subjectOffprintEntity.setSubjectId(subjectEntity.getSubjectId());
+                    subjectOffprintEntity.setsId(subjectEntity.getsId());
+                    subjectOffprintEntity.setId(JsonParse.getInt(item1, "sId"));
+                    subjectOffprintEntity.setImage(JsonParse.getString(item1, "pic"));
+                    subjectOffprintEntity.setName(JsonParse.getString(item1, "name"));
+                    subjectOffprintDao.insert(subjectOffprintEntity);
+                    ConnectionFactory.commit();
+                }
+            }
+        }
+        // 歌曲
+        else if (subjectEntity.getType() == 3) {
+            JSONArray songJSONArray = JsonParse.getJSONArray(item, "song");
+            for (int k = 0, total1 = songJSONArray.length(); k < total1; k++) {
+                String title = JsonParse.getString(songJSONArray, k);
+                SubjectSongEntity subjectSongEntity = subjectSongDao.queryBySong(subjectEntity.getsId() ,title);
+                if (subjectSongEntity == null) {
+                    subjectSongEntity = new SubjectSongEntity();
+                    subjectSongEntity.setSubjectId(subjectEntity.getSubjectId());
+                    subjectSongEntity.setsId(subjectEntity.getsId());
+                    subjectSongEntity.setTitle(title);
+                    subjectSongDao.insert(subjectSongEntity);
+                    ConnectionFactory.commit();
+                }
+            }
+        }
+
         return subjectEntity;
     }
 
@@ -563,13 +579,13 @@ public class SearchTest {
                 String s1 = JsonParse.getString(aliasJSONArray, i);
                 if (i == 0) {
                     alias += "" + s1;
-                    if(s1.length() < 400){
+                    if (s1.length() < 400) {
 
                     } else {
 
                     }
                 } else {
-                    if(s1.length() < 400){
+                    if (s1.length() < 400) {
                         alias += "、" + s1;
                     }
                 }
@@ -655,11 +671,11 @@ public class SearchTest {
                 characterEntity.setBloodtype(4);
             }
 
-            if(engineAllId.contains(characterEntity.getcId())){
+            if (engineAllId.contains(characterEntity.getcId())) {
                 characterEntity.setType("2");
-            } else if(shipAllId.contains(characterEntity.getcId())){
+            } else if (shipAllId.contains(characterEntity.getcId())) {
                 characterEntity.setType("3");
-            } else if(organizationAllId.contains(characterEntity.getcId())){
+            } else if (organizationAllId.contains(characterEntity.getcId())) {
                 characterEntity.setType("4");
             } else {
                 characterEntity.setType("1");
@@ -756,7 +772,8 @@ public class SearchTest {
 
 
     /**------------------------------------------爬虫实例-----------------------------------------------------*/
-    /** 32537条
+    /**
+     * 32537条
      * 1、先抓取三次元人物信息    关联词条
      * 2、在抓取二次元人物信息    关联词条
      * 3、抓取词条 关联词条
@@ -796,14 +813,16 @@ public class SearchTest {
         SubjectDetailDao subjectDetailsDao = ConnectionFactory.getMapper(SubjectDetailDao.class);
         SubjectStaffDao subjectStaffDao = ConnectionFactory.getMapper(SubjectStaffDao.class);
         SubjectCrtDao subjectCrtDao = ConnectionFactory.getMapper(SubjectCrtDao.class);
+        SubjectOffprintDao subjectOffprintDao = ConnectionFactory.getMapper(SubjectOffprintDao.class);
+        SubjectSongDao subjectSongDao = ConnectionFactory.getMapper(SubjectSongDao.class);
 
-        for (int i = 13, total = 13; i <= total; i++) {
+        for (int i = 151, total = 170; i <= total; i++) {
             JSONObject item = SearchUtli.getSubjectInfoSimple(i);
-            if(item == null){
+            if (item == null) {
                 continue;
             }
             System.out.println(item.toString());
-//            SubjectEntity subjectEntity = savaSubject(subjectDao, subjectDetailsDao, subjectStaffDao , subjectCrtDao , item);
+            SubjectEntity subjectEntity = savaSubject(subjectDao, subjectDetailsDao, subjectStaffDao , subjectCrtDao , subjectOffprintDao , subjectSongDao, item);
         }
         ConnectionFactory.close();
     }

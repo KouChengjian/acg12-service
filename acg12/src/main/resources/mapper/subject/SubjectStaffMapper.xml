@@ -52,6 +52,10 @@
         select * from acg_subject_staff where subjectId = #{subjectId}
     </select>
 
+    <select id="queryBySId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectStaffEntity">
+        select * from acg_subject_staff where sId = #{sId}
+    </select>
+
     <select id="queryByPersonId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectStaffEntity">
         select * from acg_subject_staff where personId = #{personId}
     </select>
