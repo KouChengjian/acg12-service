@@ -1,7 +1,7 @@
 package com.acg12.utils;
 
 import com.acg12.entity.dto.Result;
-import com.acg12.conf.Constant;
+import com.acg12.config.Constant;
 import com.acg12.entity.dto.subject.SubjectStaffDao;
 import com.acg12.entity.po.character.CharacterEntity;
 import com.acg12.entity.po.person.PersonEntity;

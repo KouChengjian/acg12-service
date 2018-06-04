@@ -1,7 +1,6 @@
 package com.acg12.web.api.res;
 
 import com.acg12.entity.dto.Result;
-import com.acg12.conf.Constant;
 import com.acg12.entity.dto.res.AlbumDto;
 import com.acg12.entity.dto.res.PaletteDto;
 import com.acg12.entity.po.Album;

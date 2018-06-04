@@ -1,14 +1,10 @@
 package com.acg12.utils.crawler.http;
 
-import com.acg12.conf.UrlConstant;
-import com.acg12.entity.po.Album;
-import com.acg12.entity.po.Palette;
+import com.acg12.config.UrlConstant;
 import com.acg12.entity.dto.Video;
-import com.acg12.conf.Constant;
+import com.acg12.config.Constant;
 import com.acg12.utils.StringUtil;
 import com.acg12.utils.TimeUtil;
-import com.acg12.utils.UrlEncoderUtil;
-import com.google.gson.Gson;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;

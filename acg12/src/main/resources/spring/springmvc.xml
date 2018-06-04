@@ -87,12 +87,12 @@
     <!--</bean>-->
 
     <!--全局异常处理器 只要实现HandlerExceptionResolver接口就是全局异常处理器-->
-    <bean class="com.acg12.utils.exception.CustomExceptionResolver"></bean>
+    <bean class="com.acg12.common.exception.CustomExceptionResolver"></bean>
 
     <!-- 将 springSwaggerConfig加载到spring容器 -->
-    <bean class="com.acg12.conf.SwaggerConfig"/>
+    <bean class="com.acg12.config.SwaggerConfig"/>
 
-    <bean class="com.acg12.conf.Config"/>
+    <bean class="com.acg12.config.Config"/>
 
     <!-- 缓存配置 -->
     <!-- 启用缓存注解功能(请将其配置在Spring主配置文件中) -->

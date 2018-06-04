@@ -1,6 +1,6 @@
 package com.acg12.web.api.admin;
 
-import com.acg12.conf.Constant;
+import com.acg12.config.Constant;
 import com.acg12.entity.dto.Result;
 import com.acg12.entity.po.user.Feedback;
 import com.acg12.entity.po.user.Update;

@@ -1,15 +1,13 @@
 package com.acg12.utils.aspect;
 
-import com.acg12.conf.Constant;
+import com.acg12.config.Constant;
 import com.acg12.entity.dto.Result;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
 
 /**
  * Created by Administrator on 2018/1/2.
@@ -27,13 +25,13 @@ public class UserAspect {
 
     }
 
-    @Pointcut("execution(* com.acg12.web.api.admin.UserController.*(..))")
+//    @Pointcut("execution(* com.acg12.web.api.admin.UserController.*(..))")
     private void pointCutMethod() {
 
     }
 
     //声明前置通知
-    @Before("pointCutMethod()")
+//    @Before("pointCutMethod()")
     public void doBefore() throws Exception {
         Result r = new Result();
         if(!r.verifySign(request)){

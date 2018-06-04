@@ -1,6 +1,6 @@
 package com.acg12.utils.crawler.search;
 
-import com.acg12.conf.search.SubjectStaffConstant;
+import com.acg12.config.search.SubjectStaffConstant;
 import com.acg12.utils.JsonParse;
 import com.acg12.utils.StringUtil;
 import com.acg12.utils.UrlEncoderUtil;

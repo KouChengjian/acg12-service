@@ -1,4 +1,4 @@
-package com.acg12.conf;
+package com.acg12.config;
 
 
 public class Constant {

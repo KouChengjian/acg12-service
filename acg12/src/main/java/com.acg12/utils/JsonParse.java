@@ -1,6 +1,6 @@
 package com.acg12.utils;
 
-import com.acg12.conf.search.SubjectStaffConstant;
+import com.acg12.config.search.SubjectStaffConstant;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

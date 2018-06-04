@@ -1,4 +1,4 @@
-package com.acg12.conf.search;
+package com.acg12.config.search;
 
 import java.util.HashMap;
 

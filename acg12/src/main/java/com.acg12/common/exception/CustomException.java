@@ -1,4 +1,4 @@
-package com.acg12.utils.exception;
+package com.acg12.common.exception;
 
 /**
  * <p>Title: CustomException</p>

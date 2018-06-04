@@ -1,4 +1,4 @@
-package com.acg12.conf;
+package com.acg12.config;
 
 /**
  * Created by Administrator on 2018/1/9.

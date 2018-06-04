@@ -1,6 +1,6 @@
 package com.acg12.entity.dto;
 
-import com.acg12.conf.Constant;
+import com.acg12.config.Constant;
 import com.acg12.utils.MD5Util;
 import com.google.gson.Gson;
 import org.json.JSONArray;
