@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.acg12.dao.character.CharacterDao">
+<mapper namespace="com.acg12.modules.app.dao.character.CharacterDao">
 
-    <resultMap id="baseResultMap" type="com.acg12.entity.po.character.CharacterEntity">
+    <resultMap id="baseResultMap" type="com.acg12.modules.app.entity.po.character.CharacterEntity">
         <result column="characterId" property="characterId" jdbcType="INTEGER"/>
         <result column="cId" property="cId" jdbcType="INTEGER"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
@@ -19,7 +19,7 @@
         <result column="updateTime" property="updateTime" jdbcType="INTEGER"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.acg12.entity.po.character.CharacterEntity" useGeneratedKeys="true"
+    <insert id="insert" parameterType="com.acg12.modules.app.entity.po.character.CharacterEntity" useGeneratedKeys="true"
             keyProperty="characterId">
         insert into acg_character (characterId , cId , name, nameCn, image, height, weight, alias, type, gender, bloodtype, birthday ,createTime, updateTime)
         values (#{characterId,jdbcType=INTEGER},#{cId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nameCn,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}
@@ -27,17 +27,17 @@
         , #{bloodtype,jdbcType=INTEGER}, #{birthday,jdbcType=VARCHAR}, #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER})
     </insert>
 
-    <update id="update" parameterType="com.acg12.entity.po.character.CharacterEntity">
+    <update id="update" parameterType="com.acg12.modules.app.entity.po.character.CharacterEntity">
         update acg_character set cId=#{cId},name=#{name},nameCn=#{nameCn},image=#{image},height=#{height},weight=#{weight},alias=#{alias}
         ,type=#{type},gender=#{gender},bloodtype=#{bloodtype},birthday=#{birthday},updateTime=#{updateTime}
         where characterId=#{characterId}
     </update>
 
-    <select id="queryList" resultType="com.acg12.entity.po.character.CharacterEntity">
+    <select id="queryList" resultType="com.acg12.modules.app.entity.po.character.CharacterEntity">
         select * from acg_character
     </select>
 
-    <select id="queryByCharacterListPage" resultType="com.acg12.entity.po.character.CharacterEntity">
+    <select id="queryByCharacterListPage" resultType="com.acg12.modules.app.entity.po.character.CharacterEntity">
         select * from acg_character
         <where>
             <if test="type != null">
@@ -61,15 +61,15 @@
         </where>
     </select>
 
-    <select id="queryByCId" parameterType="int" resultType="com.acg12.entity.po.character.CharacterEntity">
+    <select id="queryByCId" parameterType="int" resultType="com.acg12.modules.app.entity.po.character.CharacterEntity">
         select * from acg_character where cId = #{cId}
     </select>
 
-    <select id="queryByCharacterId" parameterType="int" resultType="com.acg12.entity.po.character.CharacterEntity">
+    <select id="queryByCharacterId" parameterType="int" resultType="com.acg12.modules.app.entity.po.character.CharacterEntity">
         select * from acg_character where characterId = #{characterId}
     </select>
 
-    <select id="queryByCharacterIdJoinDetail" parameterType="int" resultType="com.acg12.entity.po.character.CharacterEntity">
+    <select id="queryByCharacterIdJoinDetail" parameterType="int" resultType="com.acg12.modules.app.entity.po.character.CharacterEntity">
         select acg_character.characterId, acg_character.name, acg_character.nameCn, acg_character.image, acg_character.height, acg_character.weight,
         acg_character.alias, acg_character.type, acg_character.gender, acg_character.bloodtype, acg_character.birthday, acg_character_detail.summary
 

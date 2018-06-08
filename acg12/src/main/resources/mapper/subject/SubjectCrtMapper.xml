@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.acg12.dao.subject.SubjectCrtDao">
+<mapper namespace="com.acg12.modules.app.dao.subject.SubjectCrtDao">
 
-    <resultMap id="baseResultMap" type="com.acg12.entity.po.subject.SubjectCrtEntity">
+    <resultMap id="baseResultMap" type="com.acg12.modules.app.entity.po.subject.SubjectCrtEntity">
         <result column="subjectCrtId" property="subjectCrtId" jdbcType="INTEGER"/>
         <result column="subjectId" property="subjectId" jdbcType="INTEGER"/>
         <result column="sId" property="sId" jdbcType="INTEGER"/>
@@ -19,7 +19,7 @@
         <result column="updateTime" property="updateTime" jdbcType="INTEGER"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.acg12.entity.po.subject.SubjectCrtEntity" useGeneratedKeys="true"
+    <insert id="insert" parameterType="com.acg12.modules.app.entity.po.subject.SubjectCrtEntity" useGeneratedKeys="true"
             keyProperty="subjectCrtId">
         insert into acg_subject_crt (subjectCrtId , subjectId  ,sId ,cId ,pId, name, nameCn, roleName, image, pName , pNameCn ,pImage ,createTime, updateTime)
         values (#{subjectCrtId,jdbcType=INTEGER},#{subjectId,jdbcType=INTEGER},#{sId,jdbcType=INTEGER}, #{cId,jdbcType=INTEGER},#{pId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nameCn,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}
@@ -39,33 +39,33 @@
         </selectKey>
     </insert>
 
-    <update id="update" parameterType="com.acg12.entity.po.subject.SubjectCrtEntity">
+    <update id="update" parameterType="com.acg12.modules.app.entity.po.subject.SubjectCrtEntity">
         update acg_subject_crt set subjectId=#{subjectId},sId=#{sId},cId=#{cId},pId=#{pId},name=#{name},nameCn=#{nameCn},roleName=#{roleName},image=#{image}
         ,pName=#{pName},pNameCn=#{pNameCn},pImage=#{pImage},updateTime=#{updateTime}
         where subjectCrtId=#{subjectCrtId}
     </update>
 
-    <select id="queryBySubjectCrtId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectCrtEntity">
+    <select id="queryBySubjectCrtId" parameterType="int" resultType="com.acg12.modules.app.entity.po.subject.SubjectCrtEntity">
         select * from acg_subject_crt where subjectCrtId = #{subjectCrtId}
     </select>
 
-    <select id="queryByCrt" resultType="com.acg12.entity.po.subject.SubjectCrtEntity">
+    <select id="queryByCrt" resultType="com.acg12.modules.app.entity.po.subject.SubjectCrtEntity">
         select * from acg_subject_crt where subjectId = #{subjectId} and cId = #{cId}
     </select>
 
-    <select id="queryBySubjectId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectCrtEntity">
+    <select id="queryBySubjectId" parameterType="int" resultType="com.acg12.modules.app.entity.po.subject.SubjectCrtEntity">
         select * from acg_subject_crt where subjectId = #{subjectId}
     </select>
 
-    <select id="queryBySId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectCrtEntity">
+    <select id="queryBySId" parameterType="int" resultType="com.acg12.modules.app.entity.po.subject.SubjectCrtEntity">
         select * from acg_subject_crt where sId = #{sId}
     </select>
 
-    <select id="queryByCharacterId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectCrtEntity">
+    <select id="queryByCharacterId" parameterType="int" resultType="com.acg12.modules.app.entity.po.subject.SubjectCrtEntity">
         select * from acg_subject_crt where characterId = #{characterId}
     </select>
 
-    <select id="queryByPersonId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectCrtEntity">
+    <select id="queryByPersonId" parameterType="int" resultType="com.acg12.modules.app.entity.po.subject.SubjectCrtEntity">
         select * from acg_subject_crt where personId = #{personId}
     </select>
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.acg12.dao.subject.SubjectDetailDao">
+<mapper namespace="com.acg12.modules.app.dao.subject.SubjectDetailDao">
 
-    <resultMap id="subjectDetailResultMap" type="com.acg12.entity.po.subject.SubjectDetailEntity">
+    <resultMap id="subjectDetailResultMap" type="com.acg12.modules.app.entity.po.subject.SubjectDetailEntity">
         <result column="subjectDetailId" property="subjectDetailId" jdbcType="INTEGER"/>
         <result column="subjectId" property="subjectId" jdbcType="INTEGER"/>
         <result column="sId" property="sId" jdbcType="INTEGER"/>
@@ -23,15 +23,15 @@
         </selectKey>
     </insert>
 
-    <select id="queryBySubjectDetailId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectDetailEntity">
+    <select id="queryBySubjectDetailId" parameterType="int" resultType="com.acg12.modules.app.entity.po.subject.SubjectDetailEntity">
         select * from acg_subject_detail where subjectDetailId = #{subjectDetailId}
     </select>
 
-    <select id="queryBySubjectId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectDetailEntity">
+    <select id="queryBySubjectId" parameterType="int" resultType="com.acg12.modules.app.entity.po.subject.SubjectDetailEntity">
         select * from acg_subject_detail where subjectId = #{subjectId}
     </select>
 
-    <select id="queryBySId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectDetailEntity">
+    <select id="queryBySId" parameterType="int" resultType="com.acg12.modules.app.entity.po.subject.SubjectDetailEntity">
         select * from acg_subject_detail where sId = #{sId}
     </select>
 </mapper>

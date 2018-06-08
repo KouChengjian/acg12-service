@@ -11,12 +11,12 @@
     <!-- 配置别名 -->
     <typeAliases>
         <!-- 批量扫描别名 -->
-        <typeAlias alias="PageInfo" type="com.acg12.utils.pagination.PageInfo"/>
+        <typeAlias alias="PageInfo" type="com.acg12.common.pagination.PageInfo"/>
         <package name="com.acg12.entity.po"/>
     </typeAliases>
 
     <plugins>
-        <plugin interceptor="com.acg12.utils.pagination.PagePlugin">
+        <plugin interceptor="com.acg12.common.pagination.PagePlugin">
             <property name="dialect" value="mysql"/>
             <property name="pageSqlId" value=".*ListPage.*"/>
         </plugin>

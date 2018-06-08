@@ -1,22 +1,22 @@
 package com.acg12;
 
-import com.acg12.dao.character.CharacterActorsDao;
-import com.acg12.dao.character.CharacterDao;
-import com.acg12.dao.character.CharacterDetailDao;
-import com.acg12.dao.person.PersonDao;
-import com.acg12.dao.person.PersonDetailDao;
-import com.acg12.dao.subject.*;
-import com.acg12.entity.po.character.CharacterActorsEntity;
-import com.acg12.entity.po.character.CharacterDetailEntity;
-import com.acg12.entity.po.character.CharacterEntity;
-import com.acg12.entity.po.person.PersonDetailEntity;
-import com.acg12.entity.po.person.PersonEntity;
-import com.acg12.entity.po.subject.*;
+import com.acg12.modules.app.dao.character.CharacterActorsDao;
+import com.acg12.modules.app.dao.character.CharacterDao;
+import com.acg12.modules.app.dao.character.CharacterDetailDao;
+import com.acg12.modules.app.dao.person.PersonDao;
+import com.acg12.modules.app.dao.person.PersonDetailDao;
+import com.acg12.modules.app.dao.subject.*;
 import com.acg12.factory.ConnectionFactory;
-import com.acg12.utils.JsonParse;
-import com.acg12.utils.StringUtil;
-import com.acg12.utils.pagination.PageInfo;
-import com.acg12.utils.crawler.search.SearchUtli;
+import com.acg12.common.utils.JsonParse;
+import com.acg12.common.utils.StringUtil;
+import com.acg12.common.pagination.PageInfo;
+import com.acg12.common.utils.crawler.search.SearchUtli;
+import com.acg12.modules.app.entity.po.character.CharacterActorsEntity;
+import com.acg12.modules.app.entity.po.character.CharacterDetailEntity;
+import com.acg12.modules.app.entity.po.character.CharacterEntity;
+import com.acg12.modules.app.entity.po.person.PersonDetailEntity;
+import com.acg12.modules.app.entity.po.person.PersonEntity;
+import com.acg12.modules.app.entity.po.subject.*;
 import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -136,7 +136,7 @@ public class SearchTest {
 //    private void savaSubjectInfo() {
 //        SubjectDao bangumiDao = ConnectionFactory.getMapper(SubjectDao.class);
 //        SubjectDetailDao subjectDetailsDao = ConnectionFactory.getMapper(SubjectDetailDao.class);
-//        SubjectStaffDao subjectStaffDao = ConnectionFactory.getMapper(SubjectStaffDao.class);
+//        SubjectStaffDto subjectStaffDao = ConnectionFactory.getMapper(SubjectStaffDto.class);
 //        SubjectCrtDao subjectCrtDao = ConnectionFactory.getMapper(SubjectCrtDao.class);
 //
 //        PersonDao personDao = ConnectionFactory.getMapper(PersonDao.class);
@@ -259,7 +259,7 @@ public class SearchTest {
 //    private void savaSubjectInfo(int subjectId) {
 //        SubjectDao bangumiDao = ConnectionFactory.getMapper(SubjectDao.class);
 //        SubjectDetailDao subjectDetailsDao = ConnectionFactory.getMapper(SubjectDetailDao.class);
-//        SubjectStaffDao subjectStaffDao = ConnectionFactory.getMapper(SubjectStaffDao.class);
+//        SubjectStaffDto subjectStaffDao = ConnectionFactory.getMapper(SubjectStaffDto.class);
 //        SubjectCrtDao subjectCrtDao = ConnectionFactory.getMapper(SubjectCrtDao.class);
 //
 //        PersonDao personDao = ConnectionFactory.getMapper(PersonDao.class);

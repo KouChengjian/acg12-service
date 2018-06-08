@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.acg12.dao.character.CharacterActorsDao">
+<mapper namespace="com.acg12.modules.app.dao.character.CharacterActorsDao">
 
-    <resultMap id="baseResultMap" type="com.acg12.entity.po.character.CharacterActorsEntity">
+    <resultMap id="baseResultMap" type="com.acg12.modules.app.entity.po.character.CharacterActorsEntity">
         <result column="characterActorsId" property="characterActorsId" jdbcType="INTEGER"/>
         <result column="characterId" property="characterId" jdbcType="INTEGER"/>
         <result column="personId" property="personId" jdbcType="INTEGER"/>
@@ -14,7 +14,7 @@
         <result column="updateTime" property="updateTime" jdbcType="INTEGER"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.acg12.entity.po.character.CharacterActorsEntity" useGeneratedKeys="true"
+    <insert id="insert" parameterType="com.acg12.modules.app.entity.po.character.CharacterActorsEntity" useGeneratedKeys="true"
             keyProperty="characterActorsId">
         insert into acg_character_actors (characterActorsId , characterId , personId, name, nameCn, image, gender, createTime, updateTime)
         values (#{characterActorsId,jdbcType=INTEGER},#{characterId,jdbcType=INTEGER}, #{personId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nameCn,jdbcType=VARCHAR}
@@ -35,25 +35,25 @@
         </selectKey>
     </insert>
 
-    <update id="update" parameterType="com.acg12.entity.po.character.CharacterActorsEntity">
+    <update id="update" parameterType="com.acg12.modules.app.entity.po.character.CharacterActorsEntity">
         update acg_character_actors set characterId=#{characterId},personId=#{personId},name=#{name},nameCn=#{nameCn},image=#{image}
         ,gender=#{gender},updateTime=#{updateTime}
         where characterActorsId=#{characterActorsId}
     </update>
 
-    <select id="queryByCharacterActorsId" parameterType="int" resultType="com.acg12.entity.po.character.CharacterActorsEntity">
+    <select id="queryByCharacterActorsId" parameterType="int" resultType="com.acg12.modules.app.entity.po.character.CharacterActorsEntity">
         select * from acg_character_actors where characterActorsId = #{characterActorsId}
     </select>
 
-    <select id="queryByActors" resultType="com.acg12.entity.po.character.CharacterActorsEntity">
+    <select id="queryByActors" resultType="com.acg12.modules.app.entity.po.character.CharacterActorsEntity">
         select * from acg_character_actors where characterId = #{characterId} and personId = #{personId}
     </select>
 
-    <select id="queryByCharacterId" parameterType="int" resultType="com.acg12.entity.po.character.CharacterActorsEntity">
+    <select id="queryByCharacterId" parameterType="int" resultType="com.acg12.modules.app.entity.po.character.CharacterActorsEntity">
         select * from acg_character_actors where characterId = #{characterId}
     </select>
 
-    <select id="queryByPersonId" parameterType="int" resultType="com.acg12.entity.po.character.CharacterActorsEntity">
+    <select id="queryByPersonId" parameterType="int" resultType="com.acg12.modules.app.entity.po.character.CharacterActorsEntity">
         select * from acg_character_actors where personId = #{personId}
     </select>
 

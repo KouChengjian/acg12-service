@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.acg12.dao.BangumiDao">
+<mapper namespace="com.acg12.modules.app.dao.BangumiDao">
 
-    <resultMap id="BaseResultMap" type="com.acg12.entity.po.Bangumi">
+    <resultMap id="BaseResultMap" type="com.acg12.modules.app.entity.po.Bangumi">
         <result column="bangumitId" property="bangumitId" jdbcType="INTEGER"/>
         <result column="platform" property="platform" jdbcType="VARCHAR"/>
         <result column="title" property="title" jdbcType="VARCHAR"/>
@@ -19,7 +19,7 @@
         <result column="updateTime" property="updateTime" jdbcType="INTEGER"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.acg12.entity.po.Bangumi" useGeneratedKeys="true" keyProperty="bangumitId">
+    <insert id="insert" parameterType="com.acg12.modules.app.entity.po.Bangumi" useGeneratedKeys="true" keyProperty="bangumitId">
         insert into acg_bangumi (bangumitId , platform , title, cover, tags, intro, voiceActor, nowStatus, totalCount, serializeWeek, serializeTime, startPlayTime, createTime, updateTime)
         values (#{bangumitId,jdbcType=INTEGER},#{platform,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{cover,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR}, #{intro,jdbcType=VARCHAR}
         , #{voiceActor,jdbcType=VARCHAR}, #{nowStatus,jdbcType=VARCHAR}, #{totalCount,jdbcType=VARCHAR}, #{serializeWeek,jdbcType=VARCHAR}, #{serializeTime,jdbcType=INTEGER}
@@ -38,13 +38,13 @@
         </foreach>
     </insert>
 
-    <update id="update" parameterType="com.acg12.entity.po.Bangumi">
+    <update id="update" parameterType="com.acg12.modules.app.entity.po.Bangumi">
         update acg_bangumi set platform=#{platform},title=#{title},cover=#{cover},tags=#{tags},intro=#{intro},voiceActor=#{voiceActor},nowStatus=#{nowStatus}
         ,totalCount=#{totalCount},serializeWeek=#{serializeWeek},serializeTime=#{serializeTime},startPlayTime=#{startPlayTime},updateTime=#{updateTime}
         where bangumitId=#{bangumitId}
     </update>
 
-    <select id="queryList" resultType="com.acg12.entity.po.Bangumi">
+    <select id="queryList" resultType="com.acg12.modules.app.entity.po.Bangumi">
         select * from acg_bangumi
     </select>
 

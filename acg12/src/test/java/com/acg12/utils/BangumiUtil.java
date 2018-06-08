@@ -1,19 +1,19 @@
 package com.acg12.utils;
 
-import com.acg12.dao.BangumiDao;
-import com.acg12.dao.TagDao;
-import com.acg12.dao.VideoDao;
-import com.acg12.entity.po.Bangumi;
-import com.acg12.entity.po.Tag;
-import com.acg12.entity.po.Video;
+import com.acg12.common.utils.StringUtil;
+import com.acg12.modules.app.dao.BangumiDao;
+import com.acg12.modules.app.dao.TagDao;
+import com.acg12.modules.app.dao.VideoDao;
 import com.acg12.factory.ConnectionFactory;
+import com.acg12.modules.app.entity.po.Bangumi;
+import com.acg12.modules.app.entity.po.Tag;
+import com.acg12.modules.app.entity.po.Video;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -1,9 +1,9 @@
 <%@ page import="org.springframework.context.ApplicationContext" %>
 <%@ page import="org.springframework.web.context.support.WebApplicationContextUtils" %>
-<%@ page import="com.acg12.service.person.PersonService" %>
-<%@ page import="com.acg12.service.person.impl.PersonServiceImpl" %>
+<%@ page import="com.acg12.modules.app.service.person.PersonService" %>
+<%@ page import="com.acg12.modules.app.service.person.impl.PersonServiceImpl" %>
 <%@ page import="org.json.JSONObject" %>
-<%@ page import="com.acg12.utils.StringUtil" %>
+<%@ page import="com.acg12.common.utils.StringUtil" %>
 <%@ page import="com.acg12.entity.po.person.PersonEntity" %>
 <%--
   Created by IntelliJ IDEA.

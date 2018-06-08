@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.acg12.dao.subject.SubjectDao">
+<mapper namespace="com.acg12.modules.app.dao.subject.SubjectDao">
 
-    <resultMap id="subjectMap" type="com.acg12.entity.po.subject.SubjectEntity">
+    <resultMap id="subjectMap" type="com.acg12.modules.app.entity.po.subject.SubjectEntity">
         <id column="subjectId" property="subjectId" jdbcType="INTEGER"/>
         <result column="sId" property="sId" jdbcType="INTEGER"/>
         <result column="url" property="url" jdbcType="VARCHAR"/>
@@ -20,7 +20,7 @@
         <result column="updateTime" property="updateTime" jdbcType="INTEGER"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.acg12.entity.po.subject.SubjectEntity" useGeneratedKeys="true"
+    <insert id="insert" parameterType="com.acg12.modules.app.entity.po.subject.SubjectEntity" useGeneratedKeys="true"
             keyProperty="subjectId">
         insert into acg_subject (subjectId , sId , url, type, typeName, name, nameCn, summary, image, epsCount, airDate, airWeekday, endDate ,createTime, updateTime)
         values (#{subjectId,jdbcType=INTEGER},#{sId,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{nameCn,jdbcType=VARCHAR}
@@ -28,17 +28,17 @@
         , #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER})
     </insert>
 
-    <update id="update" parameterType="com.acg12.entity.po.subject.SubjectEntity">
+    <update id="update" parameterType="com.acg12.modules.app.entity.po.subject.SubjectEntity">
         update acg_subject set sId=#{sId} ,url=#{url} ,type=#{type} ,typeName=#{typeName} ,name=#{name} ,nameCn=#{nameCn} ,summary=#{summary} ,image=#{image}
         ,epsCount=#{epsCount} ,airDate=#{airDate} ,airWeekday=#{airWeekday} ,endDate=#{endDate} ,updateTime=#{updateTime}
         where subjectId=#{subjectId}
     </update>
 
-    <select id="queryList" resultType="com.acg12.entity.po.subject.SubjectEntity">
+    <select id="queryList" resultType="com.acg12.modules.app.entity.po.subject.SubjectEntity">
         select * from acg_subject
     </select>
 
-    <select id="queryBySubjectListPage" resultType="com.acg12.entity.po.subject.SubjectEntity">
+    <select id="queryBySubjectListPage" resultType="com.acg12.modules.app.entity.po.subject.SubjectEntity">
         select * from acg_subject
         <where>
             <if test="type != ''">
@@ -73,7 +73,7 @@
         </where>
     </select>
 
-    <!--<select id="queryBySubjectGameListPage" resultType="com.acg12.entity.po.subject.SubjectEntity">-->
+    <!--<select id="queryBySubjectGameListPage" resultType="com.acg12.modules.app.entity.po.subject.SubjectEntity">-->
         <!--select * from acg_subject ,acg_subject_detail-->
         <!--<where>-->
             <!--acg_subject.subjectId  = acg_subject_detail.subjectId-->
@@ -103,7 +103,7 @@
         <!--</where>-->
     <!--</select>-->
 
-    <select id="queryBySubjectGameListPage" resultType="com.acg12.entity.po.subject.SubjectEntity">
+    <select id="queryBySubjectGameListPage" resultType="com.acg12.modules.app.entity.po.subject.SubjectEntity">
         <choose>
             <when test="platform == ''">
                 select * from acg_subject
@@ -135,15 +135,15 @@
         </choose>
     </select>
 
-    <select id="queryBySId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectEntity">
+    <select id="queryBySId" parameterType="int" resultType="com.acg12.modules.app.entity.po.subject.SubjectEntity">
         select * from acg_subject where sId = #{sId}
     </select>
 
-    <select id="queryBySubjectId" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectEntity">
+    <select id="queryBySubjectId" parameterType="int" resultType="com.acg12.modules.app.entity.po.subject.SubjectEntity">
         select * from acg_subject where subjectId = #{subjectId}
     </select>
 
-    <select id="queryBySubjectIdJoinDetail" parameterType="int" resultType="com.acg12.entity.po.subject.SubjectEntity">
+    <select id="queryBySubjectIdJoinDetail" parameterType="int" resultType="com.acg12.modules.app.entity.po.subject.SubjectEntity">
         select acg_person.personId, acg_person.name, acg_person.nameCn, acg_person.image, acg_person.height, acg_person.weight,
         acg_person.alias, acg_person.type, acg_person.gender, acg_person.bloodtype, acg_person.birthday, acg_person_detail.summary
         from acg_person

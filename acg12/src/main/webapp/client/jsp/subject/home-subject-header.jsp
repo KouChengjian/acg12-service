@@ -1,14 +1,14 @@
 <%@ page import="com.acg12.entity.dto.subject.SubjectInfoDto" %>
 <%@ page import="com.acg12.entity.dto.subject.SubjectStaffDao" %>
-<%@ page import="com.acg12.utils.StringUtil" %>
+<%@ page import="com.acg12.common.utils.StringUtil" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.acg12.entity.po.subject.SubjectDetailEntity" %>
 <%@ page import="com.acg12.entity.po.subject.SubjectCrtEntity" %>
 <%@ page import="org.springframework.web.context.support.WebApplicationContextUtils" %>
 <%@ page import="org.springframework.context.ApplicationContext" %>
-<%@ page import="com.acg12.service.subject.SubjectService" %>
-<%@ page import="com.acg12.service.subject.impl.SubjectServiceImpl" %><%--
+<%@ page import="com.acg12.modules.app.service.subject.SubjectService" %>
+<%@ page import="com.acg12.modules.app.service.subject.impl.SubjectServiceImpl" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 2018/5/17

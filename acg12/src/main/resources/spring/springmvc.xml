@@ -22,8 +22,8 @@
 
     <!-- 面向切面 -->
     <aop:aspectj-autoproxy/>
-    <bean id="aspectBean" class="com.acg12.utils.aspect.TestAnnotationAspect"/>
-    <bean id="userAspect" class="com.acg12.utils.aspect.UserAspect"/>
+    <bean id="aspectBean" class="com.acg12.common.aspect.TestAnnotationAspect"/>
+    <bean id="userAspect" class="com.acg12.common.aspect.UserAspect"/>
 
     <!--开启这个配置，spring才能识别@Scheduled注解   -->
     <task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
