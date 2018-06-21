@@ -7,8 +7,8 @@
 <%@ page import="com.acg12.entity.po.subject.SubjectCrtEntity" %>
 <%@ page import="org.springframework.web.context.support.WebApplicationContextUtils" %>
 <%@ page import="org.springframework.context.ApplicationContext" %>
-<%@ page import="com.acg12.modules.app.service.subject.SubjectService" %>
-<%@ page import="com.acg12.modules.app.service.subject.impl.SubjectServiceImpl" %><%--
+<%@ page import="com.acg12.modules.app.service.SubjectService" %>
+<%@ page import="com.acg12.modules.app.service.impl.SubjectServiceImpl" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 2018/5/17

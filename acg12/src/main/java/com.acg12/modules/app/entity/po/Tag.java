@@ -6,6 +6,7 @@ package com.acg12.modules.app.entity.po;
 public class Tag {
     private Integer tagId;
     private String tag;
+    private String image;
     private Integer createTime;
 
     public Tag(){
@@ -37,4 +38,11 @@ public class Tag {
         this.createTime = createTime;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }

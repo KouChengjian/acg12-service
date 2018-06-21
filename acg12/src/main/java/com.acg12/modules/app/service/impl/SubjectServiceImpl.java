@@ -1,10 +1,10 @@
-package com.acg12.modules.app.service.subject.impl;
+package com.acg12.modules.app.service.impl;
 
 import com.acg12.common.pagination.PageInfo;
 import com.acg12.modules.app.dao.subject.*;
 import com.acg12.modules.app.entity.dto.subject.SubjectInfoDto;
 import com.acg12.modules.app.entity.po.subject.*;
-import com.acg12.modules.app.service.subject.SubjectService;
+import com.acg12.modules.app.service.SubjectService;
 import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;

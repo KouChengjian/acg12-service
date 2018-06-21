@@ -3,6 +3,7 @@ package com.acg12.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -24,7 +25,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(buildApiInf())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.acg12.web"))//controller路径
+                .apis(RequestHandlerSelectors.basePackage("com.acg12"))//controller路径
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -33,7 +34,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("漫友")
 //                .termsOfServiceUrl("http://blog.csdn.net/u014231523网址链接")
-                .description("v3.0.2")
+                .description("v3.2.0")
 //                .contact(new Contact("diaoxingguo", "http://blog.csdn.net/u014231523", "diaoxingguo@163.com"))
                 .build();
 

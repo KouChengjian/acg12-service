@@ -1,4 +1,4 @@
-package com.acg12.modules.app.entity.dto.res;
+package com.acg12.modules.app.entity.dto;
 
 
 import com.acg12.modules.app.entity.po.Palette;

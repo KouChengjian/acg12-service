@@ -2,7 +2,7 @@ package com.acg12;
 
 import com.acg12.modules.app.dao.BangumiDao;
 import com.acg12.factory.ConnectionFactory;
-import com.acg12.common.utils.crawler.http.ResRequest;
+import com.acg12.common.utils.crawler.BiliBiliCrawler;
 import com.acg12.common.utils.StringUtil;
 import com.acg12.modules.app.entity.dto.Video;
 import com.acg12.modules.app.entity.po.Bangumi;
@@ -36,14 +36,14 @@ public class BangumiTest {
 //            e.printStackTrace();
 //        }
 
-//        System.err.println(ResRequest.getNewList("0").toString());
+//        System.err.println(BiliBiliCrawler.getNewList("0").toString());
 
         try {
             String title = URLEncoder.encode("夏娜", "UTF-8");
 //            System.err.println(title);
-//            ResRequest.getSearchKeyList(title);
-            ResRequest.getSearchKeyInfo(title);
-//            JSONArray j =  ResRequest.getSearchPalette(title, 1+"");
+//            BiliBiliCrawler.getSearchKeyList(title);
+//            BiliBiliCrawler.gettMoeGirlSearchKeyInfo(title);
+//            JSONArray j =  BiliBiliCrawler.getSearchPalette(title, 1+"");
 //            System.err.println(j.length()+"==");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -102,7 +102,7 @@ public class BangumiTest {
                     bangumi.setSerializeTime(item.getInt("update_time"));
                     bangumi.setStartPlayTime(item.getInt("pub_time"));
 
-                    Video video = ResRequest.getDangumiInfo(item.getString("season_id"));
+                    Video video = BiliBiliCrawler.getDangumiInfo(item.getString("season_id"));
                     System.out.println(video.toString());
                     bangumi.setTags(video.getSbutitle());
                     bangumi.setIntro(video.getDescription());

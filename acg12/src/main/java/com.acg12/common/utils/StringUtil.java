@@ -66,39 +66,7 @@ public class StringUtil {
         return json.toString();
     }
 
-    public static String getMoreVideoUrl(String type) {
-        String url = "";
-        if (type.equals("all-7-33")) { // 排行
-            url = Constant.URL_RANK_BANGUMI;
-        } else if (type.equals("all-7-1")) {
-            url = Constant.URL_RANK_DOUGA;
-        } else if (type.equals("all-7-3")) {
-            url = Constant.URL_RANK_MUSIC;
-        } else if (type.equals("all-7-5")) {
-            url = Constant.URL_RANK_ENT;
-        } else if (type.equals("all-7-119")) {
-            url = Constant.URL_RANK_KICHIKU;
-        } else if (type.equals("default-33")) { // 番剧
-            url = Constant.URL_BANKUN_SERIALIZE;
-        } else if (type.equals("default-32")) {
-            url = Constant.URL_BANKUN_END;
-        } else if (type.equals("default-51")) {
-            url = Constant.URL_BANKUN_MESSAGE;
-        } else if (type.equals("default-152")) {
-            url = Constant.URL_BANKUN_OFFICIAL;
-        } else if (type.equals("default-153")) {
-            url = Constant.URL_BANKUN_DOMESTIC;
-        } else if (type.equals("default-24")) { // 动漫
-            url = Constant.URL_DONGMAN_MAD_AMV;
-        } else if (type.equals("default-25")) {
-            url = Constant.URL_DONGMAN_MMD_3D;
-        } else if (type.equals("default-47")) {
-            url = Constant.URL_DONGMAN_SHORT_FILM;
-        } else if (type.equals("default-27")) {
-            url = Constant.URL_DONGMAN_SYNTHESIZE;
-        }
-        return url;
-    }
+
 
     /**
      * 压缩获取数据

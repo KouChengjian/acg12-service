@@ -1,4 +1,4 @@
-package com.acg12.common.utils.crawler.http;
+package com.acg12.common.utils.crawler;
 
 import com.acg12.config.UrlConstant;
 import com.acg12.config.Constant;
@@ -24,116 +24,46 @@ import java.util.List;
 /**
  * Created by kouchengjian on 2017/3/7.
  */
-public class ResRequest {
+public class BiliBiliCrawler {
 
-    /**
-     * --------------------------------------动漫之家资源--------------------------------------------
-     */
+    // 主页-横幅
+    public static final String URL_HOME_BRAND = "http://bangumi.bilibili.com/jsonp/slideshow/34.ver";
+    // 主页-内容
+    public static final String URL_HOME_CONTENT = "http://www.bilibili.com/index/ding.json";
+    // 主页-更多内容 - 排行榜 (7天)
+    public static final String URL_RANK_BANGUMI = "http://www.bilibili.com/index/rank/all-7-33.json";  // 新番（7天）
+    public static final String URL_RANK_DOUGA = "http://www.bilibili.com/index/rank/all-7-1.json";   // 动画（7天）
+    public static final String URL_RANK_MUSIC = "http://www.bilibili.com/index/rank/all-7-3.json";   // 音乐（7天）
+    public static final String URL_RANK_ENT = "http://www.bilibili.com/index/rank/all-7-5.json";   // 娱乐（7天）
+    public static final String URL_RANK_KICHIKU = "http://www.bilibili.com/index/rank/all-7-119.json"; // 鬼畜（7天）
+    // 主页-更多内容 - 番剧
+    public static final String URL_BANKUN_SERIALIZE = "http://www.bilibili.com/list/default-33-";  // 连载动画
+    public static final String URL_BANKUN_END = "http://www.bilibili.com/list/default-32-";  // 完结动画
+    public static final String URL_BANKUN_MESSAGE = "http://www.bilibili.com/list/default-51-";  // 资讯
+    public static final String URL_BANKUN_OFFICIAL = "http://www.bilibili.com/list/default-152-"; // 官方延伸
+    public static final String URL_BANKUN_DOMESTIC = "http://www.bilibili.com/list/default-153-"; // 国产动画
+    // 主页-更多内容 - 动漫
+    public static final String URL_DONGMAN_MAD_AMV = "http://www.bilibili.com/list/default-24-"; // MAD·AMV
+    public static final String URL_DONGMAN_MMD_3D = "http://www.bilibili.com/list/default-25-"; // MMD·3D
+    public static final String URL_DONGMAN_SHORT_FILM = "http://www.bilibili.com/list/default-47-"; // 动画短片
+    public static final String URL_DONGMAN_SYNTHESIZE = "http://www.bilibili.com/list/default-27-"; // 综合
+    // 主页-视频详细信息
+    public static final String URL_HOME_VIDEO_INFO = "http://www.bilibili.com/video/av%s/";//详细信息
+    // 发现 - 所有番剧              http://www.bilibili.com/api_proxy?app=bangumi&indexType=0&pagesize=20&action=site_season_index&page=                        http://bangumi.bilibili.com/web_api/season/index_global?page=1&page_size=20&version=0&is_finish=0&start_year=0&tag_id=&index_type=0&index_sort=0&quarter=0
+    public static final String URL_FIND_BANKUN = "http://bangumi.bilibili.com/web_api/season/index_global?page_size=20&version=0&is_finish=0&start_year=0&tag_id=&index_type=0&index_sort=0&quarter=0&page=";//所有的动画资源
+    // 发现 - 番剧详情
+    public static final String URL_FIND_BANKUN_INFO = "http://bangumi.bilibili.com/anime/";
+    public static final String URL_FIND_BANKUN_INFO_2 = "http://bangumi.bilibili.com/jsonp/seasoninfo/%s.ver?callback=seasonListCallback&jsonp=jsonp&_=1494466313782";
+    // 发现 - 获取AV
+    public static final String URL_FIND_BANKUN_INFO_AV = "http://bangumi.bilibili.com/web_api/episode/%s.json"; // http://bangumi.bilibili.com/web_api/episode/96703.json
+    // 搜索 - 视频
+    public static final String URL_SEARCH_VIDEO = "http://search.bilibili.com/video?";
+    // 搜索 - 番剧
+    public static final String URL_SEARCH_SERIES = "http://search.bilibili.com/bangumi?";
 
-    // 获取每日快报
-    public static synchronized JSONArray getNewList(String pager) {
-        try {
-            Document document = Jsoup.connect(String.format(UrlConstant.URL_DONGMANZHIJIA_NEWS, pager)).ignoreContentType(true)
-                    .data("jquery", "java").userAgent("Mozilla")
-                    .cookie("auth", "token").timeout(50000).get();
-            String content = document.body().text();
-            if (content == null || content.isEmpty()) {
-                return null;
-            }
-            JSONArray jsonArray = new JSONArray(content);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                jsonObject.remove("col_pic_url");
-                jsonObject.remove("comment_amount");
-                jsonObject.remove("author_uid");
-                jsonObject.remove("is_foreign");
-                jsonObject.remove("foreign_url");
-                jsonObject.remove("nickname");
-                jsonObject.remove("author_id");
-                jsonObject.remove("foreign_url");
-                jsonObject.remove("cover");
-                jsonObject.remove("from_name");
-                jsonObject.remove("from_url");
-                String row_pic_url = jsonObject.getString("row_pic_url");
-//                row_pic_url = row_pic_url.replace("http://","https://");
-                jsonObject.remove("row_pic_url");
-                jsonObject.put("pic_url", row_pic_url);
-            }
-            return jsonArray;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+    // 通过av号获取弹幕和视频地址 http://api.bilibili.com/playurl?callback=callbackfunction&aid=9520883&page=1&platform=html5&quality=1&vtype=mp4&type=json
+    public static final String URL_PLAY_VIDEO_INFO = "http://api.bilibili.com/playurl?callback=callbackfunction&aid=%s&page=1&platform=html5&quality=1&vtype=mp4&type=json";
 
-    //
-
-    /**
-     * --------------------------------------萌娘百科资源--------------------------------------------
-     */
-    // 萌娘百科 搜索
-    public static synchronized JSONArray getSearchKeyList(String title) {
-        JSONArray jsonArray = new JSONArray();
-        try {
-            Document document = Jsoup.connect(UrlConstant.URL_MENGNIANBAIKE_SEARCH + title).ignoreContentType(true)
-                    .data("jquery", "java").userAgent("Mozilla")
-                    .cookie("auth", "token").timeout(50000).get();
-            String content = document.body().text();
-            if (content == null || content.isEmpty()) {
-                return jsonArray;
-            }
-            System.err.println(content.toString());
-
-            JSONObject jsonObject = new JSONObject(content);
-            JSONObject query = jsonObject.getJSONObject("query");
-            JSONObject pages = query.getJSONObject("pages");
-            Iterator iterator = pages.keys();
-            while (iterator.hasNext()) {
-                String key = (String) iterator.next();
-                JSONObject value = pages.getJSONObject(key);
-                if (!value.isNull("thumbnail")) {
-                    JSONObject thumbnai = value.getJSONObject("thumbnail");
-                    String source = thumbnai.getString("source");
-                    value.remove("thumbnail");
-                    value.put("source", source);
-                }
-                jsonArray.put(value);
-                System.err.println(value.toString());
-            }
-            return jsonArray;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return jsonArray;
-    }
-
-    // 萌娘百科 搜索详情
-    public static synchronized void getSearchKeyInfo(String title) {
-        try {
-            Document document = Jsoup.connect(UrlConstant.URL_MENGNIANBAIKE_SEARCH_INFO + title)
-                    .data("jquery", "java").userAgent("Mozilla")
-                    .cookie("auth", "token").timeout(50000).get();
-            Element mw_mf_viewport = document.body().getElementById("mw-mf-viewport");
-            Element mw_mf_page_center = mw_mf_viewport.getElementById("mw-mf-page-center");
-            Element content = mw_mf_page_center.getElementById("content");
-            Element bodyContent = content.getElementById("bodyContent");
-            Element mw_content_text = bodyContent.getElementById("mw-content-text");
-            Element mw_parser_output = mw_content_text.getElementsByClass("mw-parser-output").first();
-            Element mf_section_0 = mw_parser_output.getElementById("mf-section-0");
-//            System.err.println(mf_section_0);
-            DataParse.parseInfoHeader(mf_section_0);
-            DataParse.parseInfoBody(mw_parser_output);
-
-            return;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return;
-    }
-
-    /**
-     * ---------------------------------------bilibili资源-------------------------------------------
-     */
 
     /**
      * 横幅
@@ -141,7 +71,7 @@ public class ResRequest {
     public static synchronized List<Video> getBanner() {
         List<Video> bannerList = new ArrayList<Video>();
         try {
-            URL url = new URL(Constant.URL_HOME_BRAND);
+            URL url = new URL(URL_HOME_BRAND);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(5 * 1000);
             conn.setRequestMethod("GET");
@@ -183,7 +113,7 @@ public class ResRequest {
     public static synchronized List<List<Video>> getHomeLists() {
         List<List<Video>> videoLl = new ArrayList<List<Video>>();
         try {
-            URL url = new URL(Constant.URL_HOME_CONTENT);
+            URL url = new URL(URL_HOME_CONTENT);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(10 * 1000);
             conn.setRequestMethod("GET");
@@ -328,7 +258,7 @@ public class ResRequest {
         List<Video> videoList = new ArrayList<Video>();
         try {
             //System.out.println(String.format(Constant.URL_HOME_VIDEO_INFO , av));
-            Document document = Jsoup.connect(String.format(Constant.URL_HOME_VIDEO_INFO, av)).data("jquery", "java")
+            Document document = Jsoup.connect(String.format(URL_HOME_VIDEO_INFO, av)).data("jquery", "java")
                     .userAgent("Mozilla").cookie("auth", "token")
                     .timeout(50000).get();
 
@@ -357,7 +287,7 @@ public class ResRequest {
     public static synchronized List<Video> getDangumiList(String page) {
         final List<Video> videoList = new ArrayList<Video>();
         try {
-            URL url = new URL(Constant.URL_FIND_BANKUN + page);
+            URL url = new URL(URL_FIND_BANKUN + page);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(10 * 1000);
             conn.setRequestMethod("GET");
@@ -405,8 +335,8 @@ public class ResRequest {
     public static synchronized Video getDangumiInfo(String bmId) {
         Video video = new Video();
         try {
-            System.out.println(Constant.URL_FIND_BANKUN_INFO + bmId);
-            Document document = Jsoup.connect(Constant.URL_FIND_BANKUN_INFO + bmId).data("jquery", "java")
+            System.out.println(URL_FIND_BANKUN_INFO + bmId);
+            Document document = Jsoup.connect(URL_FIND_BANKUN_INFO + bmId).data("jquery", "java")
                     .userAgent("Mozilla").cookie("auth", "token").timeout(50000).get();
             //System.out.println(document.toString());
 
@@ -481,7 +411,7 @@ public class ResRequest {
                 //System.out.println(quarter_title);
                 //System.out.println(Constant.URL_FIND_BANKUN_INFO+data_season_id);
                 quarterVideo.setTitle(quarter_title);
-                quarterVideo.setUrlInfo(Constant.URL_FIND_BANKUN_INFO + data_season_id);
+                quarterVideo.setUrlInfo(URL_FIND_BANKUN_INFO + data_season_id);
                 quarterVideo.setPic(previewUrl);
                 quarterViewList.add(quarterVideo);
             }
@@ -498,7 +428,7 @@ public class ResRequest {
     public static synchronized Video getDangumiInfo2(String bmId) {
         Video video = new Video();
         try {
-            String videoUrl = String.format(Constant.URL_FIND_BANKUN_INFO_2, bmId);
+            String videoUrl = String.format(URL_FIND_BANKUN_INFO_2, bmId);
             URL url = new URL(videoUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(10 * 1000);
@@ -573,7 +503,7 @@ public class ResRequest {
         String content = "";
         try {
             String av = id.split("#")[1];
-            String videoUrl = String.format(Constant.URL_FIND_BANKUN_INFO_AV, av);
+            String videoUrl = String.format(URL_FIND_BANKUN_INFO_AV, av);
             //System.out.println(videoUrl);
             URL url = new URL(videoUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -613,7 +543,7 @@ public class ResRequest {
         List<Video> videoList = new ArrayList<Video>();
         try {
             //System.out.println(Constant.URL_SEARCH_VIDEO + "&keyword="+URLEncoder.encode(key, "UTF-8")+"&page="+page);
-            Document document = Jsoup.connect(Constant.URL_SEARCH_VIDEO + "&keyword=" + URLEncoder.encode(key, "UTF-8") + "&page=" + page).data("jquery", "java")
+            Document document = Jsoup.connect(URL_SEARCH_VIDEO + "&keyword=" + URLEncoder.encode(key, "UTF-8") + "&page=" + page).data("jquery", "java")
                     .userAgent("Mozilla").cookie("auth", "token")
                     .timeout(50000).get();
             String content = document.toString();
@@ -673,7 +603,7 @@ public class ResRequest {
     public static synchronized List<Video> getSearchBangunmi(String key, String page) {
         List<Video> videoList = new ArrayList<Video>();
         try {
-            Document document = Jsoup.connect(Constant.URL_SEARCH_SERIES + "&keyword=" + URLEncoder.encode(key, "UTF-8") + "&page=" + page).data("jquery", "java")
+            Document document = Jsoup.connect(URL_SEARCH_SERIES + "&keyword=" + URLEncoder.encode(key, "UTF-8") + "&page=" + page).data("jquery", "java")
                     .userAgent("Mozilla").cookie("auth", "token")
                     .timeout(50000).get();
             String content = document.toString();
@@ -723,7 +653,7 @@ public class ResRequest {
         JSONObject content = new JSONObject();
         try {
 
-            String u = String.format(Constant.URL_PLAY_VIDEO_INFO, av);
+            String u = String.format(URL_PLAY_VIDEO_INFO, av);
             System.out.println(u);
             URL url = new URL(u);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -773,5 +703,37 @@ public class ResRequest {
         return content;
     }
 
-
+    public static String getMoreVideoUrl(String type) {
+        String url = "";
+        if (type.equals("all-7-33")) { // 排行
+            url = URL_RANK_BANGUMI;
+        } else if (type.equals("all-7-1")) {
+            url = URL_RANK_DOUGA;
+        } else if (type.equals("all-7-3")) {
+            url = URL_RANK_MUSIC;
+        } else if (type.equals("all-7-5")) {
+            url = URL_RANK_ENT;
+        } else if (type.equals("all-7-119")) {
+            url = URL_RANK_KICHIKU;
+        } else if (type.equals("default-33")) { // 番剧
+            url = URL_BANKUN_SERIALIZE;
+        } else if (type.equals("default-32")) {
+            url = URL_BANKUN_END;
+        } else if (type.equals("default-51")) {
+            url = URL_BANKUN_MESSAGE;
+        } else if (type.equals("default-152")) {
+            url = URL_BANKUN_OFFICIAL;
+        } else if (type.equals("default-153")) {
+            url = URL_BANKUN_DOMESTIC;
+        } else if (type.equals("default-24")) { // 动漫
+            url = URL_DONGMAN_MAD_AMV;
+        } else if (type.equals("default-25")) {
+            url = URL_DONGMAN_MMD_3D;
+        } else if (type.equals("default-47")) {
+            url = URL_DONGMAN_SHORT_FILM;
+        } else if (type.equals("default-27")) {
+            url = URL_DONGMAN_SYNTHESIZE;
+        }
+        return url;
+    }
 }

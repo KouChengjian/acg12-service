@@ -6,6 +6,10 @@ import com.acg12.modules.app.entity.po.user.Feedback;
 import com.acg12.modules.app.entity.po.user.Update;
 import com.acg12.modules.app.entity.po.user.User;
 import com.acg12.modules.app.entity.po.user.Verify;
+import com.acg12.modules.app.service.FeedbackService;
+import com.acg12.modules.app.service.UpdateAppService;
+import com.acg12.modules.app.service.UserService;
+import com.acg12.modules.app.service.VerifyService;
 import com.acg12.modules.app.service.impl.FeedbackServiceImpl;
 import com.acg12.modules.app.service.impl.UpdateAppServiceImpl;
 import com.acg12.modules.app.service.impl.UserServiceImpl;
@@ -37,13 +41,13 @@ import java.util.List;
 public class UserController {
 
     @Resource
-    private UserServiceImpl userService;
+    private UserService userService;
     @Resource
-    private VerifyServiceImpl verifyService;
+    private VerifyService verifyService;
     @Resource
-    private FeedbackServiceImpl feedbackServiceImpl;
+    private FeedbackService feedbackServiceImpl;
     @Resource
-    private UpdateAppServiceImpl updateAppServiceImpl;
+    private UpdateAppService updateAppServiceImpl;
 
     @ApiOperation(value = "登录", httpMethod = "POST", produces = "application/json")
     @RequestMapping(value = "/login", method = {RequestMethod.POST}, produces = "application/json")

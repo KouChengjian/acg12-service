@@ -93,8 +93,8 @@ public class Result {
     public void write(HttpServletResponse response) {
         JSONObject json = new JSONObject();
         try {
-            json.put("result", getResult());
-            json.put("desc", getDesc());
+            json.put("code", getResult());
+            json.put("msg", getDesc());
             json.put("data", getData());
             OutputStream outputStream = response.getOutputStream();
             response.setHeader("content-type", "application/json;charset=UTF-8");
@@ -389,21 +389,11 @@ public class Result {
         return hashmap;
     }
 
-    public static void create200(HttpServletResponse response, JSONObject data) {
-        JSONObject json = new JSONObject();
-        try {
-            json.put("code", 20000);
-            json.put("msg", "请求成功");
-            json.put("data", data);
-            OutputStream outputStream = response.getOutputStream();
-            response.setHeader("content-type", "application/json;charset=UTF-8");
-            byte[] dataByteArr = json.toString().getBytes("UTF-8");
-            outputStream.write(dataByteArr);
-            outputStream.flush();
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public static Map<String, Object> create202(String msg) {
+        Map<String, Object> hashmap = new HashMap<String, Object>();
+        hashmap.put("code", 20002);
+        hashmap.put("msg", msg);
+        return hashmap;
     }
 
     public static Map<String, Object> create202() {
@@ -419,4 +409,5 @@ public class Result {
         hashmap.put("msg", "程序运行时报错");
         return hashmap;
     }
+
 }

@@ -3,7 +3,7 @@ package com.acg12.modules.app.controller;
 import com.acg12.modules.app.entity.dto.Result;
 import com.acg12.modules.app.entity.dto.subject.SubjectListDto;
 import com.acg12.modules.app.entity.po.subject.SubjectEntity;
-import com.acg12.modules.app.service.subject.SubjectService;
+import com.acg12.modules.app.service.SubjectService;
 import com.acg12.common.utils.StringUtil;
 import com.acg12.common.pagination.PageInfo;
 import org.json.JSONObject;

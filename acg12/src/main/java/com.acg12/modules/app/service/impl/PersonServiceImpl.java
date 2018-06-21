@@ -1,8 +1,8 @@
-package com.acg12.modules.app.service.person.impl;
+package com.acg12.modules.app.service.impl;
 
 import com.acg12.modules.app.dao.person.PersonDao;
 import com.acg12.modules.app.entity.po.person.PersonEntity;
-import com.acg12.modules.app.service.person.PersonService;
+import com.acg12.modules.app.service.PersonService;
 import com.acg12.common.pagination.PageInfo;
 
 import javax.annotation.Resource;

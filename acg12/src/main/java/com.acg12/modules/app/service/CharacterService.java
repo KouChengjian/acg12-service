@@ -1,4 +1,4 @@
-package com.acg12.modules.app.service.character;
+package com.acg12.modules.app.service;
 
 import com.acg12.common.pagination.PageInfo;
 import com.acg12.modules.app.entity.po.character.CharacterEntity;

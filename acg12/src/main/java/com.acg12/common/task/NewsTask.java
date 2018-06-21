@@ -47,7 +47,7 @@ public class NewsTask {
 //    @Scheduled(cron = "0/5 * *  * * ? ")
     public void job1() {
         System.out.println("任务进行中。。。");
-//        SearchUtli.getSubjectSearch11();
+//        BgmCrawler.getSubjectSearch11();
     }
 }
 

@@ -1,4 +1,4 @@
-package com.acg12.modules.app.service.search;
+package com.acg12.modules.app.service;
 
 
 import java.util.Map;

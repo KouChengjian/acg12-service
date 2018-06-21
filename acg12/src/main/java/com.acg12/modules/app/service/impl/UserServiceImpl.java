@@ -3,6 +3,7 @@ package com.acg12.modules.app.service.impl;
 import com.acg12.modules.app.dao.UserDao;
 import com.acg12.modules.app.entity.po.user.User;
 import com.acg12.modules.app.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * Created by kouchengjian on 2017/3/29.
  */
-@Service("userServiceImpl")
+//@Service
 public class UserServiceImpl implements UserService {
 
     @Resource
@@ -46,6 +47,4 @@ public class UserServiceImpl implements UserService {
     public List<User> queryUserList() throws Exception {
         return userMapper.queryUserList();
     }
-
-
 }

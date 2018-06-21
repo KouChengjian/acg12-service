@@ -3,7 +3,7 @@ package com.acg12.modules.app.controller;
 import com.acg12.modules.app.entity.dto.CharacterList;
 import com.acg12.modules.app.entity.dto.Result;
 import com.acg12.modules.app.entity.po.character.CharacterEntity;
-import com.acg12.modules.app.service.character.CharacterService;
+import com.acg12.modules.app.service.CharacterService;
 import com.acg12.common.pagination.PageInfo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -3,7 +3,7 @@ package com.acg12.modules.app.controller;
 import com.acg12.modules.app.entity.dto.PersonList;
 import com.acg12.modules.app.entity.dto.Result;
 import com.acg12.modules.app.entity.po.person.PersonEntity;
-import com.acg12.modules.app.service.person.PersonService;
+import com.acg12.modules.app.service.PersonService;
 import com.acg12.common.pagination.PageInfo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

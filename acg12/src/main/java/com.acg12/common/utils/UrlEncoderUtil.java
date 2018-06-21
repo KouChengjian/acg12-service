@@ -1,6 +1,7 @@
 package com.acg12.common.utils;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.BitSet;
 
@@ -87,6 +88,15 @@ public class UrlEncoderUtil {
     public static String encode(String k){
         try {
             return URLEncoder.encode(k , "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public static String decode(String k){
+        try {
+            return URLDecoder.decode(k , "utf-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

@@ -1,9 +1,11 @@
 package com.acg12.modules.app.service;
 
+import com.acg12.modules.app.entity.dto.IndexDto;
 import com.acg12.modules.app.entity.po.Album;
 import com.acg12.modules.app.entity.po.Palette;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,6 +13,13 @@ import java.util.List;
  * Created by kouchengjian on 2017/3/9.
  */
 public interface ResService {
+
+    /**
+     * --------------------------------------自定义资源-------------------------------------------
+     */
+//    JSONObject getIndex();
+
+    IndexDto getIndex();
 
     /**
      * --------------------------------------花瓣网资源-------------------------------------------
@@ -26,14 +35,6 @@ public interface ResService {
     List<Palette> getHuaBanSearchBoards(String key, String page);
 
     /**
-     * --------------------------------------自定义资源-------------------------------------------
-     */
-    JSONObject getIndex();
-
-
-
-
-    /**
      * --------------------------------------动漫之家资源--------------------------------------------
      */
     JSONArray getNews(String pager);
@@ -42,8 +43,14 @@ public interface ResService {
     /**
      * --------------------------------------萌娘百科资源--------------------------------------------
      */
-    JSONArray getSearchKeyList(String key);
+    JSONArray getMoeGirlSearchKeyList(String key);
 
+    JSONArray gettMoeGirlSearchKeyInfo(String key);
+
+    /**
+     * --------------------------------------番组计划资源--------------------------------------------
+     */
+    JSONObject getBgmSearchKeyList(String key);
     /**
      * --------------------------------------bilibili资源--------------------------------------------
      */
@@ -62,10 +69,6 @@ public interface ResService {
     JSONObject getSearchDangumi(String key, String page);
 
     JSONObject getPlayInfo(String av);
-
-
-
-
 
 
 }

@@ -31,19 +31,7 @@ public class UrlConstant {
     // 动漫之家 热门
     // http://v2.api.dmzj.com/rank/0/0/0/0.json?channel=Android&version=2.7.003
 
-    /**
-     * --------------------------------------萌娘百科资源--------------------------------------------
-     */
-    // 萌娘百科 搜索
-    // https://m.moegirl.org/api.php?action=query&format=json&prop=pageprops%7Cpageimages&generator=prefixsearch&ppprop=displaytitle&piprop=thumbnail&pithumbsize=80&pilimit=15&redirects=&gpssearch=%E5%A4%8F%E5%A8%9C&gpsnamespace=0&gpslimit=15
-    // 图片资源图片大小
-    // https://commons.moegirl.org/thumb.php?f=%E8%AF%B7%E9%97%AE%E6%82%A8%E4%BB%8A%E5%A4%A9%E8%A6%81%E6%9D%A5%E7%82%B9%E5%85%94%E5%AD%90%E5%90%97%E6%BC%AB%E7%94%BB%E7%AC%AC6%E5%8D%B7%E5%B0%81%E9%9D%A2.jpg&width=300
-    public static final String URL_MENGNIANBAIKE_SEARCH = "https://m.moegirl.org/api.php?action=query&format=json&prop=pageprops%7Cpageimages&generator=prefixsearch&ppprop=displaytitle&piprop=thumbnail&pithumbsize=80&pilimit=15&redirects=&gpsnamespace=0&gpslimit=15&gpssearch=";
 
-    /**
-     * 萌娘百科 版块
-     */
-    public static final String URL_MENGNIANBAIKE_SEARCH_INFO = "https://m.moegirl.org/";
 
     /**
      * ---------------------------------------bilibili资源-------------------------------------------

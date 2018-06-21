@@ -1,8 +1,8 @@
-package com.acg12.modules.app.service.character.impl;
+package com.acg12.modules.app.service.impl;
 
 import com.acg12.modules.app.dao.character.CharacterDao;
 import com.acg12.modules.app.entity.po.character.CharacterEntity;
-import com.acg12.modules.app.service.character.CharacterService;
+import com.acg12.modules.app.service.CharacterService;
 import com.acg12.common.pagination.PageInfo;
 
 import javax.annotation.Resource;

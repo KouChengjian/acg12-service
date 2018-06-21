@@ -1,8 +1,8 @@
 <%@ page import="org.springframework.context.ApplicationContext" %>
 <%@ page import="org.springframework.web.context.support.WebApplicationContextUtils" %>
 <%@ page import="com.acg12.common.utils.StringUtil" %>
-<%@ page import="com.acg12.modules.app.service.character.impl.CharacterServiceImpl" %>
-<%@ page import="com.acg12.modules.app.service.character.CharacterService" %>
+<%@ page import="com.acg12.modules.app.service.impl.CharacterServiceImpl" %>
+<%@ page import="com.acg12.modules.app.service.CharacterService" %>
 <%@ page import="com.acg12.entity.po.character.CharacterEntity" %>
 <%--
   Created by IntelliJ IDEA.

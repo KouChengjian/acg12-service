@@ -3,7 +3,8 @@
 <!-- 2)为了配合BigMemory和Size Limit,原来的属性最好改名 -->
 <!--   maxElementsInMemory->maxEntriesLocalHeap -->
 <!--   maxElementsOnDisk->maxEntriesLocalDisk -->
-<ehcache>
+<ehcache
+         updateCheck="false" monitoring="autodetect" dynamicConfig="true">
     <diskStore path="java.io.tmpdir/ehcache"/>
     <defaultCache
             maxElementsInMemory="1000"
