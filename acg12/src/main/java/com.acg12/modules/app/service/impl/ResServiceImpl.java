@@ -5,11 +5,13 @@ import com.acg12.common.utils.crawler.BiliBiliCrawler;
 import com.acg12.common.utils.crawler.MoeGirlCrawler;
 import com.acg12.common.utils.StringUtil;
 import com.acg12.common.utils.crawler.HuaBanCrawler;
+import com.acg12.modules.app.dao.subject.SubjectDao;
 import com.acg12.modules.app.entity.dto.IndexDto;
 import com.acg12.modules.app.entity.dto.Video;
 import com.acg12.modules.app.entity.po.Album;
 import com.acg12.modules.app.entity.po.Palette;
 import com.acg12.modules.app.entity.po.Tag;
+import com.acg12.modules.app.entity.po.subject.SubjectEntity;
 import com.acg12.modules.app.service.ResService;
 import com.google.gson.Gson;
 import org.json.JSONArray;
@@ -17,6 +19,7 @@ import org.json.JSONObject;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +29,9 @@ import java.util.List;
  */
 @Service
 public class ResServiceImpl implements ResService {
+
+    @Resource
+    SubjectDao mSubjectDao;
 
     /**
      * --------------------------------------自定义资源-------------------------------------------
@@ -116,12 +122,29 @@ public class ResServiceImpl implements ResService {
         MoeGirlCrawler.gettMoeGirlSearchKeyInfo(key);
         return null;
     }
+
     /**
      * --------------------------------------番组计划资源--------------------------------------------
      */
     @Override
     public JSONObject getBgmSearchKeyList(String key) {
-        return BgmCrawler.getBgmSearchSubjectList(key , 0 ,0);
+        return BgmCrawler.getBgmSearchSubjectList(key, 0, 0);
+    }
+
+    /**
+     *
+     * @param sId
+     * @param type 0:subject 1:preson 2:cre
+     * @param key
+     * @return
+     */
+    @Override
+    public JSONObject getBgmSubjectInfo(int sId, int type, String key) {
+//        SubjectEntity subjectEntity = mSubjectDao.queryBySId(sId);
+//        if(type == 1){
+//            return BgmCrawler.getPersonInfo(sId)
+//        }
+        return null;
     }
 
 

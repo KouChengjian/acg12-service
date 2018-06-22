@@ -1,4 +1,4 @@
-package com.acg12.modules.app.entity.dto;
+package com.acg12.common.constant;
 
 import com.acg12.config.Constant;
 import com.acg12.common.utils.MD5Util;

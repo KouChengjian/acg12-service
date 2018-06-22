@@ -1,4 +1,4 @@
-package com.acg12.modules.app.entity.dto;
+package com.acg12.common.constant;
 
 import org.json.JSONException;
 import org.json.JSONObject;

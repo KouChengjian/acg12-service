@@ -42,9 +42,34 @@ public class BgmCrawler {
             JSONArray list = jsonObject.getJSONArray("list");
             for (int i = 0, total = list.length(); i < total; i++) {
                 JSONObject item = list.getJSONObject(i);
+                item.remove("summary");
                 item.remove("rating");
                 item.remove("rank");
                 item.remove("collection");
+                JSONObject jsonObject1 = item.getJSONObject("images");
+                item.put("image", jsonObject1.getString("grid"));
+                item.remove("images");
+                item.remove("air_weekday");
+                item.remove("eps");
+                item.remove("eps_count");
+                item.remove("url");
+                item.remove("air_date");
+                item.remove("eps_count");
+                int ty = item.getInt("type");
+                String s1 = "";
+                if(ty == 1){
+                    s1 = "书籍";
+                } else if(ty == 2){
+                    s1 = "动画";
+                } else if(ty == 3){
+                    s1 = "音乐";
+                } else if(ty == 4){
+                    s1 = "游戏";
+                } else if(ty == 6){
+                    s1 = "三次元";
+                }
+                item.remove("type");
+                item.put("type" ,s1 );
             }
             System.err.println(jsonObject.toString());
             return jsonObject;
@@ -64,7 +89,7 @@ public class BgmCrawler {
                     .data("jquery", "java").userAgent("Mozilla")
                     .cookie("auth", "token").timeout(50000).get();
             System.out.println(document.body());
-            Element columnSearchB= document.getElementById("columnSearchB");
+            Element columnSearchB = document.getElementById("columnSearchB");
 //            System.out.println(columnSearchB.toString());
         } catch (Exception e) {
 
@@ -543,7 +568,7 @@ public class BgmCrawler {
         return engineAllId;
     }
 
-    public void ss(){
+    public void ss() {
         String url = "http://api.bgm.tv/calendar";
     }
 }

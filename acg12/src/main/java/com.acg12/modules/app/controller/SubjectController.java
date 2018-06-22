@@ -1,7 +1,7 @@
 package com.acg12.modules.app.controller;
 
-import com.acg12.modules.app.entity.dto.Result;
-import com.acg12.modules.app.entity.dto.subject.SubjectListDto;
+import com.acg12.common.constant.Result;
+import com.acg12.modules.app.entity.dto.ListSumDto;
 import com.acg12.modules.app.entity.po.subject.SubjectEntity;
 import com.acg12.modules.app.service.SubjectService;
 import com.acg12.common.utils.StringUtil;
@@ -69,7 +69,7 @@ public class SubjectController {
         if (list == null || list.size() == 0) {
             return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(Result.create200(new SubjectListDto(pageInfo.getTotalResult(), list)), HttpStatus.OK);
+            return new ResponseEntity<>(Result.create200(new ListSumDto<List<SubjectEntity>>(pageInfo.getTotalResult(), list)), HttpStatus.OK);
         }
     }
 }

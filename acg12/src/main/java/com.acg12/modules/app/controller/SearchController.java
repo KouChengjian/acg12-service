@@ -1,7 +1,7 @@
 package com.acg12.modules.app.controller;
 
 import com.acg12.modules.app.entity.dto.ListDto;
-import com.acg12.modules.app.entity.dto.Result;
+import com.acg12.common.constant.Result;
 import com.acg12.modules.app.entity.po.Album;
 import com.acg12.modules.app.entity.po.Palette;
 import com.acg12.modules.app.service.ResService;
@@ -28,7 +28,7 @@ import java.util.Map;
 @RequestMapping(value = "/api/search")
 public class SearchController {
 
-    @Resource
+    @Resource(name = "searchServiceImpl")
     private SearchService searchService;
     @Resource(name = "resServiceImpl")
     private ResService resService;
@@ -46,17 +46,15 @@ public class SearchController {
         }
     }
 
-    @ApiOperation(value = "搜索key", httpMethod = "GET", produces = "application/json")
+    @ApiOperation(value = "搜索subject", httpMethod = "GET", produces = "application/json")
     @RequestMapping(value = "/subject", method = {RequestMethod.GET})
-    public void searchBgmKeyList(@ApiParam(name = "key", required = true, value = "encodeURI") @RequestParam("key") String key,
-                              HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ResponseEntity<?> searchBgmKeyList(@ApiParam(name = "key", required = true, value = "encodeURI") @RequestParam("key") String key) throws Exception {
         JSONObject jsonObject = resService.getBgmSearchKeyList(key);
-        Result result = new Result();
-//        if(jsonArray.length() == 0){
-//            result.writeFailure("由于技术原因，暂时停止服务" ,response);
-//        } else {
-//            result.writeSucceed(jsonArray , response);
-//        }
+        if (jsonObject == null) {
+            return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(Result.create200(jsonObject.toString()), HttpStatus.OK);
+        }
     }
 
     @ApiOperation(value = "搜索插画", httpMethod = "GET", produces = "application/json;charset=utf-8")
@@ -83,15 +81,15 @@ public class SearchController {
         }
     }
 
-    @RequestMapping(value = "/subject", method = {RequestMethod.GET})
-    public ResponseEntity<?> subjectSearch(@RequestParam Map<String,Object> map) throws Exception {
-        return new ResponseEntity<>(searchService.subjectSearchList(map), HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/character", method = {RequestMethod.GET})
-    @ResponseBody
-    public void characterSearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        BgmCrawler.getSubjectSearchList("夏娜" , 2 , 0);
-    }
+//    @RequestMapping(value = "/subject", method = {RequestMethod.GET})
+//    public ResponseEntity<?> subjectSearch(@RequestParam Map<String,Object> map) throws Exception {
+//        return new ResponseEntity<>(searchService.subjectSearchList(map), HttpStatus.OK);
+//    }
+//
+//    @RequestMapping(value = "/character", method = {RequestMethod.GET})
+//    @ResponseBody
+//    public void characterSearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
+////        BgmCrawler.getSubjectSearchList("夏娜" , 2 , 0);
+//    }
 
 }

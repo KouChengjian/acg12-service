@@ -51,6 +51,9 @@ public interface ResService {
      * --------------------------------------番组计划资源--------------------------------------------
      */
     JSONObject getBgmSearchKeyList(String key);
+
+    JSONObject getBgmSubjectInfo(int sId, int type, String key);
+
     /**
      * --------------------------------------bilibili资源--------------------------------------------
      */

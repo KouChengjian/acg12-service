@@ -1,9 +1,8 @@
 package com.acg12.common.utils;
 
-import com.acg12.config.Constant;
 import com.acg12.common.utils.stack.IndexStack;
 import com.acg12.common.utils.stack.MyStack;
-import com.acg12.modules.app.entity.dto.Result;
+import com.acg12.common.constant.Result;
 import com.acg12.modules.app.entity.dto.subject.SubjectStaffDto;
 import com.acg12.modules.app.entity.po.character.CharacterEntity;
 import com.acg12.modules.app.entity.po.person.PersonEntity;

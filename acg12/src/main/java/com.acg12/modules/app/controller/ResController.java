@@ -1,9 +1,6 @@
 package com.acg12.modules.app.controller;
 
-import com.acg12.modules.app.entity.dto.Result;
-import com.acg12.modules.app.entity.dto.PaletteDto;
-import com.acg12.modules.app.entity.po.Album;
-import com.acg12.modules.app.entity.po.Palette;
+import com.acg12.common.constant.Result;
 import com.acg12.common.utils.StringUtil;
 import com.acg12.modules.app.service.impl.ResServiceImpl;
 import io.swagger.annotations.Api;
@@ -11,8 +8,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * Created by kouchengjian on 2017/3/6.
@@ -116,19 +110,19 @@ public class ResController {
      * --------------------------------------动漫之家资源--------------------------------------------
      */
 
-    @ApiOperation(value = "每日资讯", httpMethod = "GET", produces = "application/json")
-    @RequestMapping(value = "/news", method = {RequestMethod.GET}, produces = "application/json ;charset=utf-8")
-    @ResponseBody
-    public void getNews(@ApiParam(name = "page", required = true, value = "页") @RequestParam("page") String page,
-                        HttpServletRequest request, HttpServletResponse response) throws Exception {
-        JSONArray content = resourceService.getNews(page);
-        Result result = new Result();
-        if(content == null || content.length() == 0){
-            result.writeFailure("由于技术原因，暂时停止服务" ,response);
-        } else {
-            result.writeSucceed(content , response);
-        }
-    }
+//    @ApiOperation(value = "每日资讯", httpMethod = "GET", produces = "application/json")
+//    @RequestMapping(value = "/news", method = {RequestMethod.GET}, produces = "application/json ;charset=utf-8")
+//    @ResponseBody
+//    public void getNews(@ApiParam(name = "page", required = true, value = "页") @RequestParam("page") String page,
+//                        HttpServletRequest request, HttpServletResponse response) throws Exception {
+//        JSONArray content = resourceService.getNews(page);
+//        Result result = new Result();
+//        if(content == null || content.length() == 0){
+//            result.writeFailure("由于技术原因，暂时停止服务" ,response);
+//        } else {
+//            result.writeSucceed(content , response);
+//        }
+//    }
 
 
     /**

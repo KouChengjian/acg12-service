@@ -1,7 +1,7 @@
 package com.acg12.modules.app.controller;
 
 import com.acg12.config.Constant;
-import com.acg12.modules.app.entity.dto.Result;
+import com.acg12.common.constant.Result;
 import com.acg12.modules.app.entity.po.user.Feedback;
 import com.acg12.modules.app.entity.po.user.Update;
 import com.acg12.modules.app.entity.po.user.User;
@@ -10,10 +10,6 @@ import com.acg12.modules.app.service.FeedbackService;
 import com.acg12.modules.app.service.UpdateAppService;
 import com.acg12.modules.app.service.UserService;
 import com.acg12.modules.app.service.VerifyService;
-import com.acg12.modules.app.service.impl.FeedbackServiceImpl;
-import com.acg12.modules.app.service.impl.UpdateAppServiceImpl;
-import com.acg12.modules.app.service.impl.UserServiceImpl;
-import com.acg12.modules.app.service.impl.VerifyServiceImpl;
 import com.acg12.common.utils.FileUpload;
 import com.acg12.common.utils.ListUtil;
 import com.acg12.common.utils.StringUtil;

@@ -2,16 +2,19 @@ package com.acg12.modules.app.controller;
 
 import com.acg12.modules.app.entity.dto.IndexDto;
 import com.acg12.modules.app.entity.dto.ListDto;
-import com.acg12.modules.app.entity.dto.PaletteDto;
-import com.acg12.modules.app.entity.dto.Result;
+import com.acg12.common.constant.Result;
+import com.acg12.modules.app.entity.dto.subject.SubjectInfoDto;
 import com.acg12.modules.app.entity.po.Album;
 import com.acg12.modules.app.entity.po.Palette;
+import com.acg12.modules.app.entity.po.character.CharacterEntity;
+import com.acg12.modules.app.entity.po.person.PersonEntity;
+import com.acg12.modules.app.service.CharacterService;
+import com.acg12.modules.app.service.PersonService;
 import com.acg12.modules.app.service.ResService;
+import com.acg12.modules.app.service.SubjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -32,6 +35,12 @@ public class HomeController {
 
     @Resource(name = "resServiceImpl")
     private ResService resService;
+    @Resource(name = "subjectServiceImpl")
+    private SubjectService subjectService;
+    @Resource(name = "personServiceImpl")
+    PersonService personService;
+    @Resource(name = "characterServiceImpl")
+    CharacterService characterService;
 
     @ApiOperation(value = "首页", httpMethod = "GET", produces = "application/json")
     @RequestMapping(value = "/home", method = {RequestMethod.GET}, produces = "application/json ;charset=utf-8")
@@ -59,7 +68,7 @@ public class HomeController {
     }
 
 
-    @ApiOperation(value = "获取插画", httpMethod = "GET", produces = "application/json")
+    @ApiOperation(value = "每日精选插画", httpMethod = "GET", produces = "application/json")
     @RequestMapping(value = "/home/albums", method = {RequestMethod.GET}, produces = "application/json ;charset=utf-8")
     @ResponseBody
     public ResponseEntity<?> queryPictrueAlbum(@ApiParam(name = "max", required = true, value = "图片的id") @RequestParam("max") String max) throws Exception {
@@ -83,7 +92,7 @@ public class HomeController {
     }
 
     @ApiOperation(value = "获取画板内容", httpMethod = "GET", produces = "application/json;charset=utf-8")
-    @RequestMapping(value = "/p/boards/album", method = {RequestMethod.GET})
+    @RequestMapping(value = "/home/boards/albums", method = {RequestMethod.GET})
     public ResponseEntity<?> queryPictrueBoardsAlbum(@RequestParam("max") String max , @RequestParam("boardId") String boardId) throws Exception {
         List<Album> albumList = resService.getHuaBanBoardsToImages(boardId, max);
         if (albumList == null || albumList.size() == 0) {
@@ -91,5 +100,26 @@ public class HomeController {
         } else {
             return new ResponseEntity<>(Result.create200(new ListDto<List<Album>>(albumList)), HttpStatus.OK);
         }
+    }
+
+    @ApiOperation(value = "获取Subject内容", httpMethod = "GET", produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "/home/subject", method = {RequestMethod.GET})
+    public ResponseEntity<?> queryPictrueBoardsAlbum(@RequestParam("id") int id ,
+                                                     @ApiParam(name = "type", required = true, value = "0:subject 1:preson 2:cre") @RequestParam("type") int type,
+                                                     @RequestParam("key") String key) throws Exception {
+        if(type == 1){
+            PersonEntity personEntity = personService.queryByPersonIdJoinDetail(id);
+
+        } else if(type == 2){
+            CharacterEntity characterEntity = characterService.queryByCharacterIdJoinDetail(id);
+        } else {
+            SubjectInfoDto subjectInfoDto = subjectService.queryBySIdJoinDetail(id);
+            if(subjectInfoDto == null || subjectInfoDto.getSubjectId() == null ){
+                return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(Result.create200(subjectInfoDto), HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
     }
 }

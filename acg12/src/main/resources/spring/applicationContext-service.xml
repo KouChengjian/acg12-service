@@ -19,7 +19,7 @@
     <!--<bean id="resService" class="com.acg12.modules.app.service.impl.ResServiceImpl"/>-->
     <bean id="feedbackServiceImpl" class="com.acg12.modules.app.service.impl.FeedbackServiceImpl"/>
     <bean id="updateAppServiceImpl" class="com.acg12.modules.app.service.impl.UpdateAppServiceImpl"/>
-    <bean id="searchServiceImpl" class="com.acg12.modules.app.service.impl.SearchServiceImpl"/>
+    <!--<bean id="searchServiceImpl" class="com.acg12.modules.app.service.impl.SearchServiceImpl"/>-->
 
 
     <bean id="subjectServiceImpl" class="com.acg12.modules.app.service.impl.SubjectServiceImpl"/>

@@ -1,6 +1,6 @@
 package com.acg12.modules.app.service.impl;
 
-import com.acg12.modules.app.entity.dto.Condition;
+import com.acg12.common.constant.Condition;
 import com.acg12.modules.app.service.SearchService;
 import com.acg12.common.utils.crawler.BgmCrawler;
 import org.json.JSONObject;

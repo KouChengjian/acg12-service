@@ -1,7 +1,7 @@
 package com.acg12.common.aspect;
 
 import com.acg12.config.Constant;
-import com.acg12.modules.app.entity.dto.Result;
+import com.acg12.common.constant.Result;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,7 @@
 package com.acg12.modules.app.controller;
 
-import com.acg12.modules.app.entity.dto.CharacterList;
-import com.acg12.modules.app.entity.dto.Result;
+import com.acg12.common.constant.Result;
+import com.acg12.modules.app.entity.dto.ListSumDto;
 import com.acg12.modules.app.entity.po.character.CharacterEntity;
 import com.acg12.modules.app.service.CharacterService;
 import com.acg12.common.pagination.PageInfo;
@@ -41,7 +41,7 @@ public class CharacterController {
         if (list == null || list.size() == 0) {
             return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(Result.create200(new CharacterList(pageInfo.getTotalResult(), list)), HttpStatus.OK);
+            return new ResponseEntity<>(Result.create200(new ListSumDto<List<CharacterEntity>>(pageInfo.getTotalResult(), list)), HttpStatus.OK);
         }
     }
 }

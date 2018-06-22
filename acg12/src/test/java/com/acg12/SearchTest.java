@@ -52,7 +52,7 @@ public class SearchTest {
 //        searchTest.characterStep();
 //        searchTest.subjectStep();
 //        searchTest.testDb();
-          searchTest.searchPreson();
+//          searchTest.searchPreson();
 
 
         long endTime = System.currentTimeMillis();
