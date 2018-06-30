@@ -1,7 +1,6 @@
-package com.acg12.common.utils.crawler;
+package com.acg12.modules.app.utils.crawler;
 
-import com.acg12.common.utils.crawler.http.DataParse;
-import com.acg12.config.UrlConstant;
+import com.acg12.modules.app.utils.crawler.http.DataParse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;

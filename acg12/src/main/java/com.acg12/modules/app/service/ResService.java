@@ -54,6 +54,8 @@ public interface ResService {
 
     JSONObject getBgmSubjectInfo(int sId, int type, String key);
 
+    String getBgmCalendarList();
+
     /**
      * --------------------------------------bilibili资源--------------------------------------------
      */

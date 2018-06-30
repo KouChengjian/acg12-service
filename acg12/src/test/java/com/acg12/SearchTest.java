@@ -1,6 +1,6 @@
 package com.acg12;
 
-import com.acg12.common.utils.crawler.BgmCrawler;
+import com.acg12.modules.app.utils.crawler.BgmCrawler;
 import com.acg12.modules.app.dao.character.CharacterActorsDao;
 import com.acg12.modules.app.dao.character.CharacterDao;
 import com.acg12.modules.app.dao.character.CharacterDetailDao;
@@ -37,7 +37,7 @@ public class SearchTest {
 
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
-        BgmCrawler.getBgmSearchSubjectList("夏娜" , 2 , 0);
+//        BgmCrawler.getBgmSearchSubjectList("夏娜" , 2 , 0);
 //        BgmCrawler.getSubjectInfo(143694);
 //        BgmCrawler.getPersonInfo(45396);
 //        BgmCrawler.getCharacterInfo(951);
@@ -52,7 +52,7 @@ public class SearchTest {
 //        searchTest.characterStep();
 //        searchTest.subjectStep();
 //        searchTest.testDb();
-//          searchTest.searchPreson();
+//        searchTest.searchPreson();
 
 
         long endTime = System.currentTimeMillis();

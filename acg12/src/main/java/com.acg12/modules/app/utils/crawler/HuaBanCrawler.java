@@ -1,4 +1,4 @@
-package com.acg12.common.utils.crawler;
+package com.acg12.modules.app.utils.crawler;
 
 import com.acg12.common.utils.UrlEncoderUtil;
 import com.acg12.modules.app.entity.po.Album;

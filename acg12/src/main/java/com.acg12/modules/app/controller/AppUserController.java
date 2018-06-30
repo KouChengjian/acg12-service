@@ -34,7 +34,7 @@ import java.util.List;
 @Api(value = "UserController", description = "用户控制")
 @Controller
 @RequestMapping(value = "/api/user")
-public class UserController {
+public class AppUserController {
 
     @Resource
     private UserService userService;

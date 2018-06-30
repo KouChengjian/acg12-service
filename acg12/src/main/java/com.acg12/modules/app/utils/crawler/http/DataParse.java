@@ -1,4 +1,4 @@
-package com.acg12.common.utils.crawler.http;
+package com.acg12.modules.app.utils.crawler.http;
 
 import org.json.JSONException;
 import org.json.JSONObject;

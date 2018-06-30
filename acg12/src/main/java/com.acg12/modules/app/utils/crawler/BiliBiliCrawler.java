@@ -1,7 +1,5 @@
-package com.acg12.common.utils.crawler;
+package com.acg12.modules.app.utils.crawler;
 
-import com.acg12.config.UrlConstant;
-import com.acg12.config.Constant;
 import com.acg12.common.utils.StringUtil;
 import com.acg12.common.utils.TimeUtil;
 import com.acg12.modules.app.entity.dto.Video;
@@ -18,7 +16,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**

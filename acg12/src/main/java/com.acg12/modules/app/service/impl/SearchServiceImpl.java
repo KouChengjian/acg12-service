@@ -2,7 +2,7 @@ package com.acg12.modules.app.service.impl;
 
 import com.acg12.common.constant.Condition;
 import com.acg12.modules.app.service.SearchService;
-import com.acg12.common.utils.crawler.BgmCrawler;
+import com.acg12.modules.app.utils.crawler.BgmCrawler;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestAttributes;

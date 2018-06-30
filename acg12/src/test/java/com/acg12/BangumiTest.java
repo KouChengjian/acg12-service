@@ -2,7 +2,7 @@ package com.acg12;
 
 import com.acg12.modules.app.dao.BangumiDao;
 import com.acg12.factory.ConnectionFactory;
-import com.acg12.common.utils.crawler.BiliBiliCrawler;
+import com.acg12.modules.app.utils.crawler.BiliBiliCrawler;
 import com.acg12.common.utils.StringUtil;
 import com.acg12.modules.app.entity.dto.Video;
 import com.acg12.modules.app.entity.po.Bangumi;

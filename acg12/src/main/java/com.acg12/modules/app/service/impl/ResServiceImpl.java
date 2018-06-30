@@ -1,17 +1,15 @@
 package com.acg12.modules.app.service.impl;
 
-import com.acg12.common.utils.crawler.BgmCrawler;
-import com.acg12.common.utils.crawler.BiliBiliCrawler;
-import com.acg12.common.utils.crawler.MoeGirlCrawler;
-import com.acg12.common.utils.StringUtil;
-import com.acg12.common.utils.crawler.HuaBanCrawler;
+import com.acg12.modules.app.utils.crawler.BgmCrawler;
+import com.acg12.modules.app.utils.crawler.BiliBiliCrawler;
+import com.acg12.modules.app.utils.crawler.MoeGirlCrawler;
+import com.acg12.modules.app.utils.crawler.HuaBanCrawler;
 import com.acg12.modules.app.dao.subject.SubjectDao;
 import com.acg12.modules.app.entity.dto.IndexDto;
 import com.acg12.modules.app.entity.dto.Video;
 import com.acg12.modules.app.entity.po.Album;
 import com.acg12.modules.app.entity.po.Palette;
 import com.acg12.modules.app.entity.po.Tag;
-import com.acg12.modules.app.entity.po.subject.SubjectEntity;
 import com.acg12.modules.app.service.ResService;
 import com.google.gson.Gson;
 import org.json.JSONArray;
@@ -145,6 +143,11 @@ public class ResServiceImpl implements ResService {
 //            return BgmCrawler.getPersonInfo(sId)
 //        }
         return null;
+    }
+
+    @Override
+    public String getBgmCalendarList() {
+        return BgmCrawler.getCalendarList();
     }
 
 

@@ -26,7 +26,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value = "/api/search")
-public class SearchController {
+public class AppSearchController {
 
     @Resource(name = "searchServiceImpl")
     private SearchService searchService;

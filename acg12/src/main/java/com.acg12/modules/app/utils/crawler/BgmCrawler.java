@@ -1,4 +1,4 @@
-package com.acg12.common.utils.crawler;
+package com.acg12.modules.app.utils.crawler;
 
 import com.acg12.config.SubjectStaffConstant;
 import com.acg12.common.utils.JsonParse;
@@ -568,7 +568,17 @@ public class BgmCrawler {
         return engineAllId;
     }
 
-    public void ss() {
-        String url = "http://api.bgm.tv/calendar";
+    public static String  getCalendarList() {
+        try {
+            String url = "http://api.bgm.tv/calendar";
+            Document document = Jsoup.connect(url).ignoreContentType(true)
+                    .data("jquery", "java").userAgent("Mozilla")
+                    .cookie("auth", "token").timeout(50000).get();
+//            System.out.println(document.body().text());
+            return document.body().text();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

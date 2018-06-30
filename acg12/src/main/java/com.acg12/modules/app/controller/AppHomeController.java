@@ -31,7 +31,7 @@ import java.util.List;
 @Api(value = "HomeController", description = "资源控制")
 @Controller
 @RequestMapping(value = "/api")
-public class HomeController {
+public class AppHomeController {
 
     @Resource(name = "resServiceImpl")
     private ResService resService;
@@ -80,6 +80,18 @@ public class HomeController {
         }
     }
 
+    @ApiOperation(value = "每日放映", httpMethod = "GET", produces = "application/json")
+    @RequestMapping(value = "/home/calendar", method = {RequestMethod.GET}, produces = "application/json ;charset=utf-8")
+    @ResponseBody
+    public ResponseEntity<?> homeCalendar() throws Exception {
+        String content = resService.getBgmCalendarList();
+        if (content == null || content.isEmpty()) {
+            return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(Result.create200(content), HttpStatus.OK);
+        }
+    }
+
     @ApiOperation(value = "获取画板", httpMethod = "GET", produces = "application/json")
     @RequestMapping(value = "/home/boards", method = {RequestMethod.GET})
     public ResponseEntity<?> queryPictrueBoards(@ApiParam(name = "max", required = true, value = "画板id") @RequestParam("max") String max) throws Exception {
@@ -93,7 +105,7 @@ public class HomeController {
 
     @ApiOperation(value = "获取画板内容", httpMethod = "GET", produces = "application/json;charset=utf-8")
     @RequestMapping(value = "/home/boards/albums", method = {RequestMethod.GET})
-    public ResponseEntity<?> queryPictrueBoardsAlbum(@RequestParam("max") String max , @RequestParam("boardId") String boardId) throws Exception {
+    public ResponseEntity<?> subjectBoardsAlbums(@RequestParam("max") String max , @RequestParam("boardId") String boardId) throws Exception {
         List<Album> albumList = resService.getHuaBanBoardsToImages(boardId, max);
         if (albumList == null || albumList.size() == 0) {
             return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
@@ -104,7 +116,7 @@ public class HomeController {
 
     @ApiOperation(value = "获取Subject内容", httpMethod = "GET", produces = "application/json;charset=utf-8")
     @RequestMapping(value = "/home/subject", method = {RequestMethod.GET})
-    public ResponseEntity<?> queryPictrueBoardsAlbum(@RequestParam("id") int id ,
+    public ResponseEntity<?> homeSubjectInfo(@RequestParam("id") int id ,
                                                      @ApiParam(name = "type", required = true, value = "0:subject 1:preson 2:cre") @RequestParam("type") int type,
                                                      @RequestParam("key") String key) throws Exception {
         if(type == 1){
