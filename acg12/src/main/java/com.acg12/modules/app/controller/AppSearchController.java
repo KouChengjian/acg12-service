@@ -58,9 +58,10 @@ public class AppSearchController {
     }
 
     @ApiOperation(value = "搜索插画", httpMethod = "GET", produces = "application/json;charset=utf-8")
-    @RequestMapping(value = "/albums", method = {RequestMethod.GET}, produces = "application/json ;charset=utf-8")
+    @RequestMapping(value = "/albums", method = {RequestMethod.GET}, produces = "application/json;charset=utf-8")
     public ResponseEntity<?> querySearchAlbum(@ApiParam(name = "key", required = true, value = "搜索key") @RequestParam("key") String key,
                                  @ApiParam(name = "page", required = true, value = "页") @RequestParam("page") String page) throws Exception {
+        System.out.println(key);
         List<Album> albumList = resService.getHuaBanSearchImages(key, page);
         if (albumList == null || albumList.size() == 0) {
             return new ResponseEntity<>(Result.create202(), HttpStatus.OK);

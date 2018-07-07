@@ -16,6 +16,8 @@ public interface CharacterDetailDao {
 
     int update(CharacterDetailEntity characterDetailEntity);
 
+    int delete(int characterDetailId);
+
     List<CharacterDetailEntity> queryList();
 
     List<CharacterDetailEntity> queryByCharacterId(int characterId);

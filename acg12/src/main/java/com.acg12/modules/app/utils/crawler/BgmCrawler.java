@@ -6,15 +6,18 @@ import com.acg12.common.utils.StringUtil;
 import com.acg12.common.utils.UrlEncoderUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2018/3/14.
@@ -23,12 +26,12 @@ public class BgmCrawler {
 
     /**
      * @param key
-     * @param type  1 书籍 2 动画 3 音乐 4 游戏 6 三次元
-     * @param start 书籍包括漫画和小说 分成 7、8
+     * @param type  1 书籍 2 动画 3 音乐 4 游戏 6 三次元   书籍包括漫画和小说 分成 7、8  10、虚拟角色 11、现实角色
+     * @param start
      */
-    // 搜索关键字获取列表
-    public static synchronized JSONObject getBgmSearchSubjectList(String key, int type, int start) {
-//        System.setProperty("http.proxyHost", "localhost");
+
+    public static synchronized JSONObject getBgmSearchSubjectList(String key, int type, int start, JSONArray cutItem) {
+        System.setProperty("http.proxyHost", "localhost");
 //        System.setProperty("http.proxyPort", "8888");
 //        System.setProperty("https.proxyHost", "localhost");
 //        System.setProperty("https.proxyPort", "8888");
@@ -57,20 +60,32 @@ public class BgmCrawler {
                 item.remove("eps_count");
                 int ty = item.getInt("type");
                 String s1 = "";
-                if(ty == 1){
+                if (ty == 1) {
                     s1 = "书籍";
-                } else if(ty == 2){
+                } else if (ty == 2) {
                     s1 = "动画";
-                } else if(ty == 3){
+                } else if (ty == 3) {
                     s1 = "音乐";
-                } else if(ty == 4){
+                } else if (ty == 4) {
                     s1 = "游戏";
-                } else if(ty == 6){
+                } else if (ty == 6) {
                     s1 = "三次元";
                 }
                 item.remove("type");
-                item.put("type" ,s1 );
+                item.put("type", 0);
+                item.put("typeName", s1);
             }
+            JSONArray jsonArray = new JSONArray();
+            if (cutItem != null) {
+                for (int j = 0; j < cutItem.length(); j++) {
+                    jsonArray.put(cutItem.getJSONObject(j));
+                }
+            }
+            for (int k = 0; k < list.length(); k++) {
+                jsonArray.put(list.getJSONObject(k));
+            }
+            jsonObject.remove("list");
+            jsonObject.put("list", jsonArray);
             System.err.println(jsonObject.toString());
             return jsonObject;
         } catch (IOException e) {
@@ -79,20 +94,57 @@ public class BgmCrawler {
             e.printStackTrace();
         }
         return null;
+
     }
 
-    public static synchronized JSONObject getBgmSearchPresonList(String key) {
-        String url = String.format("http://bangumi.tv/mono_search/%s?cat=all", UrlEncoderUtil.hasUrlEncoded(key) ? key : UrlEncoderUtil.encode(key));
-        try {
-            System.out.println(url);
-            Document document = Jsoup.connect(url).ignoreContentType(true)
-                    .data("jquery", "java").userAgent("Mozilla")
-                    .cookie("auth", "token").timeout(50000).get();
-            System.out.println(document.body());
-            Element columnSearchB = document.getElementById("columnSearchB");
-//            System.out.println(columnSearchB.toString());
-        } catch (Exception e) {
+    // 搜索关键字获取列表
+    public static synchronized JSONObject getBgmSearchSubjectList(String key, int type, int start) {
+        return getBgmSearchSubjectList(key, type, start, null);
+    }
 
+    public static synchronized JSONArray getBgmSearchPresonList(String key) {
+        // http://bangumi.tv/mono_search/%s?cat=crt
+        // http://bangumi.tv/mono_search/%s?cat=prsn
+        // http://bangumi.tv/mono_search/%s?cat=all
+        String url = String.format("http://bangumi.tv/mono_search/%s?cat=crt", UrlEncoderUtil.hasUrlEncoded(key) ? key : UrlEncoderUtil.encode(key));
+        try {
+            JSONArray jsonArray = new JSONArray();
+            Document document = Jsoup.connect(url).ignoreContentType(true)
+                    .cookie("chii_sid", "IbiAB9")
+                    .cookie("chii_searchDateLine", "1530838844")
+                    .cookie("__utma", "1.683889927.1529480300.1529715637.1530838840.4")
+                    .cookie("__utmc", "1")
+                    .cookie("__utmz", "1.1530838840.4.3.utmcsr=baidu.com|utmccn=(referral)|utmcmd=referral|utmcct=/")
+                    .cookie("__utmt", "1")
+                    .cookie("__utmb", "1.8.10.1530838840")
+                    .data("jquery", "java").userAgent("Mozilla")
+                    .timeout(50000).get();
+//            System.out.println(document.body());
+            Element columnSearchB = document.getElementById("columnSearchB");
+            Elements light_odd = columnSearchB.getElementsByClass("light_odd");
+            for (int i = 0; i < light_odd.size(); i++) {
+                Element item = light_odd.get(i);
+                String id = item.getElementsByClass("avatar").attr("href").split("character/")[1];
+                String avatar = item.getElementsByClass("avatar").select("img").attr("src");
+                String[] name = item.select("h2").text().split(" / ");
+                System.out.println(id + avatar + name);
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("id", Integer.valueOf(id).intValue());
+                jsonObject.put("image", "http:" + avatar);
+                for (int j = 0; j < name.length; j++) {
+                    if (j == 0) {
+                        jsonObject.put("name", name[j]);
+                    } else if (j == 1) {
+                        jsonObject.put("nameCn", name[j]);
+                    }
+                }
+                jsonObject.put("type", 1);
+                jsonObject.put("typeName", "人物");
+                jsonArray.put(jsonObject);
+            }
+            return jsonArray;
+        } catch (Exception e) {
+            System.out.println(e.toString());
         }
         return null;
     }
@@ -568,15 +620,36 @@ public class BgmCrawler {
         return engineAllId;
     }
 
-    public static String  getCalendarList() {
+    public static String getCalendarList() {
         try {
             String url = "http://api.bgm.tv/calendar";
             Document document = Jsoup.connect(url).ignoreContentType(true)
                     .data("jquery", "java").userAgent("Mozilla")
                     .cookie("auth", "token").timeout(50000).get();
 //            System.out.println(document.body().text());
-            return document.body().text();
-        } catch (IOException e) {
+
+            JSONArray jsonArray = new JSONArray(document.body().text());
+            for (int i = 0, num = jsonArray.length(); i < num; i++) {
+                JSONObject jsonObject = JsonParse.getJSONObject(jsonArray, i);
+                System.out.println(jsonObject.toString());
+                JSONArray items = JsonParse.getJSONArray(jsonObject, "items");
+                for (int j = 0, total = items.length(); j < total; j++) {
+                    JSONObject item = JsonParse.getJSONObject(items, j);
+
+                    JSONObject images = JsonParse.getJSONObject(item, "images");
+                    String image = JsonParse.getString(images, "common");
+                    item.remove("images");
+                    item.remove("collection");
+                    item.remove("url");
+                    item.remove("rating");
+                    item.remove("count");
+                    item.put("image", image);
+                    System.out.println(item.toString());
+                }
+            }
+
+            return jsonArray.toString();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

@@ -8,6 +8,7 @@
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="nameCn" property="nameCn" jdbcType="INTEGER"/>
         <result column="image" property="image" jdbcType="VARCHAR"/>
+        <result column="summary" property="summary" jdbcType="VARCHAR"/>
         <result column="height" property="height" jdbcType="VARCHAR"/>
         <result column="weight" property="weight" jdbcType="VARCHAR"/>
         <result column="alias" property="alias" jdbcType="VARCHAR"/>
@@ -21,8 +22,8 @@
 
     <insert id="insert" parameterType="com.acg12.modules.app.entity.po.person.PersonEntity" useGeneratedKeys="true"
             keyProperty="personId">
-        insert into acg_person (personId , pId , name, nameCn, image,  height, weight, alias, type, gender, bloodtype, birthday, createTime, updateTime)
-        values (#{personId,jdbcType=INTEGER},#{pId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nameCn,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}
+        insert into acg_person (personId , pId , name, nameCn, image, summary, height, weight, alias, type, gender, bloodtype, birthday, createTime, updateTime)
+        values (#{personId,jdbcType=INTEGER},#{pId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nameCn,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}
         , #{height,jdbcType=VARCHAR}, #{weight,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}
         , #{gender,jdbcType=INTEGER}, #{bloodtype,jdbcType=INTEGER}, #{birthday,jdbcType=VARCHAR}, #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER})
     </insert>

@@ -7,7 +7,6 @@ public class PersonDetailEntity {
 
     private Integer personDetailId;
     private Integer personId;
-    private String summary;
     private String otherTitle;
     private String otherValue;
 
@@ -27,14 +26,6 @@ public class PersonDetailEntity {
         this.personId = personId;
     }
 
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
     public String getOtherTitle() {
         return otherTitle;
     }
@@ -49,5 +40,15 @@ public class PersonDetailEntity {
 
     public void setOtherValue(String otherValue) {
         this.otherValue = otherValue;
+    }
+
+    @Override
+    public String toString() {
+        return "PersonDetailEntity{" +
+                "personDetailId=" + personDetailId +
+                ", personId=" + personId +
+                ", otherTitle='" + otherTitle + '\'' +
+                ", otherValue='" + otherValue + '\'' +
+                '}';
     }
 }

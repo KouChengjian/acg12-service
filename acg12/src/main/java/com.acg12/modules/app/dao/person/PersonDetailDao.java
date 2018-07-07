@@ -16,6 +16,8 @@ public interface PersonDetailDao {
 
     int update(PersonDetailEntity personDetailEntity);
 
+    int delete(int personDetailId);
+
     List<PersonDetailEntity> queryList();
 
     List<PersonDetailEntity> queryByPersonId(int personId);

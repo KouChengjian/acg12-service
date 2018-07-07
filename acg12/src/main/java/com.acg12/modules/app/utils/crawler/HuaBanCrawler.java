@@ -189,12 +189,9 @@ public class HuaBanCrawler {
     public static synchronized List<Album> getSearchAlbum(String key, String page) {
         List<Album> albumList = new ArrayList<Album>();
         try {
-            if (!UrlEncoderUtil.hasUrlEncoded(key)) {
-                key = URLEncoder.encode(key, "UTF-8");
-            }
-
+            System.out.println(key);
             Document document = Jsoup
-                    .connect(URL_SEARCH_ALBUM + key + "&page=" + page)
+                    .connect(URL_SEARCH_ALBUM + (UrlEncoderUtil.hasUrlEncoded(key) ? key : UrlEncoderUtil.encode(key)) + "&page=" + page)
                     .data("jquery", "java").userAgent("Mozilla")
                     .cookie("auth", "token").timeout(50000).get();
             String content = document.toString();
@@ -256,12 +253,8 @@ public class HuaBanCrawler {
     public static synchronized List<Palette> getSearchPalette(String key, String page) {
         List<Palette> paletteList = new ArrayList<Palette>();
         try {
-            if (!UrlEncoderUtil.hasUrlEncoded(key)) {
-                key = URLEncoder.encode(key, "UTF-8");
-            }
-
             Document document = Jsoup
-                    .connect(URL_SEARCH_PALETTE + key + "&page=" + page)
+                    .connect(URL_SEARCH_PALETTE + (UrlEncoderUtil.hasUrlEncoded(key) ? key : UrlEncoderUtil.encode(key)) + "&page=" + page)
                     .data("jquery", "java").userAgent("Mozilla")
                     .cookie("auth", "token").timeout(50000).get();
             String content = document.toString();

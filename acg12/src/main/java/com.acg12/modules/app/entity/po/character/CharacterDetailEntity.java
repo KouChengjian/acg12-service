@@ -7,7 +7,6 @@ public class CharacterDetailEntity {
 
     private Integer characterDetailId;
     private Integer characterId;
-    private String summary;
     private String otherTitle;
     private String otherValue;
 
@@ -43,11 +42,14 @@ public class CharacterDetailEntity {
         this.otherValue = otherValue;
     }
 
-    public String getSummary() {
-        return summary;
-    }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
+    @Override
+    public String toString() {
+        return "CharacterDetailEntity{" +
+                "characterDetailId=" + characterDetailId +
+                ", characterId=" + characterId +
+                ", otherTitle='" + otherTitle + '\'' +
+                ", otherValue='" + otherValue + '\'' +
+                '}';
     }
 }

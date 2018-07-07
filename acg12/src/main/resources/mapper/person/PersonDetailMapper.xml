@@ -5,7 +5,6 @@
     <resultMap id="baseResultMap" type="com.acg12.modules.app.entity.po.person.PersonDetailEntity">
         <result column="personDetailId" property="personDetailId" jdbcType="INTEGER"/>
         <result column="personId" property="personId" jdbcType="INTEGER"/>
-        <result column="summary" property="summary" jdbcType="VARCHAR"/>
         <result column="otherTitle" property="otherTitle" jdbcType="VARCHAR"/>
         <result column="otherValue" property="otherValue" jdbcType="VARCHAR"/>
     </resultMap>
@@ -13,14 +12,14 @@
     <insert id="insert" parameterType="com.acg12.modules.app.entity.po.person.PersonDetailEntity" useGeneratedKeys="true"
             keyProperty="personDetailId">
         insert into acg_person_detail (personDetailId , personId ,summary, otherTitle, otherValue)
-        values (#{personDetailId,jdbcType=INTEGER},#{personId,jdbcType=INTEGER}, #{summary,jdbcType=VARCHAR}, #{otherTitle,jdbcType=VARCHAR}, #{otherValue,jdbcType=VARCHAR})
+        values (#{personDetailId,jdbcType=INTEGER},#{personId,jdbcType=INTEGER}, #{otherTitle,jdbcType=VARCHAR}, #{otherValue,jdbcType=VARCHAR})
     </insert>
 
     <insert id="insertList" parameterType="java.util.List" >
-        insert into acg_person_detail (personDetailId , personId , summary, otherTitle, otherValue)
+        insert into acg_person_detail (personDetailId , personId , otherTitle, otherValue)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.personDetailId,jdbcType=INTEGER}, #{item.personId,jdbcType=INTEGER}, #{item.summary,jdbcType=VARCHAR},#{item.otherTitle,jdbcType=VARCHAR},#{item.otherValue,jdbcType=VARCHAR})
+            (#{item.personDetailId,jdbcType=INTEGER}, #{item.personId,jdbcType=INTEGER},#{item.otherTitle,jdbcType=VARCHAR},#{item.otherValue,jdbcType=VARCHAR})
         </foreach>
         <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="subjectDetailId">
             SELECT LAST_INSERT_ID();
@@ -32,6 +31,10 @@
         ,totalCount=#{totalCount},serializeWeek=#{serializeWeek},serializeTime=#{serializeTime},startPlayTime=#{startPlayTime},updateTime=#{updateTime}
         where bangumitId=#{bangumitId}
     </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from acg_person_detail where personDetailId = #{personDetailId}
+    </delete>
 
     <select id="queryList" resultType="com.acg12.modules.app.entity.po.person.PersonDetailEntity">
         select * from acg_person_detail

@@ -41,6 +41,7 @@ public class SearchTest {
 //        BgmCrawler.getSubjectInfo(143694);
 //        BgmCrawler.getPersonInfo(45396);
 //        BgmCrawler.getCharacterInfo(951);
+//        BgmCrawler.getCalendarList();
 
         SearchTest searchTest = new SearchTest();
 //        searchTest.savaSubjectInfo(490);
@@ -52,7 +53,7 @@ public class SearchTest {
 //        searchTest.characterStep();
 //        searchTest.subjectStep();
 //        searchTest.testDb();
-//        searchTest.searchPreson();
+        searchTest.searchPreson();
 
 
         long endTime = System.currentTimeMillis();
@@ -64,22 +65,20 @@ public class SearchTest {
         } else {
             System.out.println("执行时间：" + excTime + "s");
         }
-
-
     }
 
     private void testDb() {
-//        PersonDao personDao = ConnectionFactory.getMapper(PersonDao.class);
-//        PersonEntity personEntity = personDao.queryByPersonIdJoinDetail(10);
-//        System.out.println(personEntity.toString());
+//        CharacterDao characterDao = ConnectionFactory.getMapper(CharacterDao.class);
+//        CharacterDetailDao characterDetailDao = ConnectionFactory.getMapper(CharacterDetailDao.class);
+
 //        System.out.println(personEntity.getSummary());
 //        CharacterDao characterDao = ConnectionFactory.getMapper(CharacterDao.class);
 //        CharacterEntity characterEntity = characterDao.queryByCharacterIdJoinDetail(8);
 //        System.out.println(characterEntity.toString());
 
-        SubjectDao subjectDao = ConnectionFactory.getMapper(SubjectDao.class);
-        List<SubjectEntity> subjectEntityList = subjectDao.queryBySubjectGameListPage(new PageInfo(), "4", "", StringUtil.getPlatform("16"), "");
-        System.out.println("subjectEntityList = " + subjectEntityList.size());
+//        SubjectDao subjectDao = ConnectionFactory.getMapper(SubjectDao.class);
+//        List<SubjectEntity> subjectEntityList = subjectDao.queryBySubjectGameListPage(new PageInfo(), "4", "", StringUtil.getPlatform("16"), "");
+//        System.out.println("subjectEntityList = " + subjectEntityList.size());
     }
 
     // 查本地数据库
@@ -134,7 +133,9 @@ public class SearchTest {
     }
 
     private void searchPreson(){
-        BgmCrawler.getBgmSearchPresonList("夏娜");
+        JSONArray jsonArray = BgmCrawler.getBgmSearchPresonList("夏娜");
+        BgmCrawler.getBgmSearchSubjectList("夏娜", 0, 0 ,jsonArray);
+
     }
 
 
@@ -287,6 +288,7 @@ public class SearchTest {
             personEntity.setHeight(JsonParse.getString(item, "height"));
             personEntity.setWeight(JsonParse.getString(item, "weight"));
             personEntity.setBirthday(JsonParse.getString(item, "birth"));
+            personEntity.setSummary(JsonParse.getString(item, "summary"));
 
             String gender = JsonParse.getString(item, "gender");
             if (gender.isEmpty()) {
@@ -373,10 +375,10 @@ public class SearchTest {
         }
 
         List<PersonDetailEntity> personDetailEntityList = new ArrayList<>();
-        PersonDetailEntity personDetail = new PersonDetailEntity();
-        personDetail.setPersonId(personEntity.getPersonId());
-        personDetail.setSummary(JsonParse.getString(item, "summary"));
-        personDetailEntityList.add(personDetail);
+//        PersonDetailEntity personDetail = new PersonDetailEntity();
+//        personDetail.setPersonId(personEntity.getPersonId());
+//        personDetail.setSummary(JsonParse.getString(item, "summary"));
+//        personDetailEntityList.add(personDetail);
 
         JSONArray otherJSONArray = JsonParse.getJSONArray(item, "other");
         for (int j = 0, num = otherJSONArray.length(); j < num; j++) {
@@ -417,7 +419,7 @@ public class SearchTest {
             characterEntity.setHeight(JsonParse.getString(item, "height"));
             characterEntity.setWeight(JsonParse.getString(item, "weight"));
             characterEntity.setBirthday(JsonParse.getString(item, "birth"));
-
+            characterEntity.setSummary(JsonParse.getString(item, "summary"));
             String gender = JsonParse.getString(item, "gender");
             if (gender.isEmpty()) {
                 characterEntity.setGender(0);
@@ -474,11 +476,11 @@ public class SearchTest {
         }
 
         List<CharacterDetailEntity> characterDetailEntityList = new ArrayList<>();
-        // 简介
-        CharacterDetailEntity characterDetail = new CharacterDetailEntity();
-        characterDetail.setCharacterId(characterEntity.getCharacterId());
-        characterDetail.setSummary(JsonParse.getString(item, "summary"));
-        characterDetailEntityList.add(characterDetail);
+//        // 简介
+//        CharacterDetailEntity characterDetail = new CharacterDetailEntity();
+//        characterDetail.setCharacterId(characterEntity.getCharacterId());
+//        characterDetail.setSummary(JsonParse.getString(item, "summary"));
+//        characterDetailEntityList.add(characterDetail);
 
         // 其他
         JSONArray otherJSONArray = JsonParse.getJSONArray(item, "other");

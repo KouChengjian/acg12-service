@@ -126,7 +126,8 @@ public class ResServiceImpl implements ResService {
      */
     @Override
     public JSONObject getBgmSearchKeyList(String key) {
-        return BgmCrawler.getBgmSearchSubjectList(key, 0, 0);
+        JSONArray jsonArray = BgmCrawler.getBgmSearchPresonList(key);
+        return BgmCrawler.getBgmSearchSubjectList(key, 0, 0 ,jsonArray);
     }
 
     /**
