@@ -3,6 +3,7 @@ package com.acg12.modules.app.controller;
 import com.acg12.modules.app.entity.dto.IndexDto;
 import com.acg12.modules.app.entity.dto.ListDto;
 import com.acg12.common.constant.Result;
+import com.acg12.modules.app.entity.dto.subject.CharacterInfoDto;
 import com.acg12.modules.app.entity.dto.subject.SubjectInfoDto;
 import com.acg12.modules.app.entity.po.Album;
 import com.acg12.modules.app.entity.po.Palette;
@@ -105,7 +106,7 @@ public class AppHomeController {
 
     @ApiOperation(value = "获取画板内容", httpMethod = "GET", produces = "application/json;charset=utf-8")
     @RequestMapping(value = "/home/boards/albums", method = {RequestMethod.GET})
-    public ResponseEntity<?> subjectBoardsAlbums(@RequestParam("max") String max , @RequestParam("boardId") String boardId) throws Exception {
+    public ResponseEntity<?> subjectBoardsAlbums(@RequestParam("max") String max, @RequestParam("boardId") String boardId) throws Exception {
         List<Album> albumList = resService.getHuaBanBoardsToImages(boardId, max);
         if (albumList == null || albumList.size() == 0) {
             return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
@@ -116,22 +117,33 @@ public class AppHomeController {
 
     @ApiOperation(value = "获取Subject内容", httpMethod = "GET", produces = "application/json;charset=utf-8")
     @RequestMapping(value = "/home/subject", method = {RequestMethod.GET})
-    public ResponseEntity<?> homeSubjectInfo(@RequestParam("id") int id ,
-                                                     @ApiParam(name = "type", required = true, value = "0:subject 1:preson 2:cre") @RequestParam("type") int type,
-                                                     @RequestParam("key") String key) throws Exception {
-        if(type == 1){
-            PersonEntity personEntity = personService.queryByPersonIdJoinDetail(id);
-
-        } else if(type == 2){
-            CharacterEntity characterEntity = characterService.queryByCharacterIdJoinDetail(id);
+    public ResponseEntity<?> homeSubjectInfo(@RequestParam("id") int id,
+                                             @ApiParam(name = "type", required = true, value = "0:subject 1:cre 2:preson") @RequestParam("type") int type,
+                                             @RequestParam("key") String key) throws Exception {
+        if (type == 1) {
+            CharacterInfoDto characterInfoDto = characterService.queryByCIdJoinDetail(id);
+            if (characterInfoDto == null || characterInfoDto.getsId() == 0) {
+                characterInfoDto = resService.getBgmCharacterInfo(id);
+                if (characterInfoDto == null || characterInfoDto.getsId() == 0) {
+                    return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>(Result.create200(characterInfoDto), HttpStatus.OK);
+                }
+            } else {
+                return new ResponseEntity<>(Result.create200(characterInfoDto), HttpStatus.OK);
+            }
         } else {
             SubjectInfoDto subjectInfoDto = subjectService.queryBySIdJoinDetail(id);
-            if(subjectInfoDto == null || subjectInfoDto.getSubjectId() == null ){
-                return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
+            if (subjectInfoDto == null || subjectInfoDto.getSubjectId() == null) {
+                subjectInfoDto = resService.getBgmSubjectInfo(id);
+                if (subjectInfoDto == null || subjectInfoDto.getSubjectId() == null) {
+                    return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>(Result.create200(subjectInfoDto), HttpStatus.OK);
+                }
             } else {
                 return new ResponseEntity<>(Result.create200(subjectInfoDto), HttpStatus.OK);
             }
         }
-        return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
     }
 }

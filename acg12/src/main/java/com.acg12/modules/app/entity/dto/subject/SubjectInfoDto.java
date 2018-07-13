@@ -138,26 +138,6 @@ public class SubjectInfoDto {
         this.endDate = endDate;
     }
 
-
-    public void copy(SubjectEntity subjectEntity) {
-        if (subjectEntity == null) {
-            return;
-        }
-        this.subjectId = subjectEntity.getSubjectId();
-        this.sId = subjectEntity.getsId();
-        this.url = subjectEntity.getUrl();
-        this.type = subjectEntity.getType(); // 类型   1、书籍 2、动画 3、音乐 4、游戏 6、三次元
-        this.typeName = subjectEntity.getTypeName(); // 类型名称
-        this.name = subjectEntity.getName();
-        this.nameCn = subjectEntity.getNameCn(); // 中文
-        this.summary = subjectEntity.getSummary(); // 概况
-        this.image = subjectEntity.getImage();
-        this.epsCount = subjectEntity.getEpsCount(); // 话数
-        this.airDate = subjectEntity.getAirDate();// 放送开始 2015-10-10
-        this.airWeekday = subjectEntity.getAirWeekday();// 放送星期 3
-        this.endDate = subjectEntity.getEndDate(); // 播放结束
-    }
-
     public List<SubjectDetailEntity> getDetails() {
         return details;
     }
@@ -204,5 +184,24 @@ public class SubjectInfoDto {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public void copy(SubjectEntity subjectEntity) {
+        if (subjectEntity == null) {
+            return;
+        }
+        this.subjectId = subjectEntity.getSubjectId();
+        this.sId = subjectEntity.getsId();
+        this.url = subjectEntity.getUrl();
+        this.type = subjectEntity.getType(); // 类型   1、书籍 2、动画 3、音乐 4、游戏 6、三次元
+        this.typeName = subjectEntity.getTypeName(); // 类型名称
+        this.name = subjectEntity.getName();
+        this.nameCn = subjectEntity.getNameCn(); // 中文
+        this.summary = subjectEntity.getSummary(); // 概况
+        this.image = subjectEntity.getImage();
+        this.epsCount = subjectEntity.getEpsCount(); // 话数
+        this.airDate = subjectEntity.getAirDate();// 放送开始 2015-10-10
+        this.airWeekday = subjectEntity.getAirWeekday();// 放送星期 3
+        this.endDate = subjectEntity.getEndDate(); // 播放结束
     }
 }

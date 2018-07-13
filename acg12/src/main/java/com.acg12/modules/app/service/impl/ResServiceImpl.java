@@ -1,10 +1,17 @@
 package com.acg12.modules.app.service.impl;
 
+import com.acg12.modules.app.dao.character.CharacterDao;
+import com.acg12.modules.app.dao.character.CharacterDetailDao;
+import com.acg12.modules.app.dao.subject.*;
+import com.acg12.modules.app.entity.dto.subject.CharacterInfoDto;
+import com.acg12.modules.app.entity.dto.subject.SubjectInfoDto;
+import com.acg12.modules.app.entity.po.character.CharacterDetailEntity;
+import com.acg12.modules.app.entity.po.character.CharacterEntity;
+import com.acg12.modules.app.entity.po.subject.*;
 import com.acg12.modules.app.utils.crawler.BgmCrawler;
 import com.acg12.modules.app.utils.crawler.BiliBiliCrawler;
 import com.acg12.modules.app.utils.crawler.MoeGirlCrawler;
 import com.acg12.modules.app.utils.crawler.HuaBanCrawler;
-import com.acg12.modules.app.dao.subject.SubjectDao;
 import com.acg12.modules.app.entity.dto.IndexDto;
 import com.acg12.modules.app.entity.dto.Video;
 import com.acg12.modules.app.entity.po.Album;
@@ -19,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -29,7 +37,21 @@ import java.util.List;
 public class ResServiceImpl implements ResService {
 
     @Resource
-    SubjectDao mSubjectDao;
+    SubjectDao subjectDao;
+    @Resource
+    SubjectDetailDao subjectDetailsDao;
+    @Resource
+    SubjectStaffDao subjectStaffDao;
+    @Resource
+    SubjectCrtDao subjectCrtDao;
+    @Resource
+    SubjectOffprintDao subjectOffprintDao;
+    @Resource
+    SubjectSongDao subjectSongDao;
+    @Resource
+    CharacterDao characterDao;
+    @Resource
+    CharacterDetailDao characterDetailDao;
 
     /**
      * --------------------------------------自定义资源-------------------------------------------
@@ -127,11 +149,10 @@ public class ResServiceImpl implements ResService {
     @Override
     public JSONObject getBgmSearchKeyList(String key) {
         JSONArray jsonArray = BgmCrawler.getBgmSearchPresonList(key);
-        return BgmCrawler.getBgmSearchSubjectList(key, 0, 0 ,jsonArray);
+        return BgmCrawler.getBgmSearchSubjectList(key, 0, 0, jsonArray);
     }
 
     /**
-     *
      * @param sId
      * @param type 0:subject 1:preson 2:cre
      * @param key
@@ -149,6 +170,57 @@ public class ResServiceImpl implements ResService {
     @Override
     public String getBgmCalendarList() {
         return BgmCrawler.getCalendarList();
+    }
+
+    @Override
+    public CharacterInfoDto getBgmCharacterInfo(int cId) {
+        JSONObject jsonObject = BgmCrawler.getCharacterInfo(cId);
+        CharacterEntity characterEntity = BgmCrawler.savaCharacter(jsonObject, characterDao, characterDetailDao);
+        if (characterEntity == null) {
+            return null;
+        }
+        List<CharacterDetailEntity> characterDetailEntityList = characterDetailDao.queryByCharacterId(characterEntity.getCharacterId());
+
+        CharacterInfoDto characterInfoDto = new CharacterInfoDto();
+        characterInfoDto.copy(characterEntity);
+        characterInfoDto.setDetails(characterDetailEntityList);
+        return characterInfoDto;
+    }
+
+    @Override
+    public SubjectInfoDto getBgmSubjectInfo(int sId) {
+        JSONObject item = BgmCrawler.getSubjectInfoSimple(sId);
+        SubjectEntity subjectEntity = BgmCrawler.savaSubject(item, subjectDao ,subjectDetailsDao ,subjectStaffDao,subjectCrtDao ,subjectOffprintDao,subjectSongDao);
+        SubjectInfoDto subjectInfoDto = new SubjectInfoDto();
+        if (subjectEntity == null) {
+            return subjectInfoDto;
+        }
+        List<SubjectDetailEntity> subjectDetailEntityList = subjectDetailsDao.queryBySId(subjectEntity.getsId());
+        List<SubjectStaffEntity> subjectStaffEntityList = subjectStaffDao.queryBySId(subjectEntity.getsId());
+        List<SubjectCrtEntity> subjectCrtEntityList = subjectCrtDao.queryBySId(subjectEntity.getsId());
+
+        subjectInfoDto.copy(subjectEntity);
+        subjectInfoDto.setDetails(subjectDetailEntityList);
+        subjectInfoDto.setStaff(subjectStaffEntityList);
+        subjectInfoDto.setCrt(subjectCrtEntityList);
+        Iterator<SubjectStaffEntity> iterator = subjectStaffEntityList.iterator();
+        while (iterator.hasNext()) {
+            SubjectStaffEntity subjectStaffEntity = iterator.next();
+            if (subjectStaffEntity.getJob().equals("作者") || subjectStaffEntity.getJob().equals("原作")) {
+                subjectInfoDto.setAuthor(subjectStaffEntity.getName());
+                iterator.remove();
+                continue;
+            }
+        }
+
+        if (subjectEntity.getType() == 1) {
+            List<SubjectOffprintEntity> subjectOffprintEntityList = subjectOffprintDao.queryBySId(subjectEntity.getsId());
+            subjectInfoDto.setOffprint(subjectOffprintEntityList);
+        } else if (subjectEntity.getType() == 3) {
+            List<SubjectSongEntity> subjectSongEntityList = subjectSongDao.queryBySId(subjectEntity.getsId());
+            subjectInfoDto.setSong(subjectSongEntityList);
+        }
+        return subjectInfoDto;
     }
 
 

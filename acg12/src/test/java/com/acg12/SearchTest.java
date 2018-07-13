@@ -49,11 +49,11 @@ public class SearchTest {
 //        searchTest.getSubjectInfo();
 
 
-//        searchTest.personStep();
+        searchTest.personStep();
 //        searchTest.characterStep();
 //        searchTest.subjectStep();
 //        searchTest.testDb();
-        searchTest.searchPreson();
+//        searchTest.searchPreson();
 
 
         long endTime = System.currentTimeMillis();
@@ -550,7 +550,7 @@ public class SearchTest {
     private void personStep() {
         PersonDao personDao = ConnectionFactory.getMapper(PersonDao.class);
         PersonDetailDao personDetailDao = ConnectionFactory.getMapper(PersonDetailDao.class);
-        for (int i = 4064, total = 5000; i <= total; i++) {
+        for (int i = 5000, total = 5010; i <= total; i++) {
             JSONObject item = BgmCrawler.getPersonInfo(i);
             PersonEntity personEntity = savaPerson(personDao, personDetailDao, item);
         }

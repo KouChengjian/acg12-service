@@ -116,6 +116,14 @@ public class CharacterEntity extends Param {
         this.birthday = birthday;
     }
 
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if(toString().hashCode() == obj.toString().hashCode()){
@@ -141,11 +149,5 @@ public class CharacterEntity extends Param {
                 '}';
     }
 
-    public String getSummary() {
-        return summary;
-    }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
 }

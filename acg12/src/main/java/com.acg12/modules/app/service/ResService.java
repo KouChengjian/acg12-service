@@ -1,6 +1,8 @@
 package com.acg12.modules.app.service;
 
 import com.acg12.modules.app.entity.dto.IndexDto;
+import com.acg12.modules.app.entity.dto.subject.CharacterInfoDto;
+import com.acg12.modules.app.entity.dto.subject.SubjectInfoDto;
 import com.acg12.modules.app.entity.po.Album;
 import com.acg12.modules.app.entity.po.Palette;
 import org.json.JSONArray;
@@ -50,11 +52,17 @@ public interface ResService {
     /**
      * --------------------------------------番组计划资源--------------------------------------------
      */
+    // 搜索
     JSONObject getBgmSearchKeyList(String key);
 
     JSONObject getBgmSubjectInfo(int sId, int type, String key);
 
+    // 每日更新
     String getBgmCalendarList();
+
+    CharacterInfoDto getBgmCharacterInfo(int cId);
+
+    SubjectInfoDto getBgmSubjectInfo(int sId);
 
     /**
      * --------------------------------------bilibili资源--------------------------------------------
