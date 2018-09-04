@@ -15,34 +15,32 @@
         <result column="updatedAt" property="updatedAt" jdbcType="INTEGER" />
     </resultMap>
 
-
-    <insert id="insert" parameterType="com.acg12.modules.app.entity.po.user.User"
-            useGeneratedKeys="true" keyProperty="id">
-        insert into user (id,username, password,email,nick,avatar,sign,sex,createdAt,updatedAt)
+    <insert id="insert" parameterType="com.acg12.modules.app.entity.po.user.User" useGeneratedKeys="true" keyProperty="id">
+        insert into acg_user (id,username, password,email,nick,avatar,sign,sex,createdAt,updatedAt)
         values (#{id,jdbcType=INTEGER},#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
         #{nick,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER},
         #{createdAt,jdbcType=INTEGER}, #{updatedAt,jdbcType=INTEGER})
     </insert>
 
     <delete id="deleteUser" parameterType="int">
-        delete from user where id=#{id}
+        delete from acg_user where id=#{id}
     </delete>
 
     <update id="updateUser" parameterType="com.acg12.modules.app.entity.po.user.User">
-        update user set nick=#{nick},avatar=#{avatar},sign=#{sign},sex=#{sex},
+        update acg_user set nick=#{nick},avatar=#{avatar},sign=#{sign},sex=#{sex},
         password=#{password},updatedAt=#{updatedAt} where id=#{id}
     </update>
 
     <select id="queryUserList" resultType="com.acg12.modules.app.entity.po.user.User">
-        select * from user
+        select * from acg_user
     </select>
 
     <select id="queryUser" parameterType="int" resultType="com.acg12.modules.app.entity.po.user.User">
-        select * from user where id = #{id}
+        select * from acg_user where id = #{id}
     </select>
 
     <select id="queryUserName" parameterType="String" resultType="com.acg12.modules.app.entity.po.user.User">
-        select * from user where username = #{username}
+        select * from acg_user where username = #{username}
     </select>
 
 

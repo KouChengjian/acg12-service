@@ -39,7 +39,7 @@ public interface ResService {
     /**
      * --------------------------------------动漫之家资源--------------------------------------------
      */
-    JSONArray getNews(String pager);
+    String getDMZJNews(String pager);
 
 
     /**

@@ -27,7 +27,7 @@
     必须遵循：mapper.xml和mapper.java文件同名且在一个目录
      -->
     <mappers>
-        <!--<mapper resource="mapper/UserMapper.xml"/>-->
+        <mapper resource="mapper/UserMapper.xml"/>
         <mapper resource="mapper/VerifyMapper.xml"/>
         <mapper resource="mapper/FeedbackMapper.xml"/>
         <mapper resource="mapper/UpdateAppMapper.xml"/>

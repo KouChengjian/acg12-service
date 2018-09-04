@@ -7,6 +7,7 @@ import com.acg12.modules.app.entity.po.character.CharacterDetailEntity;
 import com.acg12.modules.app.entity.po.character.CharacterEntity;
 import com.acg12.modules.app.service.CharacterService;
 import com.acg12.common.pagination.PageInfo;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2018/4/26.
  */
+@Service(value = "characterServiceImpl")
 public class CharacterServiceImpl implements CharacterService {
 
     @Resource

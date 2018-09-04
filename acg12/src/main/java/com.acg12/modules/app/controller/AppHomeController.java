@@ -16,6 +16,7 @@ import com.acg12.modules.app.service.SubjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.json.JSONArray;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -39,14 +40,14 @@ public class AppHomeController {
     @Resource(name = "subjectServiceImpl")
     private SubjectService subjectService;
     @Resource(name = "personServiceImpl")
-    PersonService personService;
+    private PersonService personService;
     @Resource(name = "characterServiceImpl")
-    CharacterService characterService;
+    private CharacterService characterService;
 
     @ApiOperation(value = "首页", httpMethod = "GET", produces = "application/json")
     @RequestMapping(value = "/home", method = {RequestMethod.GET}, produces = "application/json ;charset=utf-8")
     @ResponseBody
-    public ResponseEntity<?> index(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ResponseEntity<?> index() throws Exception {
         IndexDto indexDto = resService.getIndex();
         if (indexDto == null) {
             return new ResponseEntity<>(Result.create202("由于技术原因，暂时停止服务"), HttpStatus.OK);
@@ -58,14 +59,13 @@ public class AppHomeController {
     @ApiOperation(value = "每日资讯", httpMethod = "GET", produces = "application/json")
     @RequestMapping(value = "/home/news", method = {RequestMethod.GET}, produces = "application/json ;charset=utf-8")
     @ResponseBody
-    public void getNews(@ApiParam(name = "page", required = true, value = "页") @RequestParam("page") String page) throws Exception {
-//        JSONArray content = resourceService.getNews(page);
-//        Result result = new Result();
-//        if(content == null || content.length() == 0){
-//            result.writeFailure("由于技术原因，暂时停止服务" ,response);
-//        } else {
-//            result.writeSucceed(content , response);
-//        }
+    public ResponseEntity<?> getNews(@ApiParam(name = "page", required = true, value = "页") @RequestParam("page") String page) throws Exception {
+        String content = resService.getDMZJNews(page);
+        if (content == null || content.isEmpty()) {
+            return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(Result.create200(content), HttpStatus.OK);
+        }
     }
 
 

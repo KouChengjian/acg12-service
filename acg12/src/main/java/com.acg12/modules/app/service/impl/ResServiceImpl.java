@@ -8,10 +8,7 @@ import com.acg12.modules.app.entity.dto.subject.SubjectInfoDto;
 import com.acg12.modules.app.entity.po.character.CharacterDetailEntity;
 import com.acg12.modules.app.entity.po.character.CharacterEntity;
 import com.acg12.modules.app.entity.po.subject.*;
-import com.acg12.modules.app.utils.crawler.BgmCrawler;
-import com.acg12.modules.app.utils.crawler.BiliBiliCrawler;
-import com.acg12.modules.app.utils.crawler.MoeGirlCrawler;
-import com.acg12.modules.app.utils.crawler.HuaBanCrawler;
+import com.acg12.modules.app.utils.crawler.*;
 import com.acg12.modules.app.entity.dto.IndexDto;
 import com.acg12.modules.app.entity.dto.Video;
 import com.acg12.modules.app.entity.po.Album;
@@ -124,8 +121,8 @@ public class ResServiceImpl implements ResService {
      */
 
     @Override
-    public JSONArray getNews(String pager) {
-        return null;
+    public String getDMZJNews(String pager) {
+        return DMZJCrawler.getNewList(pager).toString();
     }
 
     /**

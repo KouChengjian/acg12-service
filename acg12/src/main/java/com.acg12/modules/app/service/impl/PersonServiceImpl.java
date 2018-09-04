@@ -4,6 +4,7 @@ import com.acg12.modules.app.dao.person.PersonDao;
 import com.acg12.modules.app.entity.po.person.PersonEntity;
 import com.acg12.modules.app.service.PersonService;
 import com.acg12.common.pagination.PageInfo;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2018/4/26.
  */
+@Service(value = "personServiceImpl")
 public class PersonServiceImpl implements PersonService {
 
     @Resource

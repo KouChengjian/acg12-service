@@ -17,6 +17,7 @@ import com.acg12.modules.app.entity.po.character.CharacterEntity;
 import com.acg12.modules.app.entity.po.person.PersonDetailEntity;
 import com.acg12.modules.app.entity.po.person.PersonEntity;
 import com.acg12.modules.app.entity.po.subject.*;
+import com.acg12.modules.app.utils.crawler.DMZJCrawler;
 import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +43,7 @@ public class SearchTest {
 //        BgmCrawler.getPersonInfo(45396);
 //        BgmCrawler.getCharacterInfo(951);
 //        BgmCrawler.getCalendarList();
+        DMZJCrawler.getNewList("1");
 
         SearchTest searchTest = new SearchTest();
 //        searchTest.savaSubjectInfo(490);
@@ -49,7 +51,7 @@ public class SearchTest {
 //        searchTest.getSubjectInfo();
 
 
-        searchTest.personStep();
+//        searchTest.personStep();
 //        searchTest.characterStep();
 //        searchTest.subjectStep();
 //        searchTest.testDb();
@@ -550,7 +552,7 @@ public class SearchTest {
     private void personStep() {
         PersonDao personDao = ConnectionFactory.getMapper(PersonDao.class);
         PersonDetailDao personDetailDao = ConnectionFactory.getMapper(PersonDetailDao.class);
-        for (int i = 5000, total = 5010; i <= total; i++) {
+        for (int i = 5729, total = 6000; i <= total; i++) { //5725
             JSONObject item = BgmCrawler.getPersonInfo(i);
             PersonEntity personEntity = savaPerson(personDao, personDetailDao, item);
         }

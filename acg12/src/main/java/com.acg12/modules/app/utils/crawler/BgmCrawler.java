@@ -436,12 +436,15 @@ public class BgmCrawler {
             jsonObject.put("other", otherJson);
             jsonObject.put("jobs", jobJson);
 
-            String[] jobs = clearit.text().split(":")[1].split(" ");
-            for (int i = 0, num = jobs.length; i < num; i++) {
-                if (jobs[i] == null || jobs[i].isEmpty()) {
-                    continue;
+            String[] jobs = clearit.text().split(":");
+            if(jobs.length == 2 ){
+                jobs = jobs[1].split(" ");
+                for (int i = 0, num = jobs.length; i < num; i++) {
+                    if (jobs[i] == null || jobs[i].isEmpty()) {
+                        continue;
+                    }
+                    jobJson.put(jobs[i]);
                 }
-                jobJson.put(jobs[i]);
             }
 
             Element infobox = document.getElementById("infobox");

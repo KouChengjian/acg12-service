@@ -14,7 +14,7 @@
 
     <!--可以在这声明，也可以使用@Service-->
     <!-- user的service -->
-    <bean id="userServiceImpl" class="com.acg12.modules.app.service.impl.UserServiceImpl"/>
+    <!--<bean id="userServiceImpl" class="com.acg12.modules.app.service.impl.UserServiceImpl"/>-->
     <bean id="verifyService" class="com.acg12.modules.app.service.impl.VerifyServiceImpl"/>
     <!--<bean id="resService" class="com.acg12.modules.app.service.impl.ResServiceImpl"/>-->
     <bean id="feedbackServiceImpl" class="com.acg12.modules.app.service.impl.FeedbackServiceImpl"/>
@@ -24,7 +24,7 @@
 
     <bean id="subjectServiceImpl" class="com.acg12.modules.app.service.impl.SubjectServiceImpl"/>
 
-    <bean id="personServiceImpl" class="com.acg12.modules.app.service.impl.PersonServiceImpl"/>
-    <bean id="characterServiceImpl" class="com.acg12.modules.app.service.impl.CharacterServiceImpl"/>
+    <!--<bean id="personServiceImpl" class="com.acg12.modules.app.service.impl.PersonServiceImpl"/>-->
+    <!--<bean id="characterServiceImpl" class="com.acg12.modules.app.service.impl.CharacterServiceImpl"/>-->
 
 </beans>

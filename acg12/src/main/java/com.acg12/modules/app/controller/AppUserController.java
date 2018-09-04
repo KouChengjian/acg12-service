@@ -13,9 +13,12 @@ import com.acg12.modules.app.service.VerifyService;
 import com.acg12.common.utils.FileUpload;
 import com.acg12.common.utils.ListUtil;
 import com.acg12.common.utils.StringUtil;
+import com.acg12.modules.app.service.impl.UserServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,7 +39,7 @@ import java.util.List;
 @RequestMapping(value = "/api/user")
 public class AppUserController {
 
-    @Resource
+    @Resource(name = "userServiceImpl")
     private UserService userService;
     @Resource
     private VerifyService verifyService;
@@ -47,38 +50,26 @@ public class AppUserController {
 
     @ApiOperation(value = "登录", httpMethod = "POST", produces = "application/json")
     @RequestMapping(value = "/login", method = {RequestMethod.POST}, produces = "application/json")
-    public void login(@ApiParam(name = "username", required = true, value = "用户名") @RequestParam("username") String username,
-                      @ApiParam(name = "password", required = true, value = "用户密码") @RequestParam("password") String password,
-                      HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ResponseEntity<?> login(@ApiParam(name = "username", required = true, value = "用户名") @RequestParam("username") String username,
+                                   @ApiParam(name = "password", required = true, value = "用户密码") @RequestParam("password") String password) throws Exception {
 
-        Result result = new Result();
         if (username.isEmpty() || password.isEmpty()) {
-            result.writeFailure(Constant.HTTP_RESULT_ERROR_PARAM, "请求参数为空", response);
-            return;
+            return new ResponseEntity<>(Result.create202("请求参数为空"), HttpStatus.OK);
         }
 
         User user = userService.queryUserName(username);
         if (user == null) {
-            result.setResult(Constant.HTTP_RESULT_ERROR_NULL_DATA);
-            result.setDesc("不存在该用户");
-            result.write(response);
-            return;
+            return new ResponseEntity<>(Result.create202("不存在该用户"), HttpStatus.OK);
         }
 
         if (!user.getPassword().equals(password)) {
-            result.setResult(Constant.HTTP_RESULT_ERROR_PASSWORD);
-            result.setDesc("密码错误");
-            result.write(response);
-            return;
+            return new ResponseEntity<>(Result.create202("密码错误"), HttpStatus.OK);
         }
 
-        user.setPassword(null);
-        user.setCreatedAt(null);
-        user.setUpdatedAt(null);
-        result.setResult(Constant.HTTP_RESULT_SUCCEED);
-        result.setDesc("成功");
-        result.putDataObject("user", user);
-        result.write(response);
+//        user.setPassword(null);
+//        user.setCreatedAt(null);
+//        user.setUpdatedAt(null);
+        return new ResponseEntity<>(Result.create200(user), HttpStatus.OK);
     }
 
     @ApiOperation(value = "注册", httpMethod = "POST", produces = "application/json")
@@ -138,6 +129,7 @@ public class AppUserController {
         user.setSign("这个家伙很懒，什么也不说...");
         user.setNick("取名字最讨厌啦");
         user.setAvatar("http://139.196.46.40:8080/res/images/defaultAvatar.png");
+        user.setEmail("");
         long id = userService.saveUser(user);
         if (id > 0) {
             user.setPassword(null);

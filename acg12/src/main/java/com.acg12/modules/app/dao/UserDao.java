@@ -8,7 +8,6 @@ import java.util.List;
 /**
  * Created by kouchengjian on 2017/3/2.
  */
-@Mapper
 public interface UserDao {
 
     int insert(User user);
