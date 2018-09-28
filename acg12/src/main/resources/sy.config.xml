@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<framework>
+	<!-- 基础配置 -->
+
+	<setting name="siteName" value="漫友" /><!--title-->
+
+	<setting name="accountLockCount" value="5" />
+	<setting name="accountLockTime" value="10" />
+	<setting name="uploadMaxSize" value="10" />
+	<setting name="uploadImageExtension" value="jpg,jpeg,bmp,gif,png" />
+	<setting name="uploadFlashExtension" value="swf,flv" />
+	<setting name="uploadMediaExtension" value="swf,flv,mp3,wav,avi,rm,rmvb" />
+	<setting name="uploadFileExtension" value="zip,rar,7z,doc,docx,xls,xlsx,ppt,pptx" />
+
+	<setting name="priceScale" value="2"/>  
+	<setting name="priceRoundType" value="roundHalfUp"/>  
+	<setting name="currencySign" value="￥"/>  
+	<setting name="currencyUnit" value="元"/>  
+
+	<setting name="cookiePath" value="/" />
+	<setting name="cookieDomain" value="" />
+	<setting name="accountLockTypes" value="admin"/>
+	<setting name="captchaTypes" value="adminLogin,other"/>  
+
+	<!-- 专家点赞转普通点赞比例 -->
+	<setting name= "likeChange" value="10"/>
+	<!-- 日志配置 -->
+	<logConfig operation="系统设置" urlPattern="/admin/setting/update.jhtml" />
+	<logConfig operation="添加管理员" urlPattern="/admin/user/save.jhtml" />
+	<logConfig operation="编辑管理员" urlPattern="/admin/user/update.jhtml" />
+	<logConfig operation="删除管理员" urlPattern="/admin/user/delete.jhtml" />
+	<logConfig operation="添加角色" urlPattern="/admin/role/save.jhtml" />
+	<logConfig operation="编辑角色" urlPattern="/admin/role/update.jhtml" />
+	<logConfig operation="删除角色" urlPattern="/admin/role/delete.jhtml" />
+	<logConfig operation="添加资源" urlPattern="/admin/acl/save.jhtml" />
+	<logConfig operation="编辑资源" urlPattern="/admin/acl/update.jhtml" />
+	<logConfig operation="删除资源" urlPattern="/admin/acl/delete.jhtml" />
+	
+	<!-- 资源静态化 -->
+	<template id="adminCommonJs" type="page" name="admin_common_js" templatePath="/admin/js/common.ftl" staticPath="/resources/js/admin/common.js" />
+
+	<!--暂未使用 == start -->
+
+	<!--邮件配置-->
+	<setting name="siteUrl" value="http://127.0.0.1:10081/manage" />
+	<setting name="logo" value="http://127.0.0.1:10081/manage/resources/admin/images/logo.jpg" />
+	<setting name="contact" value="上医之家" />
+	<setting name="phone" value="0755-82523213（仅限工作日）" />
+	<setting name="address" value="深圳市福田区飞扬时代大厦B栋1902" />
+	<setting name="email" value="we@shangyizhijia.com" />
+	<setting name="certtext" value="粤ICP备18018734号" />
+	<setting name="smtpFromMail" value="metronic@huxin.me"/>
+	<setting name="smtpHost" value="smtp.mxhichina.com"/>
+	<setting name="smtpPort" value="25"/>
+	<setting name="smtpUsername" value="metronic@huxin.me"/>
+	<setting name="smtpPassword" value="Yan@metronic"/>
+	<!--上传文件-->
+	<setting name="imageUploadPath" value="/upload/image/${.now?string('yyyyMM')}/" />
+	<setting name="flashUploadPath" value="/upload/flash/${.now?string('yyyyMM')}/" />
+	<setting name="mediaUploadPath" value="/upload/media/${.now?string('yyyyMM')}/" />
+	<setting name="fileUploadPath" value="/upload/file/${.now?string('yyyyMM')}/" />
+	<setting name="qrCodeImagePath" value="/upload/qrcode/${.now?string('yyyyMM')}/" />
+	<!--开发设置-->
+	<setting name="isDevelopmentEnabled" value="true"/>
+	<!-- 邮件测试 -->
+	<template id="testMail" type="mail" name="邮件测试" templatePath="/admin/setting/mail.ftl" />
+	<!-- 接口 -->
+	<api id="main" logo="fa fa-gears" name="三瑞医疗接口文档" version="2.0" author="Loippi team" description="描述信息" baseUrl="http://127.0.0.1:10081/sleep/api"/>
+</framework>

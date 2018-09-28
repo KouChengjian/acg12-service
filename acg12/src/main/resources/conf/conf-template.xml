@@ -39,7 +39,7 @@
                 <entry key="systemDescription" value="${system.description}"/>
                 <entry key="base" value="#{servletContext.contextPath}"/>
                 <entry key="locale" value="${locale}"/>
-                <!--<entry key="setting" value="#{T(com.framework.loippi.utils.SettingUtils).get()}"/>-->
+                <entry key="setting" value="#{T(com.acg12.utils.SettingUtils).get()}"/>
                 <!--<entry key="message" value-ref="messageMethod"/>-->
                 <!--<entry key="abbreviate" value-ref="abbreviateMethod"/>-->
                 <!--<entry key="flash_message" value-ref="flashMessageDirective"/>-->

@@ -55,7 +55,7 @@
     <!-- 调度 配置 -->
     <!--<import resource="classpath*:/loippi/loippi-job.xml" />-->
     <!-- 缓存配置 -->
-    <!--<import resource="classpath*:/loippi/loippi-ehcache.xml" />-->
+    <import resource="classpath*:/conf/conf-ehcache.xml" />
     <!-- 缓存配置 -->
     <!--<import resource="classpath*:/applicationContext-redis.xml" />-->
 </beans>

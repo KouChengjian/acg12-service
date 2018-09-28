@@ -39,9 +39,9 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-    <!--<listener>-->
-        <!--<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>-->
-    <!--</listener>-->
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
 
     <servlet>
         <servlet-name>springmvc</servlet-name>
@@ -60,9 +60,9 @@
         <!--<url-pattern>/</url-pattern>-->
     </servlet-mapping>
 
-    <!--<welcome-file-list>-->
-        <!--<welcome-file>/admin/login.jhtml</welcome-file>-->
-    <!--</welcome-file-list>-->
+    <welcome-file-list>
+        <welcome-file>/admin/login.html</welcome-file>
+    </welcome-file-list>
     <!--<error-page>-->
         <!--<error-code>404</error-code>-->
         <!--&lt;!&ndash;<location>/admin/common/resource_not_found.jhtml</location>&ndash;&gt;-->
