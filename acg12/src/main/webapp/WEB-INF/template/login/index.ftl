@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <#--<title>${setting.siteName}</title>-->
+    <title>${setting.siteName}</title>
 
     <link rel="shortcut icon" href="favicon.ico">
     <link href="${base}/resources/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
@@ -46,9 +46,6 @@
 <!-- 全局js -->
 <script src="js/jquery.min.js?v=2.1.4"></script>
 <script src="js/bootstrap.min.js?v=3.3.6"></script>
-
-<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
-<!--统计代码，可删除-->
 
 </body>
 </html>

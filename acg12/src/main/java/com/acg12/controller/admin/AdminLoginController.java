@@ -15,14 +15,15 @@ import javax.servlet.http.HttpServletRequest;
  * Description: 登录页面
  */
 @Controller("adminLoginController")
-@RequestMapping("admin/*")
+//@RequestMapping("admin/*")
 public class AdminLoginController {
 
     /**
      * 登录
      * @return
      */
-    @RequestMapping(name="/login.html",method = RequestMethod.GET)
+    @RequestMapping(name="/admin/login.html",method =RequestMethod.GET)
+//    @RequestMapping(name="/login.html",method = RequestMethod.GET)
     public String index(HttpServletRequest request, ModelMap model) {
         System.out.println("============");
         return "/login/index";

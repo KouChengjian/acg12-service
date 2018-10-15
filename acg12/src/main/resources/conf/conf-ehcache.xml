@@ -12,7 +12,7 @@
 
     <!-- EHCACHE缓存的配置 -->
     <bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-        <property name="configLocation" value="classpath:/conf/conf-ehcache-setting.xml" />
+        <property name="configLocation" value="classpath:/ehcache.xml" />
         <property name="shared" value="true" />
     </bean>
 
