@@ -21,12 +21,12 @@
     <div>
         <div>
 
-            <h1 class="logo-name">H+</h1>
+            <h1 class="logo-name">漫友</h1>
 
         </div>
-        <h3>欢迎使用 H+</h3>
+        <h3>欢迎使用 漫友</h3>
 
-        <form class="m-t" role="form" action="index.html">
+        <form class="m-t" role="form" action="${base}/admin/login.json">
             <div class="form-group">
                 <input type="email" class="form-control" placeholder="用户名" required="">
             </div>
@@ -34,7 +34,6 @@
                 <input type="password" class="form-control" placeholder="密码" required="">
             </div>
             <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
-
 
             <p class="text-muted text-center"> <a href="login.html#"><small>忘记密码了？</small></a> | <a href="register.html">注册一个新账号</a>
             </p>
