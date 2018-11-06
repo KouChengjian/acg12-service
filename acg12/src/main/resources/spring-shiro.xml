@@ -7,22 +7,22 @@
 
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
-        <!--<property name="loginUrl" value="/admin/login.html"/>-->
+        <property name="loginUrl" value="/admin/login.html"/>
         <property name="successUrl" value="/admin/common/main.html"/>
-        <!--<property name="unauthorizedUrl" value="/admin/login.html"/>-->
+        <!-- 身份认证失败，则跳转到登录页面的配置 -->
+        <property name="unauthorizedUrl" value="/admin/login.html"/>
         <property name="filterChainDefinitions">
             <value>
-                /admin/common/unauthorized.html =anon
-                /admin/common/captcha.html = anon
-                /admin/common/area.html = anon
-                /admin/common/index.html = anon
-                /admin/api/** = anon
-                /resources/** = anon
-                /api/** = anon
+                <!--/admin/common/unauthorized.html =anon-->
+                <!--/admin/common/captcha.html = anon-->
+                <!--/admin/common/area.html = anon-->
+                <!--/admin/common/index.html = anon-->
+                <!--/admin/api/** = anon-->
+                <!--/resources/** = anon-->
+                <!--/api/** = anon-->
                 /admin/** = authc
-                /download/** = anon
-                <!--todo 取消接口授权-->
-                /test/** = anon
+
+                <!--/** = anon-->
             </value>
         </property>
         <property name="filters">
@@ -32,12 +32,22 @@
         </property>
     </bean>
 
+    <bean id="authenticationFilter" class="com.acg12.shiro.filter.AuthenticationFilter"/>
+
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="authenticationRealm"/>
         <property name="cacheManager" ref="shiroCacheManager"/>
         <!-- 设置超时时间 -->
         <!-- sessionManager -->
         <property name="sessionManager" ref="sessionManager"></property>
+    </bean>
+
+    <bean id="authenticationRealm" class="com.acg12.shiro.realm.AuthenticationRealm">
+        <property name="authorizationCacheName" value="authorization"/>
+    </bean>
+
+    <bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManager" ref="ehCacheManager"/>
     </bean>
 
     <!-- session管理器 -->
@@ -57,27 +67,16 @@
         <property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
     </bean>
 
-    <bean id="authenticationRealm" class="com.acg12.shiro.realm.AuthenticationRealm">
-        <property name="authorizationCacheName" value="authorization"/>
+    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg name="name" value="jeesite.session.id"/>
     </bean>
-
-    <bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
-        <property name="cacheManager" ref="ehCacheManager"/>
-    </bean>
-
-    <bean id="authenticationFilter" class="com.acg12.shiro.filter.AuthenticationFilter"/>
 
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
-
 
     <!-- 相当于调用SecurityUtils.setSecurityManager(securityManager) -->
     <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
         <property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager"/>
         <property ref="securityManager" name="arguments"/>
-    </bean>
-
-    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <constructor-arg name="name" value="jeesite.session.id"/>
     </bean>
 
 

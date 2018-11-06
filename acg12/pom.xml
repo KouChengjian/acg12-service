@@ -66,6 +66,7 @@
         <jdk.version>1.8</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
     <repositories>
         <repository>
             <id>eap</id>
@@ -78,6 +79,7 @@
             </snapshots>
         </repository>
     </repositories>
+
     <pluginRepositories>
         <pluginRepository>
             <id>eap</id>
@@ -201,31 +203,31 @@
             <version>${druid.version}</version>
         </dependency>
         <!-- ################### JACKSON ################ -->
-        <!--<dependency>-->
-        <!--<groupId>com.fasterxml.jackson.core</groupId>-->
-        <!--<artifactId>jackson-annotations</artifactId>-->
-        <!--<version>${jackson-core.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>com.fasterxml.jackson.core</groupId>-->
-        <!--<artifactId>jackson-databind</artifactId>-->
-        <!--<version>${jackson-core.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>org.codehaus.jackson</groupId>-->
-        <!--<artifactId>jackson-mapper-asl</artifactId>-->
-        <!--<version>${jackson-asl.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>org.codehaus.jackson</groupId>-->
-        <!--<artifactId>jackson-core-asl</artifactId>-->
-        <!--<version>${jackson-asl.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>com.fasterxml.jackson.core</groupId>-->
-        <!--<artifactId>jackson-core</artifactId>-->
-        <!--<version>${jackson-core.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>${jackson-asl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>${jackson-asl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson-core.version}</version>
+        </dependency>
         <!-- Freemaker -->
         <dependency>
             <groupId>org.freemarker</groupId>
@@ -233,11 +235,11 @@
             <version>${freemarker.version}</version>
         </dependency>
         <!-- javax提供的annotation -->
-        <!--<dependency>-->
-        <!--<groupId>javax.inject</groupId>-->
-        <!--<artifactId>javax.inject</artifactId>-->
-        <!--<version>${javax.inject.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>${javax.inject.version}</version>
+        </dependency>
         <!-- junit -->
         <dependency>
             <groupId>junit</groupId>
@@ -246,16 +248,16 @@
             <scope>test</scope>
         </dependency>
         <!-- aop代理 -->
-        <!--<dependency>-->
-        <!--<groupId>asm</groupId>-->
-        <!--<artifactId>asm</artifactId>-->
-        <!--<version>${asm.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>org.aspectj</groupId>-->
-        <!--<artifactId>aspectjweaver</artifactId>-->
-        <!--<version>${aspectjweaver.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>${asm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectjweaver.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
@@ -288,16 +290,16 @@
             <version>${poi.version}</version>
         </dependency>
         <!-- poi end -->
-        <!--<dependency>-->
-        <!--<groupId>net.sourceforge.pjl-comp-filter</groupId>-->
-        <!--<artifactId>pjl-comp-filter</artifactId>-->
-        <!--<version>${pjl-comp-filter.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>com.google.guava</groupId>-->
-        <!--<artifactId>guava</artifactId>-->
-        <!--<version>${guava.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>net.sourceforge.pjl-comp-filter</groupId>
+            <artifactId>pjl-comp-filter</artifactId>
+            <version>${pjl-comp-filter.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
         <!-- log4j -->
         <dependency>
             <groupId>log4j</groupId>
@@ -413,11 +415,11 @@
         <!--<artifactId>jsoup</artifactId>-->
         <!--<version>${jsoup.version}</version>-->
         <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>org.bouncycastle</groupId>-->
-        <!--<artifactId>bcprov-jdk15on</artifactId>-->
-        <!--<version>${bcprov-jdk15on.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>${bcprov-jdk15on.version}</version>
+        </dependency>
         <!--<dependency>-->
         <!--<groupId>javax.annotation</groupId>-->
         <!--<artifactId>javax.annotation-api</artifactId>-->
@@ -445,11 +447,11 @@
         <!--<artifactId>ezmorph</artifactId>-->
         <!--<version>${ezmorph.version}</version>-->
         <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>com.google.code.gson</groupId>-->
-        <!--<artifactId>gson</artifactId>-->
-        <!--<version>${gson.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
+        </dependency>
         <!--<dependency>-->
         <!--<groupId>com.ibm.icu</groupId>-->
         <!--<artifactId>icu4j</artifactId>-->
@@ -568,11 +570,6 @@
         <!--<groupId>com.aliyun.openservices</groupId>-->
         <!--<artifactId>aliyun-openservices</artifactId>-->
         <!--<version>1.0.12</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>com.qiniu</groupId>-->
-        <!--<artifactId>qiniu-java-sdk</artifactId>-->
-        <!--<version>7.2.14</version>-->
         <!--</dependency>-->
 
         <!--<dependency>-->

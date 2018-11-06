@@ -85,7 +85,8 @@ public class AuthenticationRealm extends AuthorizingRealm {
                 throw new DisabledAccountException();
             }
 
-            if (!DigestUtils.md5Hex(password).equals(user.getPassword())) {
+//            if (!DigestUtils.md5Hex(password).equals(user.getPassword())) {
+            if (!password.equals(user.getPassword())) {
                 int loginFailureCount = user.getLoginFailureCount() + 1;
                 if (loginFailureCount >= 5) {
                     user.setIsLocked(0);

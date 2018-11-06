@@ -44,48 +44,48 @@ import java.util.Map;
  * @version 1.0
  */
 public class GenericController {
-    /**
-     * 错误视图
-     */
-    protected static final String ERROR_VIEW = "/admin/common/error";
-
-    /**
-     * 错误消息
-     */
-    protected static final Message ERROR_MESSAGE = Message.error("admin.message.error");
-
-    /**
-     * 成功消息
-     */
-    protected static final Message SUCCESS_MESSAGE = Message.success("admin.message.success");
-
-//	@Resource
-//	private JedisCache jedisCache;
-
-    public static final Integer QCLOUD_USER_SIG_REDIS_CACHE_SECONDS = 3600 * 24 * 170;
-
-    /**
-     * 获取国际化消息
-     *
-     * @param code 代码
-     * @param args 参数
-     * @return 国际化消息
-     */
-    protected String message(String code, Object... args) {
-        return SpringUtils.getMessage(code, args);
-    }
-
-
-    /**
-     * 数据绑定
-     *
-     * @param binder WebDataBinder
-     */
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(String.class, new StringTrimmerEditor(false)); //空字符串不转换为null
-        binder.registerCustomEditor(Date.class, new DateEditor(true));
-    }
+//    /**
+//     * 错误视图
+//     */
+//    protected static final String ERROR_VIEW = "/admin/common/error";
+//
+//    /**
+//     * 错误消息
+//     */
+//    protected static final Message ERROR_MESSAGE = Message.error("admin.message.error");
+//
+//    /**
+//     * 成功消息
+//     */
+//    protected static final Message SUCCESS_MESSAGE = Message.success("admin.message.success");
+//
+////	@Resource
+////	private JedisCache jedisCache;
+//
+//    public static final Integer QCLOUD_USER_SIG_REDIS_CACHE_SECONDS = 3600 * 24 * 170;
+//
+//    /**
+//     * 获取国际化消息
+//     *
+//     * @param code 代码
+//     * @param args 参数
+//     * @return 国际化消息
+//     */
+//    protected String message(String code, Object... args) {
+//        return SpringUtils.getMessage(code, args);
+//    }
+//
+//
+//    /**
+//     * 数据绑定
+//     *
+//     * @param binder WebDataBinder
+//     */
+////    @InitBinder
+//    protected void initBinder(WebDataBinder binder) {
+//        binder.registerCustomEditor(String.class, new StringTrimmerEditor(false)); //空字符串不转换为null
+//        binder.registerCustomEditor(Date.class, new DateEditor(true));
+//    }
 
     /**
      * 添加瞬时消息
@@ -99,10 +99,10 @@ public class GenericController {
         }
     }
 
-    protected void processQueryConditions(Pageable pageable, HttpServletRequest request) {
-        Map<String, Object> paramter = ParameterUtils.getParametersMapStartingWith(request, "filter_");
-        pageable.setParameter(paramter);
-    }
+//    protected void processQueryConditions(Pageable pageable, HttpServletRequest request) {
+//        Map<String, Object> paramter = ParameterUtils.getParametersMapStartingWith(request, "filter_");
+//        pageable.setParameter(paramter);
+//    }
 
 
     /**

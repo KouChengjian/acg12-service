@@ -40,9 +40,9 @@
                 <entry key="base" value="#{servletContext.contextPath}"/>
                 <entry key="locale" value="${locale}"/>
                 <entry key="setting" value="#{T(com.acg12.utils.SettingUtils).get()}"/>
-                <!--<entry key="message" value-ref="messageMethod"/>-->
+                <entry key="message" value-ref="messageMethod"/>
                 <!--<entry key="abbreviate" value-ref="abbreviateMethod"/>-->
-                <!--<entry key="flash_message" value-ref="flashMessageDirective"/>-->
+                <entry key="flash_message" value-ref="flashMessageDirective"/>
                 <!--<entry key="pagination" value-ref="paginationDirective"/>-->
             </map>
         </property>

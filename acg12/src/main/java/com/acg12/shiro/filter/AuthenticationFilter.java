@@ -74,6 +74,13 @@ public class AuthenticationFilter extends FormAuthenticationFilter {
         return new AuthenticationToken(username, password, captchaId, captcha, rememberMe, host);
     }
 
+    /**
+     * 是否拒绝访问
+     * @param servletRequest
+     * @param servletResponse
+     * @return
+     * @throws Exception
+     */
     @Override
     protected boolean onAccessDenied(ServletRequest servletRequest, ServletResponse servletResponse) throws Exception {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
@@ -87,7 +94,6 @@ public class AuthenticationFilter extends FormAuthenticationFilter {
 
         boolean result = super.onAccessDenied(request, response);
         if (result) {
-
             HttpSession session = request.getSession();
             Cookie cookie = new SimpleCookie("jeesite.session.id");
             cookie.setHttpOnly(true);
@@ -113,13 +119,13 @@ public class AuthenticationFilter extends FormAuthenticationFilter {
         return super.onLoginSuccess(token, subject, servletRequest, servletResponse);
     }
 
-    @Override
-    protected String getPassword(ServletRequest servletRequest) {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        String password = rsaService.decryptParameter(enPasswordParam, request);
-        rsaService.removePrivateKey(request);
-        return password;
-    }
+//    @Override
+//    protected String getPassword(ServletRequest servletRequest) {
+//        HttpServletRequest request = (HttpServletRequest) servletRequest;
+//        String password = rsaService.decryptParameter(enPasswordParam, request);
+//        rsaService.removePrivateKey(request);
+//        return password;
+//    }
 
     /**
      * 获取验证ID

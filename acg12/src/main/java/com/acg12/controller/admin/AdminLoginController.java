@@ -27,51 +27,58 @@ import java.util.UUID;
  * Date: 2018/9/11 16:05
  * Description: 登录页面
  */
-//@RequestMapping("")
 @Controller("adminLoginController")
-public class AdminLoginController extends GenericController {
+@RequestMapping("/admin")
+public class AdminLoginController extends GenericController { //
 
     @Resource
     private RSAService rsaService;
+
+    @ResponseBody
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public String test(HttpServletRequest request) {
+        System.out.println("=============================");
+        return "gdfsdfdsf";
+    }
 
     /**
      * 登录
      *
      * @return
      */
-    @RequestMapping(name = "/admin/login.html", method = RequestMethod.GET)
-    public String index(HttpServletRequest request, ModelMap model) {
-//        Subject subject = SecurityUtils.getSubject();
-//        if (subject != null) {
-//            Principal principal = (Principal) subject.getPrincipal();
-//            if (principal != null && principal.getId() != null) {
-//                return "redirect:/admin/common/main.jhtml";
-//            }
-//        }
-//
-//        RSAPublicKey publicKey = null;
-//        try {
-//            publicKey = rsaService.generateKey(request);
-//            String modulus = Base64.encodeBase64String(publicKey.getModulus().toByteArray());
-//            String exponent = Base64.encodeBase64String(publicKey.getPublicExponent().toByteArray());
-//            model.addAttribute("modulus", modulus);
-//            model.addAttribute("exponent", exponent);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        if (publicKey == null) {
-//
-//            return "redirect:/admin/common/main.html";
-//        }
-//
-//        String captchaId = UUID.randomUUID().toString();
-//        model.addAttribute("captchaId", captchaId);
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String index(HttpServletRequest request, ModelMap model) { //
+        Subject subject = SecurityUtils.getSubject();
+        if (subject != null) {
+            Principal principal = (Principal) subject.getPrincipal();
+            if (principal != null && principal.getId() != null) {
+                return "redirect:/admin/common/main.html";
+            }
+        }
+
+        RSAPublicKey publicKey = null;
+        try {
+            publicKey = rsaService.generateKey(request);
+            String modulus = Base64.encodeBase64String(publicKey.getModulus().toByteArray());
+            String exponent = Base64.encodeBase64String(publicKey.getPublicExponent().toByteArray());
+            System.out.println(modulus);
+            System.out.println(exponent);
+            model.addAttribute("modulus", modulus);
+            model.addAttribute("exponent", exponent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (publicKey == null) {
+            return "redirect:/admin/common/main.html";
+        }
+
+        String captchaId = UUID.randomUUID().toString();
+        model.addAttribute("captchaId", captchaId);
         return "/admin/login/index";
     }
 
-    @ResponseBody
-    @RequestMapping(name = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String index(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         String message = null;
         String loginFailure = (String) request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
@@ -91,9 +98,9 @@ public class AdminLoginController extends GenericController {
             }
             addFlashMessage(redirectAttributes, Message.error(message));
 
-            return "redirect:/admin/login.jhtml";
+            return "redirect:/admin/login.html";
         }
 
-        return "redirect:/admin/common/main.jhtml";
+        return "redirect:/admin/common/main.html";
     }
 }
