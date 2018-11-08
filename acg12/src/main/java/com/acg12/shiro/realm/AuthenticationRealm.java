@@ -135,7 +135,7 @@ public class AuthenticationRealm extends AuthorizingRealm {
             SystemUserEntity user = systemUserService.find(principal.getId());
             SystemRoleEntity role = systemRoleService.findRoleAndAcls(user.getRoleId());
             for (SystemAclEntity acl : role.getAuthorities()){
-                if (org.apache.commons.lang.StringUtils.isNotEmpty(acl.getPermission())){
+                if (StringUtils.isNotEmpty(acl.getPermission())){
                     info.addStringPermission(acl.getPermission());
                 }
             }

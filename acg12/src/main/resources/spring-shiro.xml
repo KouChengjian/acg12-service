@@ -16,7 +16,7 @@
                 <!--/admin/common/unauthorized.html =anon-->
                 <!--/admin/common/captcha.html = anon-->
                 <!--/admin/common/area.html = anon-->
-                <!--/admin/common/index.html = anon-->
+                /admin/common/index.html = anon
                 <!--/admin/api/** = anon-->
                 <!--/resources/** = anon-->
                 <!--/api/** = anon-->

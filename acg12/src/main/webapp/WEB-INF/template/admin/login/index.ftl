@@ -23,12 +23,7 @@
     <link href="${base}/resources/plugins/artdialog/skins/simple.css" rel="stylesheet" type="text/css">
     <script src="${base}/resources/plugins/artdialog/artDialog.min.js?skin=default" type="text/javascript"></script>
     <script src="${base}/resources/plugins/artdialog/artDialog.plugins.js" type="text/javascript"></script>
-    [#--<!--[if lt IE 9]>--]
-    [#--<meta http-equiv="refresh" content="0;ie.html"/>--]
-    [#--<![endif]-->--]
-    [#--<script>if (window.top !== window.self) {--]
-        [#--window.top.location = window.location;--]
-    [#--}</script>--]
+
     <script>
         $().ready(function () {
             [@flash_message /]
@@ -102,9 +97,8 @@
     </div>
 </div>
 
-[#--<!-- 全局js -->--]
-[#--<script src="js/jquery.min.js?v=2.1.4"></script>--]
-[#--<script src="js/bootstrap.min.js?v=3.3.6"></script>--]
+<!-- 全局js -->
+<script src="${base}/resources/js/bootstrap.min.js?v=3.3.6"></script>
 
 </body>
 </html>

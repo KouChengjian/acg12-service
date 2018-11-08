@@ -7,6 +7,7 @@ import com.acg12.service.SystemAclService;
 import com.acg12.service.SystemUserService;
 import com.acg12.shiro.Principal;
 import com.acg12.utils.StringUtil;
+import com.framework.loippi.support.Pageable;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Value;
@@ -83,6 +84,7 @@ public class AdminCommonController extends GenericController implements ServletC
             acl.getChildren().addAll(this.getChildrens(allAcls, acl.getId()));
         }
         model.addAttribute("acls", acls);
+
         SystemUserEntity user = userService.getCurrent();
         model.addAttribute("nickname", user.getNickname());
         model.addAttribute("logindate", StringUtil.date2String42(user.getLoginDate()));
@@ -103,5 +105,37 @@ public class AdminCommonController extends GenericController implements ServletC
             }
         }
         return childrens;
+    }
+
+    /**
+     * 首页
+     */
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String index(Pageable pageable, ModelMap model) {
+        SystemUserEntity user = userService.getCurrent();
+        model.addAttribute("nickname", user.getNickname());
+        model.addAttribute("logindate",StringUtil.date2String42(user.getLoginDate()) );
+        model.addAttribute("loginaddress", user.getLoginadress());
+
+        model.addAttribute("systemName", systemName);
+        model.addAttribute("systemVersion", systemVersion);
+        model.addAttribute("systemDescription", systemDescription);
+        model.addAttribute("javaVersion", System.getProperty("java.version"));
+        model.addAttribute("javaHome", System.getProperty("java.home"));
+        model.addAttribute("osName", System.getProperty("os.name"));
+        model.addAttribute("osArch", System.getProperty("os.arch"));
+        model.addAttribute("serverInfo", servletContext.getServerInfo());
+        model.addAttribute("servletVersion", servletContext.getMajorVersion() + "." + servletContext.getMinorVersion());
+
+        return "/admin/common/index";
+    }
+
+
+    /**
+     * 资源不存在
+     */
+    @RequestMapping("/resource_not_found")
+    public String resourceNotFound() {
+        return "/admin/common/resource_not_found";
     }
 }

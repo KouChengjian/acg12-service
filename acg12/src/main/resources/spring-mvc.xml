@@ -79,7 +79,7 @@
             <map>
                 <entry key="json" value="application/json"/>
                 <entry key="jsonp" value="application/javascript"/>
-                <entry key="jhtml" value="text/html"/>
+                <entry key="html" value="text/html"/>
             </map>
         </property>
         <property name="defaultViews">
