@@ -651,6 +651,7 @@
 <script src="${base}/resources/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="${base}/resources/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="${base}/resources/js/plugins/layer/layer.min.js"></script>
+<script src="${base}/resources/js/admin/common.js"></script>
 
 <!-- 自定义js -->
 <script src="${base}/resources/js/hplus.js?v=4.1.0"></script>

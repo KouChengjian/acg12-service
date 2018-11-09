@@ -1,0 +1,39 @@
+@charset "utf-8";
+
+*{word-wrap:break-word; outline:none;}
+body{background:#FFF;}
+body, td, input, textarea, select, button{color:#555; font:12px "Microsoft Yahei", "Lucida Grande", Verdana, Lucida, Helvetica, Arial, 'Simsun', sans-serif;}
+body, ul, ol, li,  dl, dt, dd, p, h1, h2, h3, h4, h5, h6, form, fieldset{margin:0; padding:0;}
+ul, ol, li{list-style-image:none; list-style-type:none;}
+h1, h2, h3, h4, h5, h6{font-size:12px;}
+a{color:#0072bc; text-decoration:none;}
+a:hover{color:#0072bc; text-decoration:underline;}
+a img{border:none;}
+a{blr:expression(this.onFocus=this.blur())}
+em, cite, th{font-style:normal; font-weight:normal;}
+table{border-collapse:collapse;}
+th{text-align:left;}
+label, .pointer{cursor:pointer;}
+.trace{background:white; margin:6px; font-size:14px; border:1px dashed silver; padding:8px}
+.trace fieldset{margin:5px;}
+.trace fieldset legend{color:gray;font-weight:700}
+.trace fieldset div{overflow:auto;height:300px;text-align:left;}
+input,button,select,textarea{outline:none}
+html{-webkit-text-size-adjust:none;}
+
+
+
+/*内容页面样式------------------------------------------------------------------- */
+.page{padding:9px 20px 20px; text-align:left;}
+.fixed-bar{background:#FFF url(../images/sky/bg-fixed.png) repeat-x scroll center bottom; width:99%; padding:8px 20px 8px 0; margin-left:20px;position:fixed; top:0; left:0; z-index:99;}
+* html .fixedbar{width:100%; margin-top:-10px; position:relative; left:-20px;}
+
+.fixed-empty{height:50px !important;}
+.item-title{line-height:20px; margin-bottom:0 !important; clear:both; overflow:hidden; _padding-bottom:10px; +padding-bottom:10px;}
+	.item-title h3{float:left; margin-right:20px;}
+.tab-base{float:left; overflow:hidden; padding-top:16px;}
+	.tab-base li{float:left;}
+		.tab-base a{font-weight:700;font-size:14px;color:#333; line-height:28px; height:28px; float:left; padding:0 10px; cursor:pointer;}
+		.tab-base a:hover{color:#0072bc; text-decoration:none}
+		.tab-base a.current, .tab-base a:hover.current{color:#0072bc; border-bottom:2px solid #0072bc;cursor:default;}
+
