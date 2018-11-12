@@ -152,7 +152,7 @@ var ajaxReq = function (params) {
 
 </script>
 
-<script src="${base}/resources/js/jumper.js"></script>
+<#--<script src="${base}/resources/js/jumper.js"></script>-->
 
 <script>
     /**

@@ -44,25 +44,25 @@ import java.util.Map;
  * @version 1.0
  */
 public class GenericController {
-//    /**
-//     * 错误视图
-//     */
-//    protected static final String ERROR_VIEW = "/admin/common/error";
-//
-//    /**
-//     * 错误消息
-//     */
-//    protected static final Message ERROR_MESSAGE = Message.error("admin.message.error");
-//
-//    /**
-//     * 成功消息
-//     */
-//    protected static final Message SUCCESS_MESSAGE = Message.success("admin.message.success");
-//
-////	@Resource
-////	private JedisCache jedisCache;
-//
-//    public static final Integer QCLOUD_USER_SIG_REDIS_CACHE_SECONDS = 3600 * 24 * 170;
+    /**
+     * 错误视图
+     */
+    protected static final String ERROR_VIEW = "/admin/common/error";
+
+    /**
+     * 错误消息
+     */
+    protected static final Message ERROR_MESSAGE = Message.error("admin.message.error");
+
+    /**
+     * 成功消息
+     */
+    protected static final Message SUCCESS_MESSAGE = Message.success("admin.message.success");
+
+//	@Resource
+//	private JedisCache jedisCache;
+
+    public static final Integer QCLOUD_USER_SIG_REDIS_CACHE_SECONDS = 3600 * 24 * 170;
 //
 //    /**
 //     * 获取国际化消息

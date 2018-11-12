@@ -20,6 +20,8 @@ import org.springframework.web.context.ServletContextAware;
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 /**
@@ -137,5 +139,14 @@ public class AdminCommonController extends GenericController implements ServletC
     @RequestMapping("/resource_not_found")
     public String resourceNotFound() {
         return "/admin/common/resource_not_found";
+    }
+
+    /**
+     * 注销
+     */
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String execute(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+        SecurityUtils.getSubject().logout();
+        return "redirect:/admin/login.html?jssionid="+session.getId();
     }
 }
