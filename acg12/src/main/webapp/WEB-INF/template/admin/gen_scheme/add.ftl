@@ -28,11 +28,11 @@
                     	 <h5>新增生成方案</h5>
                     	 <div class="ibox-tools">
                     	 	<button type="button" class="btn btn-outline btn-white btn-xs" id="btn-return-loippi" 
-                    	 	onclick="location.href='list.jhtml'"><i class="fa fa-reply-all"></i> 返回列表</button>
+                    	 	onclick="location.href='list.html'"><i class="fa fa-reply-all"></i> 返回列表</button>
                         </div>
                     </div>            	
                   	<div class="ibox-content">
-                  		<form id="inputForm" class="form-horizontal" action="save.jhtml" method="POST">
+                  		<form id="inputForm" class="form-horizontal" action="save.html" method="POST">
                   		<div class="form-group">
                        		<div class="row">
                        			<div class="col-sm-6">
@@ -67,11 +67,11 @@
                        			<div class="col-sm-6">
                        			 	<label class="col-sm-3 control-label"><span class="required"> * </span>生成包路径</label>
 	                           	    <div class="col-sm-9">
-	                           	    	 <input type="text" name="packageName" id="packageName" class="form-control" value="com.framework.loippi"> 
+	                           	    	 <input type="text" name="packageName" id="packageName" class="form-control" value="com.acg12">
 	                                </div>
                        			</div>
                        			<div class="col-sm-6">
-                       			 	  <span class="required" style="color:#CBCBCB;line-height: 34px;"> 建议模块包：com.framework.loippi</span> 
+                       			 	  <span class="required" style="color:#CBCBCB;line-height: 34px;"> 建议模块包：com.acg12</span>
                        			</div>
                        		</div>
                         </div>

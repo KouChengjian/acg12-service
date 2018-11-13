@@ -156,7 +156,7 @@
 	</select>
 <!-- 统计记录数 -->
 	<select id="count" resultType="long">
-		SELECT COUNT(*) FROM T_GEN_TABLE_COLUMN
+		SELECT COUNT(*) FROM T_SYSTEM_GEN_TABLE_COLUMN
 		<where> 
 			<include refid="where_column" />
 		</where>

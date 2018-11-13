@@ -77,14 +77,14 @@
 	<select id="find" resultMap="GenTableResultMap">
 		SELECT
 		<include refid="base_column" />
-		FROM T_GEN_TABLE
+		FROM T_SYSTEM_GEN_TABLE
 		WHERE ID=#{id,jdbcType=BIGINT}
 	</select>
 
 	<select id="findAll" resultMap="GenTableResultMap">
 		SELECT
 		<include refid="base_column" />
-		FROM T_GEN_TABLE
+		FROM T_SYSTEM_GEN_TABLE
 	</select>
 
 	<insert id="insert" parameterType="com.acg12.entity.po.SystemGenTableEntity">
@@ -92,7 +92,7 @@
 			keyProperty="id">
 			SELECT LAST_INSERT_ID() AS ID
 		</selectKey>
-		INSERT T_GEN_TABLE
+		INSERT T_SYSTEM_GEN_TABLE
 		(
 		<include refid="base_column" />
 		)
@@ -102,7 +102,7 @@
 	</insert>
 
 	<update id="update" parameterType="com.acg12.entity.po.SystemGenTableEntity">
-		UPDATE T_GEN_TABLE
+		UPDATE T_SYSTEM_GEN_TABLE
 		<set>
 			<include refid="set_column" />
 		</set>
@@ -110,13 +110,13 @@
 	</update>
 
 	<delete id="delete">
-		DELETE FROM T_GEN_TABLE
+		DELETE FROM T_SYSTEM_GEN_TABLE
 		WHERE ID =
 		#{id,jdbcType=BIGINT}
 	</delete>
 
 	<delete id="deleteAll">
-		DELETE FROM T_GEN_TABLE
+		DELETE FROM T_SYSTEM_GEN_TABLE
 		WHERE ID IN
 		<foreach item="ItemId" index="index" collection="ids" open="("
 			separator="," close=")">
@@ -127,7 +127,7 @@
 	<select id="findByParams" resultMap="GenTableResultMap">
 		SELECT
 		<include refid="base_column" />
-		FROM T_GEN_TABLE
+		FROM T_SYSTEM_GEN_TABLE
 		<where>
 			<include refid="where_column" />
 		</where>
@@ -145,7 +145,7 @@
 	<select id="findByPage" resultMap="GenTableResultMap">
 		SELECT
 		<include refid="base_column" />
-		FROM T_GEN_TABLE
+		FROM T_SYSTEM_GEN_TABLE
 		<where>
 			<include refid="where_column" />
 		</where>
@@ -153,7 +153,7 @@
 
 			<!-- 统计记录数 -->
 	<select id="count" resultType="long">
-		SELECT COUNT(*) FROM T_GEN_TABLE
+		SELECT COUNT(*) FROM T_SYSTEM_GEN_TABLE
 		<where> 
 			<include refid="where_column" />
 		</where>
