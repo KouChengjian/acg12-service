@@ -3,6 +3,7 @@ package com.acg12.service.impl;
 import com.acg12.dao.SystemUserDao;
 import com.acg12.entity.po.SystemUserEntity;
 import com.acg12.service.GenericService;
+import com.acg12.shiro.Principal;
 import com.acg12.utils.StringUtil;
 import com.framework.loippi.mybatis.dao.GenericDao;
 import com.framework.loippi.mybatis.eitity.GenericEntity;
@@ -236,15 +237,15 @@ public class GenericServiceImpl<T extends GenericEntity, PK extends Serializable
 		return genericDao.findByParams(params);
 	}
 	
-//	public SystemUserEntity getCurrent() {
-//		Subject subject = SecurityUtils.getSubject();
-//		if (subject != null) {
-//			Principal principal = (Principal) subject.getPrincipal();
-//			if (principal != null && principal.getId() != null) {
-//				return userDao.find(principal.getId());
-//			}
-//		}
-//		return null;
-//	}
+	public SystemUserEntity getCurrent() {
+		Subject subject = SecurityUtils.getSubject();
+		if (subject != null) {
+			Principal principal = (Principal) subject.getPrincipal();
+			if (principal != null && principal.getId() != null) {
+				return userDao.find(principal.getId());
+			}
+		}
+		return null;
+	}
 
 }

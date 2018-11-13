@@ -99,10 +99,10 @@ public class GenericController {
         }
     }
 
-//    protected void processQueryConditions(Pageable pageable, HttpServletRequest request) {
-//        Map<String, Object> paramter = ParameterUtils.getParametersMapStartingWith(request, "filter_");
-//        pageable.setParameter(paramter);
-//    }
+    protected void processQueryConditions(Pageable pageable, HttpServletRequest request) {
+        Map<String, Object> paramter = ParameterUtils.getParametersMapStartingWith(request, "filter_");
+        pageable.setParameter(paramter);
+    }
 
 
     /**
