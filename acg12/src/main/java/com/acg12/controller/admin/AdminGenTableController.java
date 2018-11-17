@@ -1,5 +1,6 @@
 package com.acg12.controller.admin;
 
+import cn.hutool.setting.dialect.Props;
 import com.acg12.controller.GenericController;
 import com.acg12.entity.po.SystemGenSchemeEntity;
 import com.acg12.entity.po.SystemGenTableColumnEntity;
@@ -10,6 +11,7 @@ import com.acg12.service.SystemGenTableColumnService;
 import com.acg12.service.SystemGenTableService;
 import com.acg12.service.SystemUserService;
 import com.acg12.support.Message;
+import com.acg12.utils.PropUitl;
 import com.framework.loippi.mybatis.ext.Java2MybatisTypeConvert;
 import com.framework.loippi.support.Page;
 import com.framework.loippi.support.Pageable;
@@ -44,7 +46,6 @@ import java.util.Map;
  */
 @Controller("adminGenTableController")
 @RequestMapping("/admin/gen_table")
-@Component
 public class AdminGenTableController extends GenericController {
 
     private static String url;
@@ -53,21 +54,12 @@ public class AdminGenTableController extends GenericController {
 
     private static String password;
 
-    @Value("${jdbc.url}")
-    public void setUrl(String jdbcUrl) {
-        url = jdbcUrl;
+    static {
+        Props props = PropUitl.getProps();
+        url = props.getStr("jdbc.url");
+        username = props.getStr("jdbc.username");
+        password = props.getStr("jdbc.password");
     }
-
-    @Value("${jdbc.username}")
-    public void setUserName(String jdbcUserName) {
-        username = jdbcUserName;
-    }
-
-    @Value("${jdbc.password}")
-    public void setPassword(String jdbcPassword) {
-        password = jdbcPassword;
-    }
-
 
     @Resource
     private SystemUserService userService;
@@ -87,7 +79,6 @@ public class AdminGenTableController extends GenericController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add(ModelMap model) {
         try {
-            System.out.println("url = " + url);
             IFactory factory = MysqlFactory.getInstance(url, username, password);
             List<ITable> tables = factory.getTables();
             model.addAttribute("tables", tables);
@@ -160,12 +151,11 @@ public class AdminGenTableController extends GenericController {
         scheme.setStrategy(1);
         scheme.setCreator(user.getId());
         scheme.setUpdator(user.getId());
-        scheme.setPackageName("com.framework.loippi");
+        scheme.setPackageName("com.acg12");
         scheme.setDescription(table.getDescription());
-        scheme.setAuthor("wmj");
+        scheme.setAuthor("kcj");
         schemeService.save(scheme);
         generate(request, scheme, tableService.find(scheme.getGenTableId()));
-
 
         addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
         return "redirect:list.html";
@@ -175,8 +165,7 @@ public class AdminGenTableController extends GenericController {
      * 删除
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public @ResponseBody
-    Message delete(Long[] ids) {
+    public @ResponseBody Message delete(Long[] ids) {
         for (Long id : ids) {
             columnService.deleteByTableId(id);
         }

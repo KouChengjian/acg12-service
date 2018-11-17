@@ -29,7 +29,7 @@
                         <div class="ibox-tools">
                             <a class="btn btn-outline btn-success btn-xs" id="btn-add-loippi" href="add.html"><i
                                     class="fa fa-plus"></i> 新增</a>
-                            <a class="btn btn-outline btn-danger btn-xs btn-delete-loippi-group"><i
+                            <a class="btn btn-outline btn-danger btn-xs btn-delete-loippi-group" href="delete.html"><i
                                     class="fa fa-trash"></i> 删除</a>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                                      <td>[#if  table.createDate??]${table.createDate?string('yyyy-MM-dd')}[/#if]</td>
 
                                      <td>
-                                         <a class="btn btn-danger btn-xs btn-delete-loippi" data-id="${table.id}"><i
+                                         <a class="btn btn-danger btn-xs btn-delete-loippi" data-id="${table.id}" href="delete.html"><i
                                                  class="fa fa-trash"></i> 删除</a>
                                      </td>
                                  </tr>

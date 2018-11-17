@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
-                <form id="listForm" action="list.jhtml" method="get">
+                <form id="listForm" action="list.html" method="get">
                     <div class="ibox-title">
                         <!--【改标题：描述—】-->
                         <h5>生成方案管理 </h5>
@@ -89,7 +89,7 @@
             var $this = $(this);
             var loading = art.dialog.loading('生成代码中...');
             $.ajax({
-                url: "gen.jhtml",
+                url: "gen.html",
                 type: "POST",
                 data: {id: $this.attr('data-id')},
                 dataType: "json",

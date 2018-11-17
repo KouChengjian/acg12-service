@@ -222,7 +222,7 @@
                             var inst = jQuery.jstree.reference(data.reference),
                                     obj = inst.get_node(data.reference);
                             $.ajax({
-                                url: "delete.jhtml",
+                                url: "delete.html",
                                 type: "POST",
                                 data: {id: obj.id},
                                 dataType: "json",
