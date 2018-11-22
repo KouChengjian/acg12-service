@@ -67,8 +67,8 @@
 <script src="${base}/resources/js/plugins/bootstrapselect/bootstrap-select.min.js"></script>
 
 <!-- bootstrap Resizable-->
-<script src="${base}/resources/js/plugins/bootstraptable-resizable/colResizable-1.6.js"></script>
-<script src="${base}/resources/js/plugins/bootstraptable-resizable/bootstrap-table-resizable.js"></script>
+<#--<script src="${base}/resources/js/plugins/bootstraptable-resizable/colResizable-1.6.min.js"></script>-->
+<#--<script src="${base}/resources/js/plugins/bootstraptable-resizable/bootstrap-table-resizable.js"></script>-->
 <#--上传文件-->
 <script src="${base}/resources/plugins/webupload/HHuploadify.js"></script>
   <script>

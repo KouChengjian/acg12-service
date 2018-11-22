@@ -26,7 +26,8 @@
                     <div class="ibox-title">
                         <h5>subject管理 </h5>
                         <div class="ibox-tools">
-                            <a class="btn btn-outline btn-success btn-xs" id="btn-add-loippi" href="add.jhtml"><i
+                            <a class="btn btn-outline btn-success btn-xs" id="btn-add-loippi"
+                               href="javascript:to_add()"><i
                                     class="fa fa-plus"></i> 新增</a>
                             <a class="btn btn-outline btn-danger btn-xs btn-delete-loippi-group2"
                                href='javascript:dels()'><i class="fa fa-trash"></i> 删除</a>
@@ -230,11 +231,11 @@
 
 
 <script>
-    $("#Acg12Subject_list").colResizable({
-        liveDrag:true,
-        draggingClass:"dragging",
-        resizeMode:'fit'
-    });
+    // $("#Acg12Subject_list").colResizable({
+    //     liveDrag: true,
+    //     draggingClass: "dragging",
+    //     resizeMode: 'fit'
+    // });
 
     $('#Acg12Subject_list').bootstrapTable({
         method: 'get',
@@ -270,19 +271,19 @@
                 title: "类型", field: "type", align: "center", valign: "middle", sortable: true
             },
             {
-                title: "类型名称", field: "typeName", align: "center", valign: "middle", sortable: true
+                title: "类型名称", field: "typeName", align: "center", valign: "middle", sortable: true, width: "100",
             },
             {
-                title: "名称", field: "name", align: "center", valign: "middle", sortable: true
+                title: "名称", field: "name", align: "center", valign: "middle", sortable: true, width: "200",
             },
             {
-                title: "名称_中文", field: "nameCn", align: "center", valign: "middle", sortable: true
+                title: "名称_中文", field: "nameCn", align: "center", valign: "middle", sortable: true, width: "200",
             },
             {
-                title: "概况", field: "summary", align: "center", valign: "middle", sortable: true ,visible: false
+                title: "概况", field: "summary", align: "center", valign: "middle", sortable: true, visible: false
             },
             {
-                title: "封面", field: "image", align: "center", valign: "middle", sortable: true ,visible: false
+                title: "封面", field: "image", align: "center", valign: "middle", sortable: true, visible: false
             },
             {
                 title: "话数", field: "epsCount", align: "center", valign: "middle", sortable: true
@@ -300,13 +301,13 @@
                 title: "锁定状态", field: "lockStatus", align: "center", valign: "middle", sortable: true
             },
             {
-                title: "", field: "createtime", align: "center", valign: "middle", sortable: true ,visible: false
+                title: "", field: "createtime", align: "center", valign: "middle", sortable: true, visible: false
             },
             {
-                title: "", field: "updatetime", align: "center", valign: "middle", sortable: true ,visible: false
+                title: "", field: "updatetime", align: "center", valign: "middle", sortable: true, visible: false
             },
             {
-                title: "创建时间", field: "createTime", align: "center", valign: "middle", sortable: true ,visible: false
+                title: "创建时间", field: "createTime", align: "center", valign: "middle", sortable: true, visible: false
                 , formatter: function (value, row, index) {
                     if ("undefined" != value + "") {
                         var a = dateFtt("yyyy-MM-dd hh:mm:ss", new Date(value));
@@ -318,7 +319,7 @@
 
             },
             {
-                title: "修改时间", field: "updateTime", align: "center", valign: "middle", sortable: true ,visible: false
+                title: "修改时间", field: "updateTime", align: "center", valign: "middle", sortable: true, visible: false
                 , formatter: function (value, row, index) {
                     if ("undefined" != value + "") {
                         var a = dateFtt("yyyy-MM-dd hh:mm:ss", new Date(value));
@@ -330,15 +331,17 @@
 
             },
             {
-                title: "操作", field: "id2", align: "center", valign: "middle", width :"200" ,
+                title: "操作", field: "id2", align: "center", valign: "middle", width: "200",
                 formatter: function (value, row, index) {
                     //通过formatter可以自定义列显示的内容
                     //value：当前field的值，即id
                     //row：当前行的数据
                     var a =
-                            "<a class='btn btn-xs btn-default' data-id='" + value + "'  href='view/" + row.id + ".html' ><i class='fa fa-paste'></i>查看 </a>　"
-                            + "<a class='btn btn-danger btn-xs btn-delete-loippi2'  href='javascript:del(" + row.id + ")' data-id='" + row.id + "' ><i class='fa fa-trash'></i> 删除</a>　"
-                            + "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='edit/" + row.id + ".html' ><i class='fa fa-paste'></i> 编辑</a>";
+                            "<a class='btn btn-danger btn-xs btn-delete-loippi2'  href='javascript:del(" + row.id + ")' data-id='" + row.id + "' ><i class='fa fa-trash'></i> 删除</a>"
+                            + "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_edit(" + row.id + ")' ><i class='fa fa-paste'></i> 编辑</a>";
+                    if("1" == row.type){
+                        a += "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_edit(" + row.id + ")' ><i class='fa fa-paste'></i> 编辑</a>";
+                    }
                     return a;
                 }
             },
@@ -420,10 +423,10 @@
 	   $('#Acg12Subject_list').bootstrapTable('${systemColumn.columnType}', '${systemColumn.columnName}');
    [/#list]
         //  初始化搜索字段
-     [#list systemColumnSearchList as systemColumn] 
+    [#list systemColumnSearchList as systemColumn]
        $('#checkbox-search-${systemColumn.columnName}').iCheck('${systemColumn.columnType}');
        $('#checkbox-search-${systemColumn.columnName}').attr('checked', '${systemColumn.columnType}');
-     [/#list]
+    [/#list]
 
         $("[name='checkbox-search']").each(function () {
             if (!$(this).is(":checked")) {
@@ -487,7 +490,7 @@
         bootbox.confirm(message("admin.dialog.deleteConfirm"), function (result) {
             if (result) {
                 $.ajax({
-                    url: "delete.jhtml",
+                    url: "delete.html",
                     type: "get",
                     data: {ids: val},
                     dataType: "json",
@@ -517,7 +520,7 @@
             }
             if (result) {
                 $.ajax({
-                    url: "delete.jhtml",
+                    url: "delete.html",
                     type: "get",
                     data: {ids: ids},
                     dataType: "json",
@@ -535,6 +538,53 @@
         });
     };
 
+    var to_add = function () {
+        layer.open({
+            type: 2,
+            title: '弹出窗口',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area: ['80%', '90%'],
+            content: 'add.html',
+            cancel: function (index) {
+                layer.close(index);
+                location.reload();
+                return false;
+            }
+        });
+    }
+
+    var to_edit = function (id) {
+        layer.open({
+            type: 2,
+            title: '弹出窗口',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area: ['80%', '90%'],
+            content: 'edit/' + id + '.html',
+            cancel: function (index) {
+                layer.close(index);
+                location.reload();
+                return false;
+            }
+        });
+    }
+
+    // var to_edit = function (id) {
+    //     layer.open({
+    //         type: 2,
+    //         title: '弹出窗口',
+    //         maxmin: true,
+    //         shadeClose: true, //点击遮罩关闭层
+    //         area: ['80%', '90%'],
+    //         content: 'edit/' + id + ".html'',
+    //         cancel: function(index){
+    //             layer.close(index);
+    //             location.reload();
+    //             return false;
+    //         }
+    //     });
+    // }
 
 </script>
 
