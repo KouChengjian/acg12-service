@@ -338,8 +338,9 @@
                     //row：当前行的数据
                     var a =
                             "<a class='btn btn-danger btn-xs btn-delete-loippi2'  href='javascript:del(" + row.id + ")' data-id='" + row.id + "' ><i class='fa fa-trash'></i> 删除</a>"
-                            + "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_edit(" + row.id + ")' ><i class='fa fa-paste'></i> 编辑</a>";
-                    if("1" == row.type){
+                            + "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_edit(" + row.id + ")' ><i class='fa fa-paste'></i> 编辑</a>"
+                            + "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_detailList(" + row.id + ")' ><i class='fa fa-paste'></i> 详情</a>";
+                    if ("1" == row.type) {
                         a += "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_edit(" + row.id + ")' ><i class='fa fa-paste'></i> 编辑</a>";
                     }
                     return a;
@@ -570,21 +571,21 @@
         });
     }
 
-    // var to_edit = function (id) {
-    //     layer.open({
-    //         type: 2,
-    //         title: '弹出窗口',
-    //         maxmin: true,
-    //         shadeClose: true, //点击遮罩关闭层
-    //         area: ['80%', '90%'],
-    //         content: 'edit/' + id + ".html'',
-    //         cancel: function(index){
-    //             layer.close(index);
-    //             location.reload();
-    //             return false;
-    //         }
-    //     });
-    // }
+    var to_detailList = function (id) {
+        layer.open({
+            type: 2,
+            title: '弹出窗口',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area: ['80%', '90%'],
+            content: '${base}/admin/subject_detail/list.html?subject_id=' + id,
+            // cancel: function(index){
+            //     layer.close(index);
+            //     location.reload();
+            //     return false;
+            // }
+        });
+    }
 
 </script>
 
