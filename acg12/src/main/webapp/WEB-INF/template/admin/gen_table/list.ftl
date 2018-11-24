@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
-                <form id="listForm" action="list.jhtml" method="get">
+                <form id="listForm" action="list.html" method="get">
                     <div class="ibox-title">
                         <!--【改标题：描述—】-->
                         <h5>业务表管理 </h5>
