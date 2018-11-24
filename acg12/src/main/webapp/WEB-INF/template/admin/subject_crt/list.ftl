@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
 
-    <title>${setting.siteName} - subjectDetail管理</title>
+    <title>${setting.siteName} - subjectCrt管理</title>
     <meta name="keywords" content="${setting.siteName}">
     <meta name="description" content="${setting.siteName}">
 
@@ -24,9 +24,9 @@
             <div class="ibox float-e-margins">
                 <form id="listForm" action="list.html" method="get">
                     <div class="ibox-title">
-                        <h5>subjectDetail管理 </h5>
+                        <h5>subjectCrt管理 </h5>
                         <div class="ibox-tools">
-                            <a class="btn btn-outline btn-success btn-xs" id="btn-add-loippi" href="javascript:to_add()"><i
+                            <a class="btn btn-outline btn-success btn-xs" id="btn-add-loippi" href="add.html"><i
                                     class="fa fa-plus"></i> 新增</a>
                             <a class="btn btn-outline btn-danger btn-xs btn-delete-loippi-group2"
                                href='javascript:dels()'><i class="fa fa-trash"></i> 删除</a>
@@ -36,9 +36,8 @@
                     <div class="ibox-content">
                         <input type="hidden" value="${subject_id}" name="subject_id" id="subject_id"/>
                         <div class="dataTables_wrapper form-inline">
-                            <table id="Acg12SubjectDetail_list"></table>
+                            <table id="Acg12SubjectCrt_list"></table>
                         </div>
-
                     </div>
                 </form>
             </div>
@@ -69,7 +68,7 @@
 
 
 <script>
-    $('#Acg12SubjectDetail_list').bootstrapTable({
+    $('#Acg12SubjectCrt_list').bootstrapTable({
         method: 'get',
         toolbar: '#toolbar',    //工具按钮用哪个容器
         striped: true,      //是否显示行间隔色
@@ -80,7 +79,7 @@
         pageNumber: 1,      //初始化加载第一页，默认第一页
         pageSize: 20,      //每页的记录行数（*）
         pageList: [20, 50, 100, 150],  //可供选择的每页的行数（*）
-        url: "${base}/admin/subject_detail/listNew.json",//这个接口需要处理bootstrap table传递的固定参数
+        url: "listNew.json",//这个接口需要处理bootstrap table传递的固定参数
         queryParamsType: '', //默认值为 'limit' ,在默认情况下 传给服务端的参数为：offset,limit,sort
         // 设置为 '' 在这种情况下传给服务器的参数为：pageSize,pageNumber
         queryParams: queryParams,//前端调用服务时，会默认传递上边提到的参数，如果需要添加自定义参数，可以自定义一个函数返回请求参数
@@ -103,10 +102,61 @@
                 title: "sId", field: "sId", align: "center", valign: "middle", sortable: true
             },
             {
-                title: "key", field: "otherTitle", align: "center", valign: "middle", sortable: true
+                title: "cId", field: "cId", align: "center", valign: "middle", sortable: true
             },
             {
-                title: "value", field: "otherValue", align: "center", valign: "middle", sortable: true
+                title: "pId", field: "pId", align: "center", valign: "middle", sortable: true
+            },
+            {
+                title: "名称", field: "name", align: "center", valign: "middle", sortable: true
+            },
+            {
+                title: "中文名", field: "nameN", align: "center", valign: "middle", sortable: true
+            },
+            {
+                title: "扮演者身份", field: "roleName", align: "center", valign: "middle", sortable: true
+            },
+            {
+                title: "图片", field: "image", align: "center", valign: "middle", sortable: true, visible: false
+            },
+            {
+                title: "扮演者名称", field: "pName", align: "center", valign: "middle", sortable: true
+            },
+            {
+                title: "扮演者中文名", field: "pNameCn", align: "center", valign: "middle", sortable: true
+            },
+            {
+                title: "扮演者图片", field: "pImage", align: "center", valign: "middle", sortable: true, visible: false
+            },
+            {
+                title: "", field: "createtime", align: "center", valign: "middle", sortable: true, visible: false
+            },
+            {
+                title: "", field: "updatetime", align: "center", valign: "middle", sortable: true, visible: false
+            },
+            {
+                title: "创建时间", field: "createTime", align: "center", valign: "middle", sortable: true
+                , formatter: function (value, row, index) {
+                    if ("undefined" != value + "") {
+                        var a = dateFtt("yyyy-MM-dd hh:mm:ss", new Date(value));
+                        return a;
+                    } else {
+                        return value;
+                    }
+                }
+
+            },
+            {
+                title: "修改时间", field: "updateTime", align: "center", valign: "middle", sortable: true
+                , formatter: function (value, row, index) {
+                    if ("undefined" != value + "") {
+                        var a = dateFtt("yyyy-MM-dd hh:mm:ss", new Date(value));
+                        return a;
+                    } else {
+                        return value;
+                    }
+                }
+
             },
             {
                 title: "操作", field: "id2", align: "center", valign: "middle",
@@ -115,10 +165,9 @@
                     //value：当前field的值，即id
                     //row：当前行的数据
                     var a =
-                            // "<a class='btn btn-xs btn-default' data-id='" + value + "'  href='view/" + row.id + ".jhtml' ><i class='fa fa-paste'></i>查看 </a>　"
-                            "<a class='btn btn-danger btn-xs btn-delete-loippi2'  href='javascript:del(" + row.id + ")' data-id='" + row.id + "' ><i class='fa fa-trash'></i> 删除</a>　"
-                            + "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_edit(" + row.id + ")' ><i class='fa fa-paste'></i> 编辑</a>　"
-                            + "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='edit/" + row.id + ".html' ><i class='fa fa-paste'></i> 编辑</a>";
+                            "<a class='btn btn-xs btn-default' data-id='" + value + "'  href='view/" + row.id + ".jhtml' ><i class='fa fa-paste'></i>查看 </a>　"
+                            + "<a class='btn btn-danger btn-xs btn-delete-loippi2'  href='javascript:del(" + row.id + ")' data-id='" + row.id + "' ><i class='fa fa-trash'></i> 删除</a>　"
+                            + "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='edit/" + row.id + ".jhtml' ><i class='fa fa-paste'></i> 编辑</a>";
                     return a;
                 }
             },
@@ -149,9 +198,41 @@
             filter_sIde: $("#filter_sIde").val(),
 
 
-            filter_otherTitlelike: $("#filter_otherTitle").val(),
+            filter_cIds: $("#filter_cIds").val(),
+            filter_cIde: $("#filter_cIde").val(),
 
-            filter_otherValuelike: $("#filter_otherValue").val(),
+
+            filter_pIds: $("#filter_pIds").val(),
+            filter_pIde: $("#filter_pIde").val(),
+
+
+            filter_namelike: $("#filter_name").val(),
+
+            filter_nameNlike: $("#filter_nameN").val(),
+
+            filter_roleNamelike: $("#filter_roleName").val(),
+
+            filter_imagelike: $("#filter_image").val(),
+
+            filter_pNamelike: $("#filter_pName").val(),
+
+            filter_pNameCnlike: $("#filter_pNameCn").val(),
+
+            filter_pImagelike: $("#filter_pImage").val(),
+
+            filter_createtimes: $("#filter_createtimes").val(),
+            filter_createtimee: $("#filter_createtimee").val(),
+
+
+            filter_updatetimes: $("#filter_updatetimes").val(),
+            filter_updatetimee: $("#filter_updatetimee").val(),
+
+
+            filter_createTimes: $("#filter_createTimes").val(),
+            filter_createTimee: $("#filter_createTimee").val(),
+
+            filter_updateTimes: $("#filter_updateTimes").val(),
+            filter_updateTimee: $("#filter_updateTimee").val(),
             sortName: params.sortName,
             sortOrder: params.sortOrder
         };
@@ -163,7 +244,7 @@
     function initColumns() {
         //初始化显示列
         [#list systemColumnList as systemColumn]
-	       $('#Acg12SubjectDetail_list').bootstrapTable('${systemColumn.columnType}', '${systemColumn.columnName}');
+	        $('#Acg12SubjectCrt_list').bootstrapTable('${systemColumn.columnType}', '${systemColumn.columnName}');
         [/#list]
         //  初始化搜索字段
         [#list systemColumnSearchList as systemColumn]
@@ -213,13 +294,13 @@
 
     //页面跳转
     function refreshNum() {
-        $('#Acg12SubjectDetail_list').bootstrapTable('selectPage', $('#searchPageNum').val());
+        $('#Acg12SubjectCrt_list').bootstrapTable('selectPage', $('#searchPageNum').val());
     };
 
     //搜索按钮
     $(".btn-primary-search").click(function () {
-        $('#Acg12SubjectDetail_list').bootstrapTable('selectPage', 1);
-        $('#Acg12SubjectDetail_list').bootstrapTable(
+        $('#Acg12SubjectCrt_list').bootstrapTable('selectPage', 1);
+        $('#Acg12SubjectCrt_list').bootstrapTable(
                 "refresh",
                 {
                     url: "listNew.json"
@@ -239,7 +320,7 @@
                     dataType: "json",
                     cache: false,
                     success: function (message) {
-                        $('#Acg12SubjectDetail_list').bootstrapTable(
+                        $('#Acg12SubjectCrt_list').bootstrapTable(
                                 "refresh",
                                 {
                                     url: "listNew.json"
@@ -254,7 +335,7 @@
     // 删除多条条记录
     function dels(val) {
         bootbox.confirm(message("admin.dialog.deleteConfirm"), function (result) {
-            var rows = $.map($('#Acg12SubjectDetail_list').bootstrapTable('getSelections'), function (row) {
+            var rows = $.map($('#Acg12SubjectCrt_list').bootstrapTable('getSelections'), function (row) {
                 return row.id
             });
             var ids = "";
@@ -269,7 +350,7 @@
                     dataType: "json",
                     cache: false,
                     success: function (message) {
-                        $('#Acg12SubjectDetail_list').bootstrapTable(
+                        $('#Acg12SubjectCrt_list').bootstrapTable(
                                 "refresh",
                                 {
                                     url: "listNew.json"
@@ -280,38 +361,6 @@
             }
         });
     };
-
-    var to_add = function () {
-        layer.open({
-            type: 2,
-            title: '弹出窗口',
-            maxmin: true,
-            shadeClose: true, //点击遮罩关闭层
-            area: ['80%', '90%'],
-            content: 'add.html',
-            cancel: function (index) {
-                layer.close(index);
-                location.reload();
-                return false;
-            }
-        });
-    }
-
-    var to_edit = function (id) {
-        layer.open({
-            type: 2,
-            title: '弹出窗口',
-            maxmin: true,
-            shadeClose: true, //点击遮罩关闭层
-            area: ['80%', '90%'],
-            content: 'edit/' + id + '.html',
-            cancel: function (index) {
-                layer.close(index);
-                location.reload();
-                return false;
-            }
-        });
-    }
 
 
 </script>

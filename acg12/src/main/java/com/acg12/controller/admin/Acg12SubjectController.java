@@ -64,30 +64,30 @@ public class Acg12SubjectController extends GenericController {
                 map.put(key, paramter.get(key));
             }
         }
-        String filter_ids = request.getParameter("filter_ids");
-        String filter_ide = request.getParameter("filter_ide");
-        if (!StringUtil.isEmpty(filter_ids)) {
-            map.put("filter_ids", filter_ids.replace("-", ""));
+        String filter_id = request.getParameter("filter_id");
+//        String filter_ide = request.getParameter("filter_ide");
+        if (!StringUtil.isEmpty(filter_id)) {
+            map.put("id", filter_id);
         }
-        if (!StringUtil.isEmpty(filter_ide)) {
-            map.put("filter_ide", filter_ide.replace("-", ""));
+//        if (!StringUtil.isEmpty(filter_ide)) {
+//            map.put("filter_ide", filter_ide.replace("-", ""));
+//        }
+        String filter_sId = request.getParameter("filter_sId");
+//        String filter_side = request.getParameter("filter_side");
+        if (!StringUtil.isEmpty(filter_sId)) {
+            map.put("sId", filter_sId);
         }
-        String filter_sids = request.getParameter("filter_sids");
-        String filter_side = request.getParameter("filter_side");
-        if (!StringUtil.isEmpty(filter_sids)) {
-            map.put("filter_sids", filter_sids.replace("-", ""));
+//        if (!StringUtil.isEmpty(filter_side)) {
+//            map.put("filter_side", filter_side.replace("-", ""));
+//        }
+        String filter_type = request.getParameter("filter_type");
+//        String filter_typee = request.getParameter("filter_typee");
+        if (!StringUtil.isEmpty(filter_type)) {
+            map.put("type", filter_type);
         }
-        if (!StringUtil.isEmpty(filter_side)) {
-            map.put("filter_side", filter_side.replace("-", ""));
-        }
-        String filter_types = request.getParameter("filter_types");
-        String filter_typee = request.getParameter("filter_typee");
-        if (!StringUtil.isEmpty(filter_types)) {
-            map.put("filter_types", filter_types.replace("-", ""));
-        }
-        if (!StringUtil.isEmpty(filter_typee)) {
-            map.put("filter_typee", filter_typee.replace("-", ""));
-        }
+//        if (!StringUtil.isEmpty(filter_typee)) {
+//            map.put("filter_typee", filter_typee.replace("-", ""));
+//        }
         String filter_epsCounts = request.getParameter("filter_epsCounts");
         String filter_epsCounte = request.getParameter("filter_epsCounte");
         if (!StringUtil.isEmpty(filter_epsCounts)) {

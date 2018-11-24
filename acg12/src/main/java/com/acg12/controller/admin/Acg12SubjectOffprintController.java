@@ -1,9 +1,9 @@
 package com.acg12.controller.admin;
 
 import com.acg12.controller.GenericController;
-import com.acg12.entity.po.Acg12SubjectDetailEntity;
+import com.acg12.entity.po.Acg12SubjectOffprintEntity;
 import com.acg12.entity.po.SystemUserEntity;
-import com.acg12.service.Acg12SubjectDetailService;
+import com.acg12.service.Acg12SubjectOffprintService;
 import com.acg12.service.SystemUserService;
 import com.acg12.support.Message;
 import com.acg12.utils.StringUtil;
@@ -22,21 +22,21 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Controller - subjectDetail
+ * Controller - subjectOffprint
  *
  * @author kcj
  * @version 2.0
  */
-@Controller("acg12SubjectDetailController")
-@RequestMapping({"/admin/subject_detail"})
-public class Acg12SubjectDetailController extends GenericController {
+@Controller("acg12SubjectOffprintController")
+@RequestMapping({"/admin/subject_offprint"})
+public class Acg12SubjectOffprintController extends GenericController {
 
 
     @Resource
     private SystemUserService userService;
 
     @Resource
-    private Acg12SubjectDetailService acg12SubjectDetailService;
+    private Acg12SubjectOffprintService acg12SubjectOffprintService;
 
     /**
      * 跳转添加页面
@@ -46,18 +46,18 @@ public class Acg12SubjectDetailController extends GenericController {
      */
     @RequestMapping(value = {"/add"}, method = {RequestMethod.GET})
     public String add(ModelMap model) {
-        return "/admin/subject_detail/add";
+        return "/admin/subject_offprint/add";
     }
 
     /**
      * 保存
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(Acg12SubjectDetailEntity acg12SubjectDetail, RedirectAttributes redirectAttributes) {
+    public String save(Acg12SubjectOffprintEntity acg12SubjectOffprint, RedirectAttributes redirectAttributes) {
         SystemUserEntity user = userService.getCurrent();
 
 
-        acg12SubjectDetailService.save(acg12SubjectDetail);
+        acg12SubjectOffprintService.save(acg12SubjectOffprint);
         addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
         return "redirect:list.html";
     }
@@ -67,9 +67,9 @@ public class Acg12SubjectDetailController extends GenericController {
      */
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable Long id, ModelMap model) {
-        Acg12SubjectDetailEntity acg12SubjectDetail = acg12SubjectDetailService.find(id);
-        model.addAttribute("acg12SubjectDetail", acg12SubjectDetail);
-        return "/admin/subject_detail/edit";
+        Acg12SubjectOffprintEntity acg12SubjectOffprint = acg12SubjectOffprintService.find(id);
+        model.addAttribute("acg12SubjectOffprint", acg12SubjectOffprint);
+        return "/admin/subject_offprint/edit";
     }
 
 
@@ -78,17 +78,18 @@ public class Acg12SubjectDetailController extends GenericController {
      */
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
     public String view(@PathVariable Long id, ModelMap model) {
-        Acg12SubjectDetailEntity acg12SubjectDetail = acg12SubjectDetailService.find(id);
-        model.addAttribute("acg12SubjectDetail", acg12SubjectDetail);
-        return "/admin/subject_detail/view";
+        Acg12SubjectOffprintEntity acg12SubjectOffprint = acg12SubjectOffprintService.find(id);
+        model.addAttribute("acg12SubjectOffprint", acg12SubjectOffprint);
+        return "/admin/subject_offprint/view";
     }
+
 
     /**
      * 更新
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String update(Acg12SubjectDetailEntity acg12SubjectDetail, RedirectAttributes redirectAttributes) {
-        acg12SubjectDetailService.update(acg12SubjectDetail);
+    public String update(Acg12SubjectOffprintEntity acg12SubjectOffprint, RedirectAttributes redirectAttributes) {
+        acg12SubjectOffprintService.update(acg12SubjectOffprint);
         addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
         return "redirect:list.html";
     }
@@ -103,12 +104,13 @@ public class Acg12SubjectDetailController extends GenericController {
     @RequestMapping(value = {"/list"}, method = {RequestMethod.GET})
     public String list(Pageable pageable, @RequestParam("subject_id") Long subject_id, HttpServletRequest request, ModelMap model) {
         model.addAttribute("subject_id", subject_id);
-        return "/admin/subject_detail/list";
+        return "/admin/subject_offprint/list";
     }
 
     // 新列表查询
     @RequestMapping(value = "/listNew.json", method = RequestMethod.GET)
-    public @ResponseBody String listNew(HttpServletRequest request, Integer pageNumber, Integer pageSize,
+    public @ResponseBody
+    String listNew(HttpServletRequest request, Integer pageNumber, Integer pageSize,
                    ModelMap model) {
 
         Map<String, Object> paramter = ParameterUtils.getParametersMapStartingWith(request, "filter_");
@@ -118,8 +120,10 @@ public class Acg12SubjectDetailController extends GenericController {
                 map.put(key, paramter.get(key));
             }
         }
+
         String baseId = request.getParameter("subject_id");
         map.put("subjectId", baseId);
+
         String filter_ids = request.getParameter("filter_ids");
         String filter_ide = request.getParameter("filter_ide");
         if (!StringUtil.isEmpty(filter_ids)) {
@@ -136,6 +140,14 @@ public class Acg12SubjectDetailController extends GenericController {
         if (!StringUtil.isEmpty(filter_subjectIde)) {
             map.put("filter_subjectIde", filter_subjectIde.replace("-", ""));
         }
+        String filter_parentSIds = request.getParameter("filter_parentSIds");
+        String filter_parentSIde = request.getParameter("filter_parentSIde");
+        if (!StringUtil.isEmpty(filter_parentSIds)) {
+            map.put("filter_parentSIds", filter_parentSIds.replace("-", ""));
+        }
+        if (!StringUtil.isEmpty(filter_parentSIde)) {
+            map.put("filter_parentSIde", filter_parentSIde.replace("-", ""));
+        }
         String filter_sIds = request.getParameter("filter_sIds");
         String filter_sIde = request.getParameter("filter_sIde");
         if (!StringUtil.isEmpty(filter_sIds)) {
@@ -145,16 +157,16 @@ public class Acg12SubjectDetailController extends GenericController {
             map.put("filter_sIde", filter_sIde.replace("-", ""));
         }
 
-        Long total = acg12SubjectDetailService.count(map);
+        Long total = acg12SubjectOffprintService.count(map);
 
         map.put("pageNumber", (pageNumber - 1) * pageSize);
         map.put("pageSize", pageSize);
         map = this.dateAndOrderMap(map, request);
 
-        List<Acg12SubjectDetailEntity> acg12SubjectDetails = acg12SubjectDetailService.findListNewByPage(map);
+        List<Acg12SubjectOffprintEntity> acg12SubjectOffprints = acg12SubjectOffprintService.findListNewByPage(map);
         Map returnMap = new HashMap();
         returnMap.put("total", total);
-        returnMap.put("rows", acg12SubjectDetails);
+        returnMap.put("rows", acg12SubjectOffprints);
         String str = GSONUtils.valueToString(returnMap);
         return str;
 
@@ -175,14 +187,17 @@ public class Acg12SubjectDetailController extends GenericController {
         if (!StringUtil.isEmpty(sortName) && sortName.equals("subjectId")) {
             map.put("order", " subject_id  " + sortOrder);
         }
+        if (!StringUtil.isEmpty(sortName) && sortName.equals("parentSId")) {
+            map.put("order", " parent_s_id  " + sortOrder);
+        }
         if (!StringUtil.isEmpty(sortName) && sortName.equals("sId")) {
             map.put("order", " s_id  " + sortOrder);
         }
-        if (!StringUtil.isEmpty(sortName) && sortName.equals("otherTitle")) {
-            map.put("order", " other_title  " + sortOrder);
+        if (!StringUtil.isEmpty(sortName) && sortName.equals("image")) {
+            map.put("order", " image  " + sortOrder);
         }
-        if (!StringUtil.isEmpty(sortName) && sortName.equals("otherValue")) {
-            map.put("order", " other_value  " + sortOrder);
+        if (!StringUtil.isEmpty(sortName) && sortName.equals("name")) {
+            map.put("order", " name  " + sortOrder);
         }
         return map;
     }
@@ -197,7 +212,7 @@ public class Acg12SubjectDetailController extends GenericController {
     public @ResponseBody
     Message delete(Long[] ids) {
         for (Long long1 : ids) {
-            this.acg12SubjectDetailService.delete(long1);
+            this.acg12SubjectOffprintService.delete(long1);
         }
         return SUCCESS_MESSAGE;
     }
@@ -216,7 +231,7 @@ public class Acg12SubjectDetailController extends GenericController {
         if (!StringUtil.isEmpty(idsStrings)) {
             String[] idss = idsStrings.split(",");
             for (int i = 0; i < idss.length; i++) {
-                this.acg12SubjectDetailService.delete(Long.parseLong(idss[i]));
+                this.acg12SubjectOffprintService.delete(Long.parseLong(idss[i]));
             }
         }
 

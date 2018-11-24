@@ -38,41 +38,20 @@
                         <div class="row">
 
                             <div id="filter-div-id" class="col-sm-3 m-b-xs">
-                                <div class="input-group">
-                                    <input type="text" placeholder="请输入" name="filter_ids" id="filter_ids"
-                                           class="input-sm form-control  ">
-                                    <span class="input-group-addon">--</span>
-                                    <input type="text" placeholder="请输入" name="filter_ide" id="filter_ide"
-                                           class="input-sm form-control  ">
-                                </div>
+                                <input type="text" placeholder="请输入id" name="filter_id" id="filter_id"
+                                       class="input-sm form-control  ">
                             </div>
 
 
                             <div id="filter-div-sId" class="col-sm-3 m-b-xs">
-                                <div class="input-group">
-                                    <input type="text" placeholder="请输入" name="filter_sIds" id="filter_sIds"
-                                           class="input-sm form-control  ">
-                                    <span class="input-group-addon">--</span>
-                                    <input type="text" placeholder="请输入" name="filter_sIde" id="filter_sIde"
-                                           class="input-sm form-control  ">
-                                </div>
+                                <input type="text" placeholder="请输入sId" name="filter_sId" id="filter_sId"
+                                       class="input-sm form-control  ">
                             </div>
 
 
                             <div id="filter-div-type" class="col-sm-3 m-b-xs">
-                                <div class="input-group">
-                                    <input type="text" placeholder="请输入1、书籍 2、动画 3、音乐 4、游戏 6、三次元" name="filter_types"
-                                           id="filter_types" class="input-sm form-control  ">
-                                    <span class="input-group-addon">--</span>
-                                    <input type="text" placeholder="请输入1、书籍 2、动画 3、音乐 4、游戏 6、三次元" name="filter_typee"
-                                           id="filter_typee" class="input-sm form-control  ">
-                                </div>
-                            </div>
-
-
-                            <div id="filter-div-typeName" class="col-sm-3 m-b-xs">
-                                <input type="text" placeholder="请输入类型名称" name="filter_typeName" id="filter_typeName"
-                                       class="input-sm form-control">
+                                <input type="text" placeholder="请输入类型  1、书籍 2、动画 3、音乐 4、游戏 6、三次元" name="filter_type"
+                                       id="filter_type" class="input-sm form-control  ">
                             </div>
 
 
@@ -83,109 +62,13 @@
 
 
                             <div id="filter-div-nameCn" class="col-sm-3 m-b-xs">
-                                <input type="text" placeholder="请输入name_cn" name="filter_nameCn" id="filter_nameCn"
+                                <input type="text" placeholder="请输入名称(中文)" name="filter_nameCn" id="filter_nameCn"
                                        class="input-sm form-control">
                             </div>
-
-
-                            <div id="filter-div-summary" class="col-sm-3 m-b-xs">
-                                <input type="text" placeholder="请输入概况" name="filter_summary" id="filter_summary"
-                                       class="input-sm form-control">
-                            </div>
-
-
-                            <div id="filter-div-image" class="col-sm-3 m-b-xs">
-                                <input type="text" placeholder="请输入封面" name="filter_image" id="filter_image"
-                                       class="input-sm form-control">
-                            </div>
-
-
-                            <div id="filter-div-epsCount" class="col-sm-3 m-b-xs">
-                                <div class="input-group">
-                                    <input type="text" placeholder="请输入话数" name="filter_epsCounts" id="filter_epsCounts"
-                                           class="input-sm form-control  ">
-                                    <span class="input-group-addon">--</span>
-                                    <input type="text" placeholder="请输入话数" name="filter_epsCounte" id="filter_epsCounte"
-                                           class="input-sm form-control  ">
-                                </div>
-                            </div>
-
-
-                            <div id="filter-div-airDate" class="col-sm-3 m-b-xs">
-                                <input type="text" placeholder="请输入放送开始" name="filter_airDate" id="filter_airDate"
-                                       class="input-sm form-control">
-                            </div>
-
-
-                            <div id="filter-div-airWeekday" class="col-sm-3 m-b-xs">
-                                <div class="input-group">
-                                    <input type="text" placeholder="请输入放送星期" name="filter_airWeekdays"
-                                           id="filter_airWeekdays" class="input-sm form-control  ">
-                                    <span class="input-group-addon">--</span>
-                                    <input type="text" placeholder="请输入放送星期" name="filter_airWeekdaye"
-                                           id="filter_airWeekdaye" class="input-sm form-control  ">
-                                </div>
-                            </div>
-
-
-                            <div id="filter-div-endDate" class="col-sm-3 m-b-xs">
-                                <input type="text" placeholder="请输入播放结束" name="filter_endDate" id="filter_endDate"
-                                       class="input-sm form-control">
-                            </div>
-
 
                             <div id="filter-div-lockStatus" class="col-sm-3 m-b-xs">
-                                <div class="input-group">
-                                    <input type="text" placeholder="请输入锁定状态  1正常 2锁定" name="filter_lockStatuss"
-                                           id="filter_lockStatuss" class="input-sm form-control  ">
-                                    <span class="input-group-addon">--</span>
-                                    <input type="text" placeholder="请输入锁定状态  1正常 2锁定" name="filter_lockStatuse"
-                                           id="filter_lockStatuse" class="input-sm form-control  ">
-                                </div>
-                            </div>
-
-
-                            <div id="filter-div-createtime" class="col-sm-3 m-b-xs">
-                                <div class="input-group">
-                                    <input type="text" placeholder="请输入" name="filter_createtimes"
-                                           id="filter_createtimes" class="input-sm form-control  ">
-                                    <span class="input-group-addon">--</span>
-                                    <input type="text" placeholder="请输入" name="filter_createtimee"
-                                           id="filter_createtimee" class="input-sm form-control  ">
-                                </div>
-                            </div>
-
-
-                            <div id="filter-div-updatetime" class="col-sm-3 m-b-xs">
-                                <div class="input-group">
-                                    <input type="text" placeholder="请输入" name="filter_updatetimes"
-                                           id="filter_updatetimes" class="input-sm form-control  ">
-                                    <span class="input-group-addon">--</span>
-                                    <input type="text" placeholder="请输入" name="filter_updatetimee"
-                                           id="filter_updatetimee" class="input-sm form-control  ">
-                                </div>
-                            </div>
-
-
-                            <div id="filter-div-createTime" class="col-sm-3 m-b-xs">
-                                <div class="input-daterange input-group" id="datepicker">
-                                    <input type="text" placeholder="请输入创建时间日期" name="filter_createTimes"
-                                           id="filter_createTimes" class="input-sm form-control  ">
-                                    <span class="input-group-addon">——</span>
-                                    <input type="text" placeholder="请输入创建时间日期" name="filter_createTimee"
-                                           id="filter_createTimee" class="input-sm form-control  ">
-                                </div>
-                            </div>
-
-
-                            <div id="filter-div-updateTime" class="col-sm-3 m-b-xs">
-                                <div class="input-daterange input-group" id="datepicker">
-                                    <input type="text" placeholder="请输入修改时间日期" name="filter_updateTimes"
-                                           id="filter_updateTimes" class="input-sm form-control  ">
-                                    <span class="input-group-addon">——</span>
-                                    <input type="text" placeholder="请输入修改时间日期" name="filter_updateTimee"
-                                           id="filter_updateTimee" class="input-sm form-control  ">
-                                </div>
+                                <input type="text" placeholder="请输入锁定状态" name="filter_lockStatus"
+                                       id="filter_lockStatus" class="input-sm form-control  ">
                             </div>
 
 
@@ -331,17 +214,21 @@
 
             },
             {
-                title: "操作", field: "id2", align: "center", valign: "middle", width: "200",
+                title: "操作", field: "id2", align: "center", valign: "middle",
                 formatter: function (value, row, index) {
                     //通过formatter可以自定义列显示的内容
                     //value：当前field的值，即id
                     //row：当前行的数据
                     var a =
-                            "<a class='btn btn-danger btn-xs btn-delete-loippi2'  href='javascript:del(" + row.id + ")' data-id='" + row.id + "' ><i class='fa fa-trash'></i> 删除</a>"
-                            + "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_edit(" + row.id + ")' ><i class='fa fa-paste'></i> 编辑</a>"
-                            + "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_detailList(" + row.id + ")' ><i class='fa fa-paste'></i> 详情</a>";
+                            "<a class='btn btn-danger btn-xs btn-delete-loippi2'  href='javascript:del(" + row.id + ")' data-id='" + row.id + "' ><i class='fa fa-trash'></i> 删除</a>  "
+                            + "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_edit(" + row.id + ")' ><i class='fa fa-paste'></i> 编辑</a>  "
+                            + "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_staffList(" + row.id + ")' ><i class='fa fa-paste'></i> 参与</a>  "
+                            + "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_detailList(" + row.id + ")' ><i class='fa fa-paste'></i> 其他</a>  "
+                            + "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_crtList(" + row.id + ")' ><i class='fa fa-paste'></i> 角色</a>  ";
                     if ("1" == row.type) {
-                        a += "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_edit(" + row.id + ")' ><i class='fa fa-paste'></i> 编辑</a>";
+                        a += "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_offprintList(" + row.id + ")' ><i class='fa fa-paste'></i> 单行本</a>  ";
+                    } else if ("3" == row.type) {
+                        a += "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_songList(" + row.id + ")' ><i class='fa fa-paste'></i> 专辑</a>  ";
                     }
                     return a;
                 }
@@ -359,16 +246,16 @@
             pageSize: params.pageSize,   //页面大小
             pageList: params.pageList,   //页面大小
 
-            filter_ids: $("#filter_ids").val(),
-            filter_ide: $("#filter_ide").val(),
+            filter_id: $("#filter_id").val(),
+            // filter_ide: $("#filter_ide").val(),
 
 
-            filter_sIds: $("#filter_sIds").val(),
-            filter_sIde: $("#filter_sIde").val(),
+            filter_sId: $("#filter_sId").val(),
+            // filter_sIde: $("#filter_sIde").val(),
 
 
-            filter_types: $("#filter_types").val(),
-            filter_typee: $("#filter_typee").val(),
+            filter_type: $("#filter_type").val(),
+            // filter_typee: $("#filter_typee").val(),
 
 
             filter_typeNamelike: $("#filter_typeName").val(),
@@ -420,14 +307,14 @@
     //初始化显示列,搜索字段
     function initColumns() {
         //初始化显示列
-   [#list systemColumnList as systemColumn] 
-	   $('#Acg12Subject_list').bootstrapTable('${systemColumn.columnType}', '${systemColumn.columnName}');
-   [/#list]
+        [#list systemColumnList as systemColumn]
+	       $('#Acg12Subject_list').bootstrapTable('${systemColumn.columnType}', '${systemColumn.columnName}');
+        [/#list]
         //  初始化搜索字段
-    [#list systemColumnSearchList as systemColumn]
-       $('#checkbox-search-${systemColumn.columnName}').iCheck('${systemColumn.columnType}');
-       $('#checkbox-search-${systemColumn.columnName}').attr('checked', '${systemColumn.columnType}');
-    [/#list]
+        [#list systemColumnSearchList as systemColumn]
+           $('#checkbox-search-${systemColumn.columnName}').iCheck('${systemColumn.columnType}');
+           $('#checkbox-search-${systemColumn.columnName}').attr('checked', '${systemColumn.columnType}');
+        [/#list]
 
         $("[name='checkbox-search']").each(function () {
             if (!$(this).is(":checked")) {
@@ -571,6 +458,22 @@
         });
     }
 
+    var to_staffList = function (id) {
+        layer.open({
+            type: 2,
+            title: '弹出窗口',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area: ['80%', '90%'],
+            content: '${base}/admin/subject_staff/list.html?subject_id=' + id,
+            // cancel: function(index){
+            //     layer.close(index);
+            //     location.reload();
+            //     return false;
+            // }
+        });
+    }
+
     var to_detailList = function (id) {
         layer.open({
             type: 2,
@@ -579,6 +482,54 @@
             shadeClose: true, //点击遮罩关闭层
             area: ['80%', '90%'],
             content: '${base}/admin/subject_detail/list.html?subject_id=' + id,
+            // cancel: function(index){
+            //     layer.close(index);
+            //     location.reload();
+            //     return false;
+            // }
+        });
+    }
+
+    var to_crtList = function (id) {
+        layer.open({
+            type: 2,
+            title: '弹出窗口',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area: ['80%', '90%'],
+            content: '${base}/admin/subject_crt/list.html?subject_id=' + id,
+            // cancel: function(index){
+            //     layer.close(index);
+            //     location.reload();
+            //     return false;
+            // }
+        });
+    }
+
+    var to_offprintList = function (id) {
+        layer.open({
+            type: 2,
+            title: '弹出窗口',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area: ['80%', '90%'],
+            content: '${base}/admin/subject_offprint/list.html?subject_id=' + id,
+            // cancel: function(index){
+            //     layer.close(index);
+            //     location.reload();
+            //     return false;
+            // }
+        });
+    }
+
+    var to_songList = function (id) {
+        layer.open({
+            type: 2,
+            title: '弹出窗口',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area: ['80%', '90%'],
+            content: '${base}/admin/subject_song/list.html?subject_id=' + id,
             // cancel: function(index){
             //     layer.close(index);
             //     location.reload();
