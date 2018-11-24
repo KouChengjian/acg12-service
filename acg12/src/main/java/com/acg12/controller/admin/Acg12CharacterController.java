@@ -1,9 +1,9 @@
 package com.acg12.controller.admin;
 
 import com.acg12.controller.GenericController;
-import com.acg12.entity.po.Acg12PersonEntity;
+import com.acg12.entity.po.Acg12CharacterEntity;
 import com.acg12.entity.po.SystemUserEntity;
-import com.acg12.service.Acg12PersonService;
+import com.acg12.service.Acg12CharacterService;
 import com.acg12.service.SystemUserService;
 import com.acg12.support.Message;
 import com.acg12.utils.StringUtil;
@@ -26,21 +26,20 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Controller - person
+ * Controller - character
  *
  * @author kcj
  * @version 2.0
  */
-@Controller("acg12PersonController")
-@RequestMapping({"/admin/person"})
-public class Acg12PersonController extends GenericController {
-
+@Controller("acg12CharacterController")
+@RequestMapping({"/admin/character"})
+public class Acg12CharacterController extends GenericController {
 
     @Resource
     private SystemUserService userService;
 
     @Resource
-    private Acg12PersonService acg12PersonService;
+    private Acg12CharacterService acg12CharacterService;
 
     /**
      * 跳转添加页面
@@ -50,18 +49,18 @@ public class Acg12PersonController extends GenericController {
      */
     @RequestMapping(value = {"/add"}, method = {RequestMethod.GET})
     public String add(ModelMap model) {
-        return "/admin/person/add";
+        return "/admin/character/add";
     }
 
     /**
      * 保存
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(Acg12PersonEntity acg12Person, RedirectAttributes redirectAttributes) {
+    public String save(Acg12CharacterEntity acg12Character, RedirectAttributes redirectAttributes) {
         SystemUserEntity user = userService.getCurrent();
 
 
-        acg12PersonService.save(acg12Person);
+        acg12CharacterService.save(acg12Character);
         addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
         return "redirect:list.html";
     }
@@ -71,9 +70,9 @@ public class Acg12PersonController extends GenericController {
      */
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable Long id, ModelMap model) {
-        Acg12PersonEntity acg12Person = acg12PersonService.find(id);
-        model.addAttribute("acg12Person", acg12Person);
-        return "/admin/person/edit";
+        Acg12CharacterEntity acg12Character = acg12CharacterService.find(id);
+        model.addAttribute("acg12Character", acg12Character);
+        return "/admin/character/edit";
     }
 
 
@@ -82,9 +81,9 @@ public class Acg12PersonController extends GenericController {
      */
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
     public String view(@PathVariable Long id, ModelMap model) {
-        Acg12PersonEntity acg12Person = acg12PersonService.find(id);
-        model.addAttribute("acg12Person", acg12Person);
-        return "/admin/acg12_person/view";
+        Acg12CharacterEntity acg12Character = acg12CharacterService.find(id);
+        model.addAttribute("acg12Character", acg12Character);
+        return "/admin/character/view";
     }
 
 
@@ -92,10 +91,10 @@ public class Acg12PersonController extends GenericController {
      * 更新
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String update(Acg12PersonEntity acg12Person, RedirectAttributes redirectAttributes) {
-        acg12PersonService.update(acg12Person);
+    public String update(Acg12CharacterEntity acg12Character, RedirectAttributes redirectAttributes) {
+        acg12CharacterService.update(acg12Character);
         addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
-        return "redirect:list.jhtml";
+        return "redirect:list.html";
     }
 
     /**
@@ -105,12 +104,11 @@ public class Acg12PersonController extends GenericController {
      * @param model
      * @return
      */
-    @RequiresPermissions("admin:system:person")
+    @RequiresPermissions("admin:system:character")
     @RequestMapping(value = {"/list"}, method = {RequestMethod.GET})
     public String list(Pageable pageable, HttpServletRequest request, ModelMap model) {
 
-
-        return "/admin/person/list";
+        return "/admin/character/list";
     }
 
     // 新列表查询
@@ -134,13 +132,21 @@ public class Acg12PersonController extends GenericController {
         if (!StringUtil.isEmpty(filter_ide)) {
             map.put("filter_ide", filter_ide.replace("-", ""));
         }
-        String filter_pIds = request.getParameter("filter_pIds");
-        String filter_pIde = request.getParameter("filter_pIde");
-        if (!StringUtil.isEmpty(filter_pIds)) {
-            map.put("filter_pIds", filter_pIds.replace("-", ""));
+        String filter_cIds = request.getParameter("filter_cIds");
+        String filter_cIde = request.getParameter("filter_cIde");
+        if (!StringUtil.isEmpty(filter_cIds)) {
+            map.put("filter_cIds", filter_cIds.replace("-", ""));
         }
-        if (!StringUtil.isEmpty(filter_pIde)) {
-            map.put("filter_pIde", filter_pIde.replace("-", ""));
+        if (!StringUtil.isEmpty(filter_cIde)) {
+            map.put("filter_cIde", filter_cIde.replace("-", ""));
+        }
+        String filter_genders = request.getParameter("filter_genders");
+        String filter_gendere = request.getParameter("filter_gendere");
+        if (!StringUtil.isEmpty(filter_genders)) {
+            map.put("filter_genders", filter_genders.replace("-", ""));
+        }
+        if (!StringUtil.isEmpty(filter_gendere)) {
+            map.put("filter_gendere", filter_gendere.replace("-", ""));
         }
         String filter_bloodtypes = request.getParameter("filter_bloodtypes");
         String filter_bloodtypee = request.getParameter("filter_bloodtypee");
@@ -183,16 +189,16 @@ public class Acg12PersonController extends GenericController {
             map.put("filter_updateTimee", filter_updateTimee.replace("-", ""));
         }
 
-        Long total = acg12PersonService.count(map);
+        Long total = acg12CharacterService.count(map);
 
         map.put("pageNumber", (pageNumber - 1) * pageSize);
         map.put("pageSize", pageSize);
         map = this.dateAndOrderMap(map, request);
 
-        List<Acg12PersonEntity> acg12Persons = acg12PersonService.findListNewByPage(map);
+        List<Acg12CharacterEntity> acg12Characters = acg12CharacterService.findListNewByPage(map);
         Map returnMap = new HashMap();
         returnMap.put("total", total);
-        returnMap.put("rows", acg12Persons);
+        returnMap.put("rows", acg12Characters);
         String str = GSONUtils.valueToString(returnMap);
         return str;
 
@@ -210,8 +216,8 @@ public class Acg12PersonController extends GenericController {
         if (!StringUtil.isEmpty(sortName) && sortName.equals("id")) {
             map.put("order", " id  " + sortOrder);
         }
-        if (!StringUtil.isEmpty(sortName) && sortName.equals("pId")) {
-            map.put("order", " p_id  " + sortOrder);
+        if (!StringUtil.isEmpty(sortName) && sortName.equals("cId")) {
+            map.put("order", " c_id  " + sortOrder);
         }
         if (!StringUtil.isEmpty(sortName) && sortName.equals("name")) {
             map.put("order", " name  " + sortOrder);
@@ -271,7 +277,7 @@ public class Acg12PersonController extends GenericController {
     public @ResponseBody
     Message delete(Long[] ids) {
         for (Long long1 : ids) {
-            this.acg12PersonService.delete(long1);
+            this.acg12CharacterService.delete(long1);
         }
         return SUCCESS_MESSAGE;
     }
@@ -290,7 +296,7 @@ public class Acg12PersonController extends GenericController {
         if (!StringUtil.isEmpty(idsStrings)) {
             String[] idss = idsStrings.split(",");
             for (int i = 0; i < idss.length; i++) {
-                this.acg12PersonService.delete(Long.parseLong(idss[i]));
+                this.acg12CharacterService.delete(Long.parseLong(idss[i]));
             }
         }
 
