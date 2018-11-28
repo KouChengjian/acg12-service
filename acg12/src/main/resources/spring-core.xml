@@ -66,10 +66,12 @@
     <import resource="classpath*:/conf/conf-dataSource.xml"/>
     <!-- Mybatis 配置-->
     <import resource="classpath*:/conf/conf-mybatis.xml"/>
+    <!-- 事务 配置 -->
+    <import resource="classpath*:/conf/conf-tx.xml" />
     <!-- 模板 配置 -->
     <import resource="classpath*:/conf/conf-template.xml"/>
     <!-- 调度 配置 -->
-    <!--<import resource="classpath*:/loippi/loippi-job.xml" />-->
+    <import resource="classpath*:/conf/conf-job.xml" />
     <!-- 缓存配置 -->
     <import resource="classpath*:/conf/conf-ehcache.xml" />
     <!-- 缓存配置 -->
