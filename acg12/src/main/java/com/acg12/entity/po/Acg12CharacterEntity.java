@@ -73,15 +73,7 @@ public class Acg12CharacterEntity implements GenericEntity {
 	/** 生日 */
 	@Column(name = "birthday" )
 	private String birthday;
-	
-	/**  */
-	@Column(name = "createTime" )
-	private Integer createtime;
-	
-	/**  */
-	@Column(name = "updateTime" )
-	private Integer updatetime;
-	
+
 	/** 创建时间 */
 	@Column(name = "create_time" )
 	private java.util.Date createTime;

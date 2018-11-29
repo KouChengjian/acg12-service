@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -325,5 +326,4 @@ public class Acg12CharacterController extends GenericController {
     Message updateColumnSearchLists(HttpServletRequest request, ModelMap model) {
         return SUCCESS_MESSAGE;
     }
-
 }

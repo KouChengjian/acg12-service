@@ -19,19 +19,17 @@
 		<result property="airWeekday" column="air_weekday" />
 		<result property="endDate" column="end_date" />
 		<result property="lockStatus" column="lock_status" />
-		<result property="createtime" column="createTime" />
-		<result property="updatetime" column="updateTime" />
 		<result property="createTime" column="create_time" />
 		<result property="updateTime" column="update_time" />
 	</resultMap>
 
 	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
 	<sql id="base_column">
-		id ,s_id ,type ,type_name ,name ,name_cn ,summary ,image ,eps_count ,air_date ,air_weekday ,end_date ,lock_status ,createTime ,updateTime ,create_time ,update_time
+		id ,s_id ,type ,type_name ,name ,name_cn ,summary ,image ,eps_count ,air_date ,air_weekday ,end_date ,lock_status ,create_time ,update_time
 	</sql>
 
 	<sql id="base_value_column">
-		#{id},#{sId},#{type},#{typeName},#{name},#{nameCn},#{summary},#{image},#{epsCount},#{airDate},#{airWeekday},#{endDate},#{lockStatus},#{createtime},#{updatetime},#{createTime},#{updateTime}
+		#{id},#{sId},#{type},#{typeName},#{name},#{nameCn},#{summary},#{image},#{epsCount},#{airDate},#{airWeekday},#{endDate},#{lockStatus},#{createTime},#{updateTime}
 	</sql>
 
 	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
@@ -65,7 +63,7 @@
 
 
 		<if test="type != null ">
-			AND type = #{type,jdbcType=INTEGER}
+			AND type like  CONCAT('%',#{type},'%')
 		</if>
 
 		<!-- 大于等于type -->
@@ -183,34 +181,6 @@
 		</if>
 
 
-		<if test="createtime != null ">
-			AND createTime = #{createtime,jdbcType=INTEGER}
-		</if>
-
-		<!-- 大于等于createTime -->
-		<if test="filter_createtimes != null">
-			AND createTime<![CDATA[>=]]>#{filter_createtimes}
-		</if>
-		<!-- 小于等于createTime -->
-		<if test="filter_createtimee!= null">
-			AND createTime<![CDATA[<=]]>#{filter_createtimee}
-		</if>
-
-
-		<if test="updatetime != null ">
-			AND updateTime = #{updatetime,jdbcType=INTEGER}
-		</if>
-
-		<!-- 大于等于updateTime -->
-		<if test="filter_updatetimes != null">
-			AND updateTime<![CDATA[>=]]>#{filter_updatetimes}
-		</if>
-		<!-- 小于等于updateTime -->
-		<if test="filter_updatetimee!= null">
-			AND updateTime<![CDATA[<=]]>#{filter_updatetimee}
-		</if>
-
-
 		<if test="createTime != null ">
 			AND create_time = #{createTime,jdbcType=TIMESTAMP}
 		</if>
@@ -281,12 +251,6 @@
 		</if>
 		<if test="lockStatus != null ">
 			lock_status = #{lockStatus,jdbcType=INTEGER},
-		</if>
-		<if test="createtime != null ">
-			createTime = #{createtime,jdbcType=INTEGER},
-		</if>
-		<if test="updatetime != null ">
-			updateTime = #{updatetime,jdbcType=INTEGER},
 		</if>
 		<if test="createTime != null ">
 			create_time = #{createTime,jdbcType=TIMESTAMP},

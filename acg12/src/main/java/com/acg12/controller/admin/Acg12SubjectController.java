@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,7 +57,8 @@ public class Acg12SubjectController extends GenericController {
 
     // 新列表查询
     @RequestMapping(value = "/listNew.json", method = RequestMethod.GET)
-    public @ResponseBody String listNew(HttpServletRequest request, Integer pageNumber, Integer pageSize, ModelMap model) {
+    public @ResponseBody
+    String listNew(HttpServletRequest request, Integer pageNumber, Integer pageSize, ModelMap model) {
         Map<String, Object> paramter = ParameterUtils.getParametersMapStartingWith(request, "filter_");
         Map map = new HashMap();
         for (String key : paramter.keySet()) {
@@ -283,7 +285,8 @@ public class Acg12SubjectController extends GenericController {
      * @return
      */
     @RequestMapping(value = {"/delete"}, method = {RequestMethod.POST, RequestMethod.GET})
-    public @ResponseBody Message delete(Long[] ids) {
+    public @ResponseBody
+    Message delete(Long[] ids) {
         for (Long long1 : ids) {
             this.acg12SubjectEntityService.delete(long1);
         }
@@ -296,7 +299,8 @@ public class Acg12SubjectController extends GenericController {
      * @return
      */
     @RequestMapping(value = {"/deletes"}, method = {RequestMethod.POST, RequestMethod.GET})
-    public @ResponseBody Message deletes(HttpServletRequest request) {
+    public @ResponseBody
+    Message deletes(HttpServletRequest request) {
         String idsStrings = request.getParameter("ids");
         idsStrings = StringUtil.delChar(idsStrings, ",");
         if (!StringUtil.isEmpty(idsStrings)) {
@@ -314,7 +318,8 @@ public class Acg12SubjectController extends GenericController {
      * @return
      */
     @RequestMapping(value = {"/updateListColumns"}, method = {RequestMethod.GET})
-    public @ResponseBody Message updateListColumns(HttpServletRequest request, ModelMap model) {
+    public @ResponseBody
+    Message updateListColumns(HttpServletRequest request, ModelMap model) {
         return SUCCESS_MESSAGE;
     }
 
@@ -324,7 +329,9 @@ public class Acg12SubjectController extends GenericController {
      * @return
      */
     @RequestMapping(value = {"/updateColumnSearchLists"}, method = {RequestMethod.GET})
-    public @ResponseBody Message updateColumnSearchLists(HttpServletRequest request, ModelMap model) {
+    @ResponseBody
+    public Message updateColumnSearchLists(HttpServletRequest request, ModelMap model) {
         return SUCCESS_MESSAGE;
     }
+
 }

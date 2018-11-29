@@ -70,14 +70,6 @@ public class Acg12SubjectCrtEntity implements GenericEntity {
 	@Column(name = "p_image" )
 	private String pImage;
 	
-	/**  */
-	@Column(name = "createTime" )
-	private Integer createtime;
-	
-	/**  */
-	@Column(name = "updateTime" )
-	private Integer updatetime;
-	
 	/** 创建时间 */
 	@Column(name = "create_time" )
 	private java.util.Date createTime;

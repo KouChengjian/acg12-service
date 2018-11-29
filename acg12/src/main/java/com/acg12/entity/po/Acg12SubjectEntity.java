@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 
 /**
  * Created by Administrator on 2018/3/14.
@@ -73,14 +72,6 @@ public class Acg12SubjectEntity implements GenericEntity {
     @Column(name = "lock_status" )
     private Integer lockStatus;
 
-    /**  */
-    @Column(name = "createTime" )
-    private Integer createtime;
-
-    /**  */
-    @Column(name = "updateTime" )
-    private Integer updatetime;
-
     /** 创建时间 */
     @Column(name = "create_time" )
     private java.util.Date createTime;
@@ -88,8 +79,6 @@ public class Acg12SubjectEntity implements GenericEntity {
     /** 修改时间 */
     @Column(name = "update_time" )
     private java.util.Date updateTime;
-
-
 
     @Override
     public boolean equals(Object obj) {

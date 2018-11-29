@@ -129,12 +129,6 @@
                 title: "扮演者图片", field: "pImage", align: "center", valign: "middle", sortable: true, visible: false
             },
             {
-                title: "", field: "createtime", align: "center", valign: "middle", sortable: true, visible: false
-            },
-            {
-                title: "", field: "updatetime", align: "center", valign: "middle", sortable: true, visible: false
-            },
-            {
                 title: "创建时间", field: "createTime", align: "center", valign: "middle", sortable: true
                 , formatter: function (value, row, index) {
                     if ("undefined" != value + "") {

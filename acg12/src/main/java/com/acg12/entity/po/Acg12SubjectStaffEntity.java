@@ -49,14 +49,6 @@ public class Acg12SubjectStaffEntity implements GenericEntity {
 	/** 职业 */
 	@Column(name = "job" )
 	private String job;
-	
-	/**  */
-	@Column(name = "createTime" )
-	private Integer createtime;
-	
-	/**  */
-	@Column(name = "updateTime" )
-	private Integer updatetime;
 
 	/** 创建时间 */
 	@Column(name = "create_time" )

@@ -113,12 +113,6 @@
                 title: "职业", field: "job", align: "center", valign: "middle", sortable: true
             },
             {
-                title: "createtime", field: "createtime", align: "center", valign: "middle", sortable: true
-            },
-            {
-                title: "updatetime", field: "updatetime", align: "center", valign: "middle", sortable: true
-            },
-            {
                 title: "创建时间", field: "createTime", align: "center", valign: "middle", sortable: true
                 , formatter: function (value, row, index) {
                     if ("undefined" != value + "") {

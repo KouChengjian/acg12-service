@@ -13,19 +13,17 @@
         <result property="pId" column="p_id" />
         <result property="name" column="name" />
         <result property="job" column="job" />
-        <result property="createtime" column="createTime" />
-        <result property="updatetime" column="updateTime" />
         <result property="createTime" column="create_time" />
         <result property="updateTime" column="update_time" />
     </resultMap>
 
     <!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
     <sql id="base_column">
-        id ,subject_id ,s_id ,person_id ,p_id ,name ,job ,createTime ,updateTime ,create_time ,update_time
+        id ,subject_id ,s_id ,person_id ,p_id ,name ,job ,create_time ,update_time
     </sql>
 
     <sql id="base_value_column">
-        #{id},#{subjectId},#{sId},#{personId},#{pId},#{name},#{job},#{createtime},#{updatetime},#{createTime},#{updateTime}
+        #{id},#{subjectId},#{sId},#{personId},#{pId},#{name},#{job},#{createTime},#{updateTime}
     </sql>
 
     <!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
@@ -117,35 +115,6 @@
         </if>
 
 
-
-        <if test="createtime != null ">
-            AND createTime = #{createtime,jdbcType=INTEGER}
-        </if>
-
-        <!-- 大于等于createTime -->
-        <if test="filter_createtimes != null">
-            AND createTime<![CDATA[>=]]>#{filter_createtimes}
-        </if>
-        <!-- 小于等于createTime -->
-        <if test="filter_createtimee!= null">
-            AND createTime<![CDATA[<=]]>#{filter_createtimee}
-        </if>
-
-
-        <if test="updatetime != null ">
-            AND updateTime = #{updatetime,jdbcType=INTEGER}
-        </if>
-
-        <!-- 大于等于updateTime -->
-        <if test="filter_updatetimes != null">
-            AND updateTime<![CDATA[>=]]>#{filter_updatetimes}
-        </if>
-        <!-- 小于等于updateTime -->
-        <if test="filter_updatetimee!= null">
-            AND updateTime<![CDATA[<=]]>#{filter_updatetimee}
-        </if>
-
-
         <if test="createTime != null ">
             AND create_time = #{createTime,jdbcType=TIMESTAMP}
         </if>
@@ -198,12 +167,6 @@
         </if>
         <if test="job != null ">
             job = #{job,jdbcType=VARCHAR},
-        </if>
-        <if test="createtime != null ">
-            createTime = #{createtime,jdbcType=INTEGER},
-        </if>
-        <if test="updatetime != null ">
-            updateTime = #{updatetime,jdbcType=INTEGER},
         </if>
         <if test="createTime != null ">
             create_time = #{createTime,jdbcType=TIMESTAMP},

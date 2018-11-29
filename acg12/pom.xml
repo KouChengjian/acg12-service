@@ -412,11 +412,11 @@
         <!--<artifactId>im4java</artifactId>-->
         <!--<version>${im4java.version}</version>-->
         <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>org.jsoup</groupId>-->
-        <!--<artifactId>jsoup</artifactId>-->
-        <!--<version>${jsoup.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsoup.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk15on</artifactId>
@@ -427,6 +427,11 @@
         <!--<artifactId>javax.annotation-api</artifactId>-->
         <!--<version>${javax.annotation-api.version}</version>-->
         <!--</dependency>-->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20160810</version>
+        </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>

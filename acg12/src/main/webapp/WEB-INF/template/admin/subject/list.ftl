@@ -184,13 +184,7 @@
                 title: "锁定状态", field: "lockStatus", align: "center", valign: "middle", sortable: true
             },
             {
-                title: "", field: "createtime", align: "center", valign: "middle", sortable: true, visible: false
-            },
-            {
-                title: "", field: "updatetime", align: "center", valign: "middle", sortable: true, visible: false
-            },
-            {
-                title: "创建时间", field: "createTime", align: "center", valign: "middle", sortable: true, visible: false
+                title: "创建时间", field: "createTime", align: "center", valign: "middle", sortable: true
                 , formatter: function (value, row, index) {
                     if ("undefined" != value + "") {
                         var a = dateFtt("yyyy-MM-dd hh:mm:ss", new Date(value));
@@ -202,7 +196,7 @@
 
             },
             {
-                title: "修改时间", field: "updateTime", align: "center", valign: "middle", sortable: true, visible: false
+                title: "修改时间", field: "updateTime", align: "center", valign: "middle", sortable: true
                 , formatter: function (value, row, index) {
                     if ("undefined" != value + "") {
                         var a = dateFtt("yyyy-MM-dd hh:mm:ss", new Date(value));
