@@ -420,7 +420,6 @@ public class BgmResourceUtil {
             List<Acg12SubjectSongEntity> subjectSongEntityList = new ArrayList<>();
             List<Acg12SubjectOffprintEntity> subjectOffprintEntityList = new ArrayList<>();
 
-            JSONObject result = new JSONObject();
             int type = JsonParse.getInt(contentJson, "type");
             acg12SubjectEntity.setSId(JsonParse.getInt(contentJson, "id"));
             acg12SubjectEntity.setType(type);
