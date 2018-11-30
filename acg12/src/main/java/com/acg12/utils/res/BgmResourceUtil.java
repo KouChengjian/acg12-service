@@ -1,6 +1,8 @@
 package com.acg12.utils.res;
 
 import com.acg12.constant.SubjectStaffConstant;
+import com.acg12.entity.dto.SubjectDto;
+import com.acg12.entity.po.*;
 import com.acg12.utils.JsonParse;
 import com.acg12.utils.UrlEncoderUtil;
 import com.acg12.utils.checkoutjson.CheckoutJsonUtil;
@@ -19,7 +21,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2018/3/14.
  */
-public class BgmCrawler {
+public class BgmResourceUtil {
 
     /**
      * @param key
@@ -388,6 +390,271 @@ public class BgmCrawler {
         return null;
     }
 
+    public static synchronized SubjectDto getSubjectDto(int subjectid) {
+//        System.setProperty("http.proxyHost", "localhost");
+//        System.setProperty("http.proxyPort", "8888");
+//        System.setProperty("https.proxyHost", "localhost");
+//        System.setProperty("https.proxyPort", "8888");
+        String url1 = String.format("http://api.bgm.tv/subject/%d?responseGroup=large", subjectid);
+        String url2 = String.format("http://bangumi.tv/subject/%d", subjectid);
+        String url3 = String.format("http://bangumi.tv/subject/%d/characters", subjectid);
+        try {
+            Document document = Jsoup.connect(url1).ignoreContentType(true)
+                    .data("jquery", "java").userAgent("Mozilla")
+                    .cookie("auth", "token").timeout(50000).get();
+            String content = document.body().text();
+            if (content == null || content.isEmpty()) {
+                return null;
+            }
+//            System.out.println(content);
+//            System.out.println(StringUtil.stringToJson(content));
+            content = CheckoutJsonUtil.stringToJson(content);
+            JSONObject contentJson = new JSONObject(content);
+            if (!contentJson.isNull("code")) {
+                return null;
+            }
+            Acg12SubjectEntity acg12SubjectEntity = new Acg12SubjectEntity();
+            List<Acg12SubjectDetailEntity> subjectDetailEntityList = new ArrayList<>();
+            List<Acg12SubjectStaffEntity> subjectStaffEntityList = new ArrayList<>();
+            List<Acg12SubjectCrtEntity> subjectCrtEntityArrayList = new ArrayList<>();
+            List<Acg12SubjectSongEntity> subjectSongEntityList = new ArrayList<>();
+            List<Acg12SubjectOffprintEntity> subjectOffprintEntityList = new ArrayList<>();
+
+            JSONObject result = new JSONObject();
+            int type = JsonParse.getInt(contentJson, "type");
+            acg12SubjectEntity.setSId(JsonParse.getInt(contentJson, "id"));
+            acg12SubjectEntity.setType(type);
+            acg12SubjectEntity.setName(JsonParse.getString(contentJson, "name"));
+            acg12SubjectEntity.setNameCn(JsonParse.getString(contentJson, "name_cn"));
+            acg12SubjectEntity.setSummary(JsonParse.getString(contentJson, "summary"));
+            acg12SubjectEntity.setImage(contentJson.getJSONObject("images").getString("large"));
+            acg12SubjectEntity.setEpsCount(JsonParse.getInt(contentJson, "eps_count"));
+            acg12SubjectEntity.setAirDate(JsonParse.getString(contentJson, "air_date"));
+            acg12SubjectEntity.setAirWeekday(JsonParse.getInt(contentJson, "air_weekday"));
+
+            List<String> ignoreList = new ArrayList<>();
+            ignoreList.add("中文名");
+            ignoreList.add("话数");
+            ignoreList.add("集数");
+            ignoreList.add("放送开始"); // 动画
+            ignoreList.add("发售日"); // 书籍
+            ignoreList.add("发行日期"); // 游戏
+            ignoreList.add("发售日期"); // 音乐
+            ignoreList.add("开始");
+
+            document = Jsoup.connect(url2).ignoreContentType(true)
+                    .data("jquery", "java").userAgent("Mozilla")
+                    .cookie("auth", "token").timeout(50000).get();
+
+            Element headerSubject = document.getElementById("headerSubject");
+            if (headerSubject == null) {
+                return null;
+            }
+
+            HashMap<String, String> hashMap = null;
+            if (type == 1) {
+                hashMap = SubjectStaffConstant.booksMap;
+                String typeName = headerSubject.select("h1").select("small").text();
+                if (!typeName.isEmpty()) {
+                    acg12SubjectEntity.setTypeName(typeName);
+                }
+            } else if (type == 2) {
+                hashMap = SubjectStaffConstant.animationMap;
+                String typeName = headerSubject.select("h1").select("small").text();
+                if (!typeName.isEmpty()) {
+                    acg12SubjectEntity.setTypeName(typeName);
+                }
+            } else if (type == 3) {
+                hashMap = SubjectStaffConstant.musicMap;
+                acg12SubjectEntity.setTypeName("音乐");
+            } else if (type == 4) {
+                hashMap = SubjectStaffConstant.gameMap;
+            } else if (type == 6) {
+                hashMap = SubjectStaffConstant.realMap;
+            } else {
+                return null;
+            }
+
+            Element infobox = document.getElementById("infobox");
+            Elements lis = infobox.select("li");
+            for (int i = 0, total = lis.size(); i < total; i++) {
+                Element item = lis.get(i);
+                Elements span = item.select("span");
+                String key = span.text().replace(":", "");
+                if (ignoreList.contains(key)) {
+                    if (acg12SubjectEntity.getAirDate().equals("0000-00-00")) {
+                        if (key.contains("放送开始") || key.contains("发售日") || key.contains("开始")) {
+                            item.select("span").remove();
+                            acg12SubjectEntity.setAirDate(item.text());
+                        }
+                    }
+                    continue;
+                }
+
+                if (hashMap.containsKey(key)) {
+                    Elements a = item.select("a");
+                    if (a.isEmpty()) {
+                        item.select("span").remove();
+//                        System.out.println(item.text());
+                        Acg12SubjectStaffEntity staffEntity = new Acg12SubjectStaffEntity();
+                        staffEntity.setSId(subjectid);
+                        staffEntity.setName(item.text());
+                        staffEntity.setJob(key);
+                        subjectStaffEntityList.add(staffEntity);
+                    } else {
+                        for (int j = 0, num = a.size(); j < num; j++) {
+                            Element element = a.get(j);
+                            String pId = element.attr("href").split("person/")[1];
+                            Acg12SubjectStaffEntity staffEntity = new Acg12SubjectStaffEntity();
+                            staffEntity.setSId(subjectid);
+                            staffEntity.setPId(Integer.valueOf(pId));
+                            staffEntity.setName(item.text());
+                            staffEntity.setJob(key);
+                            subjectStaffEntityList.add(staffEntity);
+                        }
+                    }
+                } else {
+                    item.select("span").remove();
+                    if (type == 1) {
+                    } else if (type == 2) {
+                    } else if (type == 3) {
+                    } else if (type == 4) {
+                        if (key.contains("游戏类型")) {
+                            acg12SubjectEntity.setTypeName(item.text());
+                            continue;
+                        }
+                    } else if (type == 6) {
+                        if (key.contains("类型")) {
+                            acg12SubjectEntity.setTypeName(item.text().replace(" / ", ","));
+                            continue;
+                        }
+                    }
+                    if (key.contains("结束")) {
+                        acg12SubjectEntity.setEndDate(item.text());
+                        continue;
+                    } else {
+                        JSONObject itemJson = new JSONObject();
+                        itemJson.put("otherTitle", key);
+                        itemJson.put("otherValue", item.text());
+                        Acg12SubjectDetailEntity detailEntity = new Acg12SubjectDetailEntity();
+                        detailEntity.setSId(subjectid);
+                        detailEntity.setOtherTitle(key);
+                        detailEntity.setOtherValue(item.text());
+                        subjectDetailEntityList.add(detailEntity);
+                    }
+                }
+            }
+
+            if (type == 1) {
+                Elements browserCoverSmall = document.getElementsByClass("browserCoverSmall");
+                Elements browserList = browserCoverSmall.select("li");
+                for (int k = 0, num = browserList.size(); k < num; k++) {
+                    Element element = browserList.get(k);
+                    String id = null;
+                    String name;
+                    String pic;
+                    String aitem = element.select("a").attr("href");
+                    if (aitem != null) {
+                        id = aitem.split("subject/")[1];
+                    }
+                    name = element.select("a").attr("title");
+                    pic = element.select("span").attr("style").replace("background-image:url('", "").replace("')", "");
+
+                    Acg12SubjectOffprintEntity offprintEntity = new Acg12SubjectOffprintEntity();
+                    offprintEntity.setSId(Integer.valueOf(id));
+                    offprintEntity.setName(name);
+                    offprintEntity.setImage(pic);
+                    subjectOffprintEntityList.add(offprintEntity);
+                }
+            } else if (type == 3) {
+                Elements subject_ep_section = document.getElementsByClass("subject_ep_section");
+                Elements line_list_music = subject_ep_section.select("li");
+                for (int y = 0, n = line_list_music.size(); y < n; y++) {
+                    if (y == 0) {
+                        continue;
+                    }
+                    String text = line_list_music.get(y).select("h6").text().replace(y + "", "");
+                    if (text != null && !text.isEmpty()) {
+                        Acg12SubjectSongEntity songEntity = new Acg12SubjectSongEntity();
+                        songEntity.setSId(subjectid);
+                        songEntity.setTitle(text);
+                        subjectSongEntityList.add(songEntity);
+                    }
+                }
+            }
+            // car
+            document = Jsoup.connect(url3).ignoreContentType(true)
+                    .data("jquery", "java").userAgent("Mozilla")
+                    .cookie("auth", "token").timeout(50000).get();
+            Element columnInSubjectA = document.getElementById("columnInSubjectA");
+            Elements light_odd = columnInSubjectA.getElementsByClass("light_odd");
+            for (int i = 0, total = light_odd.size(); i < total; i++) {
+                Acg12SubjectCrtEntity crtEntity = new Acg12SubjectCrtEntity();
+//                JSONObject itemJson = new JSONObject();
+                Element item = light_odd.get(i);
+                Elements avatar = item.getElementsByClass("avatar");
+//                Integer cId = Integer.valueOf(avatar.select("a").attr("href").split("character/")[1]).intValue();
+                String pic = avatar.select("img").attr("src");
+//                itemJson.put("cId" , cId);
+                crtEntity.setImage(pic);
+                Elements clearit = item.getElementsByClass("clearit");
+                if (clearit != null && clearit.size() > 0) {
+                    Elements h2 = clearit.get(0).select("h2");
+                    Integer cId = Integer.valueOf(h2.select("a").attr("href").split("character/")[1]).intValue();
+                    String name = h2.select("a").text();
+                    String nameCn = h2.select("span").text();
+                    crtEntity.setCId(cId);
+                    crtEntity.setName(name);
+                    crtEntity.setNameN(nameCn.replace("/", "").replace(" ", ""));
+                    Elements crt_info = clearit.get(0).getElementsByClass("crt_info");
+                    if (crt_info != null && crt_info.size() > 0) {
+                        Elements badge_job = crt_info.get(0).getElementsByClass("badge_job");
+                        if (badge_job != null && badge_job.size() > 0) {
+                            String role_name = badge_job.get(0).text();
+                            crtEntity.setRoleName(role_name);
+                        }
+                    }
+                    Elements actorBadge = clearit.get(0).getElementsByClass("actorBadge");
+                    if (actorBadge != null && actorBadge.size() > 0) {
+                        Elements avatar1 = actorBadge.get(0).getElementsByClass("avatar");
+                        Integer pId = Integer.valueOf(actorBadge.select("a").attr("href").split("person/")[1]).intValue();
+                        String pic1 = avatar1.select("img").attr("src");
+                        String name1 = actorBadge.select("p").select("a").text();
+                        String nameCn1 = actorBadge.select("p").select("small").text();
+                        crtEntity.setPId(pId);
+                        crtEntity.setPImage(pic1);
+                        crtEntity.setPName(name1);
+                        crtEntity.setPNameCn(nameCn1.replace("/", "").replace(" ", ""));
+                    }
+                }
+                subjectCrtEntityArrayList.add(crtEntity);
+            }
+
+            SubjectDto subjectDto = new SubjectDto();
+            subjectDto.copy(acg12SubjectEntity);
+            if(subjectDetailEntityList.size() != 0){
+                subjectDto.setDetailList(subjectDetailEntityList);
+            }
+            if(subjectStaffEntityList.size() != 0){
+                subjectDto.setStaffList(subjectStaffEntityList);
+            }
+            if(subjectCrtEntityArrayList.size() != 0){
+                subjectDto.setCrtList(subjectCrtEntityArrayList);
+            }
+            if(subjectSongEntityList.size() != 0){
+                subjectDto.setSongList(subjectSongEntityList);
+            }
+            if(subjectOffprintEntityList.size() != 0){
+                subjectDto.setOffprintList(subjectOffprintEntityList);
+            }
+
+            return subjectDto;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static synchronized JSONObject getPersonInfo(int personId) {
         try {
             String url3 = String.format("http://bangumi.tv/person/%d", personId);
@@ -423,7 +690,7 @@ public class BgmCrawler {
             jsonObject.put("jobs", jobJson);
 
             String[] jobs = clearit.text().split(":");
-            if(jobs.length == 2 ){
+            if (jobs.length == 2) {
                 jobs = jobs[1].split(" ");
                 for (int i = 0, num = jobs.length; i < num; i++) {
                     if (jobs[i] == null || jobs[i].isEmpty()) {
@@ -654,10 +921,6 @@ public class BgmCrawler {
         }
         return null;
     }
-
-
-
-
 
 
 //    /** --------------------------保存数据库-------------------------------------*/
