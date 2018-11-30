@@ -1,0 +1,387 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.acg12.dao.Acg12SubjectDao">
+
+	<resultMap id="Acg12SubjectResultMap" type="com.acg12.entity.po.Acg12SubjectEntity">
+		<id property="id" column="id"  />
+		<result property="sId" column="s_id" />
+		<result property="type" column="type" />
+		<result property="typeName" column="type_name" />
+		<result property="name" column="name" />
+		<result property="nameCn" column="name_cn" />
+		<result property="summary" column="summary" />
+		<result property="image" column="image" />
+		<result property="epsCount" column="eps_count" />
+		<result property="airDate" column="air_date" />
+		<result property="airWeekday" column="air_weekday" />
+		<result property="endDate" column="end_date" />
+		<result property="lockStatus" column="lock_status" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="base_column">
+		id ,s_id ,type ,type_name ,name ,name_cn ,summary ,image ,eps_count ,air_date ,air_weekday ,end_date ,lock_status ,create_time ,update_time
+	</sql>
+
+	<sql id="base_value_column">
+		#{id},#{sId},#{type},#{typeName},#{name},#{nameCn},#{summary},#{image},#{epsCount},#{airDate},#{airWeekday},#{endDate},#{lockStatus},#{createTime},#{updateTime}
+	</sql>
+
+	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
+	<sql id="where_column">
+		<if test="id != null ">
+			AND id = #{id,jdbcType=INTEGER}
+		</if>
+
+		<!-- 大于等于id -->
+		<if test="filter_ids != null">
+			AND id<![CDATA[>=]]>#{filter_ids}
+		</if>
+		<!-- 小于等于id -->
+		<if test="filter_ide!= null">
+			AND id<![CDATA[<=]]>#{filter_ide}
+		</if>
+
+
+		<if test="sId != null ">
+			AND s_id = #{sId,jdbcType=INTEGER}
+		</if>
+
+		<!-- 大于等于s_id -->
+		<if test="filter_sIds != null">
+			AND s_id<![CDATA[>=]]>#{filter_sIds}
+		</if>
+		<!-- 小于等于s_id -->
+		<if test="filter_sIde!= null">
+			AND s_id<![CDATA[<=]]>#{filter_sIde}
+		</if>
+
+
+		<if test="type != null ">
+			AND type like  CONCAT('%',#{type},'%')
+		</if>
+
+		<!-- 大于等于type -->
+		<if test="filter_types != null">
+			AND type<![CDATA[>=]]>#{filter_types}
+		</if>
+		<!-- 小于等于type -->
+		<if test="filter_typee!= null">
+			AND type<![CDATA[<=]]>#{filter_typee}
+		</if>
+
+
+		<if test="typeName != null ">
+			AND type_name = #{typeName,jdbcType=VARCHAR}
+		</if>
+		<if test="typeNamelike != null ">
+			AND type_name like CONCAT('%',#{typeNamelike},'%')
+		</if>
+
+
+
+		<if test="name != null ">
+			AND name = #{name,jdbcType=VARCHAR}
+		</if>
+		<if test="namelike != null ">
+			AND name like CONCAT('%',#{namelike},'%')
+		</if>
+
+
+
+		<if test="nameCn != null ">
+			AND name_cn = #{nameCn,jdbcType=VARCHAR}
+		</if>
+		<if test="nameCnlike != null ">
+			AND name_cn like CONCAT('%',#{nameCnlike},'%')
+		</if>
+
+
+
+		<if test="summary != null ">
+			AND summary = #{summary,jdbcType=VARCHAR}
+		</if>
+		<if test="summarylike != null ">
+			AND summary like CONCAT('%',#{summarylike},'%')
+		</if>
+
+
+
+		<if test="image != null ">
+			AND image = #{image,jdbcType=VARCHAR}
+		</if>
+		<if test="imagelike != null ">
+			AND image like CONCAT('%',#{imagelike},'%')
+		</if>
+
+
+
+		<if test="epsCount != null ">
+			AND eps_count = #{epsCount,jdbcType=INTEGER}
+		</if>
+
+		<!-- 大于等于eps_count -->
+		<if test="filter_epsCounts != null">
+			AND eps_count<![CDATA[>=]]>#{filter_epsCounts}
+		</if>
+		<!-- 小于等于eps_count -->
+		<if test="filter_epsCounte!= null">
+			AND eps_count<![CDATA[<=]]>#{filter_epsCounte}
+		</if>
+
+
+		<if test="airDate != null ">
+			AND air_date = #{airDate,jdbcType=VARCHAR}
+		</if>
+		<if test="airDatelike != null ">
+			AND air_date like CONCAT('%',#{airDatelike},'%')
+		</if>
+
+
+
+		<if test="airWeekday != null ">
+			AND air_weekday = #{airWeekday,jdbcType=INTEGER}
+		</if>
+
+		<!-- 大于等于air_weekday -->
+		<if test="filter_airWeekdays != null">
+			AND air_weekday<![CDATA[>=]]>#{filter_airWeekdays}
+		</if>
+		<!-- 小于等于air_weekday -->
+		<if test="filter_airWeekdaye!= null">
+			AND air_weekday<![CDATA[<=]]>#{filter_airWeekdaye}
+		</if>
+
+
+		<if test="endDate != null ">
+			AND end_date = #{endDate,jdbcType=VARCHAR}
+		</if>
+		<if test="endDatelike != null ">
+			AND end_date like CONCAT('%',#{endDatelike},'%')
+		</if>
+
+
+
+		<if test="lockStatus != null ">
+			AND lock_status = #{lockStatus,jdbcType=INTEGER}
+		</if>
+
+		<!-- 大于等于lock_status -->
+		<if test="filter_lockStatuss != null">
+			AND lock_status<![CDATA[>=]]>#{filter_lockStatuss}
+		</if>
+		<!-- 小于等于lock_status -->
+		<if test="filter_lockStatuse!= null">
+			AND lock_status<![CDATA[<=]]>#{filter_lockStatuse}
+		</if>
+
+
+		<if test="createTime != null ">
+			AND create_time = #{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<!-- 大于等于create_time -->
+		<if test="filter_createTimes != null">
+			AND date_format(create_time,'%Y%m%d')<![CDATA[>=]]>#{filter_createTimes}
+		</if>
+		<!-- 小于等于create_time -->
+		<if test="filter_createTimee!= null">
+			AND date_format(create_time,'%Y%m%d')<![CDATA[<=]]>#{filter_createTimee}
+		</if>
+
+
+
+		<if test="updateTime != null ">
+			AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+		</if>
+		<!-- 大于等于update_time -->
+		<if test="filter_updateTimes != null">
+			AND date_format(update_time,'%Y%m%d')<![CDATA[>=]]>#{filter_updateTimes}
+		</if>
+		<!-- 小于等于update_time -->
+		<if test="filter_updateTimee!= null">
+			AND date_format(update_time,'%Y%m%d')<![CDATA[<=]]>#{filter_updateTimee}
+		</if>
+
+
+
+	</sql>
+
+	<!-- 设置语句 -->
+	<sql id="set_column">
+		<if test="id != null ">
+			id = #{id,jdbcType=INTEGER},
+		</if>
+		<if test="sId != null ">
+			s_id = #{sId,jdbcType=INTEGER},
+		</if>
+		<if test="type != null ">
+			type = #{type,jdbcType=INTEGER},
+		</if>
+		<if test="typeName != null ">
+			type_name = #{typeName,jdbcType=VARCHAR},
+		</if>
+		<if test="name != null ">
+			name = #{name,jdbcType=VARCHAR},
+		</if>
+		<if test="nameCn != null ">
+			name_cn = #{nameCn,jdbcType=VARCHAR},
+		</if>
+		<if test="summary != null ">
+			summary = #{summary,jdbcType=VARCHAR},
+		</if>
+		<if test="image != null ">
+			image = #{image,jdbcType=VARCHAR},
+		</if>
+		<if test="epsCount != null ">
+			eps_count = #{epsCount,jdbcType=INTEGER},
+		</if>
+		<if test="airDate != null ">
+			air_date = #{airDate,jdbcType=VARCHAR},
+		</if>
+		<if test="airWeekday != null ">
+			air_weekday = #{airWeekday,jdbcType=INTEGER},
+		</if>
+		<if test="endDate != null ">
+			end_date = #{endDate,jdbcType=VARCHAR},
+		</if>
+		<if test="lockStatus != null ">
+			lock_status = #{lockStatus,jdbcType=INTEGER},
+		</if>
+		<if test="createTime != null ">
+			create_time = #{createTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="updateTime != null ">
+			update_time = #{updateTime,jdbcType=TIMESTAMP},
+		</if>
+	</sql>
+
+	<!-- 根据ID查询 -->
+	<select id="find" resultMap="Acg12SubjectResultMap">
+		SELECT	<include refid="base_column" />
+		FROM	T_ACG12_SUBJECT
+		WHERE	ID=#{id,jdbcType=BIGINT}
+	</select>
+
+	<!-- 查询所有 -->
+	<select id="findAll" resultMap="Acg12SubjectResultMap">
+		SELECT	<include refid="base_column" />
+		FROM	T_ACG12_SUBJECT
+	</select>
+
+	<!-- 统计记录数 -->
+	<select id="count" resultType="long">
+		SELECT COUNT(*) FROM T_ACG12_SUBJECT
+		<where>
+			<include refid="where_column" />
+		</where>
+	</select>
+
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.acg12.entity.po.Acg12SubjectEntity">
+		<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		INSERT T_ACG12_SUBJECT
+		(<include refid="base_column" /> )
+		VALUES	(<include refid="base_value_column" />)
+	</insert>
+
+	<!-- 修改 -->
+	<update id="update" parameterType="com.acg12.entity.po.Acg12SubjectEntity">
+		UPDATE	T_ACG12_SUBJECT
+		<set>
+			<include refid="set_column" />
+		</set>
+		WHERE	ID = #{id,jdbcType=BIGINT}
+	</update>
+
+	<!-- 删除单条记录 -->
+	<delete id="delete">
+		DELETE	FROM T_ACG12_SUBJECT
+		WHERE	ID = #{id,jdbcType=BIGINT}
+	</delete>
+
+
+	<!-- 删除多条记录-->
+	<delete id="deleteAll">
+		DELETE	FROM T_ACG12_SUBJECT
+		WHERE	ID	IN
+		<foreach item="Acg12SubjectId" index="index" collection="ids" open="(" separator="," close=")">
+			#{Acg12SubjectId}
+		</foreach>
+	</delete>
+
+	<!-- 根据参数查询列表-->
+	<select id="findByParams" resultMap="Acg12SubjectResultMap">
+		SELECT	<include refid="base_column" />
+		FROM 	T_ACG12_SUBJECT
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+	</select>
+
+	<!-- 分页查询-->
+	<select id="findByPage" resultMap="Acg12SubjectResultMap">
+		SELECT
+		<include refid="base_column" />
+		FROM T_ACG12_SUBJECT
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+	</select>
+
+	<!-- 分页查询-->
+	<select id="findListByPage" resultMap="Acg12SubjectResultMap">
+		SELECT
+		<include refid="base_column" />
+		FROM T_ACG12_SUBJECT
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+
+		<if test="order != null and order != ''">
+			order by  ${order}
+		</if>
+
+		<if test="pageNumber != null  and pageSize !=null ">
+			limit  #{pageNumber,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+
+
+	</select>
+
+
+	<!-- 删除多条记录-->
+	<delete id="deletes">
+		DELETE	FROM T_ACG12_SUBJECT
+		<where>
+			<include refid="where_column" />
+		</where>
+	</delete>
+
+	<!-- 新分页查询-->
+	<select id="findListNewByPage" resultMap="Acg12SubjectResultMap">
+		SELECT
+		<include refid="base_column" />
+		FROM T_ACG12_SUBJECT
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+
+		<if test="order != null and order != ''">
+			order by  ${order}
+		</if>
+
+		<if test="pageNumber != null  and pageSize !=null ">
+			limit  #{pageNumber,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+		</if>
+
+
+	</select>
+
+</mapper>

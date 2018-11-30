@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.acg12.dao.Acg12CharacterDetailDao">
+	
+	<resultMap id="Acg12CharacterDetailResultMap" type="com.acg12.entity.po.Acg12CharacterDetailEntity">
+		<id property="id" column="id"  />
+		<result property="characterId" column="character_id" />
+		<result property="otherTitle" column="other_title" />
+		<result property="otherValue" column="other_value" />
+	</resultMap>
+	
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="base_column">
+		 id ,character_id ,other_title ,other_value 
+	</sql>
+	
+	<sql id="base_value_column">
+		 #{id},#{characterId},#{otherTitle},#{otherValue}
+	</sql>
+	
+	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
+	<sql id="where_column">
+		<if test="id != null ">
+			AND id = #{id,jdbcType=INTEGER}
+		</if>
+
+	    	<!-- 大于等于id -->
+		<if test="filter_ids != null">
+			AND id<![CDATA[>=]]>#{filter_ids}
+		</if>
+		<!-- 小于等于id -->
+	    <if test="filter_ide!= null">
+			AND id<![CDATA[<=]]>#{filter_ide}
+		</if>
+
+
+		<if test="characterId != null ">
+			AND character_id = #{characterId,jdbcType=INTEGER}
+		</if>
+
+	    	<!-- 大于等于character_id -->
+		<if test="filter_characterIds != null">
+			AND character_id<![CDATA[>=]]>#{filter_characterIds}
+		</if>
+		<!-- 小于等于character_id -->
+	    <if test="filter_characterIde!= null">
+			AND character_id<![CDATA[<=]]>#{filter_characterIde}
+		</if>
+
+
+		<if test="otherTitle != null ">
+			AND other_title = #{otherTitle,jdbcType=VARCHAR}
+		</if>
+	   <if test="otherTitlelike != null ">
+			AND other_title like CONCAT('%',#{otherTitlelike},'%')
+		</if>
+
+
+
+		<if test="otherValue != null ">
+			AND other_value = #{otherValue,jdbcType=VARCHAR}
+		</if>
+	   <if test="otherValuelike != null ">
+			AND other_value like CONCAT('%',#{otherValuelike},'%')
+		</if>
+
+
+
+	</sql>
+	
+	<!-- 设置语句 -->
+	<sql id="set_column">
+		<if test="id != null ">
+			id = #{id,jdbcType=INTEGER},
+		</if>
+		<if test="characterId != null ">
+			character_id = #{characterId,jdbcType=INTEGER},
+		</if>
+		<if test="otherTitle != null ">
+			other_title = #{otherTitle,jdbcType=VARCHAR},
+		</if>
+		<if test="otherValue != null ">
+			other_value = #{otherValue,jdbcType=VARCHAR},
+		</if>
+	</sql>
+
+	<!-- 根据ID查询 -->
+	<select id="find" resultMap="Acg12CharacterDetailResultMap">
+		SELECT	<include refid="base_column" />
+		FROM	T_ACG12_CHARACTER_DETAIL
+		WHERE	ID=#{id,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 查询所有 -->
+	<select id="findAll" resultMap="Acg12CharacterDetailResultMap">
+		SELECT	<include refid="base_column" />
+		FROM	T_ACG12_CHARACTER_DETAIL
+	</select>
+	
+	<!-- 统计记录数 -->
+	<select id="count" resultType="long">
+		SELECT COUNT(*) FROM T_ACG12_CHARACTER_DETAIL
+		<where> 
+			<include refid="where_column" />
+		</where>
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.acg12.entity.po.Acg12CharacterDetailEntity">
+		<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">  
+	          SELECT LAST_INSERT_ID() AS ID    
+	    </selectKey>  
+		INSERT T_ACG12_CHARACTER_DETAIL 
+				(<include refid="base_column" /> )
+		VALUES	(<include refid="base_value_column" />)
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update" parameterType="com.acg12.entity.po.Acg12CharacterDetailEntity">
+		UPDATE	T_ACG12_CHARACTER_DETAIL
+		<set>
+			<include refid="set_column" />
+		</set>
+		WHERE	ID = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 删除单条记录 -->
+	<delete id="delete">
+		DELETE	FROM T_ACG12_CHARACTER_DETAIL
+		WHERE	ID = #{id,jdbcType=BIGINT}
+	</delete>
+	
+	
+	<!-- 删除多条记录-->
+	<delete id="deleteAll">
+		DELETE	FROM T_ACG12_CHARACTER_DETAIL
+		WHERE	ID	IN
+    	<foreach item="Acg12CharacterDetailId" index="index" collection="ids" open="(" separator="," close=")">
+	  		#{Acg12CharacterDetailId} 
+		</foreach>
+	</delete>
+	
+	<!-- 根据参数查询列表-->
+	<select id="findByParams" resultMap="Acg12CharacterDetailResultMap">
+		SELECT	<include refid="base_column" />
+		FROM 	T_ACG12_CHARACTER_DETAIL
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+	</select>
+	
+	<!-- 分页查询-->
+	<select id="findByPage" resultMap="Acg12CharacterDetailResultMap">
+		SELECT
+		<include refid="base_column" />
+		FROM T_ACG12_CHARACTER_DETAIL
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+	</select>
+
+       <!-- 分页查询-->
+       <select id="findListByPage" resultMap="Acg12CharacterDetailResultMap">
+		SELECT
+		<include refid="base_column" />
+		FROM T_ACG12_CHARACTER_DETAIL
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+					
+	     <if test="order != null and order != ''">
+		order by  ${order}
+	     </if>
+	     
+		<if test="pageNumber != null  and pageSize !=null ">
+			limit  #{pageNumber,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	     </if>
+			
+		
+	</select>
+	
+	
+		<!-- 删除多条记录-->
+	<delete id="deletes">
+		DELETE	FROM T_ACG12_CHARACTER_DETAIL
+		<where> 
+			<include refid="where_column" />
+		</where>
+	</delete>
+	
+ <!-- 新分页查询-->
+       <select id="findListNewByPage" resultMap="Acg12CharacterDetailResultMap">
+		SELECT
+		<include refid="base_column" />
+		FROM T_ACG12_CHARACTER_DETAIL
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+					
+	     <if test="order != null and order != ''">
+		order by  ${order}
+	     </if>
+	     
+		<if test="pageNumber != null  and pageSize !=null ">
+			limit  #{pageNumber,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	     </if>
+			
+		
+	</select>
+	
+</mapper>

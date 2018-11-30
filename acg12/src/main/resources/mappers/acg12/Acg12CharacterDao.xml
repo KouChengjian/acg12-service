@@ -1,0 +1,376 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.acg12.dao.Acg12CharacterDao">
+
+    <resultMap id="Acg12CharacterResultMap" type="com.acg12.entity.po.Acg12CharacterEntity">
+        <id property="id" column="id"  />
+        <result property="cId" column="c_id" />
+        <result property="name" column="name" />
+        <result property="nameCn" column="name_cn" />
+        <result property="image" column="image" />
+        <result property="summary" column="summary" />
+        <result property="height" column="height" />
+        <result property="weight" column="weight" />
+        <result property="alias" column="alias" />
+        <result property="type" column="type" />
+        <result property="gender" column="gender" />
+        <result property="bloodtype" column="bloodtype" />
+        <result property="birthday" column="birthday" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+    <sql id="base_column">
+        id ,c_id ,name ,name_cn ,image ,summary ,height ,weight ,alias ,type ,gender ,bloodtype ,birthday ,create_time ,update_time
+    </sql>
+
+    <sql id="base_value_column">
+        #{id},#{cId},#{name},#{nameCn},#{image},#{summary},#{height},#{weight},#{alias},#{type},#{gender},#{bloodtype},#{birthday},#{createTime},#{updateTime}
+    </sql>
+
+    <!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
+    <sql id="where_column">
+        <if test="id != null ">
+            AND id = #{id,jdbcType=INTEGER}
+        </if>
+
+        <!-- 大于等于id -->
+        <if test="filter_ids != null">
+            AND id<![CDATA[>=]]>#{filter_ids}
+        </if>
+        <!-- 小于等于id -->
+        <if test="filter_ide!= null">
+            AND id<![CDATA[<=]]>#{filter_ide}
+        </if>
+
+
+        <if test="cId != null ">
+            AND c_id = #{cId,jdbcType=INTEGER}
+        </if>
+
+        <!-- 大于等于c_id -->
+        <if test="filter_cIds != null">
+            AND c_id<![CDATA[>=]]>#{filter_cIds}
+        </if>
+        <!-- 小于等于c_id -->
+        <if test="filter_cIde!= null">
+            AND c_id<![CDATA[<=]]>#{filter_cIde}
+        </if>
+
+
+        <if test="name != null ">
+            AND name = #{name,jdbcType=VARCHAR}
+        </if>
+        <if test="namelike != null ">
+            AND name like CONCAT('%',#{namelike},'%')
+        </if>
+
+
+
+        <if test="nameCn != null ">
+            AND name_cn = #{nameCn,jdbcType=VARCHAR}
+        </if>
+        <if test="nameCnlike != null ">
+            AND name_cn like CONCAT('%',#{nameCnlike},'%')
+        </if>
+
+
+
+        <if test="image != null ">
+            AND image = #{image,jdbcType=VARCHAR}
+        </if>
+        <if test="imagelike != null ">
+            AND image like CONCAT('%',#{imagelike},'%')
+        </if>
+
+
+
+        <if test="summary != null ">
+            AND summary = #{summary,jdbcType=VARCHAR}
+        </if>
+        <if test="summarylike != null ">
+            AND summary like CONCAT('%',#{summarylike},'%')
+        </if>
+
+
+
+        <if test="height != null ">
+            AND height = #{height,jdbcType=VARCHAR}
+        </if>
+        <if test="heightlike != null ">
+            AND height like CONCAT('%',#{heightlike},'%')
+        </if>
+
+
+
+        <if test="weight != null ">
+            AND weight = #{weight,jdbcType=VARCHAR}
+        </if>
+        <if test="weightlike != null ">
+            AND weight like CONCAT('%',#{weightlike},'%')
+        </if>
+
+
+
+        <if test="alias != null ">
+            AND alias = #{alias,jdbcType=VARCHAR}
+        </if>
+        <if test="aliaslike != null ">
+            AND alias like CONCAT('%',#{aliaslike},'%')
+        </if>
+
+
+
+        <if test="type != null ">
+            AND type like  CONCAT('%',#{type},'%')
+        </if>
+        <if test="typelike != null ">
+            AND type like CONCAT('%',#{typelike},'%')
+        </if>
+
+
+
+        <if test="gender != null ">
+            AND gender = #{gender,jdbcType=INTEGER}
+        </if>
+
+        <!-- 大于等于gender -->
+        <if test="filter_genders != null">
+            AND gender<![CDATA[>=]]>#{filter_genders}
+        </if>
+        <!-- 小于等于gender -->
+        <if test="filter_gendere!= null">
+            AND gender<![CDATA[<=]]>#{filter_gendere}
+        </if>
+
+
+        <if test="bloodtype != null ">
+            AND bloodtype = #{bloodtype,jdbcType=INTEGER}
+        </if>
+
+        <!-- 大于等于bloodtype -->
+        <if test="filter_bloodtypes != null">
+            AND bloodtype<![CDATA[>=]]>#{filter_bloodtypes}
+        </if>
+        <!-- 小于等于bloodtype -->
+        <if test="filter_bloodtypee!= null">
+            AND bloodtype<![CDATA[<=]]>#{filter_bloodtypee}
+        </if>
+
+
+        <if test="birthday != null ">
+            AND birthday = #{birthday,jdbcType=VARCHAR}
+        </if>
+        <if test="birthdaylike != null ">
+            AND birthday like CONCAT('%',#{birthdaylike},'%')
+        </if>
+
+
+        <if test="createTime != null ">
+            AND create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <!-- 大于等于create_time -->
+        <if test="filter_createTimes != null">
+            AND date_format(create_time,'%Y%m%d')<![CDATA[>=]]>#{filter_createTimes}
+        </if>
+        <!-- 小于等于create_time -->
+        <if test="filter_createTimee!= null">
+            AND date_format(create_time,'%Y%m%d')<![CDATA[<=]]>#{filter_createTimee}
+        </if>
+
+
+
+        <if test="updateTime != null ">
+            AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <!-- 大于等于update_time -->
+        <if test="filter_updateTimes != null">
+            AND date_format(update_time,'%Y%m%d')<![CDATA[>=]]>#{filter_updateTimes}
+        </if>
+        <!-- 小于等于update_time -->
+        <if test="filter_updateTimee!= null">
+            AND date_format(update_time,'%Y%m%d')<![CDATA[<=]]>#{filter_updateTimee}
+        </if>
+
+
+
+    </sql>
+
+    <!-- 设置语句 -->
+    <sql id="set_column">
+        <if test="id != null ">
+            id = #{id,jdbcType=INTEGER},
+        </if>
+        <if test="cId != null ">
+            c_id = #{cId,jdbcType=INTEGER},
+        </if>
+        <if test="name != null ">
+            name = #{name,jdbcType=VARCHAR},
+        </if>
+        <if test="nameCn != null ">
+            name_cn = #{nameCn,jdbcType=VARCHAR},
+        </if>
+        <if test="image != null ">
+            image = #{image,jdbcType=VARCHAR},
+        </if>
+        <if test="summary != null ">
+            summary = #{summary,jdbcType=VARCHAR},
+        </if>
+        <if test="height != null ">
+            height = #{height,jdbcType=VARCHAR},
+        </if>
+        <if test="weight != null ">
+            weight = #{weight,jdbcType=VARCHAR},
+        </if>
+        <if test="alias != null ">
+            alias = #{alias,jdbcType=VARCHAR},
+        </if>
+        <if test="type != null ">
+            type = #{type,jdbcType=VARCHAR},
+        </if>
+        <if test="gender != null ">
+            gender = #{gender,jdbcType=INTEGER},
+        </if>
+        <if test="bloodtype != null ">
+            bloodtype = #{bloodtype,jdbcType=INTEGER},
+        </if>
+        <if test="birthday != null ">
+            birthday = #{birthday,jdbcType=VARCHAR},
+        </if>
+        <if test="createTime != null ">
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="updateTime != null ">
+            update_time = #{updateTime,jdbcType=TIMESTAMP},
+        </if>
+    </sql>
+
+    <!-- 根据ID查询 -->
+    <select id="find" resultMap="Acg12CharacterResultMap">
+        SELECT	<include refid="base_column" />
+        FROM	T_ACG12_CHARACTER
+        WHERE	ID=#{id,jdbcType=BIGINT}
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="findAll" resultMap="Acg12CharacterResultMap">
+        SELECT	<include refid="base_column" />
+        FROM	T_ACG12_CHARACTER
+    </select>
+
+    <!-- 统计记录数 -->
+    <select id="count" resultType="long">
+        SELECT COUNT(*) FROM T_ACG12_CHARACTER
+        <where>
+            <include refid="where_column" />
+        </where>
+    </select>
+
+    <!-- 插入 -->
+    <insert id="insert" parameterType="com.acg12.entity.po.Acg12CharacterEntity">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+        INSERT T_ACG12_CHARACTER
+        (<include refid="base_column" /> )
+        VALUES	(<include refid="base_value_column" />)
+    </insert>
+
+    <!-- 修改 -->
+    <update id="update" parameterType="com.acg12.entity.po.Acg12CharacterEntity">
+        UPDATE	T_ACG12_CHARACTER
+        <set>
+            <include refid="set_column" />
+        </set>
+        WHERE	ID = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- 删除单条记录 -->
+    <delete id="delete">
+        DELETE	FROM T_ACG12_CHARACTER
+        WHERE	ID = #{id,jdbcType=BIGINT}
+    </delete>
+
+
+    <!-- 删除多条记录-->
+    <delete id="deleteAll">
+        DELETE	FROM T_ACG12_CHARACTER
+        WHERE	ID	IN
+        <foreach item="Acg12CharacterId" index="index" collection="ids" open="(" separator="," close=")">
+            #{Acg12CharacterId}
+        </foreach>
+    </delete>
+
+    <!-- 根据参数查询列表-->
+    <select id="findByParams" resultMap="Acg12CharacterResultMap">
+        SELECT	<include refid="base_column" />
+        FROM 	T_ACG12_CHARACTER
+        <where> 1=1
+            <include refid="where_column" />
+        </where>
+    </select>
+
+    <!-- 分页查询-->
+    <select id="findByPage" resultMap="Acg12CharacterResultMap">
+        SELECT
+        <include refid="base_column" />
+        FROM T_ACG12_CHARACTER
+        <where> 1=1
+            <include refid="where_column" />
+        </where>
+    </select>
+
+    <!-- 分页查询-->
+    <select id="findListByPage" resultMap="Acg12CharacterResultMap">
+        SELECT
+        <include refid="base_column" />
+        FROM T_ACG12_CHARACTER
+        <where> 1=1
+            <include refid="where_column" />
+        </where>
+
+        <if test="order != null and order != ''">
+            order by  ${order}
+        </if>
+
+        <if test="pageNumber != null  and pageSize !=null ">
+            limit  #{pageNumber,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+        </if>
+
+
+    </select>
+
+
+    <!-- 删除多条记录-->
+    <delete id="deletes">
+        DELETE	FROM T_ACG12_CHARACTER
+        <where>
+            <include refid="where_column" />
+        </where>
+    </delete>
+
+    <!-- 新分页查询-->
+    <select id="findListNewByPage" resultMap="Acg12CharacterResultMap">
+        SELECT
+        <include refid="base_column" />
+        FROM T_ACG12_CHARACTER
+        <where> 1=1
+            <include refid="where_column" />
+        </where>
+
+        <if test="order != null and order != ''">
+            order by  ${order}
+        </if>
+
+        <if test="pageNumber != null  and pageSize !=null ">
+            limit  #{pageNumber,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+        </if>
+
+
+    </select>
+
+</mapper>

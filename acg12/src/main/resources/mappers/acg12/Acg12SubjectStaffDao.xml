@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.acg12.dao.Acg12SubjectStaffDao">
+
+    <resultMap id="Acg12SubjectStaffResultMap" type="com.acg12.entity.po.Acg12SubjectStaffEntity">
+        <id property="id" column="id"  />
+        <result property="subjectId" column="subject_id" />
+        <result property="sId" column="s_id" />
+        <result property="personId" column="person_id" />
+        <result property="pId" column="p_id" />
+        <result property="name" column="name" />
+        <result property="job" column="job" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+    <sql id="base_column">
+        id ,subject_id ,s_id ,person_id ,p_id ,name ,job ,create_time ,update_time
+    </sql>
+
+    <sql id="base_value_column">
+        #{id},#{subjectId},#{sId},#{personId},#{pId},#{name},#{job},#{createTime},#{updateTime}
+    </sql>
+
+    <!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
+    <sql id="where_column">
+        <if test="id != null ">
+            AND id = #{id,jdbcType=INTEGER}
+        </if>
+
+        <!-- 大于等于id -->
+        <if test="filter_ids != null">
+            AND id<![CDATA[>=]]>#{filter_ids}
+        </if>
+        <!-- 小于等于id -->
+        <if test="filter_ide!= null">
+            AND id<![CDATA[<=]]>#{filter_ide}
+        </if>
+
+
+        <if test="subjectId != null ">
+            AND subject_id = #{subjectId,jdbcType=INTEGER}
+        </if>
+
+        <!-- 大于等于subject_id -->
+        <if test="filter_subjectIds != null">
+            AND subject_id<![CDATA[>=]]>#{filter_subjectIds}
+        </if>
+        <!-- 小于等于subject_id -->
+        <if test="filter_subjectIde!= null">
+            AND subject_id<![CDATA[<=]]>#{filter_subjectIde}
+        </if>
+
+
+        <if test="sId != null ">
+            AND s_id = #{sId,jdbcType=INTEGER}
+        </if>
+
+        <!-- 大于等于s_id -->
+        <if test="filter_sIds != null">
+            AND s_id<![CDATA[>=]]>#{filter_sIds}
+        </if>
+        <!-- 小于等于s_id -->
+        <if test="filter_sIde!= null">
+            AND s_id<![CDATA[<=]]>#{filter_sIde}
+        </if>
+
+
+        <if test="personId != null ">
+            AND person_id = #{personId,jdbcType=INTEGER}
+        </if>
+
+        <!-- 大于等于person_id -->
+        <if test="filter_personIds != null">
+            AND person_id<![CDATA[>=]]>#{filter_personIds}
+        </if>
+        <!-- 小于等于person_id -->
+        <if test="filter_personIde!= null">
+            AND person_id<![CDATA[<=]]>#{filter_personIde}
+        </if>
+
+
+        <if test="pId != null ">
+            AND p_id = #{pId,jdbcType=INTEGER}
+        </if>
+
+        <!-- 大于等于p_id -->
+        <if test="filter_pIds != null">
+            AND p_id<![CDATA[>=]]>#{filter_pIds}
+        </if>
+        <!-- 小于等于p_id -->
+        <if test="filter_pIde!= null">
+            AND p_id<![CDATA[<=]]>#{filter_pIde}
+        </if>
+
+
+        <if test="name != null ">
+            AND name = #{name,jdbcType=VARCHAR}
+        </if>
+        <if test="namelike != null ">
+            AND name like CONCAT('%',#{namelike},'%')
+        </if>
+
+
+
+        <if test="job != null ">
+            AND job = #{job,jdbcType=VARCHAR}
+        </if>
+        <if test="joblike != null ">
+            AND job like CONCAT('%',#{joblike},'%')
+        </if>
+
+
+        <if test="createTime != null ">
+            AND create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <!-- 大于等于create_time -->
+        <if test="filter_createTimes != null">
+            AND date_format(create_time,'%Y%m%d')<![CDATA[>=]]>#{filter_createTimes}
+        </if>
+        <!-- 小于等于create_time -->
+        <if test="filter_createTimee!= null">
+            AND date_format(create_time,'%Y%m%d')<![CDATA[<=]]>#{filter_createTimee}
+        </if>
+
+
+
+        <if test="updateTime != null ">
+            AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <!-- 大于等于update_time -->
+        <if test="filter_updateTimes != null">
+            AND date_format(update_time,'%Y%m%d')<![CDATA[>=]]>#{filter_updateTimes}
+        </if>
+        <!-- 小于等于update_time -->
+        <if test="filter_updateTimee!= null">
+            AND date_format(update_time,'%Y%m%d')<![CDATA[<=]]>#{filter_updateTimee}
+        </if>
+
+
+
+    </sql>
+
+    <!-- 设置语句 -->
+    <sql id="set_column">
+        <if test="id != null ">
+            id = #{id,jdbcType=INTEGER},
+        </if>
+        <if test="subjectId != null ">
+            subject_id = #{subjectId,jdbcType=INTEGER},
+        </if>
+        <if test="sId != null ">
+            s_id = #{sId,jdbcType=INTEGER},
+        </if>
+        <if test="personId != null ">
+            person_id = #{personId,jdbcType=INTEGER},
+        </if>
+        <if test="pId != null ">
+            p_id = #{pId,jdbcType=INTEGER},
+        </if>
+        <if test="name != null ">
+            name = #{name,jdbcType=VARCHAR},
+        </if>
+        <if test="job != null ">
+            job = #{job,jdbcType=VARCHAR},
+        </if>
+        <if test="createTime != null ">
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="updateTime != null ">
+            update_time = #{updateTime,jdbcType=TIMESTAMP},
+        </if>
+    </sql>
+
+    <!-- 根据ID查询 -->
+    <select id="find" resultMap="Acg12SubjectStaffResultMap">
+        SELECT	<include refid="base_column" />
+        FROM	T_ACG12_SUBJECT_STAFF
+        WHERE	ID=#{id,jdbcType=BIGINT}
+    </select>
+
+    <!-- 查询所有 -->
+    <select id="findAll" resultMap="Acg12SubjectStaffResultMap">
+        SELECT	<include refid="base_column" />
+        FROM	T_ACG12_SUBJECT_STAFF
+    </select>
+
+    <!-- 统计记录数 -->
+    <select id="count" resultType="long">
+        SELECT COUNT(*) FROM T_ACG12_SUBJECT_STAFF
+        <where>
+            <include refid="where_column" />
+        </where>
+    </select>
+
+    <!-- 插入 -->
+    <insert id="insert" parameterType="com.acg12.entity.po.Acg12SubjectStaffEntity">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+        INSERT T_ACG12_SUBJECT_STAFF
+        (<include refid="base_column" /> )
+        VALUES	(<include refid="base_value_column" />)
+    </insert>
+
+    <!-- 修改 -->
+    <update id="update" parameterType="com.acg12.entity.po.Acg12SubjectStaffEntity">
+        UPDATE	T_ACG12_SUBJECT_STAFF
+        <set>
+            <include refid="set_column" />
+        </set>
+        WHERE	ID = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!-- 删除单条记录 -->
+    <delete id="delete">
+        DELETE	FROM T_ACG12_SUBJECT_STAFF
+        WHERE	ID = #{id,jdbcType=BIGINT}
+    </delete>
+
+
+    <!-- 删除多条记录-->
+    <delete id="deleteAll">
+        DELETE	FROM T_ACG12_SUBJECT_STAFF
+        WHERE	ID	IN
+        <foreach item="Acg12SubjectStaffId" index="index" collection="ids" open="(" separator="," close=")">
+            #{Acg12SubjectStaffId}
+        </foreach>
+    </delete>
+
+    <!-- 根据参数查询列表-->
+    <select id="findByParams" resultMap="Acg12SubjectStaffResultMap">
+        SELECT	<include refid="base_column" />
+        FROM 	T_ACG12_SUBJECT_STAFF
+        <where> 1=1
+            <include refid="where_column" />
+        </where>
+    </select>
+
+    <!-- 分页查询-->
+    <select id="findByPage" resultMap="Acg12SubjectStaffResultMap">
+        SELECT
+        <include refid="base_column" />
+        FROM T_ACG12_SUBJECT_STAFF
+        <where> 1=1
+            <include refid="where_column" />
+        </where>
+    </select>
+
+    <!-- 分页查询-->
+    <select id="findListByPage" resultMap="Acg12SubjectStaffResultMap">
+        SELECT
+        <include refid="base_column" />
+        FROM T_ACG12_SUBJECT_STAFF
+        <where> 1=1
+            <include refid="where_column" />
+        </where>
+
+        <if test="order != null and order != ''">
+            order by  ${order}
+        </if>
+
+        <if test="pageNumber != null  and pageSize !=null ">
+            limit  #{pageNumber,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+        </if>
+
+
+    </select>
+
+
+    <!-- 删除多条记录-->
+    <delete id="deletes">
+        DELETE	FROM T_ACG12_SUBJECT_STAFF
+        <where>
+            <include refid="where_column" />
+        </where>
+    </delete>
+
+    <!-- 新分页查询-->
+    <select id="findListNewByPage" resultMap="Acg12SubjectStaffResultMap">
+        SELECT
+        <include refid="base_column" />
+        FROM T_ACG12_SUBJECT_STAFF
+        <where> 1=1
+            <include refid="where_column" />
+        </where>
+
+        <if test="order != null and order != ''">
+            order by  ${order}
+        </if>
+
+        <if test="pageNumber != null  and pageSize !=null ">
+            limit  #{pageNumber,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+        </if>
+
+
+    </select>
+
+</mapper>

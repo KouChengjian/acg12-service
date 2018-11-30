@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.acg12.dao.Acg12ScheduleJobDao">
+	
+	<resultMap id="Acg12ScheduleJobResultMap" type="com.acg12.entity.po.Acg12ScheduleJobEntity">
+		<id property="id" column="id"  />
+		<result property="jobName" column="job_name" />
+		<result property="jobGroup" column="job_group" />
+		<result property="jobStatus" column="job_status" />
+		<result property="cronExpression" column="cron_expression" />
+		<result property="description" column="description" />
+		<result property="beanClass" column="bean_class" />
+		<result property="isConcurrent" column="is_concurrent" />
+		<result property="methodName" column="method_name" />
+		<result property="springId" column="spring_id" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+	
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="base_column">
+		 id ,job_name ,job_group ,job_status ,cron_expression ,description ,bean_class ,is_concurrent ,method_name ,spring_id ,create_time ,update_time 
+	</sql>
+	
+	<sql id="base_value_column">
+		 #{id},#{jobName},#{jobGroup},#{jobStatus},#{cronExpression},#{description},#{beanClass},#{isConcurrent},#{methodName},#{springId},#{createTime},#{updateTime}
+	</sql>
+	
+	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
+	<sql id="where_column">
+		<if test="id != null ">
+			AND id = #{id,jdbcType=INTEGER}
+		</if>
+
+	    	<!-- 大于等于id -->
+		<if test="filter_ids != null">
+			AND id<![CDATA[>=]]>#{filter_ids}
+		</if>
+		<!-- 小于等于id -->
+	    <if test="filter_ide!= null">
+			AND id<![CDATA[<=]]>#{filter_ide}
+		</if>
+
+
+		<if test="jobName != null ">
+			AND job_name = #{jobName,jdbcType=VARCHAR}
+		</if>
+	   <if test="jobNamelike != null ">
+			AND job_name like CONCAT('%',#{jobNamelike},'%')
+		</if>
+
+
+
+		<if test="jobGroup != null ">
+			AND job_group = #{jobGroup,jdbcType=VARCHAR}
+		</if>
+	   <if test="jobGrouplike != null ">
+			AND job_group like CONCAT('%',#{jobGrouplike},'%')
+		</if>
+
+
+
+		<if test="jobStatus != null ">
+			AND job_status = #{jobStatus,jdbcType=VARCHAR}
+		</if>
+	   <if test="jobStatuslike != null ">
+			AND job_status like CONCAT('%',#{jobStatuslike},'%')
+		</if>
+
+
+
+		<if test="cronExpression != null ">
+			AND cron_expression = #{cronExpression,jdbcType=VARCHAR}
+		</if>
+	   <if test="cronExpressionlike != null ">
+			AND cron_expression like CONCAT('%',#{cronExpressionlike},'%')
+		</if>
+
+
+
+		<if test="description != null ">
+			AND description = #{description,jdbcType=VARCHAR}
+		</if>
+	   <if test="descriptionlike != null ">
+			AND description like CONCAT('%',#{descriptionlike},'%')
+		</if>
+
+
+
+		<if test="beanClass != null ">
+			AND bean_class = #{beanClass,jdbcType=VARCHAR}
+		</if>
+	   <if test="beanClasslike != null ">
+			AND bean_class like CONCAT('%',#{beanClasslike},'%')
+		</if>
+
+
+
+		<if test="isConcurrent != null ">
+			AND is_concurrent = #{isConcurrent,jdbcType=VARCHAR}
+		</if>
+	   <if test="isConcurrentlike != null ">
+			AND is_concurrent like CONCAT('%',#{isConcurrentlike},'%')
+		</if>
+
+
+
+		<if test="methodName != null ">
+			AND method_name = #{methodName,jdbcType=VARCHAR}
+		</if>
+	   <if test="methodNamelike != null ">
+			AND method_name like CONCAT('%',#{methodNamelike},'%')
+		</if>
+
+
+
+		<if test="springId != null ">
+			AND spring_id = #{springId,jdbcType=VARCHAR}
+		</if>
+	   <if test="springIdlike != null ">
+			AND spring_id like CONCAT('%',#{springIdlike},'%')
+		</if>
+
+
+
+		<if test="createTime != null ">
+			AND create_time = #{createTime,jdbcType=TIMESTAMP}
+		</if>
+	    	<!-- 大于等于create_time -->
+		<if test="filter_createTimes != null">
+			AND date_format(create_time,'%Y%m%d')<![CDATA[>=]]>#{filter_createTimes}
+		</if>
+		<!-- 小于等于create_time -->
+	    <if test="filter_createTimee!= null">
+			AND date_format(create_time,'%Y%m%d')<![CDATA[<=]]>#{filter_createTimee}
+		</if>
+
+
+
+		<if test="updateTime != null ">
+			AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+		</if>
+	    	<!-- 大于等于update_time -->
+		<if test="filter_updateTimes != null">
+			AND date_format(update_time,'%Y%m%d')<![CDATA[>=]]>#{filter_updateTimes}
+		</if>
+		<!-- 小于等于update_time -->
+	    <if test="filter_updateTimee!= null">
+			AND date_format(update_time,'%Y%m%d')<![CDATA[<=]]>#{filter_updateTimee}
+		</if>
+
+
+
+	</sql>
+	
+	<!-- 设置语句 -->
+	<sql id="set_column">
+		<if test="id != null ">
+			id = #{id,jdbcType=INTEGER},
+		</if>
+		<if test="jobName != null ">
+			job_name = #{jobName,jdbcType=VARCHAR},
+		</if>
+		<if test="jobGroup != null ">
+			job_group = #{jobGroup,jdbcType=VARCHAR},
+		</if>
+		<if test="jobStatus != null ">
+			job_status = #{jobStatus,jdbcType=VARCHAR},
+		</if>
+		<if test="cronExpression != null ">
+			cron_expression = #{cronExpression,jdbcType=VARCHAR},
+		</if>
+		<if test="description != null ">
+			description = #{description,jdbcType=VARCHAR},
+		</if>
+		<if test="beanClass != null ">
+			bean_class = #{beanClass,jdbcType=VARCHAR},
+		</if>
+		<if test="isConcurrent != null ">
+			is_concurrent = #{isConcurrent,jdbcType=VARCHAR},
+		</if>
+		<if test="methodName != null ">
+			method_name = #{methodName,jdbcType=VARCHAR},
+		</if>
+		<if test="springId != null ">
+			spring_id = #{springId,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null ">
+			create_time = #{createTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="updateTime != null ">
+			update_time = #{updateTime,jdbcType=TIMESTAMP},
+		</if>
+	</sql>
+
+	<!-- 根据ID查询 -->
+	<select id="find" resultMap="Acg12ScheduleJobResultMap">
+		SELECT	<include refid="base_column" />
+		FROM	T_ACG12_SCHEDULE_JOB
+		WHERE	ID=#{id,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 查询所有 -->
+	<select id="findAll" resultMap="Acg12ScheduleJobResultMap">
+		SELECT	<include refid="base_column" />
+		FROM	T_ACG12_SCHEDULE_JOB
+	</select>
+	
+	<!-- 统计记录数 -->
+	<select id="count" resultType="long">
+		SELECT COUNT(*) FROM T_ACG12_SCHEDULE_JOB
+		<where> 
+			<include refid="where_column" />
+		</where>
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.acg12.entity.po.Acg12ScheduleJobEntity">
+		<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">  
+	          SELECT LAST_INSERT_ID() AS ID    
+	    </selectKey>  
+		INSERT T_ACG12_SCHEDULE_JOB 
+				(<include refid="base_column" /> )
+		VALUES	(<include refid="base_value_column" />)
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update" parameterType="com.acg12.entity.po.Acg12ScheduleJobEntity">
+		UPDATE	T_ACG12_SCHEDULE_JOB
+		<set>
+			<include refid="set_column" />
+		</set>
+		WHERE	ID = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 删除单条记录 -->
+	<delete id="delete">
+		DELETE	FROM T_ACG12_SCHEDULE_JOB
+		WHERE	ID = #{id,jdbcType=BIGINT}
+	</delete>
+	
+	
+	<!-- 删除多条记录-->
+	<delete id="deleteAll">
+		DELETE	FROM T_ACG12_SCHEDULE_JOB
+		WHERE	ID	IN
+    	<foreach item="Acg12ScheduleJobId" index="index" collection="ids" open="(" separator="," close=")">
+	  		#{Acg12ScheduleJobId} 
+		</foreach>
+	</delete>
+	
+	<!-- 根据参数查询列表-->
+	<select id="findByParams" resultMap="Acg12ScheduleJobResultMap">
+		SELECT	<include refid="base_column" />
+		FROM 	T_ACG12_SCHEDULE_JOB
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+	</select>
+	
+	<!-- 分页查询-->
+	<select id="findByPage" resultMap="Acg12ScheduleJobResultMap">
+		SELECT
+		<include refid="base_column" />
+		FROM T_ACG12_SCHEDULE_JOB
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+	</select>
+
+       <!-- 分页查询-->
+       <select id="findListByPage" resultMap="Acg12ScheduleJobResultMap">
+		SELECT
+		<include refid="base_column" />
+		FROM T_ACG12_SCHEDULE_JOB
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+					
+	     <if test="order != null and order != ''">
+		order by  ${order}
+	     </if>
+	     
+		<if test="pageNumber != null  and pageSize !=null ">
+			limit  #{pageNumber,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	     </if>
+			
+		
+	</select>
+	
+	
+		<!-- 删除多条记录-->
+	<delete id="deletes">
+		DELETE	FROM T_ACG12_SCHEDULE_JOB
+		<where> 
+			<include refid="where_column" />
+		</where>
+	</delete>
+	
+ <!-- 新分页查询-->
+       <select id="findListNewByPage" resultMap="Acg12ScheduleJobResultMap">
+		SELECT
+		<include refid="base_column" />
+		FROM T_ACG12_SCHEDULE_JOB
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+					
+	     <if test="order != null and order != ''">
+		order by  ${order}
+	     </if>
+	     
+		<if test="pageNumber != null  and pageSize !=null ">
+			limit  #{pageNumber,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	     </if>
+			
+		
+	</select>
+	
+</mapper>
