@@ -93,9 +93,10 @@ public class Acg12SubjectEntity implements GenericEntity {
         return "Acg12SubjectEntity{" +
                 "sId=" + sId +
                 ", type=" + type +
-                ", typeName=" + typeName +
                 ", name='" + name + '\'' +
                 ", nameCn='" + nameCn + '\'' +
+                ", summary='" + summary + '\'' +
+                ", image='" + image + '\'' +
                 ", epsCount=" + epsCount +
                 ", airDate='" + airDate + '\'' +
                 ", airWeekday=" + airWeekday +

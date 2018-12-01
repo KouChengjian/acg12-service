@@ -1,7 +1,7 @@
 package com.acg12.utils.res;
 
 import com.acg12.constant.SubjectStaffConstant;
-import com.acg12.entity.dto.SubjectDto;
+import com.acg12.entity.dto.Acg12SubjectDto;
 import com.acg12.entity.po.*;
 import com.acg12.utils.JsonParse;
 import com.acg12.utils.UrlEncoderUtil;
@@ -390,7 +390,7 @@ public class BgmResourceUtil {
         return null;
     }
 
-    public static synchronized SubjectDto getSubjectDto(int subjectid) {
+    public static synchronized Acg12SubjectDto getSubjectDto(int subjectid) {
 //        System.setProperty("http.proxyHost", "localhost");
 //        System.setProperty("http.proxyPort", "8888");
 //        System.setProperty("https.proxyHost", "localhost");
@@ -629,7 +629,7 @@ public class BgmResourceUtil {
                 subjectCrtEntityArrayList.add(crtEntity);
             }
 
-            SubjectDto subjectDto = new SubjectDto();
+            Acg12SubjectDto subjectDto = new Acg12SubjectDto();
             subjectDto.copy(acg12SubjectEntity);
             if(subjectDetailEntityList.size() != 0){
                 subjectDto.setDetailList(subjectDetailEntityList);

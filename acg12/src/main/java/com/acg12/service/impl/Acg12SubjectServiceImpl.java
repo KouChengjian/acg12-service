@@ -1,7 +1,7 @@
 package com.acg12.service.impl;
 
 import com.acg12.dao.*;
-import com.acg12.entity.dto.SubjectDto;
+import com.acg12.entity.dto.Acg12SubjectDto;
 import com.acg12.entity.po.*;
 import com.acg12.service.Acg12SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +52,7 @@ public class Acg12SubjectServiceImpl extends GenericServiceImpl<Acg12SubjectEnti
     }
 
     @Override
-    public SubjectDto findSubjectDto(long sId) {
+    public Acg12SubjectDto findSubjectDto(long sId) {
         Acg12SubjectEntity acg12SubjectEntity = find("sId", sId);
         if (acg12SubjectEntity == null) {
             return null;
@@ -69,8 +69,8 @@ public class Acg12SubjectServiceImpl extends GenericServiceImpl<Acg12SubjectEnti
         } else if (acg12SubjectEntity.getType() == 3) {
             subjectSongEntityList = acg12SubjectSongDao.findByParams(map);
         }
-        SubjectDto subjectDto = new SubjectDto();
-        subjectDto.setInfo(acg12SubjectEntity);
+        Acg12SubjectDto subjectDto = new Acg12SubjectDto();
+        subjectDto.copy(acg12SubjectEntity);
         subjectDto.setDetailList(subjectDetailEntityList);
         subjectDto.setStaffList(subjectStaffEntityList);
         subjectDto.setCrtList(subjectCrtEntityList);
@@ -80,16 +80,52 @@ public class Acg12SubjectServiceImpl extends GenericServiceImpl<Acg12SubjectEnti
     }
 
     @Override
-    public Long savaSubjectDto(SubjectDto subjectDto) {
-        acg12SubjectEntityDao.insert(subjectDto.getInfo());
+    public Long savaSubjectDto(Acg12SubjectDto subjectDto) {
+        Acg12SubjectEntity acg12SubjectEntity = find("sId", subjectDto.getSId());
+        if (acg12SubjectEntity == null) {
+            acg12SubjectEntity = subjectDto.getInfo();
+            long code = acg12SubjectEntityDao.insert(acg12SubjectEntity);
+            List<Acg12SubjectDetailEntity> subjectDetailEntityList = subjectDto.getDetailList();
+            for (Acg12SubjectDetailEntity detailEntity : subjectDetailEntityList) {
+                detailEntity.setSubjectId(acg12SubjectEntity.getId());
+                acg12SubjectDetailDao.insert(detailEntity);
+            }
+            List<Acg12SubjectStaffEntity> subjectStaffEntityList = subjectDto.getStaffList();
+            for (Acg12SubjectStaffEntity staffEntity : subjectStaffEntityList) {
+                staffEntity.setSubjectId(acg12SubjectEntity.getId());
+                acg12SubjectStaffDao.insert(staffEntity);
+            }
+            List<Acg12SubjectCrtEntity> subjectCrtEntityList = subjectDto.getCrtList();
+            for (Acg12SubjectCrtEntity crtEntity : subjectCrtEntityList) {
+                crtEntity.setSubjectId(acg12SubjectEntity.getId());
+                acg12SubjectCrtDao.insert(crtEntity);
+            }
+            List<Acg12SubjectOffprintEntity> subjectOffprintEntityList = subjectDto.getOffprintList();
+            for (Acg12SubjectOffprintEntity offprintEntity : subjectOffprintEntityList) {
+                offprintEntity.setSubjectId(acg12SubjectEntity.getId());
+                acg12SubjectOffprintDao.insert(offprintEntity);
+            }
+            List<Acg12SubjectSongEntity> subjectSongEntityList = subjectDto.getSongList();
+            for (Acg12SubjectSongEntity songEntity : subjectSongEntityList) {
+                songEntity.setSubjectId(acg12SubjectEntity.getId());
+                acg12SubjectSongDao.insert(songEntity);
+            }
+            return code;
+        }
+
+        // TODO:  查看是否有更新 目前就更新subject 与其光联的先不更新了
+        Acg12SubjectEntity curSubjectEntity = subjectDto.getInfo();
+        if (!acg12SubjectEntity.equals(curSubjectEntity)) {
+            curSubjectEntity.setId(acg12SubjectEntity.getId());
+            curSubjectEntity.setCreateTime(acg12SubjectEntity.getCreateTime());
+            return acg12SubjectEntityDao.update(curSubjectEntity);
+        }
 
         return null;
     }
 
     @Override
-    public Long deleteSubjectDto(SubjectDto subjectDto) {
+    public Long deleteSubjectDto(Acg12SubjectDto subjectDto) {
         return null;
     }
-
-
 }

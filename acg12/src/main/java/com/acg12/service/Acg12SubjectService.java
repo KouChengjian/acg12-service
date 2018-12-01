@@ -1,6 +1,6 @@
 package com.acg12.service;
 
-import com.acg12.entity.dto.SubjectDto;
+import com.acg12.entity.dto.Acg12SubjectDto;
 import com.acg12.entity.po.Acg12SubjectEntity;
 
 import java.util.List;
@@ -19,9 +19,9 @@ public interface Acg12SubjectService extends GenericService<Acg12SubjectEntity, 
 
     public Long deletes(Object parameter);
 
-    public SubjectDto findSubjectDto(long sId);
+    public Acg12SubjectDto findSubjectDto(long sId);
 
-    public Long savaSubjectDto(SubjectDto subjectDto);
+    public Long savaSubjectDto(Acg12SubjectDto subjectDto);
 
-    public Long deleteSubjectDto(SubjectDto subjectDto);
+    public Long deleteSubjectDto(Acg12SubjectDto subjectDto);
 }

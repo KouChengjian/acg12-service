@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubjectDto {
+public class Acg12SubjectDto {
 
     /**  */
     @Column(id = true, name = "id", updatable = false)
@@ -68,9 +69,7 @@ public class SubjectDto {
     /** 播放结束 */
     @Column(name = "end_date" )
     private String endDate;
-
-
-    private Acg12SubjectEntity info;
+//    private Acg12SubjectEntity info;
 
     private List<Acg12SubjectDetailEntity> detailList = new ArrayList<>();
     private List<Acg12SubjectStaffEntity> staffList = new ArrayList<>();
@@ -94,6 +93,26 @@ public class SubjectDto {
         this.airDate = subjectEntity.getAirDate();// 放送开始 2015-10-10
         this.airWeekday = subjectEntity.getAirWeekday();// 放送星期 3
         this.endDate = subjectEntity.getEndDate(); // 播放结束
+    }
+
+    public Acg12SubjectEntity getInfo() {
+        Acg12SubjectEntity subjectEntity = new Acg12SubjectEntity();
+
+        subjectEntity.setId(this.id);
+        subjectEntity.setSId(this.sId);
+        subjectEntity.setType(this.type); // 类型   1、书籍 2、动画 3、音乐 4、游戏 6、三次元
+        subjectEntity.setTypeName(this.typeName); // 类型名称
+        subjectEntity.setName(this.name);
+        subjectEntity.setNameCn(this.nameCn); // 中文
+        subjectEntity.setSummary(this.summary); // 概况
+        subjectEntity.setImage(this.image);
+        subjectEntity.setEpsCount(this.epsCount); // 话数
+        subjectEntity.setAirDate(this.airDate);// 放送开始 2015-10-10
+        subjectEntity.setAirWeekday(this.airWeekday);// 放送星期 3
+        subjectEntity.setEndDate(this.endDate); // 播放结束
+        subjectEntity.setCreateTime(new Date());
+        subjectEntity.setUpdateTime(new Date());
+        return subjectEntity;
     }
 
 

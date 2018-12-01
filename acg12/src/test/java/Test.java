@@ -1,4 +1,4 @@
-import com.acg12.entity.dto.SubjectDto;
+import com.acg12.entity.dto.Acg12SubjectDto;
 import com.acg12.utils.res.BgmResourceUtil;
 
 /**
@@ -10,7 +10,7 @@ import com.acg12.utils.res.BgmResourceUtil;
 public class Test {
 
     public static void main(String[] args) {
-        SubjectDto subjectDto = BgmResourceUtil.getSubjectDto(20100);
+        Acg12SubjectDto subjectDto = BgmResourceUtil.getSubjectDto(1005);
         System.out.println(subjectDto.toString());
     }
 }
