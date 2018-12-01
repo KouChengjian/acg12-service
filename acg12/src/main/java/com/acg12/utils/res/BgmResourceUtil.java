@@ -390,14 +390,14 @@ public class BgmResourceUtil {
         return null;
     }
 
-    public static synchronized Acg12SubjectDto getSubjectDto(int subjectid) {
+    public static synchronized Acg12SubjectDto getSubjectDto(int sId) {
 //        System.setProperty("http.proxyHost", "localhost");
 //        System.setProperty("http.proxyPort", "8888");
 //        System.setProperty("https.proxyHost", "localhost");
 //        System.setProperty("https.proxyPort", "8888");
-        String url1 = String.format("http://api.bgm.tv/subject/%d?responseGroup=large", subjectid);
-        String url2 = String.format("http://bangumi.tv/subject/%d", subjectid);
-        String url3 = String.format("http://bangumi.tv/subject/%d/characters", subjectid);
+        String url1 = String.format("http://api.bgm.tv/subject/%d?responseGroup=large", sId);
+        String url2 = String.format("http://bangumi.tv/subject/%d", sId);
+        String url3 = String.format("http://bangumi.tv/subject/%d/characters", sId);
         try {
             Document document = Jsoup.connect(url1).ignoreContentType(true)
                     .data("jquery", "java").userAgent("Mozilla")
@@ -496,7 +496,7 @@ public class BgmResourceUtil {
                         item.select("span").remove();
 //                        System.out.println(item.text());
                         Acg12SubjectStaffEntity staffEntity = new Acg12SubjectStaffEntity();
-                        staffEntity.setSId(subjectid);
+                        staffEntity.setSId(sId);
                         staffEntity.setName(item.text());
                         staffEntity.setJob(key);
                         subjectStaffEntityList.add(staffEntity);
@@ -505,7 +505,7 @@ public class BgmResourceUtil {
                             Element element = a.get(j);
                             String pId = element.attr("href").split("person/")[1];
                             Acg12SubjectStaffEntity staffEntity = new Acg12SubjectStaffEntity();
-                            staffEntity.setSId(subjectid);
+                            staffEntity.setSId(sId);
                             staffEntity.setPId(Integer.valueOf(pId));
                             staffEntity.setName(item.text());
                             staffEntity.setJob(key);
@@ -536,7 +536,7 @@ public class BgmResourceUtil {
                         itemJson.put("otherTitle", key);
                         itemJson.put("otherValue", item.text());
                         Acg12SubjectDetailEntity detailEntity = new Acg12SubjectDetailEntity();
-                        detailEntity.setSId(subjectid);
+                        detailEntity.setSId(sId);
                         detailEntity.setOtherTitle(key);
                         detailEntity.setOtherValue(item.text());
                         subjectDetailEntityList.add(detailEntity);
@@ -575,7 +575,7 @@ public class BgmResourceUtil {
                     String text = line_list_music.get(y).select("h6").text().replace(y + "", "");
                     if (text != null && !text.isEmpty()) {
                         Acg12SubjectSongEntity songEntity = new Acg12SubjectSongEntity();
-                        songEntity.setSId(subjectid);
+                        songEntity.setSId(sId);
                         songEntity.setTitle(text);
                         subjectSongEntityList.add(songEntity);
                     }

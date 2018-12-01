@@ -83,7 +83,7 @@ public class Acg12SubjectServiceImpl extends GenericServiceImpl<Acg12SubjectEnti
     public Long savaSubjectDto(Acg12SubjectDto subjectDto) {
         Acg12SubjectEntity acg12SubjectEntity = find("sId", subjectDto.getSId());
         if (acg12SubjectEntity == null) {
-            acg12SubjectEntity = subjectDto.getInfo();
+            acg12SubjectEntity = subjectDto.chanage();
             long code = acg12SubjectEntityDao.insert(acg12SubjectEntity);
             List<Acg12SubjectDetailEntity> subjectDetailEntityList = subjectDto.getDetailList();
             for (Acg12SubjectDetailEntity detailEntity : subjectDetailEntityList) {
@@ -114,7 +114,7 @@ public class Acg12SubjectServiceImpl extends GenericServiceImpl<Acg12SubjectEnti
         }
 
         // TODO:  查看是否有更新 目前就更新subject 与其光联的先不更新了
-        Acg12SubjectEntity curSubjectEntity = subjectDto.getInfo();
+        Acg12SubjectEntity curSubjectEntity = subjectDto.chanage();
         if (!acg12SubjectEntity.equals(curSubjectEntity)) {
             curSubjectEntity.setId(acg12SubjectEntity.getId());
             curSubjectEntity.setCreateTime(acg12SubjectEntity.getCreateTime());

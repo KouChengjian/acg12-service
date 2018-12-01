@@ -27,16 +27,6 @@ public class ReturnJson {
         return json.toString();
     }
 
-
-    public static String jsonStringError(String message, String status) {
-        Map returnMap = new HashMap();
-        returnMap.put("message", message);
-        returnMap.put("status", status);
-        returnMap.put("data", new Object());
-        JSONObject json = JSONObject.parseObject(JSON.toJSONString(returnMap));
-        return json.toString();
-    }
-
     public static String jsonStringOk() {
         Map returnMap = new HashMap();
         returnMap.put("message", "OK");
@@ -69,7 +59,16 @@ public class ReturnJson {
         Map returnMap = new HashMap();
         returnMap.put("message", message);
         returnMap.put("status", AppConstants.AppError5000000);
-        returnMap.put("data", new Object());
+//        returnMap.put("data", new Object());
+        JSONObject json = JSONObject.parseObject(JSON.toJSONString(returnMap));
+        return json.toString();
+    }
+
+    public static String jsonStringError(String message, String status) {
+        Map returnMap = new HashMap();
+        returnMap.put("message", message);
+        returnMap.put("status", status);
+//        returnMap.put("data", new Object());
         JSONObject json = JSONObject.parseObject(JSON.toJSONString(returnMap));
         return json.toString();
     }
