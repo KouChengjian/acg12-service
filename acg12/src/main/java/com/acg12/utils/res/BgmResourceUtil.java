@@ -1,6 +1,8 @@
 package com.acg12.utils.res;
 
 import com.acg12.constant.SubjectStaffConstant;
+import com.acg12.entity.dto.Acg12CharacterDto;
+import com.acg12.entity.dto.Acg12PersonDto;
 import com.acg12.entity.dto.Acg12SubjectDto;
 import com.acg12.entity.po.*;
 import com.acg12.utils.JsonParse;
@@ -631,19 +633,19 @@ public class BgmResourceUtil {
 
             Acg12SubjectDto subjectDto = new Acg12SubjectDto();
             subjectDto.copy(acg12SubjectEntity);
-            if(subjectDetailEntityList.size() != 0){
+            if (subjectDetailEntityList.size() != 0) {
                 subjectDto.setDetailList(subjectDetailEntityList);
             }
-            if(subjectStaffEntityList.size() != 0){
+            if (subjectStaffEntityList.size() != 0) {
                 subjectDto.setStaffList(subjectStaffEntityList);
             }
-            if(subjectCrtEntityArrayList.size() != 0){
+            if (subjectCrtEntityArrayList.size() != 0) {
                 subjectDto.setCrtList(subjectCrtEntityArrayList);
             }
-            if(subjectSongEntityList.size() != 0){
+            if (subjectSongEntityList.size() != 0) {
                 subjectDto.setSongList(subjectSongEntityList);
             }
-            if(subjectOffprintEntityList.size() != 0){
+            if (subjectOffprintEntityList.size() != 0) {
                 subjectDto.setOffprintList(subjectOffprintEntityList);
             }
 
@@ -654,24 +656,22 @@ public class BgmResourceUtil {
         return null;
     }
 
-    public static synchronized JSONObject getPersonInfo(int personId) {
+    public static synchronized Acg12PersonDto getPersonDto(int pId) {
         try {
-            String url3 = String.format("http://bangumi.tv/person/%d", personId);
+            String url3 = String.format("http://bangumi.tv/person/%d", pId);
             Document document = Jsoup.connect(url3).ignoreContentType(true)
                     .data("jquery", "java").userAgent("Mozilla")
                     .cookie("auth", "token").timeout(50000).get();
 
-            JSONObject jsonObject = new JSONObject();
-            JSONArray aliasJson = new JSONArray();
-            JSONArray otherJson = new JSONArray();
-            JSONArray jobJson = new JSONArray();
+            Acg12PersonEntity personEntity = new Acg12PersonEntity();
+            List<Acg12PersonDetailEntity> personDetailEntityList = new ArrayList<>();
 
             Element headerSubject = document.getElementById("headerSubject");
             if (headerSubject == null) {
-                return jsonObject;
+                return null;
             }
             if (headerSubject.select("h1").select("a").text().isEmpty()) {
-                return jsonObject;
+                return null;
             }
 
             Element columnCrtB = document.getElementById("columnCrtB");
@@ -680,27 +680,51 @@ public class BgmResourceUtil {
             Elements center = document.getElementsByClass("infobox");
             String image = center.select("img").attr("src");
 
-            jsonObject.put("pId", personId);
-            jsonObject.put("image", image);
-            jsonObject.put("name", headerSubject.select("h1").select("a").text());
-            jsonObject.put("summary", detail.text());
-            jsonObject.put("alias", aliasJson);
-            jsonObject.put("other", otherJson);
-            jsonObject.put("jobs", jobJson);
+            personEntity.setPId(pId);
+            personEntity.setImage(image);
+            personEntity.setName(headerSubject.select("h1").select("a").text());
+            personEntity.setSummary(detail.text());
 
             String[] jobs = clearit.text().split(":");
             if (jobs.length == 2) {
                 jobs = jobs[1].split(" ");
+                String jobList = "";
                 for (int i = 0, num = jobs.length; i < num; i++) {
                     if (jobs[i] == null || jobs[i].isEmpty()) {
                         continue;
                     }
-                    jobJson.put(jobs[i]);
+                    int type;
+                    if (jobs[i].contains("声优")) {
+                        type = 1;
+                    } else if (jobs[i].contains("漫画家")) {
+                        type = 2;
+                    } else if (jobs[i].contains("制作人")) {
+                        type = 3;
+                    } else if (jobs[i].contains("音乐人")) {
+                        type = 4;
+                    } else if (jobs[i].contains("演员")) {
+                        type = 6;
+                    } else if (jobs[i].contains("绘师")) {
+                        type = 7;
+                    } else if (jobs[i].contains("作家")) {
+                        type = 8;
+                    } else {
+                        type = 0;
+                    }
+                    if (type != 0) {
+                        if(jobList.isEmpty()){
+                            jobList += "" + type;
+                        } else {
+                            jobList += "、" + type;
+                        }
+                    }
                 }
+                personEntity.setType(jobList);
             }
 
             Element infobox = document.getElementById("infobox");
             Elements lis = infobox.select("li");
+            String alias = "";
             for (int i = 0, total = lis.size(); i < total; i++) {
                 Element item = lis.get(i);
                 Elements span = item.select("span");
@@ -710,63 +734,86 @@ public class BgmResourceUtil {
                 item.select("span").remove();
 
                 if (key.equals("简体中文名")) {
-                    jsonObject.put("name_cn", item.text());
+                    personEntity.setNameCn(item.text());
                 } else if (key.equals("性别")) {
-                    jsonObject.put("gender", item.text());
+                    String gender = item.text();
+                    personEntity.setGender(gender.equals("男") ? "1" : "2");
                 } else if (key.equals("生日")) {
-                    jsonObject.put("birth", item.text());
+                    personEntity.setBirthday(item.text());
                 } else if (key.equals("血型")) {
-                    jsonObject.put("blood_type", item.text());
+                    String bloodtype = item.text();
+                    if (bloodtype.isEmpty()) {
+                        personEntity.setBloodtype(0);
+                    } else if (bloodtype.contains("A")) {
+                        personEntity.setBloodtype(1);
+                    } else if (bloodtype.contains("B")) {
+                        personEntity.setBloodtype(2);
+                    } else if (bloodtype.contains("AB")) {
+                        personEntity.setBloodtype(3);
+                    } else if (bloodtype.contains("O")) {
+                        personEntity.setBloodtype(4);
+                    }
                 } else if (key.equals("体重")) {
-                    jsonObject.put("weight", item.text());
+                    personEntity.setWeight(item.text());
                 } else if (key.equals("身高")) {
-                    jsonObject.put("height", item.text());
+                    personEntity.setHeight(item.text());
                 } else if (key.equals("别名")) {
-                    aliasJson.put(item.text());
+                    if(alias .isEmpty()){
+                        alias += "" + jobs[i];
+                    } else {
+                        if (jobs[i].length() < 400) {
+                            alias += "、" + jobs[i];
+                        }
+                    }
                 } else {
-                    JSONObject js = new JSONObject();
-                    js.put("otherTitle", key);
-                    js.put("otherValue", item.text());
-                    otherJson.put(js);
+                    Acg12PersonDetailEntity personDetailEntity = new Acg12PersonDetailEntity();
+                    personDetailEntity.setOtherTitle(key);
+                    personDetailEntity.setOtherValue(item.text());
+                    personDetailEntityList.add(personDetailEntity);
                 }
             }
+            personEntity.setAlias(alias);
 //            System.err.println(jsonObject.toString());
-            return jsonObject;
+            Acg12PersonDto acg12PersonDto = new Acg12PersonDto();
+            acg12PersonDto.copy(personEntity);
+            acg12PersonDto.setDetailList(personDetailEntityList);
+            return acg12PersonDto;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public static synchronized JSONObject getCharacterInfo(int characterId) {
+    public static synchronized Acg12CharacterDto getCharacterDto(int cId) {
         try {
-            String url3 = String.format("http://bangumi.tv/character/%d", characterId);
+            String url3 = String.format("http://bangumi.tv/character/%d", cId);
             Document document = Jsoup.connect(url3).ignoreContentType(true)
                     .data("jquery", "java").userAgent("Mozilla")
                     .cookie("auth", "token").timeout(50000).get();
 
-            JSONObject jsonObject = new JSONObject();
-            JSONArray aliasJson = new JSONArray();
-            JSONArray otherJson = new JSONArray();
+//            JSONObject jsonObject = new JSONObject();
+//            JSONArray aliasJson = new JSONArray();
+//            JSONArray otherJson = new JSONArray();
 
             Element headerSubject = document.getElementById("headerSubject");
             if (headerSubject == null) {
-                return jsonObject;
+                return null;
             }
             Element columnCrtB = document.getElementById("columnCrtB");
             Elements detail = columnCrtB.getElementsByClass("detail");
             Elements center = document.getElementsByClass("infobox");
             String image = center.select("img").attr("src");
 
-            jsonObject.put("cId", characterId);
-            jsonObject.put("image", image);
-            jsonObject.put("name", headerSubject.select("h1").select("a").text());
-            jsonObject.put("summary", detail.text());
-            jsonObject.put("alias", aliasJson);
-            jsonObject.put("other", otherJson);
+            Acg12CharacterEntity characterEntity = new Acg12CharacterEntity();
+            List<Acg12CharacterDetailEntity> detailList = new ArrayList<>();
+            characterEntity.setCId(cId);
+            characterEntity.setImage(image);
+            characterEntity.setName(headerSubject.select("h1").select("a").text());
+            characterEntity.setSummary(detail.text());
 
             Element infobox = document.getElementById("infobox");
             Elements lis = infobox.select("li");
+            String alias = "";
             for (int i = 0, total = lis.size(); i < total; i++) {
                 Element item = lis.get(i);
                 Elements span = item.select("span");
@@ -775,29 +822,50 @@ public class BgmResourceUtil {
 //                System.err.println(key);
                 item.select("span").remove();
                 if (key.equals("简体中文名")) {
-                    jsonObject.put("name_cn", item.text());
+                    characterEntity.setNameCn(item.text());
                 } else if (key.equals("性别")) {
-                    jsonObject.put("gender", item.text());
+                    String gender = item.text();
+                    characterEntity.setGender(gender.equals("男") ? 1 : 2);
                 } else if (key.equals("生日")) {
-                    jsonObject.put("birth", item.text());
+                    characterEntity.setBirthday(item.text());
                 } else if (key.equals("血型")) {
-                    jsonObject.put("blood_type", item.text());
+                    String bloodtype = item.text();
+                    if (bloodtype.isEmpty()) {
+                        characterEntity.setBloodtype(0);
+                    } else if (bloodtype.contains("A")) {
+                        characterEntity.setBloodtype(1);
+                    } else if (bloodtype.contains("B")) {
+                        characterEntity.setBloodtype(2);
+                    } else if (bloodtype.contains("AB")) {
+                        characterEntity.setBloodtype(3);
+                    } else if (bloodtype.contains("O")) {
+                        characterEntity.setBloodtype(4);
+                    }
                 } else if (key.equals("体重")) {
-                    jsonObject.put("weight", item.text());
+                    characterEntity.setWeight(item.text());
                 } else if (key.equals("身高")) {
-                    jsonObject.put("height", item.text());
+                    characterEntity.setHeight(item.text());
                 } else if (key.equals("别名")) {
-                    aliasJson.put(item.text());
+                    if(alias .isEmpty()){
+                        alias += "" + item.text();
+                    } else {
+                        if (item.text().length() < 400) {
+                            alias += "、" + item.text();
+                        }
+                    }
                 } else {
-                    JSONObject js = new JSONObject();
-                    js.put("otherTitle", key);
-                    js.put("otherValue", item.text());
-                    otherJson.put(js);
+                    Acg12CharacterDetailEntity detailEntity = new Acg12CharacterDetailEntity();
+                    detailEntity.setOtherTitle(key);
+                    detailEntity.setOtherValue(item.text());
+                    detailList.add(detailEntity);
                 }
             }
+            characterEntity.setAlias(alias);
 
-            System.err.println(jsonObject.toString());
-            return jsonObject;
+            Acg12CharacterDto characterDto = new Acg12CharacterDto();
+            characterDto.copy(characterEntity);
+            characterDto.setDetailList(detailList);
+            return characterDto;
         } catch (Exception e) {
             e.printStackTrace();
         }

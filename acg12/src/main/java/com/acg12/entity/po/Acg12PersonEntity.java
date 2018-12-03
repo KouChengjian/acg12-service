@@ -81,5 +81,31 @@ public class Acg12PersonEntity implements GenericEntity {
 	/** 更新时间 */
 	@Column(name = "update_time" )
 	private java.util.Date updateTime;
-	
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if(toString().hashCode() == obj.toString().hashCode()){
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Acg12PersonEntity{" +
+				"pId=" + pId +
+				", name='" + name + '\'' +
+				", nameCn='" + nameCn + '\'' +
+				", image='" + image + '\'' +
+				", summary='" + summary + '\'' +
+				", height='" + height + '\'' +
+				", weight='" + weight + '\'' +
+				", alias='" + alias + '\'' +
+				", type='" + type + '\'' +
+				", gender='" + gender + '\'' +
+				", bloodtype=" + bloodtype +
+				", birthday='" + birthday + '\'' +
+				'}';
+	}
 }
