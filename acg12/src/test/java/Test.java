@@ -17,7 +17,7 @@ public class Test {
 //        Acg12PersonDto acg12PersonDto = BgmResourceUtil.getPersonDto(5998);
 //        System.out.println(acg12PersonDto.toString());
 
-        Acg12CharacterDto characterDto = BgmResourceUtil.getCharacterDto(1);
-        System.out.println(characterDto.toString());
+//        Acg12CharacterDto characterDto = BgmResourceUtil.getCharacterDto(1);
+//        System.out.println(characterDto.toString());
     }
 }

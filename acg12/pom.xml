@@ -680,7 +680,7 @@
     </dependencies>
     <build>
         <finalName>acg12</finalName>
-        <pluginManagement>
+        <!--<pluginManagement>-->
             <plugins>
                 <!--<plugin>-->
                 <!--<groupId>org.codehaus.mojo</groupId>-->
@@ -712,12 +712,11 @@
                     <artifactId>tomcat7-maven-plugin</artifactId>
                     <version>2.2</version>
                     <configuration>
-                        <url>http://139.196.46.40/manager/html</url>
+                        <url>http://139.196.46.40/manager/text</url>
                         <username>admin</username>
                         <password>#admin</password>
                         <update>true</update>
-                        <path>/webapp</path>
-                        <version></version>
+                        <path>/acg12</path>
                     </configuration>
                 </plugin>
                 <!-- dependency相关插件 -->
@@ -771,7 +770,7 @@
                     </configuration>
                 </plugin>
             </plugins>
-        </pluginManagement>
+        <!--</pluginManagement>-->
     </build>
     <developers>
         <developer>
