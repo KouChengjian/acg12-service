@@ -74,20 +74,20 @@ public class AppCommonController {
         return ReturnJson.jsonStringError("无当前内容");
     }
 
-//    @RequestMapping(value = "/home/character", method = {RequestMethod.GET})
-//    @ResponseBody
-//    public String homeSubjectInfo(@RequestParam("id") int cId) {
-//        Acg12CharacterDto acg12CharacterDto = acg12CharacterService.find(cId);
-//        if (acg12SubjectDto != null) {
-//            return ReturnJson.jsonStringOk(acg12SubjectDto);
-//        }
-//
-//        // 外网获取
-//        acg12SubjectDto = BgmResourceUtil.getSubjectDto(sId);
-//        if (acg12SubjectDto != null) {
-//            acg12SubjectService.savaSubjectDto(acg12SubjectDto);
-//            return ReturnJson.jsonStringOk(acg12SubjectDto);
-//        }
-//        return ReturnJson.jsonStringError("无当前内容");
-//    }
+    @RequestMapping(value = "/home/character", method = {RequestMethod.GET})
+    @ResponseBody
+    public String homeCharacterInfo(@RequestParam("id") int cId) {
+        Acg12CharacterDto acg12CharacterDto = acg12CharacterService.findCharacterDto(cId);
+        if (acg12CharacterDto != null) {
+            return ReturnJson.jsonStringOk(acg12CharacterDto);
+        }
+
+        // 外网获取
+        acg12CharacterDto = BgmResourceUtil.getCharacterDto(cId);
+        if (acg12CharacterDto != null) {
+            acg12CharacterService.savaCharacterDto(acg12CharacterDto);
+            return ReturnJson.jsonStringOk(acg12CharacterDto);
+        }
+        return ReturnJson.jsonStringError("无当前内容");
+    }
 }
