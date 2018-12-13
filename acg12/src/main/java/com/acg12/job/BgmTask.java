@@ -5,7 +5,9 @@ import com.acg12.entity.dto.Acg12PersonDto;
 import com.acg12.entity.dto.Acg12SubjectDto;
 import com.acg12.entity.po.Acg12ScheduleJobLogEntity;
 import com.acg12.service.Acg12ScheduleJobLogService;
+import com.acg12.service.Acg12SubjectService;
 import com.acg12.service.impl.Acg12PersonServiceImpl;
+import com.acg12.service.impl.Acg12SubjectServiceImpl;
 import com.acg12.utils.res.BgmResourceUtil;
 import com.framework.loippi.utils.web.SpringUtils;
 import org.apache.log4j.Logger;
@@ -41,8 +43,13 @@ public class BgmTask {
         if (acg12SubjectDto == null) {
             return;
         }
-        System.out.println(acg12SubjectDto.toString());
+        Acg12SubjectServiceImpl acg12SubjectService = (Acg12SubjectServiceImpl) SpringUtils.getBean("acg12SubjectServiceImpl");
+        if (acg12SubjectService == null) {
+            return;
+        }
+        acg12SubjectService.savaSubjectDto(acg12SubjectDto);
         acg12ScheduleJobLogService.update(acg12ScheduleJobLogEntity);
+        System.out.println(acg12SubjectDto.toString());
     }
 
     public void runPersonDto() {

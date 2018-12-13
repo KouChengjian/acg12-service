@@ -7,6 +7,7 @@ import com.acg12.service.Acg12SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,11 +94,16 @@ public class Acg12SubjectServiceImpl extends GenericServiceImpl<Acg12SubjectEnti
             List<Acg12SubjectStaffEntity> subjectStaffEntityList = subjectDto.getStaffList();
             for (Acg12SubjectStaffEntity staffEntity : subjectStaffEntityList) {
                 staffEntity.setSubjectId(acg12SubjectEntity.getId());
+                staffEntity.setCreateTime(new Date());
+                staffEntity.setUpdateTime(new Date());
                 acg12SubjectStaffDao.insert(staffEntity);
             }
             List<Acg12SubjectCrtEntity> subjectCrtEntityList = subjectDto.getCrtList();
             for (Acg12SubjectCrtEntity crtEntity : subjectCrtEntityList) {
                 crtEntity.setSubjectId(acg12SubjectEntity.getId());
+                crtEntity.setSId(acg12SubjectEntity.getSId());
+                crtEntity.setCreateTime(new Date());
+                crtEntity.setUpdateTime(new Date());
                 acg12SubjectCrtDao.insert(crtEntity);
             }
             List<Acg12SubjectOffprintEntity> subjectOffprintEntityList = subjectDto.getOffprintList();
