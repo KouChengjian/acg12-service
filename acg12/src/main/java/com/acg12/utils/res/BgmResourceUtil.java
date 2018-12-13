@@ -794,10 +794,10 @@ public class BgmResourceUtil {
                     personEntity.setHeight(item.text());
                 } else if (key.equals("别名")) {
                     if(alias .isEmpty()){
-                        alias += "" + jobs[i];
+                        alias += "" + item.text();
                     } else {
-                        if (jobs[i].length() < 400) {
-                            alias += "、" + jobs[i];
+                        if (item.text().length() < 400) {
+                            alias += "、" + item.text();
                         }
                     }
                 } else {

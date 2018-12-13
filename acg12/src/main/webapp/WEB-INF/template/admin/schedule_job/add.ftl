@@ -48,10 +48,28 @@
                                         <input type="text" name="jobGroup" class="form-control" maxlength="200"/>
                                     </div>
                                 </div>
+                                [#--<div class="col-sm-6">--]
+                                    [#--<label class="col-sm-3 control-label">0 未开启 1 开启</label>--]
+                                    [#--<div class="col-sm-9">--]
+                                        [#--<input type="text" name="jobStatus" class="form-control" maxlength="200"/>--]
+                                    [#--</div>--]
+                                [#--</div>--]
+                            </div>
+                        </div>
+                        <!--/row-->
+
+                        <div class="form-group">
+                            <div class="row">
+                                [#--<div class="col-sm-6">--]
+                                    [#--<label class="col-sm-3 control-label">cron表达式</label>--]
+                                    [#--<div class="col-sm-9">--]
+                                        [#--<input type="text" name="cronExpression" class="form-control" maxlength="200"/>--]
+                                    [#--</div>--]
+                                [#--</div>--]
                                 <div class="col-sm-6">
-                                    <label class="col-sm-3 control-label">0 未开启 1 开启</label>
+                                    <label class="col-sm-3 control-label">描述</label>
                                     <div class="col-sm-9">
-                                        <input type="text" name="jobStatus" class="form-control" maxlength="200"/>
+                                        <input type="text" name="description" class="form-control" maxlength="200"/>
                                     </div>
                                 </div>
                             </div>
@@ -66,12 +84,12 @@
                                         <input type="text" name="cronExpression" class="form-control" maxlength="200"/>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <label class="col-sm-3 control-label">描述</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" name="description" class="form-control" maxlength="200"/>
-                                    </div>
-                                </div>
+                                [#--<div class="col-sm-6">--]
+                                    [#--<label class="col-sm-3 control-label">描述</label>--]
+                                    [#--<div class="col-sm-9">--]
+                                        [#--<input type="text" name="description" class="form-control" maxlength="200"/>--]
+                                    [#--</div>--]
+                                [#--</div>--]
                             </div>
                         </div>
                         <!--/row-->
@@ -84,12 +102,12 @@
                                         <input type="text" name="beanClass" class="form-control" maxlength="200"/>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <label class="col-sm-3 control-label">任务是否有状态</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" name="isConcurrent" class="form-control" maxlength="200"/>
-                                    </div>
-                                </div>
+                                [#--<div class="col-sm-6">--]
+                                    [#--<label class="col-sm-3 control-label">任务是否有状态</label>--]
+                                    [#--<div class="col-sm-9">--]
+                                        [#--<input type="text" name="isConcurrent" class="form-control" maxlength="200"/>--]
+                                    [#--</div>--]
+                                [#--</div>--]
                             </div>
                         </div>
                         <!--/row-->
@@ -102,32 +120,32 @@
                                         <input type="text" name="methodName" class="form-control" maxlength="200"/>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <label class="col-sm-3 control-label">spring bean</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" name="springId" class="form-control" maxlength="200"/>
-                                    </div>
-                                </div>
+                                [#--<div class="col-sm-6">--]
+                                    [#--<label class="col-sm-3 control-label">spring bean</label>--]
+                                    [#--<div class="col-sm-9">--]
+                                        [#--<input type="text" name="springId" class="form-control" maxlength="200"/>--]
+                                    [#--</div>--]
+                                [#--</div>--]
                             </div>
                         </div>
                         <!--/row-->
 
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label class="col-sm-3 control-label">创建时间</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" name="createTime" class="form-control" maxlength="200"/>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <label class="col-sm-3 control-label">更新时间</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" name="updateTime" class="form-control" maxlength="200"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        [#--<div class="form-group">--]
+                            [#--<div class="row">--]
+                                [#--<div class="col-sm-6">--]
+                                    [#--<label class="col-sm-3 control-label">创建时间</label>--]
+                                    [#--<div class="col-sm-9">--]
+                                        [#--<input type="text" name="createTime" class="form-control" maxlength="200"/>--]
+                                    [#--</div>--]
+                                [#--</div>--]
+                                [#--<div class="col-sm-6">--]
+                                    [#--<label class="col-sm-3 control-label">更新时间</label>--]
+                                    [#--<div class="col-sm-9">--]
+                                        [#--<input type="text" name="updateTime" class="form-control" maxlength="200"/>--]
+                                    [#--</div>--]
+                                [#--</div>--]
+                            [#--</div>--]
+                        [#--</div>--]
                         <!--/row-->
 
                         <div class="hr-line-dashed"></div>

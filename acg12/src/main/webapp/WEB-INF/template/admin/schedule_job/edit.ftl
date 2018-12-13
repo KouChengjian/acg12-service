@@ -52,11 +52,24 @@
                                                value="${(acg12ScheduleJobEntity.jobGroup)!''}"/>
                                     </div>
                                 </div>
+                                [#--<div class="col-sm-6">--]
+                                    [#--<label class="col-sm-3 control-label">0 未开启 1 开启</label>--]
+                                    [#--<div class="col-sm-9">--]
+                                        [#--<input type="text" name="jobStatus" class="form-control" maxlength="200"--]
+                                               [#--value="${(acg12ScheduleJobEntity.jobStatus)!''}"/>--]
+                                    [#--</div>--]
+                                [#--</div>--]
+                            </div>
+                        </div>
+                        <!--/row-->
+
+                        <div class="form-group">
+                            <div class="row">
                                 <div class="col-sm-6">
-                                    <label class="col-sm-3 control-label">0 未开启 1 开启</label>
+                                    <label class="col-sm-3 control-label">描述</label>
                                     <div class="col-sm-9">
-                                        <input type="text" name="jobStatus" class="form-control" maxlength="200"
-                                               value="${(acg12ScheduleJobEntity.jobStatus)!''}"/>
+                                        <input type="text" name="description" class="form-control" maxlength="200"
+                                               value="${(acg12ScheduleJobEntity.description)!''}"/>
                                     </div>
                                 </div>
                             </div>
@@ -72,13 +85,13 @@
                                                value="${(acg12ScheduleJobEntity.cronExpression)!''}"/>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <label class="col-sm-3 control-label">描述</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" name="description" class="form-control" maxlength="200"
-                                               value="${(acg12ScheduleJobEntity.description)!''}"/>
-                                    </div>
-                                </div>
+                                [#--<div class="col-sm-6">--]
+                                    [#--<label class="col-sm-3 control-label">描述</label>--]
+                                    [#--<div class="col-sm-9">--]
+                                        [#--<input type="text" name="description" class="form-control" maxlength="200"--]
+                                               [#--value="${(acg12ScheduleJobEntity.description)!''}"/>--]
+                                    [#--</div>--]
+                                [#--</div>--]
                             </div>
                         </div>
                         <!--/row-->
@@ -92,13 +105,13 @@
                                                value="${(acg12ScheduleJobEntity.beanClass)!''}"/>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <label class="col-sm-3 control-label">任务是否有状态</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" name="isConcurrent" class="form-control" maxlength="200"
-                                               value="${(acg12ScheduleJobEntity.isConcurrent)!''}"/>
-                                    </div>
-                                </div>
+                                [#--<div class="col-sm-6">--]
+                                    [#--<label class="col-sm-3 control-label">任务是否有状态</label>--]
+                                    [#--<div class="col-sm-9">--]
+                                        [#--<input type="text" name="isConcurrent" class="form-control" maxlength="200"--]
+                                               [#--value="${(acg12ScheduleJobEntity.isConcurrent)!''}"/>--]
+                                    [#--</div>--]
+                                [#--</div>--]
                             </div>
                         </div>
                         <!--/row-->
@@ -112,13 +125,13 @@
                                                value="${(acg12ScheduleJobEntity.methodName)!''}"/>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <label class="col-sm-3 control-label">spring bean</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" name="springId" class="form-control" maxlength="200"
-                                               value="${(acg12ScheduleJobEntity.springId)!''}"/>
-                                    </div>
-                                </div>
+                                [#--<div class="col-sm-6">--]
+                                    [#--<label class="col-sm-3 control-label">spring bean</label>--]
+                                    [#--<div class="col-sm-9">--]
+                                        [#--<input type="text" name="springId" class="form-control" maxlength="200"--]
+                                               [#--value="${(acg12ScheduleJobEntity.springId)!''}"/>--]
+                                    [#--</div>--]
+                                [#--</div>--]
                             </div>
                         </div>
                         <!--/row-->

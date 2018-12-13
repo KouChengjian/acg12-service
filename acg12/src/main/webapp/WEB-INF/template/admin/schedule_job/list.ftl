@@ -137,9 +137,6 @@
             {
                 title: "任务分组", field: "jobGroup", align: "center", valign: "middle", sortable: true
             },
-            // {
-            //     title: "状态", field: "jobStatus", align: "center", valign: "middle", sortable: true
-            // },
             {
                 title: "cron表达式", field: "cronExpression", align: "center", valign: "middle", sortable: true
             },
@@ -149,15 +146,15 @@
             {
                 title: "路径", field: "beanClass", align: "center", valign: "middle", sortable: true
             },
-            {
-                title: "任务是否有状态", field: "isConcurrent", align: "center", valign: "middle", sortable: true
-            },
+            // {
+            //     title: "任务是否有状态", field: "isConcurrent", align: "center", valign: "middle", sortable: true
+            // },
             {
                 title: "任务调用的方法名", field: "methodName", align: "center", valign: "middle", sortable: true
             },
-            {
-                title: "spring bean", field: "springId", align: "center", valign: "middle", sortable: true
-            },
+            // {
+            //     title: "spring bean", field: "springId", align: "center", valign: "middle", sortable: true
+            // },
             {
                 title: "创建时间", field: "createTime", align: "center", valign: "middle", sortable: true
                 , formatter: function (value, row, index) {
@@ -180,7 +177,18 @@
                         return value;
                     }
                 }
-
+            },
+            {
+                title: "状态", field: "jobStatus", align: "center", valign: "middle",
+                formatter: function (value, row, index) {
+                    var a ="";
+                    if("0" == row.jobStatus){
+                        a += "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_changeJobStatus(" + row.id + ",1)' ><i class='fa fa-paste'></i> 开启</a>";
+                    } else {
+                        a += "<a class='btn btn-danger btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_changeJobStatus(" + row.id +",0)' ><i class='fa fa-paste'></i> 停止</a>";
+                    }
+                    return a;
+                }
             },
             {
                 title: "操作", field: "id2", align: "center", valign: "middle",
@@ -191,11 +199,11 @@
                     var a =
                             "<a class='btn btn-danger btn-xs btn-delete-loippi2'  href='javascript:del(" + row.id + ")' data-id='" + row.id + "' ><i class='fa fa-trash'></i> 删除</a>　"
                             + "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_edit(" + row.id + ")' ><i class='fa fa-paste'></i> 编辑</a>　";
-                    if("0" == row.jobStatus){
-                        a += "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_changeJobStatus(" + row.id + ",1)' ><i class='fa fa-paste'></i> 开启</a>　";
-                    } else {
-                        a += "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_changeJobStatus(" + row.id +",0)' ><i class='fa fa-paste'></i> 停止</a>　";
-                    }
+                    // if("0" == row.jobStatus){
+                    //     a += "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_changeJobStatus(" + row.id + ",1)' ><i class='fa fa-paste'></i> 开启</a>　";
+                    // } else {
+                    //     a += "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_changeJobStatus(" + row.id +",0)' ><i class='fa fa-paste'></i> 停止</a>　";
+                    // }
                     return a;
                 }
             },

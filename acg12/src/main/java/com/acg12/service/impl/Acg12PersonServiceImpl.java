@@ -65,10 +65,10 @@ public class Acg12PersonServiceImpl extends GenericServiceImpl<Acg12PersonEntity
         if (acg12PersonEntity == null) {
             acg12PersonEntity = personDto.chanage();
             long code = acg12PersonDao.insert(acg12PersonEntity);
-
+            System.out.println("code = " + code);
             List<Acg12PersonDetailEntity> personDetailEntityList = personDto.getDetailList();
             for (Acg12PersonDetailEntity detailEntity : personDetailEntityList) {
-                detailEntity.setPersonId(personDto.getId());
+                detailEntity.setPersonId(acg12PersonEntity.getId());
                 acg12PersonDetailDao.insert(detailEntity);
             }
             return code;

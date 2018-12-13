@@ -3,28 +3,27 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
-<mapper namespace="com.acg12.dao.Acg12PersonDetailDao">
+<mapper namespace="com.acg12.dao.Acg12ScheduleJobLogDao">
 	
-	<resultMap id="Acg12PersonDetailResultMap" type="com.acg12.entity.po.Acg12PersonDetailEntity">
+	<resultMap id="Acg12ScheduleJobLogResultMap" type="com.acg12.entity.po.Acg12ScheduleJobLogEntity">
 		<id property="id" column="id"  />
-		<result property="personId" column="person_id" />
-		<result property="otherTitle" column="other_title" />
-		<result property="otherValue" column="other_value" />
+		<result property="jobId" column="job_id" />
+		<result property="startNum" column="start_num" />
 	</resultMap>
 	
 	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
 	<sql id="base_column">
-		 id ,person_id ,other_title ,other_value 
+		 id ,job_id ,start_num 
 	</sql>
 	
 	<sql id="base_value_column">
-		 #{id},#{personId},#{otherTitle},#{otherValue}
+		 #{id},#{jobId},#{startNum}
 	</sql>
 	
 	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
 	<sql id="where_column">
 		<if test="id != null ">
-			AND id = #{id,jdbcType=INTEGER}
+			AND id = #{id,jdbcType=BIGINT}
 		</if>
 
 	    	<!-- 大于等于id -->
@@ -37,36 +36,32 @@
 		</if>
 
 
-		<if test="personId != null ">
-			AND person_id = #{personId,jdbcType=INTEGER}
+		<if test="jobId != null ">
+			AND job_id = #{jobId,jdbcType=BIGINT}
 		</if>
 
-	    	<!-- 大于等于person_id -->
-		<if test="filter_personIds != null">
-			AND person_id<![CDATA[>=]]>#{filter_personIds}
+	    	<!-- 大于等于job_id -->
+		<if test="filter_jobIds != null">
+			AND job_id<![CDATA[>=]]>#{filter_jobIds}
 		</if>
-		<!-- 小于等于person_id -->
-	    <if test="filter_personIde!= null">
-			AND person_id<![CDATA[<=]]>#{filter_personIde}
-		</if>
-
-
-		<if test="otherTitle != null ">
-			AND other_title = #{otherTitle,jdbcType=VARCHAR}
-		</if>
-	   <if test="otherTitlelike != null ">
-			AND other_title like CONCAT('%',#{otherTitlelike},'%')
+		<!-- 小于等于job_id -->
+	    <if test="filter_jobIde!= null">
+			AND job_id<![CDATA[<=]]>#{filter_jobIde}
 		</if>
 
 
-
-		<if test="otherValue != null ">
-			AND other_value = #{otherValue,jdbcType=VARCHAR}
-		</if>
-	   <if test="otherValuelike != null ">
-			AND other_value like CONCAT('%',#{otherValuelike},'%')
+		<if test="startNum != null ">
+			AND start_num = #{startNum,jdbcType=BIGINT}
 		</if>
 
+	    	<!-- 大于等于start_num -->
+		<if test="filter_startNums != null">
+			AND start_num<![CDATA[>=]]>#{filter_startNums}
+		</if>
+		<!-- 小于等于start_num -->
+	    <if test="filter_startNume!= null">
+			AND start_num<![CDATA[<=]]>#{filter_startNume}
+		</if>
 
 
 	</sql>
@@ -74,99 +69,96 @@
 	<!-- 设置语句 -->
 	<sql id="set_column">
 		<if test="id != null ">
-			id = #{id,jdbcType=INTEGER},
+			id = #{id,jdbcType=BIGINT},
 		</if>
-		<if test="personId != null ">
-			person_id = #{personId,jdbcType=INTEGER},
+		<if test="jobId != null ">
+			job_id = #{jobId,jdbcType=BIGINT},
 		</if>
-		<if test="otherTitle != null ">
-			other_title = #{otherTitle,jdbcType=VARCHAR},
-		</if>
-		<if test="otherValue != null ">
-			other_value = #{otherValue,jdbcType=VARCHAR},
+		<if test="startNum != null ">
+			start_num = #{startNum,jdbcType=BIGINT},
 		</if>
 	</sql>
 
 	<!-- 根据ID查询 -->
-	<select id="find" resultMap="Acg12PersonDetailResultMap">
+	<select id="find" resultMap="Acg12ScheduleJobLogResultMap">
 		SELECT	<include refid="base_column" />
-		FROM	T_ACG12_PERSON_DETAIL
-		WHERE	ID=#{id,jdbcType=INTEGER}
+		FROM	T_ACG12_SCHEDULE_JOB_LOG
+		WHERE	ID=#{id,jdbcType=BIGINT}
 	</select>
 	
 	<!-- 查询所有 -->
-	<select id="findAll" resultMap="Acg12PersonDetailResultMap">
+	<select id="findAll" resultMap="Acg12ScheduleJobLogResultMap">
 		SELECT	<include refid="base_column" />
-		FROM	T_ACG12_PERSON_DETAIL
+		FROM	T_ACG12_SCHEDULE_JOB_LOG
 	</select>
 	
 	<!-- 统计记录数 -->
 	<select id="count" resultType="long">
-		SELECT COUNT(*) FROM T_ACG12_PERSON_DETAIL
+		SELECT COUNT(*) FROM T_ACG12_SCHEDULE_JOB_LOG
 		<where> 
 			<include refid="where_column" />
 		</where>
 	</select>
 	
 	<!-- 插入 -->
-	<insert id="insert" parameterType="com.acg12.entity.po.Acg12PersonDetailEntity">
-		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+	<insert id="insert" parameterType="com.acg12.entity.po.Acg12ScheduleJobLogEntity">
+		<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">  
 	          SELECT LAST_INSERT_ID() AS ID    
 	    </selectKey>  
-		INSERT T_ACG12_PERSON_DETAIL 
+		INSERT T_ACG12_SCHEDULE_JOB_LOG 
 				(<include refid="base_column" /> )
 		VALUES	(<include refid="base_value_column" />)
 	</insert>
 	
 	<!-- 修改 -->
-	<update id="update" parameterType="com.acg12.entity.po.Acg12PersonDetailEntity">
-		UPDATE	T_ACG12_PERSON_DETAIL
+	<update id="update" parameterType="com.acg12.entity.po.Acg12ScheduleJobLogEntity">
+		UPDATE	T_ACG12_SCHEDULE_JOB_LOG
 		<set>
 			<include refid="set_column" />
 		</set>
-		WHERE	ID = #{id,jdbcType=INTEGER}
+		WHERE	ID = #{id,jdbcType=BIGINT}
 	</update>
 	
 	<!-- 删除单条记录 -->
 	<delete id="delete">
-		DELETE	FROM T_ACG12_PERSON_DETAIL
-		WHERE	ID = #{id,jdbcType=INTEGER}
+		DELETE	FROM T_ACG12_SCHEDULE_JOB_LOG
+		WHERE	ID = #{id,jdbcType=BIGINT}
 	</delete>
 	
 	
 	<!-- 删除多条记录-->
 	<delete id="deleteAll">
-		DELETE	FROM T_ACG12_PERSON_DETAIL
+		DELETE	FROM T_ACG12_SCHEDULE_JOB_LOG
 		WHERE	ID	IN
-    	<foreach item="Acg12PersonDetailId" index="index" collection="ids" open="(" separator="," close=")">
-	  		#{Acg12PersonDetailId} 
+    	<foreach item="Acg12ScheduleJobLogId" index="index" collection="ids" open="(" separator="," close=")">
+	  		#{Acg12ScheduleJobLogId} 
 		</foreach>
 	</delete>
 	
 	<!-- 根据参数查询列表-->
-	<select id="findByParams" resultMap="Acg12PersonDetailResultMap">
+	<select id="findByParams" resultMap="Acg12ScheduleJobLogResultMap">
 		SELECT	<include refid="base_column" />
-		FROM 	T_ACG12_PERSON_DETAIL
+		FROM 	T_ACG12_SCHEDULE_JOB_LOG
 		<where> 1=1
 			<include refid="where_column" />
 		</where>
 	</select>
 	
 	<!-- 分页查询-->
-	<select id="findByPage" resultMap="Acg12PersonDetailResultMap">
+	<select id="findByPage" resultMap="Acg12ScheduleJobLogResultMap">
 		SELECT
 		<include refid="base_column" />
-		FROM T_ACG12_PERSON_DETAIL
+		FROM T_ACG12_SCHEDULE_JOB_LOG
 		<where> 1=1
 			<include refid="where_column" />
 		</where>
 	</select>
 
        <!-- 分页查询-->
-       <select id="findListByPage" resultMap="Acg12PersonDetailResultMap">
+       <select id="findListByPage" resultMap="Acg12ScheduleJobLogResultMap">
 		SELECT
 		<include refid="base_column" />
-		FROM T_ACG12_PERSON_DETAIL
+		FROM T_ACG12_SCHEDULE_JOB_LOG
 		<where> 1=1
 			<include refid="where_column" />
 		</where>
@@ -185,17 +177,17 @@
 	
 		<!-- 删除多条记录-->
 	<delete id="deletes">
-		DELETE	FROM T_ACG12_PERSON_DETAIL
+		DELETE	FROM T_ACG12_SCHEDULE_JOB_LOG
 		<where> 
 			<include refid="where_column" />
 		</where>
 	</delete>
 	
  <!-- 新分页查询-->
-       <select id="findListNewByPage" resultMap="Acg12PersonDetailResultMap">
+       <select id="findListNewByPage" resultMap="Acg12ScheduleJobLogResultMap">
 		SELECT
 		<include refid="base_column" />
-		FROM T_ACG12_PERSON_DETAIL
+		FROM T_ACG12_SCHEDULE_JOB_LOG
 		<where> 1=1
 			<include refid="where_column" />
 		</where>

@@ -3,6 +3,7 @@ package com.acg12.controller.admin;
 import com.acg12.controller.GenericController;
 import com.acg12.entity.po.Acg12ScheduleJobEntity;
 import com.acg12.entity.po.SystemUserEntity;
+import com.acg12.service.Acg12ScheduleJobLogService;
 import com.acg12.service.Acg12ScheduleJobService;
 import com.acg12.service.SystemUserService;
 import com.acg12.support.Message;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +42,8 @@ public class Acg12ScheduleJobController extends GenericController {
     private SystemUserService userService;
     @Resource
     private Acg12ScheduleJobService acg12ScheduleJobService;
+    @Resource
+    private Acg12ScheduleJobLogService acg12ScheduleJobLogService;
 
     /**
      * 跳转添加页面
@@ -58,8 +62,10 @@ public class Acg12ScheduleJobController extends GenericController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Acg12ScheduleJobEntity acg12ScheduleJob, RedirectAttributes redirectAttributes) {
         SystemUserEntity user = userService.getCurrent();
-
-
+        System.out.println(acg12ScheduleJob.toString());
+        acg12ScheduleJob.setJobStatus("0");
+        acg12ScheduleJob.setCreateTime(new Date());
+        acg12ScheduleJob.setUpdateTime(new Date());
         acg12ScheduleJobService.save(acg12ScheduleJob);
         addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
         return "redirect:list.html";
@@ -277,7 +283,7 @@ public class Acg12ScheduleJobController extends GenericController {
     @RequestMapping(value = {"/changeJobStatus"}, method = {RequestMethod.POST})
     @ResponseBody
     public Result changeJobStatus(HttpServletRequest request, Long jobId, String cmd, RedirectAttributes redirectAttributes, ModelMap model) throws SchedulerException {
-        acg12ScheduleJobService.changeStatus(jobId , cmd);
+        acg12ScheduleJobService.changeStatus(jobId, cmd);
         return new Result(true, "success");
     }
 }
