@@ -747,7 +747,7 @@ public class BgmResourceUtil {
                         type = 0;
                     }
                     if (type != 0) {
-                        if(jobList.isEmpty()){
+                        if (jobList.isEmpty()) {
                             jobList += "" + type;
                         } else {
                             jobList += "、" + type;
@@ -793,7 +793,7 @@ public class BgmResourceUtil {
                 } else if (key.equals("身高")) {
                     personEntity.setHeight(item.text());
                 } else if (key.equals("别名")) {
-                    if(alias .isEmpty()){
+                    if (alias.isEmpty()) {
                         alias += "" + item.text();
                     } else {
                         if (item.text().length() < 400) {
@@ -881,7 +881,7 @@ public class BgmResourceUtil {
                 } else if (key.equals("身高")) {
                     characterEntity.setHeight(item.text());
                 } else if (key.equals("别名")) {
-                    if(alias .isEmpty()){
+                    if (alias.isEmpty()) {
                         alias += "" + item.text();
                     } else {
                         if (item.text().length() < 400) {
@@ -909,11 +909,23 @@ public class BgmResourceUtil {
 
     // 机体 2   251
     public static synchronized List<Integer> characterType2() {
-        List<Integer> engineAllId = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
         String url = "http://bangumi.tv/character?type=2&page=%d";
-        for (int i = 1; i <= 13; i++) {
-            try {
-                Document document = Jsoup.connect(String.format(url, i)).ignoreContentType(true)
+        try {
+            Document document = Jsoup.connect(String.format(url, 1)).ignoreContentType(true)
+                    .data("jquery", "java").userAgent("Mozilla")
+                    .cookie("auth", "token").timeout(50000).get();
+            Element multipage = document.getElementById("multipage");
+            Elements page_inner = multipage.getElementsByClass("page_inner");
+            Elements p_edge = page_inner.get(0).getElementsByClass("p_edge");
+            String s = p_edge.text().replace("&nbsp;", "").replace(" ", "").replace("(1/", "").replace(")", "");
+            if (s == null || s.isEmpty()) {
+                return list;
+            }
+            int num = Integer.valueOf(s);
+            System.out.println(num+"=======");
+            for (int i = 1; i <= num; i++) {
+                document = Jsoup.connect(String.format(url, i)).ignoreContentType(true)
                         .data("jquery", "java").userAgent("Mozilla")
                         .cookie("auth", "token").timeout(50000).get();
                 Element columnCrtBrowserB = document.getElementById("columnCrtBrowserB");
@@ -923,25 +935,44 @@ public class BgmResourceUtil {
                     Element item = light_odd.get(j);
                     Elements avatar = item.getElementsByClass("avatar");
                     String str = avatar.select("a").attr("href");
-                    engineAllId.add(Integer.valueOf(str.split("/character/")[1]).intValue());
+                    list.add(Integer.valueOf(str.split("/character/")[1]).intValue());
 //                    System.out.println(Integer.valueOf(str.split("/character/")[1]).intValue());
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        System.out.println(engineAllId.size());
-        System.out.println(engineAllId.toString());
-        return engineAllId;
+        return list;
     }
 
     // 舰船 3   122
     public static synchronized List<Integer> characterType3() {
-        List<Integer> engineAllId = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
         String url = "http://bangumi.tv/character?type=3&page=%d";
-        for (int i = 1; i <= 13; i++) {
-            try {
-                Document document = Jsoup.connect(String.format(url, i)).ignoreContentType(true)
+        try {
+            Document document = Jsoup.connect(String.format(url, 1)).ignoreContentType(true)
+                    .data("jquery", "java").userAgent("Mozilla")
+                    .cookie("auth", "token").timeout(50000).get();
+            Element multipage = document.getElementById("multipage");
+            Elements page_inner = multipage.getElementsByClass("page_inner");
+//            System.out.println(page_inner.toString());
+            Elements p_edge = page_inner.get(0).getElementsByClass("p_edge");
+            String s ;
+            if(p_edge.size() == 0){
+                Elements als = page_inner.select("a");
+                Element a =als.get(als.size() -2);
+//                System.out.println(a.text()+"");
+                s = a.text();
+            } else {
+                 s = p_edge.text().replace("&nbsp;", "").replace(" ", "").replace("(1/", "").replace(")", "");
+            }
+            if (s == null || s.isEmpty()) {
+                return list;
+            }
+            int num = Integer.valueOf(s);
+            System.out.println(num+"=======");
+            for (int i = 1; i <= num; i++) {
+                document = Jsoup.connect(String.format(url, i)).ignoreContentType(true)
                         .data("jquery", "java").userAgent("Mozilla")
                         .cookie("auth", "token").timeout(50000).get();
                 Element columnCrtBrowserB = document.getElementById("columnCrtBrowserB");
@@ -951,26 +982,35 @@ public class BgmResourceUtil {
                     Element item = light_odd.get(j);
                     Elements avatar = item.getElementsByClass("avatar");
                     String str = avatar.select("a").attr("href");
-                    engineAllId.add(Integer.valueOf(str.split("/character/")[1]).intValue());
+                    list.add(Integer.valueOf(str.split("/character/")[1]).intValue());
 //                    System.out.println(Integer.valueOf(str.split("/character/")[1]).intValue());
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        System.out.println(engineAllId.size());
-        System.out.println(engineAllId.toString());
-        return engineAllId;
+        return list;
     }
 
     // 组织 4   394
     public static synchronized List<Integer> characterType4() {
-        List<Integer> engineAllId = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
         String url = "http://bangumi.tv/character?type=4&page=%d";
-        for (int i = 1; i <= 20; i++) {
-            try {
-                Document document = Jsoup.connect(String.format(url, i)).ignoreContentType(true)
+        try {
+            Document document = Jsoup.connect(String.format(url, 1)).ignoreContentType(true)
+                    .data("jquery", "java").userAgent("Mozilla")
+                    .cookie("auth", "token").timeout(50000).get();
+            Element multipage = document.getElementById("multipage");
+            Elements page_inner = multipage.getElementsByClass("page_inner");
+            Elements p_edge = page_inner.get(0).getElementsByClass("p_edge");
+            String s = p_edge.text().replace("&nbsp;", "").replace(" ", "").replace("(1/", "").replace(")", "");
+            if (s == null || s.isEmpty()) {
+                return list;
+            }
+            int num = Integer.valueOf(s);
+            System.out.println(num+"=======");
+            for (int i = 1; i <= num; i++) {
+                document = Jsoup.connect(String.format(url, i)).ignoreContentType(true)
                         .data("jquery", "java").userAgent("Mozilla")
                         .cookie("auth", "token").timeout(50000).get();
                 Element columnCrtBrowserB = document.getElementById("columnCrtBrowserB");
@@ -980,16 +1020,14 @@ public class BgmResourceUtil {
                     Element item = light_odd.get(j);
                     Elements avatar = item.getElementsByClass("avatar");
                     String str = avatar.select("a").attr("href");
-                    engineAllId.add(Integer.valueOf(str.split("/character/")[1]).intValue());
+                    list.add(Integer.valueOf(str.split("/character/")[1]).intValue());
 //                    System.out.println(Integer.valueOf(str.split("/character/")[1]).intValue());
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        System.out.println(engineAllId.size());
-        System.out.println(engineAllId.toString());
-        return engineAllId;
+        return list;
     }
 
 }
