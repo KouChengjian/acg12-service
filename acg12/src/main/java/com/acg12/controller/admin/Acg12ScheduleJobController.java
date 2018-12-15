@@ -284,6 +284,6 @@ public class Acg12ScheduleJobController extends GenericController {
     @ResponseBody
     public Result changeJobStatus(HttpServletRequest request, Long jobId, String cmd, RedirectAttributes redirectAttributes, ModelMap model) throws SchedulerException {
         acg12ScheduleJobService.changeStatus(jobId, cmd);
-        return new Result(true, "success");
+        return Result.ok();
     }
 }

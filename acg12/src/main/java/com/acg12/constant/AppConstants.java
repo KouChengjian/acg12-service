@@ -1,4 +1,4 @@
-package com.acg12.utils.result;
+package com.acg12.constant;
 
 public class AppConstants {
 
