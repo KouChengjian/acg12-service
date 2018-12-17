@@ -41,6 +41,7 @@ public class BgmTask {
             return;
         }
         acg12ScheduleJobLogEntity.setStartNum(acg12ScheduleJobLogEntity.getStartNum() + 1);
+        acg12ScheduleJobLogService.update(acg12ScheduleJobLogEntity);
         Acg12SubjectDto acg12SubjectDto = BgmResourceUtil.getSubjectDto(acg12ScheduleJobLogEntity.getStartNum().intValue());
         if (acg12SubjectDto == null) {
             return;
@@ -50,7 +51,6 @@ public class BgmTask {
             return;
         }
         acg12SubjectService.savaSubjectDto(acg12SubjectDto);
-        acg12ScheduleJobLogService.update(acg12ScheduleJobLogEntity);
         System.out.println(acg12SubjectDto.toString());
     }
 
@@ -64,6 +64,7 @@ public class BgmTask {
             return;
         }
         acg12ScheduleJobLogEntity.setStartNum(acg12ScheduleJobLogEntity.getStartNum() + 1);
+        acg12ScheduleJobLogService.update(acg12ScheduleJobLogEntity);
         Acg12PersonDto acg12PersonDto = BgmResourceUtil.getPersonDto(acg12ScheduleJobLogEntity.getStartNum().intValue());
         if (acg12PersonDto == null) {
             return;
@@ -73,7 +74,6 @@ public class BgmTask {
             return;
         }
         acg12PersonService.savaPersonDto(acg12PersonDto);
-        acg12ScheduleJobLogService.update(acg12ScheduleJobLogEntity);
         System.out.println(acg12PersonDto.toString());
     }
 

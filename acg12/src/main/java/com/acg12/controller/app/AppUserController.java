@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Date: 2018/9/11 15:43
  * Description:
  */
-@Controller
-@RequestMapping("api/app/user/*")
+//@Controller
+//@RequestMapping("api/app/user/*")
 public class AppUserController {
 }

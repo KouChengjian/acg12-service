@@ -421,7 +421,7 @@
                 cmd : cmd
             },
             success : function(data) {
-                if (data.success) {
+                if (data.code == 0) {
                     location.reload();
                 } else {
                     art.dialog.message({type:"success", content:data.message});

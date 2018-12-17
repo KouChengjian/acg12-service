@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * Created by Administrator on 2018/3/14.
  */
-@Controller
-@RequestMapping(value = "/api/search")
+//@Controller
+//@RequestMapping(value = "/api/search")
 public class AppSearchController {
 
 //    @Resource(name = "searchServiceImpl")

@@ -440,12 +440,14 @@ public class BgmResourceUtil {
                     .data("jquery", "java").userAgent("Mozilla")
                     .cookie("auth", "token").timeout(50000).get();
             String content = document.body().text();
+//            System.out.printf(content);
             if (content == null || content.isEmpty()) {
                 return null;
             }
 //            System.out.println(content);
 //            System.out.println(StringUtil.stringToJson(content));
-            content = CheckoutJsonUtil.stringToJson(content);
+//            content = CheckoutJsonUtil.stringToJson(content);
+//            System.out.printf(content);
             JSONObject contentJson = new JSONObject(content);
             if (!contentJson.isNull("code")) {
                 return null;
