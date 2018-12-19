@@ -90,4 +90,12 @@
         <property name="defaultContentType" value="text/html"/>
     </bean>
 
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <!-- 设置在文件上传时允许写到内存中的最大值，以字节为单位计算，默认是10240 -->
+        <!-- 但是经实验，上传文件大小若小于此参数，则不会生成临时文件，故改为20 字节-->
+        <property name="maxInMemorySize" value="20"/>
+    </bean>
+
 </beans>
