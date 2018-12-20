@@ -1,7 +1,18 @@
 package com.acg12.controller.app;
 
+import com.acg12.constant.AppConstants;
+import com.acg12.controller.AppBaseController;
+import com.acg12.entity.po.Acg12UserEntity;
+import com.acg12.service.Acg12UserService;
+import com.acg12.utils.StringUtil;
+import com.acg12.utils.result.Result;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,145 +22,85 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("api/app/user/*")
-public class AppUserController {
+public class AppUserController extends AppBaseController {
 
-    //    @ApiOperation(value = "获取用户信息", httpMethod = "POST", produces = "application/json")
-//    @RequestMapping(value = "/userInfo", method = {RequestMethod.POST})
-//    public void userInfo(@ApiParam(name = "uid", required = true, value = "用户id") @RequestHeader("uid") Integer uid,
-//                         HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        User user;
-//        Result result = new Result();
-//        if (uid == 0) {
-//            result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
-//            result.setDesc("请求参数为空");
-//            StringUtil.outputStream(response, StringUtil.result(result));
-//            return;
-//        }
-//
-//        user = userService.queryUser(uid);
-//        if (user == null) {
-//            result.setResult(Constant.HTTP_RESULT_ERROR_NULL_DATA);
-//            result.setDesc("不存在该数据");
-//            StringUtil.outputStream(response, StringUtil.result(result));
-//            return;
-//        }
-//
-//        user.setPassword(null);
-//        user.setCreatedAt(null);
-//        user.setUpdatedAt(null);
-//        result.setResult(Constant.HTTP_RESULT_SUCCEED);
-//        result.setDesc("成功");
-//        result.putDataObject("user", user);
-//        StringUtil.outputStream(response, StringUtil.result(result));
-//
-//    }
+    @Resource
+    private Acg12UserService acg12UserService;
 
-//    @ApiOperation(value = "重置密码", httpMethod = "POST", produces = "application/json")
-//    @RequestMapping(value = "/restPwd", method = {RequestMethod.POST})
-//    public void restPwd(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        String username = request.getParameter("username");
-//        String password = request.getParameter("password");
-//        String verify = request.getParameter("verify");
-//        User user;
-//        Result result = new Result();
-//        if (username.isEmpty() || password.isEmpty() || verify.isEmpty()) {
-//            result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
-//            result.setDesc("请求参数为空");
-//            StringUtil.outputStream(response, StringUtil.result(result));
-//            return;
-//        }
-//
-//
-//    }
-//
-//    @ApiOperation(value = "修改用户信息", httpMethod = "POST", produces = "application/json")
-//    @RequestMapping(value = "/alteruser", method = {RequestMethod.POST})
-//    public void alterUser(@ApiParam(name = "uid", required = true, value = "用户id") @RequestHeader("uid") Integer uid,
-//                          @ApiParam(name = "alterType", required = true, value = "修改类型 1、昵称 2、签名 4、性别 5、密码") @RequestParam("alterType") Integer alterType,
-//                          @ApiParam(name = "param1", required = true, value = "参数1") @RequestParam("param1") String param1,
-//                          @ApiParam(name = "param2", required = true, value = "参数2") @RequestParam("param2") String param2,
-//                          HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        User user;
-//        Result result = new Result();
-//
-//        if (alterType == 0 || alterType > 5) {
-//            result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
-//            result.setDesc("请求修改类型错误");
-//            StringUtil.outputStream(response, StringUtil.result(result));
-//            return;
-//        }
-//
-//        user = userService.queryUser(uid);
-//        if (user == null) {
-//            result.setResult(Constant.HTTP_RESULT_ERROR_NULL_DATA);
-//            result.setDesc("不存在该用户");
-//            StringUtil.outputStream(response, StringUtil.result(result));
-//            return;
-//        }
-//
-//        if (param1 == null || param1.isEmpty()) {
-//            result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
-//            result.setDesc("请求参数为空");
-//            StringUtil.outputStream(response, StringUtil.result(result));
-//            return;
-//        }
-//
-//        if (alterType == 5) {
-//            if (param2 == null || param2.isEmpty() || param2.equals("null")) {
-//                result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
-//                result.setDesc("请求参数为空");
-//                StringUtil.outputStream(response, StringUtil.result(result));
-//                return;
-//            }
-//        }
-//
-//        long time = System.currentTimeMillis();
-//        time = time / 1000;
-//        user.setUpdatedAt(new Long(time).intValue());
-//
-//        if (alterType == 1) {         // 修改昵称
-//            user.setNick(param1);
-//        } else if (alterType == 2) {  // 修改签名
-//            user.setSign(param1);
-//        } else if (alterType == 3) {  // 修改头像
-//
-//        } else if (alterType == 4) {  // 修改性别
-//            if (StringUtil.isNumeric(param1)) {
-//                int s = Integer.valueOf(param1).intValue();
-//                user.setSex(s);
-//            } else {
-//                result.setResult(Constant.HTTP_RESULT_ERROR);
-//                result.setDesc("失败");
-//                StringUtil.outputStream(response, StringUtil.result(result));
-//                return;
-//            }
-//        } else if (alterType == 5) {  // 修改密码
-//            if (user.getPassword().equals(param1)) {
-//                user.setPassword(param2);
-//            } else {
-//                result.setResult(Constant.HTTP_RESULT_ERROR);
-//                result.setDesc("密码错误");
-//                StringUtil.outputStream(response, StringUtil.result(result));
-//                return;
-//            }
-//        }
-//
-//        long i = userService.updateUser(user);
-//        if (i > 0) {
-//            user.setPassword(null);
-//            user.setCreatedAt(null);
-//            user.setUpdatedAt(null);
-//            result.setResult(Constant.HTTP_RESULT_SUCCEED);
-//            result.setDesc("成功");
-//            result.putDataObject("user", user);
-//            StringUtil.outputStream(response, StringUtil.result(result));
-//        } else {
-//            result.setResult(Constant.HTTP_RESULT_ERROR);
-//            result.setDesc("失败");
-//            StringUtil.outputStream(response, StringUtil.result(result));
-//        }
-//    }
-//
+    @ResponseBody
+    @RequestMapping(value = "/info", method = {RequestMethod.POST})
+    public Result userInfo(Integer uid) {
+        if (uid == null || uid == 0) {
+            return Result.error("参数有误", AppConstants.AppError5000020);
+        }
+        Acg12UserEntity user = acg12UserService.find("id", uid);
+        if (user == null) {
+            return Result.error("不存在用户", AppConstants.AppError5000020);
+        }
+
+        user.setPassword(null);
+        user.setCreateTime(null);
+        user.setUpdateTime(null);
+        return Result.ok(user);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/restPwd", method = {RequestMethod.POST})
+    public void restPwd(String username, String password, String verify) {
+
+    }
+
+    /**
+     * @param uid
+     * @param alterType 修改类型 1、昵称 2、签名 4、性别 5、密码
+     * @param param1
+     * @param param2
+     */
+    @ResponseBody
+    @RequestMapping(value = "/alteruser", method = {RequestMethod.POST})
+    public Result alterUser(Integer uid, Integer alterType, String param1, String param2) {
+        if (uid == null || uid == 0) {
+            return Result.error("参数有误", AppConstants.AppError5000020);
+        }
+        Acg12UserEntity user = acg12UserService.find("id", uid);
+        if (user == null) {
+            return Result.error("不存在用户", AppConstants.AppError5000020);
+        }
+
+        if (alterType == 1) {         // 修改昵称
+            user.setNick(param1);
+        } else if (alterType == 2) {  // 修改签名
+            user.setSign(param1);
+        } else if (alterType == 3) {  // 修改头像
+
+        } else if (alterType == 4) {  // 修改性别
+            if (StringUtil.isNumeric(param1)) {
+                int s = Integer.valueOf(param1).intValue();
+                user.setSex(s);
+            } else {
+                return Result.error("参数有误", AppConstants.AppError5000020);
+            }
+        } else if (alterType == 5) {  // 修改密码
+            if (param2 == null || param2.isEmpty() || param2.equals("null")) {
+                return Result.error("参数有误", AppConstants.AppError5000020);
+            }
+            if (user.getPassword().equals(param1)) {
+                user.setPassword(param2);
+            } else {
+                return Result.error("密码错误", AppConstants.AppError5000020);
+            }
+        }
+
+        long i = acg12UserService.update(user);
+        if (i == 0) {
+            return Result.error("SQL异常", AppConstants.AppError5000021);
+        }
+        user.setPassword(null);
+        user.setCreateTime(null);
+        user.setUpdateTime(null);
+        return Result.ok(user);
+    }
+
 //    @RequestMapping(value = "/alteruser/file", method = {RequestMethod.POST})
 //    public void alterFileUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
 //        String uid = request.getHeader("uid");
@@ -241,61 +192,30 @@ public class AppUserController {
 //            }
 //        }
 //    }
-//
-//    @RequestMapping(value = "/delUser", method = {RequestMethod.POST})
-//    public void delUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        String uid = request.getHeader("uid");
-//        String username = request.getParameter("username");
-//        Result result = new Result();
-//        if (uid == null || uid.isEmpty()) {
-//            result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
-//            result.setDesc("请求参数为空");
-//            StringUtil.outputStream(response, StringUtil.result(result));
-//        } else {
-//            if (StringUtil.isNumeric(uid)) {
-//                int id = Integer.valueOf(uid).intValue();
-//                long i = userService.deleteUser(id);
-//                if (i > 0) {
-//                    result.setResult(Constant.HTTP_RESULT_SUCCEED);
-//                    result.setDesc("成功");
-//                    StringUtil.outputStream(response, StringUtil.result(result));
-//                } else {
-//                    result.setResult(Constant.HTTP_RESULT_ERROR_NULL_DATA);
-//                    result.setDesc("不存在该数据");
-//                    StringUtil.outputStream(response, StringUtil.result(result));
-//                }
-//            } else {
-//                result.setResult(Constant.HTTP_RESULT_ERROR_PARAM);
-//                result.setDesc("请求参数为空");
-//                StringUtil.outputStream(response, StringUtil.result(result));
-//            }
-//        }
-//    }
-//
-//    @ApiOperation(value = "所有用户", httpMethod = "POST", produces = "application/json")
-//    @RequestMapping(value = "/userList", method = {RequestMethod.POST})
-//    public void userList(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        Result result = new Result();
-//        List<User> userList = userService.queryUserList();
-//
-//        if (userList == null) {
-//            result.setResult(Constant.HTTP_RESULT_ERROR_NULL_DATA);
-//            result.setDesc("不存在该数据");
-//            StringUtil.outputStream(response, StringUtil.result(result));
-//            return;
-//        }
-//
-//        result.setResult(Constant.HTTP_RESULT_SUCCEED);
-//        result.setDesc("成功");
-//        result.putDataArray("userList", userList);
-//        StringUtil.outputStream(response, StringUtil.result(result));
-//    }
-//
-//    @ApiOperation(value = "意见反馈", httpMethod = "POST", produces = "application/json")
-//    @RequestMapping(value = "/feedback", method = {RequestMethod.POST})
-//    public void feedback(@ApiParam(name = "uid", required = true, value = "用户id") @RequestHeader("uid") Integer uid,
-//                         @ApiParam(name = "message", required = true, value = "信息") @RequestParam("message") String message,
-//                         HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+    @ResponseBody
+    @RequestMapping(value = "/delUser", method = {RequestMethod.POST})
+    public Result delUser(Long uid) {
+        if (uid == null || uid == 0) {
+            return Result.error("参数有误", AppConstants.AppError5000020);
+        }
+        long result = acg12UserService.delete(uid);
+        if (result == 0) {
+            return Result.error("SQL异常", AppConstants.AppError5000021);
+        }
+        return Result.ok();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/userList", method = {RequestMethod.POST})
+    public Result userList() {
+        List<Acg12UserEntity> userList = acg12UserService.findAll();
+        return Result.ok(userList);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/feedback", method = {RequestMethod.POST})
+    public void feedback(Integer uid, String message) {
 //        Result result = new Result();
 //        Feedback feedback = new Feedback();
 //        feedback.setUid(uid);
@@ -312,5 +232,5 @@ public class AppUserController {
 //        result.setResult(Constant.HTTP_RESULT_SUCCEED);
 //        result.setDesc("成功");
 //        StringUtil.outputStream(response, StringUtil.result(result));
-//    }
+    }
 }
