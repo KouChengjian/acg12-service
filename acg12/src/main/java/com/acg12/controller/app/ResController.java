@@ -45,7 +45,7 @@ public class ResController {
 //    @ApiOperation(value = "获取插画", httpMethod = "GET", produces = "application/json")
 //    @RequestMapping(value = "/p/boards", method = {RequestMethod.GET})
 //    public ResponseEntity<?> queryPictrueBoards(@ApiParam(name = "max", required = true, value = "画板id") @RequestParam("max") String max) throws Exception {
-//        List<Palette> paletteList = resourceService.getHuaBanBoards(max);
+//        List<Acg12PaletteDto> paletteList = resourceService.getHuaBanBoards(max);
 //        if (paletteList == null || paletteList.size() == 0) {
 //            return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
 //        } else {
@@ -80,7 +80,7 @@ public class ResController {
 //    @RequestMapping(value = "/search/palette", method = {RequestMethod.GET} , produces = "application/json ;charset=utf-8")
 //    public ResponseEntity<?> querySearchPalette(@ApiParam(name = "key", required = true, value = "搜索key") @RequestParam("key") String key,
 //                                   @ApiParam(name = "page", required = true, value = "页") @RequestParam("page") String page) throws Exception {
-//        List<Palette> paletteList = resourceService.getHuaBanSearchBoards(key, page);
+//        List<Acg12PaletteDto> paletteList = resourceService.getHuaBanSearchBoards(key, page);
 //        if (paletteList == null || paletteList.size() == 0) {
 //            return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
 //        } else {

@@ -25,7 +25,7 @@
                     <div class="ibox-title">
                         <h5>管理员列表 </h5>
                         <div class="ibox-tools">
-                            <a class="btn btn-outline btn-success btn-xs" id="btn-add-loippi" href="add.jhtml"><i
+                            <a class="btn btn-outline btn-success btn-xs" id="btn-add-loippi" href="add.html"><i
                                     class="fa fa-plus"></i> 新增</a>
                             <a class="btn btn-outline btn-danger btn-xs btn-delete-loippi-group"><i
                                     class="fa fa-trash"></i> 删除</a>
@@ -77,7 +77,7 @@
 						                        [#if user.isLocked == '0']锁定[/#if]</td>
                                          <td>
                                              <a class="btn btn-info btn-xs btn-edit-loippi" data-id="${user.id}"
-                                                href="edit.jhtml?id=${user.id}"><i class="fa fa-paste"></i> 编辑</a>
+                                                href="edit.html?id=${user.id}"><i class="fa fa-paste"></i> 编辑</a>
                                              <a class="btn btn-danger btn-xs btn-delete-loippi" data-id="${user.id}"><i
                                                      class="fa fa-trash"></i> 删除</a>
                                          </td>

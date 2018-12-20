@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Result extends HashMap<String, Object> {
@@ -64,38 +65,28 @@ public class Result extends HashMap<String, Object> {
         return r;
     }
 
-    /**
-     * Ok r.
-     *
-     * @param msg the msg
-     * @return the r
-     */
+    public static Result ok() {
+        return new Result();
+    }
+
+    public static Result ok(Object o) {
+        return new Result().put("data", o);
+    }
+
+    public static Result ok(List list) {
+        return new Result().put("data", list);
+    }
+
     public static Result ok(String msg) {
         Result r = new Result();
         r.put("msg", msg);
         return r;
     }
 
-    /**
-     * Ok r.
-     *
-     * @param map the map
-     * @return the r
-     */
     public static Result ok(Map<String, Object> map) {
         Result r = new Result();
         r.putAll(map);
         return r;
-    }
-
-
-    /**
-     * Ok r.
-     *
-     * @return the r
-     */
-    public static Result ok() {
-        return new Result();
     }
 
     public Result put(String key, Object value) {

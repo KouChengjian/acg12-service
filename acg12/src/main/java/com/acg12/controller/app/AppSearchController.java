@@ -13,7 +13,7 @@ public class AppSearchController {
 //    @Resource(name = "searchServiceImpl")
 //    private SearchService searchService;
 //    @Resource(name = "resServiceImpl")
-//    private ResService resService;
+//    private Acg12ResourceService resService;
 //
 //    @ApiOperation(value = "搜索key", httpMethod = "GET", produces = "application/json")
 //    @RequestMapping(value = "/key", method = {RequestMethod.GET})
@@ -43,11 +43,11 @@ public class AppSearchController {
 //    @RequestMapping(value = "/albums", method = {RequestMethod.GET}, produces = "application/json;charset=utf-8")
 //    public ResponseEntity<?> querySearchAlbum(@ApiParam(name = "key", required = true, value = "搜索key") @RequestParam("key") String key,
 //                                              @ApiParam(name = "page", required = true, value = "页") @RequestParam("page") String page) throws Exception {
-//        List<Album> albumList = resService.getHuaBanSearchImages(key, page);
+//        List<Acg12AlbumDto> albumList = resService.getHuaBanSearchImages(key, page);
 //        if (albumList == null || albumList.size() == 0) {
 //            return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
 //        } else {
-//            return new ResponseEntity<>(Result.create200(new ListDto<List<Album>>(albumList)), HttpStatus.OK);
+//            return new ResponseEntity<>(Result.create200(new ListDto<List<Acg12AlbumDto>>(albumList)), HttpStatus.OK);
 //        }
 //    }
 //
@@ -55,11 +55,11 @@ public class AppSearchController {
 //    @RequestMapping(value = "/palettes", method = {RequestMethod.GET} , produces = "application/json ;charset=utf-8")
 //    public ResponseEntity<?> querySearchPalette(@ApiParam(name = "key", required = true, value = "搜索key") @RequestParam("key") String key,
 //                                                @ApiParam(name = "page", required = true, value = "页") @RequestParam("page") String page) throws Exception {
-//        List<Palette> paletteList = resService.getHuaBanSearchBoards(key, page);
+//        List<Acg12PaletteDto> paletteList = resService.getHuaBanSearchBoards(key, page);
 //        if (paletteList == null || paletteList.size() == 0) {
 //            return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
 //        } else {
-//            return new ResponseEntity<>(Result.create200(new ListDto<List<Palette>>(paletteList)), HttpStatus.OK);
+//            return new ResponseEntity<>(Result.create200(new ListDto<List<Acg12PaletteDto>>(paletteList)), HttpStatus.OK);
 //        }
 //    }
 //
