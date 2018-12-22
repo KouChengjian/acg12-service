@@ -1,5 +1,6 @@
 package com.acg12.utils.result;
 
+import com.acg12.constant.AppConstants;
 import com.alibaba.fastjson.JSON;
 import org.apache.http.HttpStatus;
 
@@ -14,7 +15,7 @@ public class Result extends HashMap<String, Object> {
      * Instantiates a new R.
      */
     public Result() {
-        put("code", 0);
+        put("code", AppConstants.OK);
         put("msg", "success");
     }
 
@@ -24,7 +25,7 @@ public class Result extends HashMap<String, Object> {
      * @return the r
      */
     public static Result error() {
-        return error(HttpStatus.SC_INTERNAL_SERVER_ERROR, "未知异常，请联系管理员");
+        return error(AppConstants.AppError5000000, "未知异常，请联系管理员");
     }
 
     /**
@@ -34,7 +35,7 @@ public class Result extends HashMap<String, Object> {
      * @return the r
      */
     public static Result error(String msg) {
-        return error(HttpStatus.SC_INTERNAL_SERVER_ERROR, msg);
+        return error(AppConstants.AppError5000000, msg);
     }
 
     /**

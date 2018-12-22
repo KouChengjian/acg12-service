@@ -59,7 +59,7 @@ public class AppCommonController extends AppBaseController {
     @Transactional
     @ResponseBody
     @RequestMapping(value = "/register", method = {RequestMethod.POST})
-    public Result register(String username, String password, int verify) throws Exception {
+    public Result register(String username, String password, int verify)   {
         if (StringUtil.isEmpty(username) || StringUtil.isEmpty(password) || verify == 0) {
             return Result.error("参数有误", AppConstants.AppError5000020);
         }
@@ -161,8 +161,8 @@ public class AppCommonController extends AppBaseController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/home/boards/albums", method = {RequestMethod.GET})
-    public Result subjectBoardsAlbums(@RequestParam("max") String max, @RequestParam("boardId") String boardId) throws Exception {
+    @RequestMapping(value = "/boardList/albums", method = {RequestMethod.GET})
+    public Result subjectBoardsAlbums(@RequestParam("max") String max, @RequestParam("boardId") String boardId)   {
         List<Acg12AlbumDto> albumList = acg12ResourceService.getHuaBanBoardsToImages(boardId, max);
         if (albumList == null || albumList.size() == 0) {
             return Result.error("数据为空");

@@ -2,10 +2,9 @@ package com.acg12.service.impl;
 
 import com.acg12.entity.dto.Acg12AlbumDto;
 import com.acg12.entity.dto.Acg12PaletteDto;
+import com.acg12.entity.dto.Acg12VideoDto;
 import com.acg12.service.Acg12ResourceService;
-import com.acg12.utils.res.BgmResourceUtil;
-import com.acg12.utils.res.DongManZhiJiaResourceUtil;
-import com.acg12.utils.res.HuaBanResourceUtil;
+import com.acg12.utils.res.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,8 +49,65 @@ public class Acg12ResourceServiceImpl implements Acg12ResourceService {
     }
 
     @Override
+    public String getMengNiangSearchKeyList(String key) {
+        return MengNiangResourceUtil.getMoeGirlSearchKeyList(key);
+    }
+
+    @Override
+    public String gettMoeGirlSearchKeyInfo(String key) {
+        return MengNiangResourceUtil.gettMoeGirlSearchKeyInfo(key);
+    }
+
+    @Override
+    public String getBgmSearchKeyList(String key) {
+        BgmResourceUtil.getCalendarList();
+        return null;
+    }
+
+    @Override
     public String getBgmCalendarList() {
         return BgmResourceUtil.getCalendarList();
+    }
+
+    @Override
+    public List<Acg12VideoDto> getBilibiliVideoTypeList(String type, String page) {
+        String url = BiliBiliResourceUtil.getMoreVideoUrl(type);
+        return BiliBiliResourceUtil.getVideoTypeList(url, page);
+    }
+
+    @Override
+    public Acg12VideoDto getBilibiliVideoTypeInfo(String av) {
+        return BiliBiliResourceUtil.getVideoTypeInfo(av);
+    }
+
+    @Override
+    public List<Acg12VideoDto> getBilibiliDangumiList(String page) {
+        return BiliBiliResourceUtil.getDangumiList(page);
+    }
+
+    @Override
+    public Acg12VideoDto getBilibiliDangumiInfo(String bmId) {
+        return BiliBiliResourceUtil.getDangumiInfo2(bmId);
+    }
+
+    @Override
+    public String getBilibiliDangumiAV(String id) {
+        return BiliBiliResourceUtil.getDangumiAV(id);
+    }
+
+    @Override
+    public List<Acg12VideoDto> getBilibiliSearchVideo(String key, String page) {
+        return BiliBiliResourceUtil.getSearchVideo(key, page);
+    }
+
+    @Override
+    public List<Acg12VideoDto> getBilibiliSearchDangumi(String key, String page) {
+        return BiliBiliResourceUtil.getSearchBangunmi(key, page);
+    }
+
+    @Override
+    public String getBilibiliPlayInfo(String av) {
+        return BiliBiliResourceUtil.getPlayUrl(av);
     }
 
 }

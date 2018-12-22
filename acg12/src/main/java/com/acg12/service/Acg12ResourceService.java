@@ -2,6 +2,7 @@ package com.acg12.service;
 
 import com.acg12.entity.dto.Acg12AlbumDto;
 import com.acg12.entity.dto.Acg12PaletteDto;
+import com.acg12.entity.dto.Acg12VideoDto;
 
 import java.util.List;
 
@@ -39,43 +40,43 @@ public interface Acg12ResourceService {
     /**
      * --------------------------------------萌娘百科资源--------------------------------------------
      */
-//    JSONArray getMoeGirlSearchKeyList(String key);
-//
-//    JSONArray gettMoeGirlSearchKeyInfo(String key);
+    String getMengNiangSearchKeyList(String key);
+
+    String gettMoeGirlSearchKeyInfo(String key);
 
     /**
      * --------------------------------------番组计划资源--------------------------------------------
      */
     // 搜索
-//    JSONObject getBgmSearchKeyList(String key);
-
-//    JSONObject getBgmSubjectInfo(int sId, int type, String key);
+    String getBgmSearchKeyList(String key);
 
     // 每日更新
     String getBgmCalendarList();
 
+//    JSONObject getBgmSubjectInfo(int sId, int type, String key);
+
 //    CharacterInfoDto getBgmCharacterInfo(int cId);
-//
+
 //    SubjectInfoDto getBgmSubjectInfo(int sId);
 
     /**
      * --------------------------------------bilibili资源--------------------------------------------
      */
-//    JSONObject getVideoTypeList(String type, String page);
-//
-//    JSONObject getVideoTypeInfo(String av);
-//
-//    JSONObject getDangumiList(String page);
-//
-//    JSONObject getDangumiInfo(String av);
-//
-//    JSONObject getDangumiAV(String id);
-//
-//    JSONObject getSearchVideo(String key, String page);
-//
-//    JSONObject getSearchDangumi(String key, String page);
-//
-//    JSONObject getPlayInfo(String av);
+    List<Acg12VideoDto> getBilibiliVideoTypeList(String type, String page);
+
+    Acg12VideoDto getBilibiliVideoTypeInfo(String av);
+
+    List<Acg12VideoDto> getBilibiliDangumiList(String page);
+
+    Acg12VideoDto getBilibiliDangumiInfo(String av);
+
+    String getBilibiliDangumiAV(String id);
+
+    List<Acg12VideoDto> getBilibiliSearchVideo(String key, String page);
+
+    List<Acg12VideoDto> getBilibiliSearchDangumi(String key, String page);
+
+    String getBilibiliPlayInfo(String av);
 
 
 }

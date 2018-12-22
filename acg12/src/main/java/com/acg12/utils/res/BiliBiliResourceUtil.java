@@ -679,7 +679,7 @@ public class BiliBiliResourceUtil {
         return videoList;
     }
 
-    public static synchronized JSONObject getPlayUrl(String av) {
+    public static synchronized String getPlayUrl(String av) {
         JSONObject content = new JSONObject();
         try {
 
@@ -730,7 +730,7 @@ public class BiliBiliResourceUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return content;
+        return content.toString();
     }
 
     public static String getMoreVideoUrl(String type) {

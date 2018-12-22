@@ -1447,4 +1447,14 @@ public class StringUtil {
         }
         return flag;
     }
+
+    // 判断字符串是否为数字
+    public static boolean isNumeric(String str) {
+        Pattern pattern = Pattern.compile("[0-9]*");
+        Matcher isNum = pattern.matcher(str);
+        if (!isNum.matches()) {
+            return false;
+        }
+        return true;
+    }
 }
