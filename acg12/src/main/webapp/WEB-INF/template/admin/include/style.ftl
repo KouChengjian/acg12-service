@@ -21,15 +21,25 @@
 <!--Switchery控件-->
 <link href="${base}/resources/css/plugins/switchery/switchery.css" rel="stylesheet">
 
- <#--上传文件-->
+<#--上传文件-->
  <link href="${base}/resources/plugins/webupload/HHuploadify.css" rel="stylesheet">
 
 <style>
-html, body, div, span, input, p,h1, h2, h3, h4, h5, h6, blockquote, a, abbr, acronym, address, strong, b, u, i, center,dl, dt, dd, ol, ul,td,tr {
-    font-family:"Microsoft Yahei","微软雅黑","宋体", "Simsun", "Open Sans";
-}
-	/*图片预览样式 img preview CSS*/
-img-preview-style > img {min-width: 0px !important; min-height: 0px !important; max-width: none !important; max-height: none !important; width: 250px; height: 250px; margin-left: -21px; margin-top: -62px;}
+    html, body, div, span, input, p, h1, h2, h3, h4, h5, h6, blockquote, a, abbr, acronym, address, strong, b, u, i, center, dl, dt, dd, ol, ul, td, tr {
+        font-family: "Microsoft Yahei", "微软雅黑", "宋体", "Simsun", "Open Sans";
+    }
+
+    /*图片预览样式 img preview CSS*/
+    img-preview-style > img {
+        min-width: 0px !important;
+        min-height: 0px !important;
+        max-width: none !important;
+        max-height: none !important;
+        width: 250px;
+        height: 250px;
+        margin-left: -21px;
+        margin-top: -62px;
+    }
 
 </style>
 <link href="${base}/resources/css/skin_0.css?a=2" rel="stylesheet">  

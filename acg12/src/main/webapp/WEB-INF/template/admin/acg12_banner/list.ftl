@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
 
-    <title>${setting.siteName} - 用户表管理</title>
+    <title>${setting.siteName} - banner管理</title>
     <meta name="keywords" content="${setting.siteName}">
     <meta name="description" content="${setting.siteName}">
 
@@ -24,9 +24,10 @@
             <div class="ibox float-e-margins">
                 <form id="listForm" action="list.html" method="get">
                     <div class="ibox-title">
-                        <h5>用户表管理 </h5>
+                        <h5>banner管理 </h5>
                         <div class="ibox-tools">
-                            <a class="btn btn-outline btn-success btn-xs" id="btn-add-loippi" href="add.html"><i
+                            <a class="btn btn-outline btn-success btn-xs" id="btn-add-loippi"
+                               href="javascript:to_add()"><i
                                     class="fa fa-plus"></i> 新增</a>
                             <a class="btn btn-outline btn-danger btn-xs btn-delete-loippi-group2"
                                href='javascript:dels()'><i class="fa fa-trash"></i> 删除</a>
@@ -47,73 +48,83 @@
                             </div>
 
 
-                            <div id="filter-div-username" class="col-sm-3 m-b-xs">
-                                <input type="text" placeholder="请输入账号" name="filter_username" id="filter_username"
+                            <div id="filter-div-title" class="col-sm-3 m-b-xs">
+                                <input type="text" placeholder="请输入标题" name="filter_title" id="filter_title"
                                        class="input-sm form-control">
                             </div>
 
 
-                            <div id="filter-div-password" class="col-sm-3 m-b-xs">
-                                <input type="text" placeholder="请输入密码" name="filter_password" id="filter_password"
-                                       class="input-sm form-control">
-                            </div>
-
-
-                            <div id="filter-div-email" class="col-sm-3 m-b-xs">
-                                <input type="text" placeholder="请输入邮箱" name="filter_email" id="filter_email"
-                                       class="input-sm form-control">
-                            </div>
-
-
-                            <div id="filter-div-avatar" class="col-sm-3 m-b-xs">
-                                <input type="text" placeholder="请输入头像" name="filter_avatar" id="filter_avatar"
-                                       class="input-sm form-control">
-                            </div>
-
-
-                            <div id="filter-div-nick" class="col-sm-3 m-b-xs">
-                                <input type="text" placeholder="请输入昵称" name="filter_nick" id="filter_nick"
-                                       class="input-sm form-control">
-                            </div>
-
-
-                            <div id="filter-div-sex" class="col-sm-3 m-b-xs">
+                            <div id="filter-div-type" class="col-sm-3 m-b-xs">
                                 <div class="input-group">
-                                    <input type="text" placeholder="请输入性别" name="filter_sexs" id="filter_sexs"
+                                    <input type="text" placeholder="请输入类型" name="filter_types" id="filter_types"
                                            class="input-sm form-control  ">
                                     <span class="input-group-addon">--</span>
-                                    <input type="text" placeholder="请输入性别" name="filter_sexe" id="filter_sexe"
+                                    <input type="text" placeholder="请输入类型" name="filter_typee" id="filter_typee"
                                            class="input-sm form-control  ">
                                 </div>
                             </div>
 
 
-                            <div id="filter-div-sign" class="col-sm-3 m-b-xs">
-                                <input type="text" placeholder="请输入签名" name="filter_sign" id="filter_sign"
+                            <div id="filter-div-typeName" class="col-sm-3 m-b-xs">
+                                <input type="text" placeholder="请输入类型名" name="filter_typeName" id="filter_typeName"
                                        class="input-sm form-control">
                             </div>
 
 
-                            [#--<div id="filter-div-createTime" class="col-sm-3 m-b-xs">--]
-                                [#--<div class="input-daterange input-group" id="datepicker">--]
-                                    [#--<input type="text" placeholder="请输入创建时间日期" name="filter_createTimes"--]
-                                           [#--id="filter_createTimes" class="input-sm form-control  ">--]
-                                    [#--<span class="input-group-addon">——</span>--]
-                                    [#--<input type="text" placeholder="请输入创建时间日期" name="filter_createTimee"--]
-                                           [#--id="filter_createTimee" class="input-sm form-control  ">--]
-                                [#--</div>--]
-                            [#--</div>--]
+                            <div id="filter-div-isLock" class="col-sm-3 m-b-xs">
+                                <div class="input-group">
+                                    <input type="text" placeholder="请输入锁定" name="filter_isLocks" id="filter_isLocks"
+                                           class="input-sm form-control  ">
+                                    <span class="input-group-addon">--</span>
+                                    <input type="text" placeholder="请输入锁定" name="filter_isLocke" id="filter_isLocke"
+                                           class="input-sm form-control  ">
+                                </div>
+                            </div>
 
 
-                            [#--<div id="filter-div-updateTime" class="col-sm-3 m-b-xs">--]
-                                [#--<div class="input-daterange input-group" id="datepicker">--]
-                                    [#--<input type="text" placeholder="请输入更新时间日期" name="filter_updateTimes"--]
-                                           [#--id="filter_updateTimes" class="input-sm form-control  ">--]
-                                    [#--<span class="input-group-addon">——</span>--]
-                                    [#--<input type="text" placeholder="请输入更新时间日期" name="filter_updateTimee"--]
-                                           [#--id="filter_updateTimee" class="input-sm form-control  ">--]
-                                [#--</div>--]
-                            [#--</div>--]
+                            <div id="filter-div-cover" class="col-sm-3 m-b-xs">
+                                <input type="text" placeholder="请输入图片" name="filter_cover" id="filter_cover"
+                                       class="input-sm form-control">
+                            </div>
+
+
+                            <div id="filter-div-sort" class="col-sm-3 m-b-xs">
+                                <div class="input-group">
+                                    <input type="text" placeholder="请输入排序" name="filter_sorts" id="filter_sorts"
+                                           class="input-sm form-control  ">
+                                    <span class="input-group-addon">--</span>
+                                    <input type="text" placeholder="请输入排序" name="filter_sorte" id="filter_sorte"
+                                           class="input-sm form-control  ">
+                                </div>
+                            </div>
+
+
+                            <div id="filter-div-content" class="col-sm-3 m-b-xs">
+                                <input type="text" placeholder="请输入内容" name="filter_content" id="filter_content"
+                                       class="input-sm form-control">
+                            </div>
+
+
+                            <div id="filter-div-createTime" class="col-sm-3 m-b-xs">
+                                <div class="input-daterange input-group" id="datepicker">
+                                    <input type="text" placeholder="请输入创建时间日期" name="filter_createTimes"
+                                           id="filter_createTimes" class="input-sm form-control  ">
+                                    <span class="input-group-addon">——</span>
+                                    <input type="text" placeholder="请输入创建时间日期" name="filter_createTimee"
+                                           id="filter_createTimee" class="input-sm form-control  ">
+                                </div>
+                            </div>
+
+
+                            <div id="filter-div-updateTime" class="col-sm-3 m-b-xs">
+                                <div class="input-daterange input-group" id="datepicker">
+                                    <input type="text" placeholder="请输入修改时间日期" name="filter_updateTimes"
+                                           id="filter_updateTimes" class="input-sm form-control  ">
+                                    <span class="input-group-addon">——</span>
+                                    <input type="text" placeholder="请输入修改时间日期" name="filter_updateTimee"
+                                           id="filter_updateTimee" class="input-sm form-control  ">
+                                </div>
+                            </div>
 
 
                             <div class="col-sm-2　 m-b-xs">
@@ -126,7 +137,7 @@
                             </div>
                         </div>
                         <div class="dataTables_wrapper form-inline">
-                            <table id="Acg12User_list"></table>
+                            <table id="Acg12Banner_list"></table>
                         </div>
                     </div>
                 </form>
@@ -158,7 +169,7 @@
 
 
 <script>
-    $('#Acg12User_list').bootstrapTable({
+    $('#Acg12Banner_list').bootstrapTable({
         method: 'get',
         toolbar: '#toolbar',    //工具按钮用哪个容器
         striped: true,      //是否显示行间隔色
@@ -186,22 +197,29 @@
                 title: "id", field: "id", align: "center", valign: "middle", sortable: true
             },
             {
-                title: "账号", field: "username", align: "center", valign: "middle", sortable: true
+                title: "标题", field: "title", align: "center", valign: "middle", sortable: true
             },
             {
-                title: "邮箱", field: "email", align: "center", valign: "middle", sortable: true
+                title: "类型", field: "type", align: "center", valign: "middle", sortable: true
             },
             {
-                title: "头像", field: "avatar", align: "center", valign: "middle", sortable: true
+                title: "类型名", field: "typeName", align: "center", valign: "middle", sortable: true
             },
             {
-                title: "昵称", field: "nick", align: "center", valign: "middle", sortable: true
+                title: "锁定", field: "isLock", align: "center", valign: "middle", sortable: true
             },
             {
-                title: "性别", field: "sex", align: "center", valign: "middle", sortable: true
+                title: "图片", field: "cover", align: "center", valign: "middle", sortable: true
+                , formatter: function (value, row, index) {
+                    var a = "<img src=" + value + " height='60px' width='60px' />";
+                    return a;
+                }
             },
             {
-                title: "签名", field: "sign", align: "center", valign: "middle", sortable: true
+                title: "排序", field: "sort", align: "center", valign: "middle", sortable: true
+            },
+            {
+                title: "内容", field: "content", align: "center", valign: "middle", sortable: true
             },
             {
                 title: "创建时间", field: "createTime", align: "center", valign: "middle", sortable: true
@@ -216,7 +234,7 @@
 
             },
             {
-                title: "更新时间", field: "updateTime", align: "center", valign: "middle", sortable: true
+                title: "修改时间", field: "updateTime", align: "center", valign: "middle", sortable: true
                 , formatter: function (value, row, index) {
                     if ("undefined" != value + "") {
                         var a = dateFtt("yyyy-MM-dd hh:mm:ss", new Date(value));
@@ -234,9 +252,8 @@
                     //value：当前field的值，即id
                     //row：当前行的数据
                     var a =
-                            "<a class='btn btn-xs btn-default' data-id='" + value + "'  href='view/" + row.id + ".html' ><i class='fa fa-paste'></i>查看 </a>　"
-                            + "<a class='btn btn-danger btn-xs btn-delete-loippi2'  href='javascript:del(" + row.id + ")' data-id='" + row.id + "' ><i class='fa fa-trash'></i> 删除</a>　"
-                            + "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='edit/" + row.id + ".html' ><i class='fa fa-paste'></i> 编辑</a>";
+                            "<a class='btn btn-danger btn-xs btn-delete-loippi2'  href='javascript:del(" + row.id + ")' data-id='" + row.id + "' ><i class='fa fa-trash'></i> 删除</a>　"
+                            + "<a class='btn btn-info btn-xs btn-edit-loippi' data-id='" + row.id + "'  href='javascript:to_edit(" + row.id + ")' ><i class='fa fa-paste'></i> 编辑</a>  ";
                     return a;
                 }
             },
@@ -256,21 +273,31 @@
             filter_ids: $("#filter_ids").val(),
             filter_ide: $("#filter_ide").val(),
 
-            filter_usernamelike: $("#filter_username").val(),
+            filter_titlelike: $("#filter_title").val(),
 
-            filter_passwordlike: $("#filter_password").val(),
+            filter_types: $("#filter_types").val(),
+            filter_typee: $("#filter_typee").val(),
 
-            filter_emaillike: $("#filter_email").val(),
 
-            filter_avatarlike: $("#filter_avatar").val(),
+            filter_typeNamelike: $("#filter_typeName").val(),
 
-            filter_nicklike: $("#filter_nick").val(),
+            filter_isLocks: $("#filter_isLocks").val(),
+            filter_isLocke: $("#filter_isLocke").val(),
 
-            filter_sexs: $("#filter_sexs").val(),
-            filter_sexe: $("#filter_sexe").val(),
 
-            filter_signlike: $("#filter_sign").val(),
+            filter_coverlike: $("#filter_cover").val(),
 
+            filter_sorts: $("#filter_sorts").val(),
+            filter_sorte: $("#filter_sorte").val(),
+
+
+            filter_contentlike: $("#filter_content").val(),
+
+            filter_createTimes: $("#filter_createTimes").val(),
+            filter_createTimee: $("#filter_createTimee").val(),
+
+            filter_updateTimes: $("#filter_updateTimes").val(),
+            filter_updateTimee: $("#filter_updateTimee").val(),
             sortName: params.sortName,
             sortOrder: params.sortOrder
         };
@@ -282,7 +309,7 @@
     function initColumns() {
         //初始化显示列
         [#list systemColumnList as systemColumn]
-	        $('#Acg12User_list').bootstrapTable('${systemColumn.columnType}', '${systemColumn.columnName}');
+	        $('#Acg12Banner_list').bootstrapTable('${systemColumn.columnType}', '${systemColumn.columnName}');
         [/#list]
         //  初始化搜索字段
         [#list systemColumnSearchList as systemColumn]
@@ -318,7 +345,7 @@
         });
 
         $.ajax({
-            url: "updateColumnSearchLists.html",
+            url: "updateColumnSearchLists.jhtml",
             type: "GET",
             data: {
                 visibleColumns: visibleColumns,
@@ -332,13 +359,13 @@
 
     //页面跳转
     function refreshNum() {
-        $('#Acg12User_list').bootstrapTable('selectPage', $('#searchPageNum').val());
+        $('#Acg12Banner_list').bootstrapTable('selectPage', $('#searchPageNum').val());
     };
 
     //搜索按钮
     $(".btn-primary-search").click(function () {
-        $('#Acg12User_list').bootstrapTable('selectPage', 1);
-        $('#Acg12User_list').bootstrapTable(
+        $('#Acg12Banner_list').bootstrapTable('selectPage', 1);
+        $('#Acg12Banner_list').bootstrapTable(
                 "refresh",
                 {
                     url: "listNew.json"
@@ -358,7 +385,7 @@
                     dataType: "json",
                     cache: false,
                     success: function (message) {
-                        $('#Acg12User_list').bootstrapTable(
+                        $('#Acg12Banner_list').bootstrapTable(
                                 "refresh",
                                 {
                                     url: "listNew.json"
@@ -373,7 +400,7 @@
     // 删除多条条记录
     function dels(val) {
         bootbox.confirm(message("admin.dialog.deleteConfirm"), function (result) {
-            var rows = $.map($('#Acg12User_list').bootstrapTable('getSelections'), function (row) {
+            var rows = $.map($('#Acg12Banner_list').bootstrapTable('getSelections'), function (row) {
                 return row.id
             });
             var ids = "";
@@ -388,7 +415,7 @@
                     dataType: "json",
                     cache: false,
                     success: function (message) {
-                        $('#Acg12User_list').bootstrapTable(
+                        $('#Acg12Banner_list').bootstrapTable(
                                 "refresh",
                                 {
                                     url: "listNew.json"
@@ -431,6 +458,7 @@
             }
         });
     }
+
 </script>
 
 

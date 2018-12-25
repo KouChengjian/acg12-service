@@ -153,6 +153,17 @@
           $.ajax(params)
       }
 
+      // 图片预览
+      $(document).on('click', 'img', function () {
+          var $this =  $(this)
+          var src = $this.attr('src')
+          layer.open({
+              title: '预览',
+              content: '<img style="width: 100%" src="'+ src +'"/>',
+              area: '800px',
+              btn: []
+          })
+      })
   </script>
 
 <#--<script src="${base}/resources/js/jumper.js"></script>-->
