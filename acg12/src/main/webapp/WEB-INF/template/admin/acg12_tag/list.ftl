@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
 
-    <title>${setting.siteName} - banner管理</title>
+    <title>${setting.siteName} - 标签管理</title>
     <meta name="keywords" content="${setting.siteName}">
     <meta name="description" content="${setting.siteName}">
 
@@ -22,9 +22,9 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
-                <form id="listForm" action="list.html" method="get">
+                <form id="listForm" action="list.jhtml" method="get">
                     <div class="ibox-title">
-                        <h5>banner管理 </h5>
+                        <h5>标签管理 </h5>
                         <div class="ibox-tools">
                             <a class="btn btn-outline btn-success btn-xs" id="btn-add-loippi"
                                href="javascript:to_add()"><i
@@ -41,26 +41,21 @@
                                 <div class="input-group">
                                     <input type="text" placeholder="请输入id" name="filter_ids" id="filter_ids"
                                            class="input-sm form-control  ">
-                                </div>
-                            </div>
-
-
-                            <div id="filter-div-title" class="col-sm-3 m-b-xs">
-                                <input type="text" placeholder="请输入标题" name="filter_title" id="filter_title"
-                                       class="input-sm form-control">
-                            </div>
-
-
-                            <div id="filter-div-type" class="col-sm-3 m-b-xs">
-                                <div class="input-group">
-                                    <input type="text" placeholder="请输入类型" name="filter_types" id="filter_types"
+                                    <span class="input-group-addon">--</span>
+                                    <input type="text" placeholder="请输入id" name="filter_ide" id="filter_ide"
                                            class="input-sm form-control  ">
                                 </div>
                             </div>
 
 
-                            <div id="filter-div-typeName" class="col-sm-3 m-b-xs">
-                                <input type="text" placeholder="请输入类型名" name="filter_typeName" id="filter_typeName"
+                            <div id="filter-div-name" class="col-sm-3 m-b-xs">
+                                <input type="text" placeholder="请输入名称" name="filter_name" id="filter_name"
+                                       class="input-sm form-control">
+                            </div>
+
+
+                            <div id="filter-div-cover" class="col-sm-3 m-b-xs">
+                                <input type="text" placeholder="请输入封面" name="filter_cover" id="filter_cover"
                                        class="input-sm form-control">
                             </div>
 
@@ -68,6 +63,20 @@
                             <div id="filter-div-isLock" class="col-sm-3 m-b-xs">
                                 <div class="input-group">
                                     <input type="text" placeholder="请输入锁定" name="filter_isLocks" id="filter_isLocks"
+                                           class="input-sm form-control  ">
+                                    <span class="input-group-addon">--</span>
+                                    <input type="text" placeholder="请输入锁定" name="filter_isLocke" id="filter_isLocke"
+                                           class="input-sm form-control  ">
+                                </div>
+                            </div>
+
+
+                            <div id="filter-div-type" class="col-sm-3 m-b-xs">
+                                <div class="input-group">
+                                    <input type="text" placeholder="请输入类型" name="filter_types" id="filter_types"
+                                           class="input-sm form-control  ">
+                                    <span class="input-group-addon">--</span>
+                                    <input type="text" placeholder="请输入类型" name="filter_typee" id="filter_typee"
                                            class="input-sm form-control  ">
                                 </div>
                             </div>
@@ -82,7 +91,7 @@
                             </div>
                         </div>
                         <div class="dataTables_wrapper form-inline">
-                            <table id="Acg12Banner_list"></table>
+                            <table id="Acg12Tag_list"></table>
                         </div>
                     </div>
                 </form>
@@ -114,7 +123,7 @@
 
 
 <script>
-    $('#Acg12Banner_list').bootstrapTable({
+    $('#Acg12Tag_list').bootstrapTable({
         method: 'get',
         toolbar: '#toolbar',    //工具按钮用哪个容器
         striped: true,      //是否显示行间隔色
@@ -142,29 +151,20 @@
                 title: "id", field: "id", align: "center", valign: "middle", sortable: true
             },
             {
-                title: "标题", field: "title", align: "center", valign: "middle", sortable: true
+                title: "名称", field: "name", align: "center", valign: "middle", sortable: true
             },
             {
-                title: "类型", field: "type", align: "center", valign: "middle", sortable: true
-            },
-            {
-                title: "类型名", field: "typeName", align: "center", valign: "middle", sortable: true
-            },
-            {
-                title: "锁定", field: "isLock", align: "center", valign: "middle", sortable: true
-            },
-            {
-                title: "图片", field: "cover", align: "center", valign: "middle", sortable: true
+                title: "封面", field: "cover", align: "center", valign: "middle", sortable: true
                 , formatter: function (value, row, index) {
                     var a = "<img src=" + value + " height='60px' width='60px' />";
                     return a;
                 }
             },
             {
-                title: "排序", field: "sort", align: "center", valign: "middle", sortable: true
+                title: "锁定", field: "isLock", align: "center", valign: "middle", sortable: true
             },
             {
-                title: "内容", field: "content", align: "center", valign: "middle", sortable: true
+                title: "类型", field: "type", align: "center", valign: "middle", sortable: true
             },
             {
                 title: "创建时间", field: "createTime", align: "center", valign: "middle", sortable: true
@@ -179,7 +179,7 @@
 
             },
             {
-                title: "修改时间", field: "updateTime", align: "center", valign: "middle", sortable: true
+                title: "更新时间", field: "updateTime", align: "center", valign: "middle", sortable: true
                 , formatter: function (value, row, index) {
                     if ("undefined" != value + "") {
                         var a = dateFtt("yyyy-MM-dd hh:mm:ss", new Date(value));
@@ -218,25 +218,17 @@
             filter_ids: $("#filter_ids").val(),
             filter_ide: $("#filter_ide").val(),
 
-            filter_titlelike: $("#filter_title").val(),
+            filter_namelike: $("#filter_name").val(),
 
-            filter_types: $("#filter_types").val(),
-            filter_typee: $("#filter_typee").val(),
-
-
-            filter_typeNamelike: $("#filter_typeName").val(),
+            filter_coverlike: $("#filter_cover").val(),
 
             filter_isLocks: $("#filter_isLocks").val(),
             filter_isLocke: $("#filter_isLocke").val(),
 
 
-            filter_coverlike: $("#filter_cover").val(),
+            filter_types: $("#filter_types").val(),
+            filter_typee: $("#filter_typee").val(),
 
-            filter_sorts: $("#filter_sorts").val(),
-            filter_sorte: $("#filter_sorte").val(),
-
-
-            filter_contentlike: $("#filter_content").val(),
 
             filter_createTimes: $("#filter_createTimes").val(),
             filter_createTimee: $("#filter_createTimee").val(),
@@ -254,12 +246,12 @@
     function initColumns() {
         //初始化显示列
         [#list systemColumnList as systemColumn]
-	        $('#Acg12Banner_list').bootstrapTable('${systemColumn.columnType}', '${systemColumn.columnName}');
+	        $('#Acg12Tag_list').bootstrapTable('${systemColumn.columnType}', '${systemColumn.columnName}');
         [/#list]
         //  初始化搜索字段
         [#list systemColumnSearchList as systemColumn]
-            $('#checkbox-search-${systemColumn.columnName}').iCheck('${systemColumn.columnType}');
-            $('#checkbox-search-${systemColumn.columnName}').attr('checked', '${systemColumn.columnType}');
+           $('#checkbox-search-${systemColumn.columnName}').iCheck('${systemColumn.columnType}');
+           $('#checkbox-search-${systemColumn.columnName}').attr('checked', '${systemColumn.columnType}');
         [/#list]
 
         $("[name='checkbox-search']").each(function () {
@@ -304,13 +296,13 @@
 
     //页面跳转
     function refreshNum() {
-        $('#Acg12Banner_list').bootstrapTable('selectPage', $('#searchPageNum').val());
+        $('#Acg12Tag_list').bootstrapTable('selectPage', $('#searchPageNum').val());
     };
 
     //搜索按钮
     $(".btn-primary-search").click(function () {
-        $('#Acg12Banner_list').bootstrapTable('selectPage', 1);
-        $('#Acg12Banner_list').bootstrapTable(
+        $('#Acg12Tag_list').bootstrapTable('selectPage', 1);
+        $('#Acg12Tag_list').bootstrapTable(
                 "refresh",
                 {
                     url: "listNew.json"
@@ -330,7 +322,7 @@
                     dataType: "json",
                     cache: false,
                     success: function (message) {
-                        $('#Acg12Banner_list').bootstrapTable(
+                        $('#Acg12Tag_list').bootstrapTable(
                                 "refresh",
                                 {
                                     url: "listNew.json"
@@ -345,7 +337,7 @@
     // 删除多条条记录
     function dels(val) {
         bootbox.confirm(message("admin.dialog.deleteConfirm"), function (result) {
-            var rows = $.map($('#Acg12Banner_list').bootstrapTable('getSelections'), function (row) {
+            var rows = $.map($('#Acg12Tag_list').bootstrapTable('getSelections'), function (row) {
                 return row.id
             });
             var ids = "";
@@ -360,7 +352,7 @@
                     dataType: "json",
                     cache: false,
                     success: function (message) {
-                        $('#Acg12Banner_list').bootstrapTable(
+                        $('#Acg12Tag_list').bootstrapTable(
                                 "refresh",
                                 {
                                     url: "listNew.json"
@@ -403,7 +395,6 @@
             }
         });
     }
-
 </script>
 
 
