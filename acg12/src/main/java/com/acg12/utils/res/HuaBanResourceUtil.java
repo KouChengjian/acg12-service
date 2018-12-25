@@ -282,7 +282,7 @@ public class HuaBanResourceUtil {
                             palette.setName(boardjs.getString("title"));
                             palette.setNum(boardjs.getInt("pin_count"));
                             palette.setUrlAlbum(url);
-                            palette.setBoardId(boardjs.getString("board_id"));
+                            palette.setBoardId(boardjs.getLong("board_id")+"");
                             paletteList.add(palette);
                         }
                     }

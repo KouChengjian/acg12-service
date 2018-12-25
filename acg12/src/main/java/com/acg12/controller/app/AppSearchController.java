@@ -24,7 +24,7 @@ public class AppSearchController {
 
     @ResponseBody
     @RequestMapping(value = "/key", method = {RequestMethod.POST})
-    public Result searchKeyList(String key) throws Exception {
+    public Result searchKeyList(String key) {
         String content = acg12ResourceService.getMengNiangSearchKeyList(key);
         if (content == null || content.isEmpty()) {
             return Result.error("数据为空");
@@ -56,7 +56,7 @@ public class AppSearchController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/paletteList", method = {RequestMethod.POST} , produces = "application/json ;charset=utf-8")
+    @RequestMapping(value = "/paletteList", method = {RequestMethod.POST})
     public Result paletteList(String key, String page)   {
         List<Acg12PaletteDto> paletteList = acg12ResourceService.getHuaBanSearchBoards(key, page);
         if (paletteList == null || paletteList.size() == 0) {

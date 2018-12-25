@@ -59,7 +59,7 @@ public class AppCommonController extends AppBaseController {
     @Transactional
     @ResponseBody
     @RequestMapping(value = "/register", method = {RequestMethod.POST})
-    public Result register(String username, String password, int verify)   {
+    public Result register(String username, String password, int verify) {
         if (StringUtil.isEmpty(username) || StringUtil.isEmpty(password) || verify == 0) {
             return Result.error("参数有误", AppConstants.AppError5000020);
         }
@@ -162,7 +162,7 @@ public class AppCommonController extends AppBaseController {
 
     @ResponseBody
     @RequestMapping(value = "/boardList/albums", method = {RequestMethod.GET})
-    public Result subjectBoardsAlbums(@RequestParam("max") String max, @RequestParam("boardId") String boardId)   {
+    public Result subjectBoardsAlbums(@RequestParam("max") String max, @RequestParam("boardId") String boardId) {
         List<Acg12AlbumDto> albumList = acg12ResourceService.getHuaBanBoardsToImages(boardId, max);
         if (albumList == null || albumList.size() == 0) {
             return Result.error("数据为空");
@@ -178,34 +178,32 @@ public class AppCommonController extends AppBaseController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/home/subject", method = {RequestMethod.GET})
+    @RequestMapping(value = "/subject", method = {RequestMethod.GET})
     public Result homeSubjectInfo(int id, int type, String key) {
-//        if (type == 1) {
-//            CharacterInfoDto characterInfoDto = characterService.queryByCIdJoinDetail(id);
-//            if (characterInfoDto == null || characterInfoDto.getsId() == 0) {
-//                characterInfoDto = resService.getBgmCharacterInfo(id);
-//                if (characterInfoDto == null || characterInfoDto.getsId() == 0) {
-//                    return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
-//                } else {
-//                    return new ResponseEntity<>(Result.create200(characterInfoDto), HttpStatus.OK);
-//                }
-//            } else {
-//                return new ResponseEntity<>(Result.create200(characterInfoDto), HttpStatus.OK);
-//            }
-//        } else {
-//            SubjectInfoDto subjectInfoDto = subjectService.queryBySIdJoinDetail(id);
-//            if (subjectInfoDto == null || subjectInfoDto.getSubjectId() == null) {
-//                subjectInfoDto = resService.getBgmSubjectInfo(id);
-//                if (subjectInfoDto == null || subjectInfoDto.getSubjectId() == null) {
-//                    return new ResponseEntity<>(Result.create202(), HttpStatus.OK);
-//                } else {
-//                    return new ResponseEntity<>(Result.create200(subjectInfoDto), HttpStatus.OK);
-//                }
-//            } else {
-//                return new ResponseEntity<>(Result.create200(subjectInfoDto), HttpStatus.OK);
-//            }
-//        }
-        return Result.ok();
+        if (type == 0) {
+            Acg12SubjectDto acg12SubjectDto =  acg12SubjectService.findSubjectDto(id);
+            if (acg12SubjectDto != null) {
+                return Result.ok(acg12SubjectDto);
+            } else {
+                return Result.error("数据为空");
+            }
+        } else if (type == 1) {
+            Acg12CharacterDto acg12CharacterDto = acg12CharacterService.findCharacterDto(id);
+            if (acg12CharacterDto != null) {
+                return Result.ok(acg12CharacterDto);
+            } else {
+                return Result.error("数据为空");
+            }
+        } else if (type == 2) {
+            Acg12PersonDto acg12PersonDto =  acg12PersonService.findPersonDto(id);
+            if (acg12PersonDto != null) {
+                return Result.ok(acg12PersonDto);
+            } else {
+                return Result.error("数据为空");
+            }
+        } else {
+            return Result.error("数据为空");
+        }
     }
 
     /**

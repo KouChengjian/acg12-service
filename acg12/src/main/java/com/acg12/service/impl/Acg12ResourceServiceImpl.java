@@ -5,6 +5,7 @@ import com.acg12.entity.dto.Acg12PaletteDto;
 import com.acg12.entity.dto.Acg12VideoDto;
 import com.acg12.service.Acg12ResourceService;
 import com.acg12.utils.res.*;
+import org.json.JSONArray;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -60,8 +61,8 @@ public class Acg12ResourceServiceImpl implements Acg12ResourceService {
 
     @Override
     public String getBgmSearchKeyList(String key) {
-        BgmResourceUtil.getCalendarList();
-        return null;
+        JSONArray jsonArray = BgmResourceUtil.getBgmSearchPresonList(key);
+        return BgmResourceUtil.getBgmSearchSubjectList(key, 0, 0, jsonArray);
     }
 
     @Override

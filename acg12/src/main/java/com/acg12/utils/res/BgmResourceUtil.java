@@ -25,13 +25,17 @@ import java.util.List;
  */
 public class BgmResourceUtil {
 
+    // 搜索关键字获取列表
+    public static synchronized String getBgmSearchSubjectList(String key, int type, int start) {
+        return getBgmSearchSubjectList(key, type, start, null);
+    }
+
     /**
      * @param key
      * @param type  1 书籍 2 动画 3 音乐 4 游戏 6 三次元   书籍包括漫画和小说 分成 7、8  10、虚拟角色 11、现实角色
      * @param start
      */
-
-    public static synchronized JSONObject getBgmSearchSubjectList(String key, int type, int start, JSONArray cutItem) {
+    public static synchronized String getBgmSearchSubjectList(String key, int type, int start, JSONArray cutItem) {
         System.setProperty("http.proxyHost", "localhost");
 //        System.setProperty("http.proxyPort", "8888");
 //        System.setProperty("https.proxyHost", "localhost");
@@ -88,7 +92,7 @@ public class BgmResourceUtil {
             jsonObject.remove("list");
             jsonObject.put("list", jsonArray);
             System.err.println(jsonObject.toString());
-            return jsonObject;
+            return jsonObject.toString();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -98,12 +102,7 @@ public class BgmResourceUtil {
 
     }
 
-    // 搜索关键字获取列表
-    public static synchronized JSONObject getBgmSearchSubjectList(String key, int type, int start) {
-        return getBgmSearchSubjectList(key, type, start, null);
-    }
-
-    public static synchronized String getBgmSearchPresonList(String key) {
+    public static synchronized JSONArray getBgmSearchPresonList(String key) {
         // http://bangumi.tv/mono_search/%s?cat=crt
         // http://bangumi.tv/mono_search/%s?cat=prsn
         // http://bangumi.tv/mono_search/%s?cat=all
@@ -143,7 +142,7 @@ public class BgmResourceUtil {
                 jsonObject.put("typeName", "人物");
                 jsonArray.put(jsonObject);
             }
-            return jsonArray.toString();
+            return jsonArray;
         } catch (Exception e) {
             System.out.println(e.toString());
         }
