@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
-import com.acg12.entity.po.Acg12Tag;
+import com.acg12.entity.po.Acg12TagEntity;
 import com.acg12.entity.po.SystemUserEntity;
 import com.acg12.service.SystemUserService;
 import com.acg12.support.Message;
@@ -57,7 +57,7 @@ public class Acg12TagController extends GenericController {
      * 保存
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(Acg12Tag acg12Tag, RedirectAttributes redirectAttributes) {
+    public String save(Acg12TagEntity acg12Tag, RedirectAttributes redirectAttributes) {
         SystemUserEntity user=userService.getCurrent();
 
 
@@ -71,7 +71,7 @@ public class Acg12TagController extends GenericController {
      */
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable Long id, ModelMap model) {
-        Acg12Tag acg12Tag = acg12TagService.find(id);
+        Acg12TagEntity acg12Tag = acg12TagService.find(id);
         model.addAttribute("acg12Tag", acg12Tag);
         return "/admin/acg12_tag/edit";
     }
@@ -82,7 +82,7 @@ public class Acg12TagController extends GenericController {
      */
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
     public String view(@PathVariable Long id, ModelMap model) {
-        Acg12Tag acg12Tag = acg12TagService.find(id);
+        Acg12TagEntity acg12Tag = acg12TagService.find(id);
         model.addAttribute("acg12Tag", acg12Tag);
         return "/admin/acg12_tag/view";
     }
@@ -92,7 +92,7 @@ public class Acg12TagController extends GenericController {
      * 更新
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String update(Acg12Tag acg12Tag, RedirectAttributes redirectAttributes) {
+    public String update(Acg12TagEntity acg12Tag, RedirectAttributes redirectAttributes) {
         acg12TagService.update(acg12Tag);
         addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
         return "redirect:list.html";
@@ -172,7 +172,7 @@ public class Acg12TagController extends GenericController {
         map.put("pageSize", pageSize);
         map= this.dateAndOrderMap(map, request);
 
-        List<Acg12Tag> acg12Tags = acg12TagService.findListNewByPage(map);
+        List<Acg12TagEntity> acg12Tags = acg12TagService.findListNewByPage(map);
         Map returnMap = new HashMap();
         returnMap.put("total", total);
         returnMap.put("rows", acg12Tags);

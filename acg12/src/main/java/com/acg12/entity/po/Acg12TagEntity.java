@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "T_ACG12_TAG")
-public class Acg12Tag implements GenericEntity {
+public class Acg12TagEntity implements GenericEntity {
 
 	private static final long serialVersionUID = 5081846432919091193L;
 

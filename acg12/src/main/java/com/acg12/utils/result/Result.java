@@ -38,19 +38,19 @@ public class Result extends HashMap<String, Object> {
         return error(AppConstants.AppError5000000, msg);
     }
 
-    /**
-     * Error r.
-     *
-     * @param code the code
-     * @param msg  the msg
-     * @return the r
-     */
-    public static Result error(int code, String msg) {
-        Result r = new Result();
-        r.put("code", code);
-        r.put("msg", msg);
-        return r;
-    }
+//    /**
+//     * Error r.
+//     *
+//     * @param code the code
+//     * @param msg  the msg
+//     * @return the r
+//     */
+//    public static Result error(int code, String msg) {
+//        Result r = new Result();
+//        r.put("code", code);
+//        r.put("msg", msg);
+//        return r;
+//    }
 
     /**
      * Error r.
@@ -59,7 +59,7 @@ public class Result extends HashMap<String, Object> {
      * @param code the code
      * @return the r
      */
-    public static Result error(String msg, String code) {
+    public static Result error(String code, String msg) {
         Result r = new Result();
         r.put("msg", msg);
         r.put("code", code);

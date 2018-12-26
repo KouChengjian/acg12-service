@@ -16,7 +16,7 @@ public interface Acg12ResourceService {
      */
 //    JSONObject getIndex();
 
-//    IndexDto getIndex();
+//    Acg12IndexDto getIndex();
 
     /**
      * --------------------------------------花瓣网资源-------------------------------------------

@@ -3,11 +3,14 @@ package com.acg12.controller.app;
 import com.acg12.constant.AppConstants;
 import com.acg12.controller.AppBaseController;
 import com.acg12.entity.dto.*;
+import com.acg12.entity.po.Acg12BannerEntity;
+import com.acg12.entity.po.Acg12TagEntity;
 import com.acg12.entity.po.Acg12UserEntity;
 import com.acg12.service.*;
 import com.acg12.utils.StringUtil;
 import com.acg12.utils.res.BgmResourceUtil;
 import com.acg12.utils.result.Result;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -39,6 +44,10 @@ public class AppCommonController extends AppBaseController {
     private Acg12CharacterService acg12CharacterService;
     @Resource
     private Acg12ResourceService acg12ResourceService;
+    @Resource
+    private Acg12BannerService acg12BannerService;
+    @Resource
+    private Acg12TagService acg12TagService;
 
     @Transactional
     @ResponseBody
@@ -99,20 +108,24 @@ public class AppCommonController extends AppBaseController {
     }
 
 
-    @ResponseBody
     @RequestMapping(value = "/index", method = {RequestMethod.GET})
-    public void index() {
-//        IndexDto indexDto = resService.getIndex();
-//        if (indexDto == null) {
-//            return new ResponseEntity<>(Result.create202("由于技术原因，暂时停止服务"), HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(Result.create200(indexDto), HttpStatus.OK);
-//        }
-//        if (content == null || content.isEmpty()) {
-//            return Result.ok();
-//        } else {
-//            return Result.ok().put("data", content);
-//        }
+    public Result index() {
+        Acg12BannerEntity bannerEntity = acg12BannerService.find("type", 1);
+        Map<String, Object> parameter = new HashMap<String, Object>();
+//        parameter.put("pageNumber", (pageNumber - 1) * pageSize);
+//        parameter.put("pageSize", pageSize);
+        parameter.put("pageNumber", 0);
+        parameter.put("pageSize", 10);
+        parameter.put("status", 1);
+        parameter.put("order", " id desc");
+        List<Acg12TagEntity> tagList = acg12TagService.findListByPage(parameter);
+        if (bannerEntity == null || tagList == null || tagList.size() == 0) {
+            return Result.error("数据为空");
+        }
+        Acg12IndexDto acg12IndexDto = new Acg12IndexDto();
+        BeanUtils.copyProperties(bannerEntity, acg12IndexDto);
+        acg12IndexDto.setTagList(tagList);
+        return Result.ok(acg12IndexDto);
     }
 
     @ResponseBody
@@ -162,7 +175,7 @@ public class AppCommonController extends AppBaseController {
 
     @ResponseBody
     @RequestMapping(value = "/boardList/albums", method = {RequestMethod.GET})
-    public Result subjectBoardsAlbums(@RequestParam("max") String max, @RequestParam("boardId") String boardId) {
+    public Result boardListInfo(@RequestParam("max") String max, @RequestParam("boardId") String boardId) {
         List<Acg12AlbumDto> albumList = acg12ResourceService.getHuaBanBoardsToImages(boardId, max);
         if (albumList == null || albumList.size() == 0) {
             return Result.error("数据为空");
@@ -173,38 +186,53 @@ public class AppCommonController extends AppBaseController {
 
     /**
      * @param id
-     * @param type 0:subject 1:cre 2:preson
+     * @param type 0:subject 1:crt 2:preson
      * @param key
      * @return
      */
     @ResponseBody
     @RequestMapping(value = "/subject", method = {RequestMethod.GET})
-    public Result homeSubjectInfo(int id, int type, String key) {
+    public Result subject(int id, int type, String key) {
         if (type == 0) {
-            Acg12SubjectDto acg12SubjectDto =  acg12SubjectService.findSubjectDto(id);
-            if (acg12SubjectDto != null) {
-                return Result.ok(acg12SubjectDto);
-            } else {
-                return Result.error("数据为空");
-            }
+            subjectInfo(id, key);
         } else if (type == 1) {
-            Acg12CharacterDto acg12CharacterDto = acg12CharacterService.findCharacterDto(id);
-            if (acg12CharacterDto != null) {
-                return Result.ok(acg12CharacterDto);
-            } else {
-                return Result.error("数据为空");
-            }
+            characterInfo(id, key);
         } else if (type == 2) {
-            Acg12PersonDto acg12PersonDto =  acg12PersonService.findPersonDto(id);
-            if (acg12PersonDto != null) {
-                return Result.ok(acg12PersonDto);
-            } else {
-                return Result.error("数据为空");
-            }
+            personInfo(id, key);
+        }
+
+        return Result.error("数据为空");
+    }
+
+    public Result subjectInfo(int id, String key) {
+        Acg12SubjectDto acg12SubjectDto = acg12SubjectService.findSubjectDto(id);
+        if (acg12SubjectDto != null) {
+            return Result.ok(acg12SubjectDto);
+        } else {
+            return Result.error("数据为空");
+        }
+//        acg12ResourceService.getDongManZhiJiaNews()
+    }
+
+    public Result characterInfo(int id, String key) {
+        Acg12CharacterDto acg12CharacterDto = acg12CharacterService.findCharacterDto(id);
+        if (acg12CharacterDto != null) {
+            return Result.ok(acg12CharacterDto);
+        } else {
+            return Result.error("数据为空");
+        }
+
+    }
+
+    public Result personInfo(int id, String key) {
+        Acg12PersonDto acg12PersonDto = acg12PersonService.findPersonDto(id);
+        if (acg12PersonDto != null) {
+            return Result.ok(acg12PersonDto);
         } else {
             return Result.error("数据为空");
         }
     }
+
 
     /**
      * -------------------------------------------------------测试数据------------------------------------------------------------
