@@ -1,8 +1,7 @@
 package com.acg12.service;
 
-import com.acg12.entity.dto.Acg12AlbumDto;
-import com.acg12.entity.dto.Acg12PaletteDto;
-import com.acg12.entity.dto.Acg12VideoDto;
+import com.acg12.entity.dto.*;
+import com.acg12.entity.po.Acg12CharacterEntity;
 
 import java.util.List;
 
@@ -53,11 +52,11 @@ public interface Acg12ResourceService {
     // 每日更新
     String getBgmCalendarList();
 
-//    JSONObject getBgmSubjectInfo(int sId, int type, String key);
+    Acg12SubjectDto getBgmSubject(int sId);
 
-//    CharacterInfoDto getBgmCharacterInfo(int cId);
+    Acg12PersonDto getBgmPerson(int pId);
 
-//    SubjectInfoDto getBgmSubjectInfo(int sId);
+    Acg12CharacterDto getBgmCharacter(int cId);
 
     /**
      * --------------------------------------bilibili资源--------------------------------------------

@@ -190,15 +190,16 @@ public class AppCommonController extends AppBaseController {
      * @param key
      * @return
      */
+    @Transactional
     @ResponseBody
     @RequestMapping(value = "/subject", method = {RequestMethod.GET})
     public Result subject(int id, int type, String key) {
         if (type == 0) {
-            subjectInfo(id, key);
+            return subjectInfo(id, key);
         } else if (type == 1) {
-            characterInfo(id, key);
+            return characterInfo(id, key);
         } else if (type == 2) {
-            personInfo(id, key);
+            return personInfo(id, key);
         }
 
         return Result.error("数据为空");
@@ -208,29 +209,36 @@ public class AppCommonController extends AppBaseController {
         Acg12SubjectDto acg12SubjectDto = acg12SubjectService.findSubjectDto(id);
         if (acg12SubjectDto != null) {
             return Result.ok(acg12SubjectDto);
-        } else {
-            return Result.error("数据为空");
         }
-//        acg12ResourceService.getDongManZhiJiaNews()
+        acg12SubjectDto = acg12ResourceService.getBgmSubject(id);
+        if (acg12SubjectDto != null) {
+            return Result.ok(acg12SubjectDto);
+        }
+        return Result.error("数据为空");
     }
 
     public Result characterInfo(int id, String key) {
         Acg12CharacterDto acg12CharacterDto = acg12CharacterService.findCharacterDto(id);
         if (acg12CharacterDto != null) {
             return Result.ok(acg12CharacterDto);
-        } else {
-            return Result.error("数据为空");
         }
-
+        acg12CharacterDto = acg12ResourceService.getBgmCharacter(id);
+        if (acg12CharacterDto != null) {
+            return Result.ok(acg12CharacterDto);
+        }
+        return Result.error("数据为空");
     }
 
     public Result personInfo(int id, String key) {
         Acg12PersonDto acg12PersonDto = acg12PersonService.findPersonDto(id);
         if (acg12PersonDto != null) {
             return Result.ok(acg12PersonDto);
-        } else {
-            return Result.error("数据为空");
         }
+        acg12PersonDto = acg12ResourceService.getBgmPerson(id);
+        if (acg12PersonDto != null) {
+            return Result.ok(acg12PersonDto);
+        }
+        return Result.error("数据为空");
     }
 
 

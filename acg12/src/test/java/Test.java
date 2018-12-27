@@ -1,6 +1,7 @@
 import com.acg12.entity.dto.Acg12PersonDto;
 import com.acg12.entity.dto.Acg12SubjectDto;
 import com.acg12.utils.res.BgmResourceUtil;
+import org.json.JSONArray;
 
 import java.util.List;
 
@@ -13,8 +14,9 @@ import java.util.List;
 public class Test {
 
     public static void main(String[] args) {
-        Acg12SubjectDto subjectDto = BgmResourceUtil.getSubjectDto(1031);
-        System.out.println(subjectDto.toString());
+//        Acg12SubjectDto subjectDto = BgmResourceUtil.getSubjectDto(1031);
+//        System.out.println(subjectDto.toString());
+
 //        Acg12PersonDto acg12PersonDto = BgmResourceUtil.getPersonDto(6054);
 //        System.out.println(acg12PersonDto.toString());
 
@@ -29,5 +31,10 @@ public class Test {
 
 //        List<Integer> list4 = BgmResourceUtil.characterType4();
 //        System.out.println(list4.toString());
+
+        // 搜索
+        String key = "葵";
+        JSONArray jsonArray = BgmResourceUtil.getBgmSearchPresonList(key);
+        BgmResourceUtil.getBgmSearchSubjectList(key, 0, 0, jsonArray);
     }
 }

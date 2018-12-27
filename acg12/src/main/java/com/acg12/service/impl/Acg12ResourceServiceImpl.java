@@ -1,8 +1,7 @@
 package com.acg12.service.impl;
 
-import com.acg12.entity.dto.Acg12AlbumDto;
-import com.acg12.entity.dto.Acg12PaletteDto;
-import com.acg12.entity.dto.Acg12VideoDto;
+import com.acg12.entity.dto.*;
+import com.acg12.entity.po.Acg12CharacterEntity;
 import com.acg12.service.Acg12ResourceService;
 import com.acg12.utils.res.*;
 import org.json.JSONArray;
@@ -68,6 +67,24 @@ public class Acg12ResourceServiceImpl implements Acg12ResourceService {
     @Override
     public String getBgmCalendarList() {
         return BgmResourceUtil.getCalendarList();
+    }
+
+    @Override
+    public Acg12SubjectDto getBgmSubject(int sId) {
+        Acg12SubjectDto acg12SubjectDto = BgmResourceUtil.getSubjectDto(sId);
+        return acg12SubjectDto;
+    }
+
+    @Override
+    public Acg12PersonDto getBgmPerson(int pId) {
+        Acg12PersonDto acg12PersonDto = BgmResourceUtil.getPersonDto(pId);
+        return acg12PersonDto;
+    }
+
+    @Override
+    public Acg12CharacterDto getBgmCharacter(int cId) {
+        Acg12CharacterDto acg12CharacterDto = BgmResourceUtil.getCharacterDto(cId);
+        return acg12CharacterDto;
     }
 
     @Override

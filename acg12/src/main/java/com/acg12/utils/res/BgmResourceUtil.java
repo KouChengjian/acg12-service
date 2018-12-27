@@ -7,7 +7,6 @@ import com.acg12.entity.dto.Acg12SubjectDto;
 import com.acg12.entity.po.*;
 import com.acg12.utils.JsonParse;
 import com.acg12.utils.UrlEncoderUtil;
-import com.acg12.utils.checkoutjson.CheckoutJsonUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -33,20 +32,23 @@ public class BgmResourceUtil {
     /**
      * @param key
      * @param type  1 书籍 2 动画 3 音乐 4 游戏 6 三次元   书籍包括漫画和小说 分成 7、8  10、虚拟角色 11、现实角色
-     * @param start
+     * @param start responseGroup Small Medium Large
      */
     public static synchronized String getBgmSearchSubjectList(String key, int type, int start, JSONArray cutItem) {
-        System.setProperty("http.proxyHost", "localhost");
+//        System.setProperty("http.proxyHost", "localhost");
 //        System.setProperty("http.proxyPort", "8888");
 //        System.setProperty("https.proxyHost", "localhost");
 //        System.setProperty("https.proxyPort", "8888");
-        String u = String.format("http://api.bgm.tv/search/subject/%s?type=%s&responseGroup=large&start=%d&max_results=10", UrlEncoderUtil.hasUrlEncoded(key) ? key : UrlEncoderUtil.encode(key), type, start);
+        String u = String.format("http://api.bgm.tv/search/subject/%s?type=%s&responseGroup=Medium&start=%d&max_results=10", UrlEncoderUtil.hasUrlEncoded(key) ? key : UrlEncoderUtil.encode(key), type, start);
         try {
             Document document = Jsoup.connect(u).ignoreContentType(true)
                     .data("jquery", "java").userAgent("Mozilla")
                     .cookie("auth", "token").timeout(50000).get();
-
-            JSONObject jsonObject = new JSONObject(document.body().text());
+            String body = document.body().text();
+            System.out.printf(body);
+            body = JsonParse.checkJson(body);
+            System.out.printf(body);
+            JSONObject jsonObject = new JSONObject(body);
             JSONArray list = jsonObject.getJSONArray("list");
             for (int i = 0, total = list.length(); i < total; i++) {
                 JSONObject item = list.getJSONObject(i);
@@ -142,6 +144,7 @@ public class BgmResourceUtil {
                 jsonObject.put("typeName", "人物");
                 jsonArray.put(jsonObject);
             }
+            System.out.println(jsonArray.toString());
             return jsonArray;
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -203,7 +206,7 @@ public class BgmResourceUtil {
             }
 //            System.out.println(content);
 //            System.out.println(StringUtil.stringToJson(content));
-//            content = CheckoutJsonUtil.stringToJson(content);
+            content = JsonParse.checkJson(content);
 //            System.out.printf(content);
             JSONObject contentJson = new JSONObject(content);
             if (!contentJson.isNull("code")) {
@@ -442,7 +445,7 @@ public class BgmResourceUtil {
             if (subjectOffprintEntityList.size() != 0) {
                 subjectDto.setOffprintList(subjectOffprintEntityList);
             }
-
+            System.err.printf(subjectDto.toString());
             return subjectDto;
         } catch (Exception e) {
             e.printStackTrace();
@@ -682,7 +685,7 @@ public class BgmResourceUtil {
                 return list;
             }
             int num = Integer.valueOf(s);
-            System.out.println(num+"=======");
+            System.out.println(num + "=======");
             for (int i = 1; i <= num; i++) {
                 document = Jsoup.connect(String.format(url, i)).ignoreContentType(true)
                         .data("jquery", "java").userAgent("Mozilla")
@@ -716,20 +719,20 @@ public class BgmResourceUtil {
             Elements page_inner = multipage.getElementsByClass("page_inner");
 //            System.out.println(page_inner.toString());
             Elements p_edge = page_inner.get(0).getElementsByClass("p_edge");
-            String s ;
-            if(p_edge.size() == 0){
+            String s;
+            if (p_edge.size() == 0) {
                 Elements als = page_inner.select("a");
-                Element a =als.get(als.size() -2);
+                Element a = als.get(als.size() - 2);
 //                System.out.println(a.text()+"");
                 s = a.text();
             } else {
-                 s = p_edge.text().replace("&nbsp;", "").replace(" ", "").replace("(1/", "").replace(")", "");
+                s = p_edge.text().replace("&nbsp;", "").replace(" ", "").replace("(1/", "").replace(")", "");
             }
             if (s == null || s.isEmpty()) {
                 return list;
             }
             int num = Integer.valueOf(s);
-            System.out.println(num+"=======");
+            System.out.println(num + "=======");
             for (int i = 1; i <= num; i++) {
                 document = Jsoup.connect(String.format(url, i)).ignoreContentType(true)
                         .data("jquery", "java").userAgent("Mozilla")
@@ -767,7 +770,7 @@ public class BgmResourceUtil {
                 return list;
             }
             int num = Integer.valueOf(s);
-            System.out.println(num+"=======");
+            System.out.println(num + "=======");
             for (int i = 1; i <= num; i++) {
                 document = Jsoup.connect(String.format(url, i)).ignoreContentType(true)
                         .data("jquery", "java").userAgent("Mozilla")
