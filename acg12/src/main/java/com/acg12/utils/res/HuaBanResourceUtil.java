@@ -295,4 +295,7 @@ public class HuaBanResourceUtil {
         }
         return paletteList;
     }
+
+    public static void main(String[] args) {
+    }
 }

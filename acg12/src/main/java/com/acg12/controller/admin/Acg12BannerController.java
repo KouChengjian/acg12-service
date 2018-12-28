@@ -12,6 +12,7 @@ import com.acg12.support.Message;
 import com.acg12.utils.StringUtil;
 import com.framework.loippi.utils.ParameterUtils;
 import com.framework.loippi.utils.doc.GSONUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -105,6 +106,7 @@ public class Acg12BannerController extends GenericController {
      * @param model
      * @return
      */
+    @RequiresPermissions("admin:system:banner:list")
     @RequestMapping(value = { "/list" }, method = { RequestMethod.GET })
     public String list(Pageable pageable,HttpServletRequest request, ModelMap model) {
 

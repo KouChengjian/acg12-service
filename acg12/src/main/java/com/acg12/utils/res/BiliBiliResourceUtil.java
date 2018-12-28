@@ -766,4 +766,7 @@ public class BiliBiliResourceUtil {
         }
         return url;
     }
+
+    public static void main(String[] args) {
+    }
 }

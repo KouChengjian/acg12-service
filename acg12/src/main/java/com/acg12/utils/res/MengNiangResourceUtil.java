@@ -177,4 +177,7 @@ public class MengNiangResourceUtil {
 
         System.err.println(elements.text());
     }
+
+    public static void main(String[] args) {
+    }
 }

@@ -792,4 +792,29 @@ public class BgmResourceUtil {
         return list;
     }
 
+
+    public static void main(String[] args) {
+//        Acg12SubjectDto subjectDto = BgmResourceUtil.getSubjectDto(1031);
+//        System.out.println(subjectDto.toString());
+
+//        Acg12PersonDto acg12PersonDto = BgmResourceUtil.getPersonDto(6054);
+//        System.out.println(acg12PersonDto.toString());
+
+//        Acg12CharacterDto characterDto = BgmResourceUtil.getCharacterDto(1);
+//        System.out.println(characterDto.toString());
+
+//        List<Integer> list2 = BgmResourceUtil.characterType2();
+//        System.out.println(list2.toString());
+
+//        List<Integer> list3 = BgmResourceUtil.characterType3();
+//        System.out.println(list3.toString());
+
+//        List<Integer> list4 = BgmResourceUtil.characterType4();
+//        System.out.println(list4.toString());
+
+        // 搜索
+//        String key = "葵";
+//        JSONArray jsonArray = BgmResourceUtil.getBgmSearchPresonList(key);
+//        BgmResourceUtil.getBgmSearchSubjectList(key, 0, 0, jsonArray);
+    }
 }

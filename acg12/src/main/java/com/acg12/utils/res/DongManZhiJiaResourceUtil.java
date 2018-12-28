@@ -20,6 +20,8 @@ public class DongManZhiJiaResourceUtil {
     // http://v2.api.dmzj.com/v3/article/list/2/2/0.json?channel=Android&version=2.7.003 漫画情报
     public static final String URL_DONGMANZHIJIA_NEWS = "http://v2.api.dmzj.com/v3/article/list/0/2/%s.json";
 
+    // https://manhua.dmzj.com/tags/search.shtml?s=%E6%B5%B7%E8%B4%BC
+
     // 获取每日快报
     public static synchronized JSONArray getNewList(String pager) {
         try {
@@ -54,5 +56,8 @@ public class DongManZhiJiaResourceUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void main(String[] args) {
     }
 }

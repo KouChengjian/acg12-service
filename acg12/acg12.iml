@@ -135,6 +135,8 @@
     <orderEntry type="library" name="Maven: c3p0:c3p0:0.9.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.quartz-scheduler:quartz-jobs:2.2.1" level="project" />
     <orderEntry type="library" name="Maven: cn.hutool:hutool-all:4.1.2" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.okhttp3:okhttp:3.12.1" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.okio:okio:1.15.0" level="project" />
     <orderEntry type="module-library">
       <library name="Maven: com.framework.loippi:mybatis:2.0">
         <CLASSES>

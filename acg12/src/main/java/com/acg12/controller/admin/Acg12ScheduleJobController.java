@@ -12,6 +12,7 @@ import com.acg12.utils.result.Result;
 import com.framework.loippi.support.Pageable;
 import com.framework.loippi.utils.ParameterUtils;
 import com.framework.loippi.utils.doc.GSONUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.quartz.SchedulerException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -110,6 +111,7 @@ public class Acg12ScheduleJobController extends GenericController {
      * @param model
      * @return
      */
+    @RequiresPermissions("admin:system:job:list")
     @RequestMapping(value = {"/list"}, method = {RequestMethod.GET})
     public String list(Pageable pageable, HttpServletRequest request, ModelMap model) {
 
