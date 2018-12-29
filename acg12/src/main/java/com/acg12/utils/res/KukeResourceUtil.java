@@ -29,7 +29,8 @@ public class KukeResourceUtil {
     // http://api.cookacg.com/comics/1/2?package_name=com.vjson.anime&version_code=87&version_name=1.0.8.7&channel=coolapk&sign=dcf692dc1d4cead44ce1d5d1b9409e26&platform=android
 
     public static synchronized List<Acg12CaricatureDto> kukeSearch(String key) {
-        String url = String.format("http://api.cookacg.com/comics?q[name_cont]=%s&page=1&", UrlEncoderUtil.hasUrlEncoded(key) ? key : UrlEncoderUtil.encode(key) + sign);
+        String url = String.format("http://api.cookacg.com/comics?q[name_cont]=%s&page=1&", UrlEncoderUtil.hasUrlEncoded(key) ? key : UrlEncoderUtil.encode(key))  + sign;
+//        System.out.println(url);
         try {
             OkHttpClient okHttpClient = new OkHttpClient(); // 创建OkHttpClient对象
             Request request = new Request.Builder().url(url).build(); // 创建一个请求
@@ -138,7 +139,7 @@ public class KukeResourceUtil {
     }
 
     public static void main(String[] args) {
-//        searchKuke("向山进发");
+        kukeSearch("火影");
 //        kukeCaricatureInfo(18657);
 //        kukeCaricatureChapters(18657 , 1);
     }
