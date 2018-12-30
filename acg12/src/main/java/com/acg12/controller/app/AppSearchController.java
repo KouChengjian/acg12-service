@@ -1,6 +1,7 @@
 package com.acg12.controller.app;
 
 import com.acg12.entity.dto.Acg12AlbumDto;
+import com.acg12.entity.dto.Acg12CaricatureDto;
 import com.acg12.entity.dto.Acg12PaletteDto;
 import com.acg12.service.Acg12ResourceService;
 import com.acg12.utils.result.Result;
@@ -63,6 +64,17 @@ public class AppSearchController {
             return Result.error("数据为空");
         } else {
             return Result.ok(paletteList);
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/caricatureList", method = {RequestMethod.POST})
+    public Result caricatureList(String key, String page)   {
+        List<Acg12CaricatureDto> caricatureDtoList = acg12ResourceService.kukeSearch(key);
+        if (caricatureDtoList == null || caricatureDtoList.size() == 0) {
+            return Result.error("数据为空");
+        } else {
+            return Result.ok(caricatureDtoList);
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.acg12.service.impl;
 
 import com.acg12.entity.dto.*;
-import com.acg12.entity.po.Acg12CharacterEntity;
 import com.acg12.service.Acg12ResourceService;
 import com.acg12.utils.res.*;
 import org.json.JSONArray;
@@ -85,6 +84,21 @@ public class Acg12ResourceServiceImpl implements Acg12ResourceService {
     public Acg12CharacterDto getBgmCharacter(int cId) {
         Acg12CharacterDto acg12CharacterDto = BgmResourceUtil.getCharacterDto(cId);
         return acg12CharacterDto;
+    }
+
+    @Override
+    public List<Acg12CaricatureDto> kukeSearch(String key) {
+        return KukeResourceUtil.kukeSearch(key);
+    }
+
+    @Override
+    public Acg12CaricatureDto kukeCaricatureInfo(int id) {
+        return KukeResourceUtil.kukeCaricatureInfo(id);
+    }
+
+    @Override
+    public Acg12CaricatureChaptersDto kukeCaricatureChapters(int id, int index) {
+        return KukeResourceUtil.kukeCaricatureChapters(id, index);
     }
 
     @Override

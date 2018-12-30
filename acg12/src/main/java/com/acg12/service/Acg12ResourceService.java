@@ -59,6 +59,15 @@ public interface Acg12ResourceService {
     Acg12CharacterDto getBgmCharacter(int cId);
 
     /**
+     * --------------------------------------酷克漫画资源-------------------------------------------
+     */
+    List<Acg12CaricatureDto> kukeSearch(String key);
+
+    Acg12CaricatureDto kukeCaricatureInfo(int id);
+
+    Acg12CaricatureChaptersDto kukeCaricatureChapters(int id, int index);
+
+    /**
      * --------------------------------------bilibili资源--------------------------------------------
      */
     List<Acg12VideoDto> getBilibiliVideoTypeList(String type, String page);
