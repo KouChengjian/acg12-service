@@ -17,5 +17,5 @@ public class Acg12CaricatureChaptersDto {
     private int comicId;
     private String title;
     private int index ;// 第几集
-    private List<Acg12CaricatureChaptersInfoDto> pags = new ArrayList<>();
+    private List<Acg12CaricatureChaptersPageDto> pags = new ArrayList<>();
 }

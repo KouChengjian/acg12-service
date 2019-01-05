@@ -9,7 +9,7 @@ import lombok.Data;
  * Description:
  */
 @Data
-public class Acg12CaricatureChaptersInfoDto {
+public class Acg12CaricatureChaptersPageDto {
     private int sort;
     private String url;
 }

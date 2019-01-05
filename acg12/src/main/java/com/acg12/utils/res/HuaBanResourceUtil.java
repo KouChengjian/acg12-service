@@ -62,7 +62,7 @@ public class HuaBanResourceUtil {
                             }
                             Acg12AlbumDto album = new Acg12AlbumDto();
                             album.setContent(json.getString("raw_text"));
-                            album.setPinId(String.valueOf(json.getInt("pin_id")));
+                            album.setPinId(String.valueOf(json.getLong("pin_id")));
 //                            url.add("http://img.hb.aicdn.com/" + jsomUrl.getString("key") + "_fw658");
 //                            album.setUrlList(url);
                             album.setImage("http://img.hb.aicdn.com/" + jsomUrl.getString("key") + "_fw658");

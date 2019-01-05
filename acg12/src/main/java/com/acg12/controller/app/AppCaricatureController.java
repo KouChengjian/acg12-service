@@ -25,7 +25,7 @@ public class AppCaricatureController {
     private Acg12ResourceService acg12ResourceService;
 
     @ResponseBody
-    @RequestMapping(value = "/info", method = {RequestMethod.POST})
+    @RequestMapping(value = "/chapters", method = {RequestMethod.POST})
     public Result caricatureInfo(int id, int type) {
         Acg12CaricatureDto caricatureDto = acg12ResourceService.kukeCaricatureInfo(id);
         if (caricatureDto == null) {
@@ -36,7 +36,7 @@ public class AppCaricatureController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/chapters", method = {RequestMethod.POST})
+    @RequestMapping(value = "/chapters/list", method = {RequestMethod.POST})
     public Result caricatureChaptersInfo(int id, int index, int type) {
         Acg12CaricatureChaptersDto caricatureDto = acg12ResourceService.kukeCaricatureChapters(id, index);
         if (caricatureDto == null) {

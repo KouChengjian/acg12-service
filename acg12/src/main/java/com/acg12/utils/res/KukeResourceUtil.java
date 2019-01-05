@@ -1,7 +1,7 @@
 package com.acg12.utils.res;
 
 import com.acg12.entity.dto.Acg12CaricatureChaptersDto;
-import com.acg12.entity.dto.Acg12CaricatureChaptersInfoDto;
+import com.acg12.entity.dto.Acg12CaricatureChaptersPageDto;
 import com.acg12.entity.dto.Acg12CaricatureDto;
 import com.acg12.utils.JsonParse;
 import com.acg12.utils.UrlEncoderUtil;
@@ -120,11 +120,11 @@ public class KukeResourceUtil {
             caricatureDto.setIndex(JsonParse.getInt(object, "index"));
 
             JSONArray entries = JsonParse.getJSONArray(object, "pages");
-            List<Acg12CaricatureChaptersInfoDto> chapterList = new ArrayList<>();
+            List<Acg12CaricatureChaptersPageDto> chapterList = new ArrayList<>();
             for (int i = 0; i < entries.length(); i++) {
                 JSONObject item = JsonParse.getJSONObject(entries, i);
 //                System.out.println(item.toString());
-                Acg12CaricatureChaptersInfoDto chaptersDto = new Acg12CaricatureChaptersInfoDto();
+                Acg12CaricatureChaptersPageDto chaptersDto = new Acg12CaricatureChaptersPageDto();
                 chaptersDto.setUrl(JsonParse.getString(item, "track_url"));
                 chaptersDto.setSort(i);
                 chapterList.add(chaptersDto);
