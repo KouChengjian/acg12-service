@@ -56,8 +56,12 @@ public class AppCommonController extends AppBaseController {
         if (StringUtil.isEmpty(username) || StringUtil.isEmpty(password)) {
             return Result.error("参数有误", AppConstants.AppError5000020);
         }
-
-        Acg12UserEntity acg12UserEntity = acg12UserService.findUserByPhone(username, password);
+        Acg12UserEntity acg12UserEntity = null;
+        if (StringUtil.checkEmail(username)) {
+            acg12UserEntity = acg12UserService.findUserByEmail(username, password);
+        } else if (StringUtil.checkMobileNumber(username)) {
+            acg12UserEntity = acg12UserService.findUserByPhone(username, password);
+        }
         if (acg12UserEntity == null) {
             return Result.error("不存在用户", AppConstants.AppError5000020);
         }

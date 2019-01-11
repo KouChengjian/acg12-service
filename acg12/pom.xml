@@ -58,7 +58,7 @@
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
         <javax.servlet.jsp-api.version>2.3.1</javax.servlet.jsp-api.version>
         <bcprov-jdk15on.version>1.52</bcprov-jdk15on.version>
-        <jedis.version>2.1.0</jedis.version>
+        <jedis.version>2.9.0</jedis.version>
         <ehcache-core.version>2.5.7</ehcache-core.version>
         <ehcache-web.version>2.0.4</ehcache-web.version>
         <spring-data-redis.vresion>1.5.2.RELEASE</spring-data-redis.vresion>
@@ -500,11 +500,16 @@
             <scope>provided</scope>
         </dependency>
 
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.data</groupId>-->
-        <!--<artifactId>spring-data-redis</artifactId>-->
-        <!--<version>${spring-data-redis.vresion}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>${spring-data-redis.vresion}</version>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
+        </dependency>
         <!--<dependency>-->
         <!--<groupId>com.esotericsoftware.kryo</groupId>-->
         <!--<artifactId>kryo</artifactId>-->
@@ -558,11 +563,7 @@
         <!--<artifactId>javolution-core-java</artifactId>-->
         <!--<version>6.0.0</version>-->
         <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>redis.clients</groupId>-->
-        <!--<artifactId>jedis</artifactId>-->
-        <!--<version>${jedis.version}</version>-->
-        <!--</dependency>-->
+
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache-core</artifactId>
@@ -684,95 +685,95 @@
     <build>
         <finalName>acg12</finalName>
         <!--<pluginManagement>-->
-            <plugins>
-                <!--<plugin>-->
-                <!--<groupId>org.codehaus.mojo</groupId>-->
-                <!--<artifactId>tomcat-maven-plugin</artifactId>-->
-                <!--<version>1.1</version>-->
-                <!--<configuration>-->
-                <!--<path>/manage</path>-->
-                <!--<port>10081</port>-->
-                <!--<uriEncoding>UTF-8</uriEncoding>-->
-                <!--<url>http://localhost:8080/manager/html</url>-->
-                <!--<server>tomcat6</server>-->
-                <!--</configuration>-->
-                <!--</plugin>-->
-                <!-- tomcat7插件 -->
-                <!--<plugin>-->
-                <!--<groupId>org.apache.tomcat.maven</groupId>-->
-                <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
-                <!--<version>2.1</version>-->
-                <!--<configuration>-->
-                <!--<path>/manage</path>-->
-                <!--<port>10081</port>-->
-                <!--<uriEncoding>UTF-8</uriEncoding>-->
-                <!--<finalName>loippi</finalName>-->
-                <!--<server>tomcat7</server>-->
-                <!--</configuration>-->
-                <!--</plugin>-->
-                <plugin>
-                    <groupId>org.apache.tomcat.maven</groupId>
-                    <artifactId>tomcat7-maven-plugin</artifactId>
-                    <version>2.2</version>
-                    <configuration>
-                        <url>http://139.196.46.40/manager/text</url>
-                        <username>admin</username>
-                        <password>#admin</password>
-                        <update>true</update>
-                        <path>/acg12</path>
-                    </configuration>
-                </plugin>
-                <!-- dependency相关插件 -->
-                <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-dependency-plugin</artifactId>-->
-                <!--<version>2.8</version>-->
-                <!--</plugin>-->
-                <!--<plugin>-->
-                <!--<groupId>org.codehaus.mojo</groupId>-->
-                <!--<artifactId>versions-maven-plugin</artifactId>-->
-                <!--<version>2.1</version>-->
-                <!--</plugin>-->
-                <!-- clean插件 -->
-                <!--<plugin>-->
-                    <!--<groupId>org.apache.maven.plugins</groupId>-->
-                    <!--<artifactId>maven-clean-plugin</artifactId>-->
-                    <!--<version>2.5</version>-->
-                <!--</plugin>-->
+        <plugins>
+            <!--<plugin>-->
+            <!--<groupId>org.codehaus.mojo</groupId>-->
+            <!--<artifactId>tomcat-maven-plugin</artifactId>-->
+            <!--<version>1.1</version>-->
+            <!--<configuration>-->
+            <!--<path>/manage</path>-->
+            <!--<port>10081</port>-->
+            <!--<uriEncoding>UTF-8</uriEncoding>-->
+            <!--<url>http://localhost:8080/manager/html</url>-->
+            <!--<server>tomcat6</server>-->
+            <!--</configuration>-->
+            <!--</plugin>-->
+            <!-- tomcat7插件 -->
+            <!--<plugin>-->
+            <!--<groupId>org.apache.tomcat.maven</groupId>-->
+            <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
+            <!--<version>2.1</version>-->
+            <!--<configuration>-->
+            <!--<path>/manage</path>-->
+            <!--<port>10081</port>-->
+            <!--<uriEncoding>UTF-8</uriEncoding>-->
+            <!--<finalName>loippi</finalName>-->
+            <!--<server>tomcat7</server>-->
+            <!--</configuration>-->
+            <!--</plugin>-->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url>http://139.196.46.40/manager/text</url>
+                    <username>admin</username>
+                    <password>#admin</password>
+                    <update>true</update>
+                    <path>/acg12</path>
+                </configuration>
+            </plugin>
+            <!-- dependency相关插件 -->
+            <!--<plugin>-->
+            <!--<groupId>org.apache.maven.plugins</groupId>-->
+            <!--<artifactId>maven-dependency-plugin</artifactId>-->
+            <!--<version>2.8</version>-->
+            <!--</plugin>-->
+            <!--<plugin>-->
+            <!--<groupId>org.codehaus.mojo</groupId>-->
+            <!--<artifactId>versions-maven-plugin</artifactId>-->
+            <!--<version>2.1</version>-->
+            <!--</plugin>-->
+            <!-- clean插件 -->
+            <!--<plugin>-->
+            <!--<groupId>org.apache.maven.plugins</groupId>-->
+            <!--<artifactId>maven-clean-plugin</artifactId>-->
+            <!--<version>2.5</version>-->
+            <!--</plugin>-->
 
-                <!--<plugin>-->
-                    <!--<groupId>org.apache.maven.plugins</groupId>-->
-                    <!--<artifactId>maven-surefire-plugin</artifactId>-->
-                    <!--<version>2.4.2</version>-->
-                    <!--<configuration>-->
-                        <!--<skipTests>true</skipTests>-->
-                    <!--</configuration>-->
-                <!--</plugin>-->
-                <!-- install插件 -->
-                <!--<plugin>-->
-                    <!--<groupId>org.apache.maven.plugins</groupId>-->
-                    <!--<artifactId>maven-install-plugin</artifactId>-->
-                    <!--<version>2.4</version>-->
-                <!--</plugin>-->
-                <!-- compiler插件, 设定JDK版本 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>${jdk.version}</source>
-                        <target>${jdk.version}</target>
-                    </configuration>
-                </plugin>
-                <!-- war打包插件, 设定war包名称不带版本号 -->
-                <!--<plugin>-->
-                    <!--<groupId>org.apache.maven.plugins</groupId>-->
-                    <!--<artifactId>maven-war-plugin</artifactId>-->
-                    <!--<version>2.4</version>-->
-                    <!--<configuration>-->
-                        <!--<warName>${project.artifactId}</warName>-->
-                    <!--</configuration>-->
-                <!--</plugin>-->
-            </plugins>
+            <!--<plugin>-->
+            <!--<groupId>org.apache.maven.plugins</groupId>-->
+            <!--<artifactId>maven-surefire-plugin</artifactId>-->
+            <!--<version>2.4.2</version>-->
+            <!--<configuration>-->
+            <!--<skipTests>true</skipTests>-->
+            <!--</configuration>-->
+            <!--</plugin>-->
+            <!-- install插件 -->
+            <!--<plugin>-->
+            <!--<groupId>org.apache.maven.plugins</groupId>-->
+            <!--<artifactId>maven-install-plugin</artifactId>-->
+            <!--<version>2.4</version>-->
+            <!--</plugin>-->
+            <!-- compiler插件, 设定JDK版本 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                </configuration>
+            </plugin>
+            <!-- war打包插件, 设定war包名称不带版本号 -->
+            <!--<plugin>-->
+            <!--<groupId>org.apache.maven.plugins</groupId>-->
+            <!--<artifactId>maven-war-plugin</artifactId>-->
+            <!--<version>2.4</version>-->
+            <!--<configuration>-->
+            <!--<warName>${project.artifactId}</warName>-->
+            <!--</configuration>-->
+            <!--</plugin>-->
+        </plugins>
         <!--</pluginManagement>-->
     </build>
     <developers>

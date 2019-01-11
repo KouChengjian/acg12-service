@@ -75,5 +75,5 @@
     <!-- 缓存配置 -->
     <import resource="classpath*:/conf/conf-ehcache.xml" />
     <!-- 缓存配置 -->
-    <!--<import resource="classpath*:/applicationContext-redis.xml" />-->
+    <import resource="classpath*:/conf/conf-redis.xml" />
 </beans>
