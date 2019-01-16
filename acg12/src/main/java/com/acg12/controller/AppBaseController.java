@@ -1,12 +1,14 @@
 package com.acg12.controller;
 
 import com.acg12.constant.AppConstants;
+import com.acg12.utils.RedisUtils;
 import com.acg12.utils.result.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -18,7 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 public class AppBaseController {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
-
+    @Resource
+    private RedisUtils redisUtils;
     /**
      * 处理系统异常
      *

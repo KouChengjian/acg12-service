@@ -44,6 +44,10 @@ public class AppUserController extends AppBaseController {
         return Result.ok(user);
     }
 
+    @RequestMapping(value = "/update", method = {RequestMethod.POST})
+    public void updateApp(Integer versionCode) {
+    }
+
     @ResponseBody
     @RequestMapping(value = "/restPwd", method = {RequestMethod.POST})
     public void restPwd(String username, String password, String verify) {

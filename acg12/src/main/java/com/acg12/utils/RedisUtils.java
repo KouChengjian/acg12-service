@@ -3,7 +3,6 @@ package com.acg12.utils;
 import cn.hutool.setting.dialect.Props;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -21,7 +20,7 @@ import java.util.stream.Collectors;
  * Date: 2019/1/10 14:39
  * Description:
  */
-//@Component
+@Component
 public class RedisUtils {
     /**
      * 默认过期时长，单位：秒
@@ -36,17 +35,16 @@ public class RedisUtils {
     private RedisTemplate<String, Object> redisTemplate;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
-    @Value("${redis.port}")
-    private int port;
-    @Value("${redis.host}")
-    private String host;
 
-    static {
-        Props props = PropUitl.getProps();
-//        url = props.getStr("jdbc.url");
-//        username = props.getStr("jdbc.username");
-//        password = props.getStr("jdbc.password");
-    }
+//    private static int port;
+//    private static String host;
+//
+//    static {
+//        Props props = PropUitl.getProps();
+//        port = props.getInt("redis.port");
+//        host = props.getStr("redis.host");
+//    }
+
     /**
      * 指定缓存失效时间
      *
@@ -464,6 +462,7 @@ public class RedisUtils {
             return null;
         }
     }
+
     /**
      * 根据value从一个set中查询,是否存在
      *
@@ -615,7 +614,7 @@ public class RedisUtils {
         }
     }
 
-    public boolean lLeftSet(String key, String value){
+    public boolean lLeftSet(String key, String value) {
         try {
             Long aLong = stringRedisTemplate.opsForList().leftPush(key, value);
             return true;
@@ -625,9 +624,9 @@ public class RedisUtils {
         }
     }
 
-    public boolean sendMsg(String channel,String msg){
+    public boolean sendMsg(String channel, String msg) {
         try {
-            stringRedisTemplate.convertAndSend(channel,msg);
+            stringRedisTemplate.convertAndSend(channel, msg);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -655,6 +654,7 @@ public class RedisUtils {
             return false;
         }
     }
+
     public boolean lleftSet(String key, String value, long time) {
         try {
             stringRedisTemplate.opsForList().leftPush(key, value);
@@ -715,6 +715,7 @@ public class RedisUtils {
             return false;
         }
     }
+
     public boolean lLeftSet(String key, List<String> value, long time) {
         try {
             stringRedisTemplate.opsForList().leftPushAll(key, value);
@@ -768,7 +769,7 @@ public class RedisUtils {
     /**
      * 移除左侧list值为value的key
      *
-     * @param key   键
+     * @param key 键
      * @return 移除的个数
      */
     public String lLeftPop(String key) {
@@ -779,6 +780,7 @@ public class RedisUtils {
             return null;
         }
     }
+
     public String lRightPop(String key) {
         try {
             return stringRedisTemplate.opsForList().rightPop(key);
@@ -791,38 +793,39 @@ public class RedisUtils {
     /**
      * 移除左侧list值为value的key
      *
-     * @param key   键
+     * @param key 键
      * @return 移除的个数
      */
     public Object lLeftPop(String key, long count, TimeUnit time) {
         try {
-            return  stringRedisTemplate.opsForList().leftPop(key, count, time);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    public Object lRightPop(String key, long count, TimeUnit time) {
-        try {
-            return  stringRedisTemplate.opsForList().rightPop(key, count, time);
+            return stringRedisTemplate.opsForList().leftPop(key, count, time);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public List<String> scan(String regex){
+    public Object lRightPop(String key, long count, TimeUnit time) {
+        try {
+            return stringRedisTemplate.opsForList().rightPop(key, count, time);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<String> scan(String regex) {
         Set<String> execute = stringRedisTemplate.execute((RedisCallback<Set<String>>) connection -> {
 
             Set<String> binaryKeys = new HashSet<>();
 
-            Cursor<byte[]> cursor = connection.scan( ScanOptions.scanOptions().match(regex).count(Integer.MAX_VALUE).build());
+            Cursor<byte[]> cursor = connection.scan(ScanOptions.scanOptions().match(regex).count(Integer.MAX_VALUE).build());
             while (cursor.hasNext()) {
                 binaryKeys.add(new String(cursor.next()));
             }
             return binaryKeys;
         });
-        if(execute!=null) {
+        if (execute != null) {
             return execute.stream().collect(Collectors.toList());
         }
         return null;

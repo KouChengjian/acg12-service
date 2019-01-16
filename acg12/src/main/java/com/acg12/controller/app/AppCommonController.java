@@ -66,6 +66,7 @@ public class AppCommonController extends AppBaseController {
             return Result.error("不存在用户", AppConstants.AppError5000020);
         }
 
+
         return Result.ok(acg12UserEntity);
     }
 
@@ -106,11 +107,6 @@ public class AppCommonController extends AppBaseController {
     @RequestMapping(value = "/verify", method = {RequestMethod.POST})
     public void verify(String username, int type) {  //1、注册2、重置
     }
-
-    @RequestMapping(value = "/update", method = {RequestMethod.POST})
-    public void updateApp(Integer versionCode) {
-    }
-
 
     @RequestMapping(value = "/index", method = {RequestMethod.GET})
     public Result index() {
