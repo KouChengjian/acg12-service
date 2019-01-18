@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.acg12.dao.Acg12CollectAlbumDao">
+	
+	<resultMap id="Acg12CollectAlbumResultMap" type="com.acg12.entity.po.Acg12CollectAlbumEntity">
+		<id property="id" column="id"  />
+		<result property="userId" column="user_id" />
+		<result property="pinId" column="pin_id" />
+		<result property="image" column="image" />
+		<result property="linkUrl" column="link_url" />
+		<result property="content" column="content" />
+		<result property="love" column="love" />
+		<result property="favorites" column="favorites" />
+		<result property="createtime" column="createTime" />
+		<result property="updatetime" column="updateTime" />
+	</resultMap>
+	
+	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
+	<sql id="base_column">
+		 id ,user_id ,pin_id ,image ,link_url ,content ,love ,favorites ,createTime ,updateTime 
+	</sql>
+	
+	<sql id="base_value_column">
+		 #{id},#{userId},#{pinId},#{image},#{linkUrl},#{content},#{love},#{favorites},#{createtime},#{updatetime}
+	</sql>
+	
+	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
+	<sql id="where_column">
+		<if test="id != null ">
+			AND id = #{id,jdbcType=BIGINT}
+		</if>
+
+	    	<!-- 大于等于id -->
+		<if test="filter_ids != null">
+			AND id<![CDATA[>=]]>#{filter_ids}
+		</if>
+		<!-- 小于等于id -->
+	    <if test="filter_ide!= null">
+			AND id<![CDATA[<=]]>#{filter_ide}
+		</if>
+
+
+		<if test="userId != null ">
+			AND user_id = #{userId,jdbcType=BIGINT}
+		</if>
+
+	    	<!-- 大于等于user_id -->
+		<if test="filter_userIds != null">
+			AND user_id<![CDATA[>=]]>#{filter_userIds}
+		</if>
+		<!-- 小于等于user_id -->
+	    <if test="filter_userIde!= null">
+			AND user_id<![CDATA[<=]]>#{filter_userIde}
+		</if>
+
+
+		<if test="pinId != null ">
+			AND pin_id = #{pinId,jdbcType=VARCHAR}
+		</if>
+	   <if test="pinIdlike != null ">
+			AND pin_id like CONCAT('%',#{pinIdlike},'%')
+		</if>
+
+
+
+		<if test="image != null ">
+			AND image = #{image,jdbcType=VARCHAR}
+		</if>
+	   <if test="imagelike != null ">
+			AND image like CONCAT('%',#{imagelike},'%')
+		</if>
+
+
+
+		<if test="linkUrl != null ">
+			AND link_url = #{linkUrl,jdbcType=VARCHAR}
+		</if>
+	   <if test="linkUrllike != null ">
+			AND link_url like CONCAT('%',#{linkUrllike},'%')
+		</if>
+
+
+
+		<if test="content != null ">
+			AND content = #{content,jdbcType=VARCHAR}
+		</if>
+	   <if test="contentlike != null ">
+			AND content like CONCAT('%',#{contentlike},'%')
+		</if>
+
+
+
+		<if test="love != null ">
+			AND love = #{love,jdbcType=INTEGER}
+		</if>
+
+	    	<!-- 大于等于love -->
+		<if test="filter_loves != null">
+			AND love<![CDATA[>=]]>#{filter_loves}
+		</if>
+		<!-- 小于等于love -->
+	    <if test="filter_lovee!= null">
+			AND love<![CDATA[<=]]>#{filter_lovee}
+		</if>
+
+
+		<if test="favorites != null ">
+			AND favorites = #{favorites,jdbcType=INTEGER}
+		</if>
+
+	    	<!-- 大于等于favorites -->
+		<if test="filter_favoritess != null">
+			AND favorites<![CDATA[>=]]>#{filter_favoritess}
+		</if>
+		<!-- 小于等于favorites -->
+	    <if test="filter_favoritese!= null">
+			AND favorites<![CDATA[<=]]>#{filter_favoritese}
+		</if>
+
+
+		<if test="createtime != null ">
+			AND createTime = #{createtime,jdbcType=TIMESTAMP}
+		</if>
+	    	<!-- 大于等于createTime -->
+		<if test="filter_createtimes != null">
+			AND date_format(createTime,'%Y%m%d')<![CDATA[>=]]>#{filter_createtimes}
+		</if>
+		<!-- 小于等于createTime -->
+	    <if test="filter_createtimee!= null">
+			AND date_format(createTime,'%Y%m%d')<![CDATA[<=]]>#{filter_createtimee}
+		</if>
+
+
+
+		<if test="updatetime != null ">
+			AND updateTime = #{updatetime,jdbcType=TIMESTAMP}
+		</if>
+	    	<!-- 大于等于updateTime -->
+		<if test="filter_updatetimes != null">
+			AND date_format(updateTime,'%Y%m%d')<![CDATA[>=]]>#{filter_updatetimes}
+		</if>
+		<!-- 小于等于updateTime -->
+	    <if test="filter_updatetimee!= null">
+			AND date_format(updateTime,'%Y%m%d')<![CDATA[<=]]>#{filter_updatetimee}
+		</if>
+
+
+
+	</sql>
+	
+	<!-- 设置语句 -->
+	<sql id="set_column">
+		<if test="id != null ">
+			id = #{id,jdbcType=BIGINT},
+		</if>
+		<if test="userId != null ">
+			user_id = #{userId,jdbcType=BIGINT},
+		</if>
+		<if test="pinId != null ">
+			pin_id = #{pinId,jdbcType=VARCHAR},
+		</if>
+		<if test="image != null ">
+			image = #{image,jdbcType=VARCHAR},
+		</if>
+		<if test="linkUrl != null ">
+			link_url = #{linkUrl,jdbcType=VARCHAR},
+		</if>
+		<if test="content != null ">
+			content = #{content,jdbcType=VARCHAR},
+		</if>
+		<if test="love != null ">
+			love = #{love,jdbcType=INTEGER},
+		</if>
+		<if test="favorites != null ">
+			favorites = #{favorites,jdbcType=INTEGER},
+		</if>
+		<if test="createtime != null ">
+			createTime = #{createtime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="updatetime != null ">
+			updateTime = #{updatetime,jdbcType=TIMESTAMP},
+		</if>
+	</sql>
+
+	<!-- 根据ID查询 -->
+	<select id="find" resultMap="Acg12CollectAlbumResultMap">
+		SELECT	<include refid="base_column" />
+		FROM	T_ACG12_COLLECT_ALBUM
+		WHERE	ID=#{id,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 查询所有 -->
+	<select id="findAll" resultMap="Acg12CollectAlbumResultMap">
+		SELECT	<include refid="base_column" />
+		FROM	T_ACG12_COLLECT_ALBUM
+	</select>
+	
+	<!-- 统计记录数 -->
+	<select id="count" resultType="long">
+		SELECT COUNT(*) FROM T_ACG12_COLLECT_ALBUM
+		<where> 
+			<include refid="where_column" />
+		</where>
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.acg12.entity.po.Acg12CollectAlbumEntity">
+		<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">  
+	          SELECT LAST_INSERT_ID() AS ID    
+	    </selectKey>  
+		INSERT T_ACG12_COLLECT_ALBUM 
+				(<include refid="base_column" /> )
+		VALUES	(<include refid="base_value_column" />)
+	</insert>
+	
+	<!-- 修改 -->
+	<update id="update" parameterType="com.acg12.entity.po.Acg12CollectAlbumEntity">
+		UPDATE	T_ACG12_COLLECT_ALBUM
+		<set>
+			<include refid="set_column" />
+		</set>
+		WHERE	ID = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 删除单条记录 -->
+	<delete id="delete">
+		DELETE	FROM T_ACG12_COLLECT_ALBUM
+		WHERE	ID = #{id,jdbcType=BIGINT}
+	</delete>
+	
+	
+	<!-- 删除多条记录-->
+	<delete id="deleteAll">
+		DELETE	FROM T_ACG12_COLLECT_ALBUM
+		WHERE	ID	IN
+    	<foreach item="Acg12CollectAlbumId" index="index" collection="ids" open="(" separator="," close=")">
+	  		#{Acg12CollectAlbumId} 
+		</foreach>
+	</delete>
+	
+	<!-- 根据参数查询列表-->
+	<select id="findByParams" resultMap="Acg12CollectAlbumResultMap">
+		SELECT	<include refid="base_column" />
+		FROM 	T_ACG12_COLLECT_ALBUM
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+	</select>
+	
+	<!-- 分页查询-->
+	<select id="findByPage" resultMap="Acg12CollectAlbumResultMap">
+		SELECT
+		<include refid="base_column" />
+		FROM T_ACG12_COLLECT_ALBUM
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+	</select>
+
+       <!-- 分页查询-->
+       <select id="findListByPage" resultMap="Acg12CollectAlbumResultMap">
+		SELECT
+		<include refid="base_column" />
+		FROM T_ACG12_COLLECT_ALBUM
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+					
+	     <if test="order != null and order != ''">
+		order by  ${order}
+	     </if>
+	     
+		<if test="pageNumber != null  and pageSize !=null ">
+			limit  #{pageNumber,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	     </if>
+			
+		
+	</select>
+	
+	
+		<!-- 删除多条记录-->
+	<delete id="deletes">
+		DELETE	FROM T_ACG12_COLLECT_ALBUM
+		<where> 
+			<include refid="where_column" />
+		</where>
+	</delete>
+	
+ <!-- 新分页查询-->
+       <select id="findListNewByPage" resultMap="Acg12CollectAlbumResultMap">
+		SELECT
+		<include refid="base_column" />
+		FROM T_ACG12_COLLECT_ALBUM
+		<where> 1=1
+			<include refid="where_column" />
+		</where>
+					
+	     <if test="order != null and order != ''">
+		order by  ${order}
+	     </if>
+	     
+		<if test="pageNumber != null  and pageSize !=null ">
+			limit  #{pageNumber,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	     </if>
+			
+		
+	</select>
+	
+</mapper>

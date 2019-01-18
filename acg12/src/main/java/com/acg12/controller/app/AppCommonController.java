@@ -66,8 +66,9 @@ public class AppCommonController extends AppBaseController {
             return Result.error("不存在用户", AppConstants.AppError5000020);
         }
 
+        UserDao userDao = setRedisDoctorLogin(acg12UserEntity);
 
-        return Result.ok(acg12UserEntity);
+        return Result.ok(userDao);
     }
 
     @Transactional
@@ -240,8 +241,6 @@ public class AppCommonController extends AppBaseController {
         }
         return Result.error("数据为空");
     }
-
-
 
 
     /**
