@@ -11,9 +11,9 @@
     <!--JedisPoolConfig 连接池参数配置-->
     <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
         <!--最大空闲实例数-->
-        <property name="maxIdle" value="${redis.pool.max-idle}"/>
+        <property name="maxIdle" value="${redis.maxIdle}"/>
         <!--最大活跃实例数-->
-        <property name="maxTotal" value="${redis.pool.max-active}"/>
+        <property name="maxTotal" value="${redis.maxTotal}"/>
         <!--创建实例时最长等待时间-->
         <property name="maxWaitMillis" value="${redis.timeout}"/>
         <!--创建实例时是否验证-->

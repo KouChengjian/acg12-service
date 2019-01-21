@@ -62,11 +62,9 @@ public class AppBaseController {
         UserDao userDao = new UserDao();
         BeanUtils.copyProperties(acg12UserEntity, userDao);
 
-
         RandomGUIDUtil myGUID = new RandomGUIDUtil();
         String sessionId = myGUID.valueAfterMD5;
 
-        //doctorId:token:*
         String regex = StrUtil.format(AdminConstant.USER_TOKEN_KEY_TEMPLATE, acg12UserEntity.getId(), "*");
         List<String> keySet = redisUtils.scan(regex);
 
@@ -85,17 +83,18 @@ public class AppBaseController {
         userDao.setSessionId(sessionId);
         redisUtils.set(StrUtil.format(AdminConstant.TOKEN_PRFFIX, sessionId), JSONObject.fromObject(userDao).toString(), year10);
         //设置token索引缓存
-        String key = StrUtil.format(AdminConstant.USER_TOKEN_KEY_TEMPLATE, System.currentTimeMillis(), userDao.getSessionId());
+        String key = StrUtil.format(AdminConstant.USER_TOKEN_KEY_TEMPLATE, userDao.getId(), userDao.getSessionId());
         redisUtils.set(key, key, year10);
         return userDao;
     }
 
-//    /**
-//     * 获取当前登录的用户
-//     * @return
-//     */
-//    protected LoginUser getCurrentUser() {
-//        LoginUser loginUser = (LoginUser) request.getAttribute("LoginUser");
-//        return loginUser;
-//    }
+    /**
+     * 获取当前登录的用户
+     *
+     * @return
+     */
+    protected UserDao getCurrentUser() {
+        UserDao loginUser = (UserDao) request.getAttribute("LoginUser");
+        return loginUser;
+    }
 }

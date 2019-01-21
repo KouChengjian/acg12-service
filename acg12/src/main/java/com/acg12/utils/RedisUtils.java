@@ -1,12 +1,11 @@
 package com.acg12.utils;
 
-import cn.hutool.setting.dialect.Props;
 import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -31,13 +30,13 @@ public class RedisUtils {
      */
     public final static long NOT_EXPIRE = -1;
     private final static Gson gson = new Gson();
-    @Autowired
+    @Resource(name = "redisTemplate")
     private RedisTemplate<String, Object> redisTemplate;
-    @Autowired
+    @Resource(name = "stringRedisTemplate")
     private StringRedisTemplate stringRedisTemplate;
 
-//    private static int port;
 //    private static String host;
+//    private static int port;
 //
 //    static {
 //        Props props = PropUitl.getProps();
@@ -818,8 +817,9 @@ public class RedisUtils {
         Set<String> execute = stringRedisTemplate.execute((RedisCallback<Set<String>>) connection -> {
 
             Set<String> binaryKeys = new HashSet<>();
-
-            Cursor<byte[]> cursor = connection.scan(ScanOptions.scanOptions().match(regex).count(Integer.MAX_VALUE).build());
+            ScanOptions.ScanOptionsBuilder build = ScanOptions.scanOptions().match(regex).count(Integer.MAX_VALUE);
+            ScanOptions scanOptions = build.build();
+            Cursor<byte[]> cursor = connection.scan(scanOptions);
             while (cursor.hasNext()) {
                 binaryKeys.add(new String(cursor.next()));
             }
