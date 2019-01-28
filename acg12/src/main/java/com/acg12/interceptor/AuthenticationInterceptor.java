@@ -1,10 +1,13 @@
 package com.acg12.interceptor;
 
 import cn.hutool.core.util.StrUtil;
+import com.acg12.constant.AdminConstant;
 import com.acg12.constant.AppConstants;
+import com.acg12.entity.dto.UserDao;
 import com.acg12.utils.AuthenticationPatten;
 import com.acg12.utils.RedisUtils;
 import com.acg12.utils.StringUtil;
+import com.acg12.utils.result.Result;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.NamedThreadLocal;
@@ -57,6 +60,18 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
     }
 
     @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
+                                Object handler, Exception ex) throws Exception {
+        long endTime = System.currentTimeMillis();//2、结束时间
+        long beginTime = startTimeThreadLocal.get();//得到线程绑定的局部变量（开始时间）
+        long consumeTime = endTime - beginTime;//3、消耗的时间
+        if (consumeTime > 500) {//此处认为处理时间超过500毫秒的请求为慢请求
+            System.err.println(
+                    String.format("AuthenticationInterceptor " + request.getMethod() + " ====> %s consume %d millis", request.getRequestURI(), consumeTime));
+        }
+    }
+
+    @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         long beginTime = System.currentTimeMillis();//1、开始时间
         startTimeThreadLocal.set(beginTime);
@@ -78,79 +93,65 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
             }
         }
 
-//        String sessionId = request.getHeader(sessionName);
-//        if (StringUtil.isEmpty(sessionId)) {
-//            sessionId = request.getParameter(sessionName);
-//        }
-//        if (StringUtil.isEmpty(sessionId)) {
-//            responseJsonMessage(response, ReturnJson.jsonStringError("用户未登录", AppConstants.AppError5000101));
-//            return false;
-//        }
-//
-//        // 判断LoginUser是否过期
-//        LoginUser loginUser = validateRedisLoginUser(sessionId);
-//        if (loginUser == null) {
-//            responseJsonMessage(response, ReturnJson.jsonStringError("会话信息失效", AppConstants.AppError5000103));
-//            return false;
-//        }
-//
-//        if (loginUser.getLockStatus() == null) {
-//            responseJsonMessage(response, ReturnJson.jsonStringError("会话信息失效", AppConstants.AppError5000103));
-//            return false;
-//        } else if (loginUser.getLockStatus() == 2) {
-//            responseJsonMessage(response, ReturnJson.jsonStringError("账号已被锁定", AppConstants.AppError5000513));
-//            return false;
-//        }
-//
-//
-//        //安卓前端访问接口时，如果遇到审核中的和审核不通过的，拦截并返回状态
-//        String redisStr = redisUtils.get(AdminConstant.UNCHECKED_TOKEN_PREFIX + loginUser.getId());
-//        if (redisStr != null
-//                && !new AuthenticationPatten(POST, Pattern.compile("/api/app/common/uploadCheckInfo.json")).getPattern().matcher(uri).find()
-//                && !new AuthenticationPatten(POST, Pattern.compile("/api/app/user/getUser.json")).getPattern().matcher(uri).find()) {
-//            if ("1".equals(redisStr)) {
-//                responseJsonMessage(response, ReturnJson.jsonStringError("该账号已被驳回，退出登录状态", AppConstants.AppError5000515));
-//            } else if ("2".equals(redisStr)) {
-//                responseJsonMessage(response, ReturnJson.jsonStringError("该账号驳回审核中，退出登录状态", AppConstants.AppError5000516));
-//            }
-//            return false;
-//        }
-//
-//        //悬赏问答仅限医生身份
-//        for (AuthenticationPatten authenticationPatten : questionSet) {
-//            if (authenticationPatten.getPattern().matcher(uri).find()) {//匹配路径是对的
-//                if (loginUser.getType() != 1) {
-//                    responseJsonMessage(response, ReturnJson.jsonStringError("当前身份无法请求该链接", AppConstants.AppError5000112));
-//                    return false;
+        /**
+         * 签名和放重复接口验证
+         */
+//        if (sysConstant.getSignValidateOpen() != null && sysConstant.getSignValidateOpen()) {
+//            for (AuthenticationPatten authenticationPatten : needSignAndCantRepeatSet) {
+//                if (authenticationPatten.getPattern().matcher(uri).find()) {
+//                    if (!vali(request, response, false)) {
+//                        return false;
+//                    }
 //                }
 //            }
-//        }
 //
-//        request.setAttribute("LoginUser", loginUser);
+//            /**
+//             * 接口签名验证
+//             */
+//
+//            if (!vali(request, response, true)) {
+//                return false;
+//            }
+//        }
 
+        String sessionId = request.getHeader(sessionName);
+        if (StringUtil.isEmpty(sessionId)) {
+            sessionId = request.getParameter(sessionName);
+        }
+        if (StringUtil.isEmpty(sessionId)) {
+            responseJsonMessage(response, Result.error(AppConstants.AppError5000101, "用户未登录").toString());
+            return false;
+        }
 
+        // 判断LoginUser是否过期
+        UserDao loginUser = validateRedisLoginUser(sessionId);
+        if (loginUser == null) {
+            responseJsonMessage(response, Result.error(AppConstants.AppError5000103, "会话信息失效").toString());
+            return false;
+        }
+
+        request.setAttribute("LoginUser", loginUser);
         return true;
     }
 
-//    public LoginUser validateRedisLoginUser(String sessionId) {
-//        if (StringUtil.isEmpty(sessionId)) {
-//            return null;
-//        }
-//        String sessionIdRedis = redisUtils.get(StrUtil.format(AdminConstant.TOKEN_PRFFIX, sessionId));
-//        if (sessionIdRedis == null) {
-//            return null;
-//        }
-//
-//
-//        JSONObject jsonObject = JSONObject.fromObject(sessionIdRedis);// 将json字符串转换为json对象
-//
-//        LoginUser loginUser = (LoginUser) JSONObject.toBean(jsonObject, LoginUser.class);// 将建json对象转换为Person对象
-//
-//        String key = StrUtil.format(USER_TOKEN_KEY_TEMPLATE, loginUser.getId(), loginUser.getSessionId());
-//        redisUtils.set(key,System.currentTimeMillis());
-//        return loginUser;
-//    }
-//
+    public UserDao validateRedisLoginUser(String sessionId) {
+        if (StringUtil.isEmpty(sessionId)) {
+            return null;
+        }
+        String sessionIdRedis = redisUtils.get(StrUtil.format(AdminConstant.TOKEN_PRFFIX, sessionId));
+        if (sessionIdRedis == null) {
+            return null;
+        }
+
+        JSONObject jsonObject = JSONObject.fromObject(sessionIdRedis);// 将json字符串转换为json对象
+
+        UserDao loginUser = (UserDao) JSONObject.toBean(jsonObject, UserDao.class);// 将建json对象转换为Person对象
+
+        String key = StrUtil.format(AdminConstant.USER_TOKEN_KEY_TEMPLATE, loginUser.getId(), loginUser.getSessionId());
+        redisUtils.set(key, System.currentTimeMillis());
+        return loginUser;
+    }
+
     private void responseJsonMessage(HttpServletResponse response, String msg) {
         response.setCharacterEncoding("UTF-8");
         response.setHeader("Content-type", "text/html;charset=UTF-8");
@@ -163,15 +164,14 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         }
     }
 
-//
-//    /**
-//     * 验证
-//     * 签名 防重复
-//     *
-//     * @param request
-//     * @param response
-//     * @return
-//     */
+    /**
+     * 验证
+     * 签名 防重复
+     *
+     * @param request
+     * @param response
+     * @return
+     */
 //    public boolean vali(HttpServletRequest request, HttpServletResponse response, boolean onlySign) {
 //
 //        /**
@@ -227,7 +227,6 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 //        String value = redisUtils.get(key);
 //
 //        if (value == null) {
-//
 //            redisUtils.set(key, paramsMd5, AppRequestValiUtil.SIGN_EXPIRE_TIME);
 //            return true;
 //        } else {
@@ -237,18 +236,4 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 //        }
 //
 //    }
-//
-//    @Override
-//    public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
-//                                Object handler, Exception ex) throws Exception {
-//        long endTime = System.currentTimeMillis();//2、结束时间
-//        long beginTime = startTimeThreadLocal.get();//得到线程绑定的局部变量（开始时间）
-//        long consumeTime = endTime - beginTime;//3、消耗的时间
-//        if (consumeTime > 500) {//此处认为处理时间超过500毫秒的请求为慢请求
-//            System.err.println(
-//                    String.format("AuthenticationInterceptor " + request.getMethod() + " ====> %s consume %d millis", request.getRequestURI(), consumeTime));
-//        }
-//    }
-
-
 }

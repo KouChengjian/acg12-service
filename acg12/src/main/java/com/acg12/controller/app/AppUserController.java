@@ -2,6 +2,7 @@ package com.acg12.controller.app;
 
 import com.acg12.constant.AppConstants;
 import com.acg12.controller.AppBaseController;
+import com.acg12.entity.dto.UserDao;
 import com.acg12.entity.po.Acg12UserEntity;
 import com.acg12.service.Acg12UserService;
 import com.acg12.utils.StringUtil;
@@ -29,19 +30,9 @@ public class AppUserController extends AppBaseController {
 
     @ResponseBody
     @RequestMapping(value = "/info", method = {RequestMethod.POST})
-    public Result userInfo(Integer uid) {
-        if (uid == null || uid == 0) {
-            return Result.error("参数有误", AppConstants.AppError5000020);
-        }
-        Acg12UserEntity user = acg12UserService.find("id", uid);
-        if (user == null) {
-            return Result.error("不存在用户", AppConstants.AppError5000020);
-        }
-
-        user.setPassword(null);
-        user.setCreateTime(null);
-        user.setUpdateTime(null);
-        return Result.ok(user);
+    public Result userInfo() {
+        UserDao loginUser = getCurrentUser();
+        return Result.ok(loginUser);
     }
 
     @RequestMapping(value = "/update", method = {RequestMethod.POST})

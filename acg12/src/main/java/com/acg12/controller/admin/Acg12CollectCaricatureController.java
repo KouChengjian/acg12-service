@@ -62,7 +62,7 @@ public class Acg12CollectCaricatureController extends GenericController {
 
         acg12CollectCaricatureService.save(acg12CollectCaricature);
         addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
-        return "redirect:list.jhtml";
+        return "redirect:list.html";
     }
 
     /**
@@ -94,7 +94,7 @@ public class Acg12CollectCaricatureController extends GenericController {
     public String update(Acg12CollectCaricatureEntity acg12CollectCaricature, RedirectAttributes redirectAttributes) {
         acg12CollectCaricatureService.update(acg12CollectCaricature);
         addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
-        return "redirect:list.jhtml";
+        return "redirect:list.html";
     }
 
     /**
