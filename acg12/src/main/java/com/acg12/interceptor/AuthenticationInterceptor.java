@@ -49,12 +49,22 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         freeSet.add(new AuthenticationPatten(ALL, Pattern.compile("/api/app/common/login.json")));
         freeSet.add(new AuthenticationPatten(ALL, Pattern.compile("/api/app/common/register.json")));
         freeSet.add(new AuthenticationPatten(ALL, Pattern.compile("/api/app/common/verify.json")));
+        freeSet.add(new AuthenticationPatten(ALL, Pattern.compile("/api/app/common/subject.json")));
         freeSet.add(new AuthenticationPatten(ALL, Pattern.compile("/api/app/common/index.json")));
         freeSet.add(new AuthenticationPatten(ALL, Pattern.compile("/api/app/common/newList.json")));
         freeSet.add(new AuthenticationPatten(ALL, Pattern.compile("/api/app/common/calendarList.json")));
         freeSet.add(new AuthenticationPatten(ALL, Pattern.compile("/api/app/common/albumList.json")));
         freeSet.add(new AuthenticationPatten(ALL, Pattern.compile("/api/app/common/boardList.json")));
         freeSet.add(new AuthenticationPatten(ALL, Pattern.compile("/api/app/common/boardList/albums.json")));
+
+        freeSet.add(new AuthenticationPatten(ALL, Pattern.compile("/api/app/search/key.json")));
+        freeSet.add(new AuthenticationPatten(ALL, Pattern.compile("/api/app/search/subject.json")));
+        freeSet.add(new AuthenticationPatten(ALL, Pattern.compile("/api/app/search/albumList.json")));
+        freeSet.add(new AuthenticationPatten(ALL, Pattern.compile("/api/app/search/paletteList.json")));
+        freeSet.add(new AuthenticationPatten(ALL, Pattern.compile("/api/app/search/caricatureList.json")));
+
+        freeSet.add(new AuthenticationPatten(ALL, Pattern.compile("/api/app/caricature/chapters.json")));
+        freeSet.add(new AuthenticationPatten(ALL, Pattern.compile("/api/app/caricature/chapters/list.json")));
 
         needSignAndCantRepeatSet.add(new AuthenticationPatten(POST, Pattern.compile("/api/app/user/cancelWithdrawal.json"))); //取消提现
     }

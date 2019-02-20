@@ -140,13 +140,17 @@
                 title: "c_id", field: "cId", align: "center", valign: "middle", sortable: true
             },
             {
+                title: "图片", field: "image", align: "center", valign: "middle", sortable: true
+                , formatter: function (value, row, index) {
+                    var a = "<img src=" + value + " height='60px' width='60px' />";
+                    return a;
+                }
+            },
+            {
                 title: "名称", field: "name", align: "center", valign: "middle", sortable: true
             },
             {
                 title: "中文名称", field: "nameCn", align: "center", valign: "middle", sortable: true
-            },
-            {
-                title: "图片", field: "image", align: "center", valign: "middle", sortable: true, visible: false
             },
             {
                 title: "简介", field: "summary", align: "center", valign: "middle", sortable: true, visible: false

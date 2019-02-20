@@ -106,4 +106,6 @@ public class App12CollectController extends AppBaseController {
         System.out.println(i+"==============");
         return Result.ok();
     }
+
+
 }

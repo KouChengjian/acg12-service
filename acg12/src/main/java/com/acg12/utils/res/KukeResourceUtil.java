@@ -40,7 +40,7 @@ public class KukeResourceUtil {
                 return null;
             }
             String content = response.body().string();
-//            System.out.println(content);
+            System.out.println(content);
             JSONObject object = new JSONObject(content);
             JSONArray entries = JsonParse.getJSONArray(object, "entries");
             List<Acg12CaricatureDto> caricatureDtoList = new ArrayList<>();
@@ -48,7 +48,7 @@ public class KukeResourceUtil {
                 JSONObject item = JsonParse.getJSONObject(entries, i);
 //                System.out.println(item.toString());
                 Acg12CaricatureDto caricatureDto = new Acg12CaricatureDto();
-                caricatureDto.setComicId(JsonParse.getInt(item, "comic_id"));
+                caricatureDto.setComicId(JsonParse.getInt(item, "id"));
                 caricatureDto.setType(1);
                 caricatureDto.setCover(JsonParse.getString(item, "cover"));
                 caricatureDto.setTitle(JsonParse.getString(item, "name"));
@@ -73,7 +73,7 @@ public class KukeResourceUtil {
                 return null;
             }
             String content = response.body().string();
-//            System.out.println(content);
+            System.out.println(content);
             JSONObject object = new JSONObject(content);
             Acg12CaricatureDto caricatureDto = new Acg12CaricatureDto();
             caricatureDto.setComicId(JsonParse.getInt(object, "id"));
@@ -112,10 +112,10 @@ public class KukeResourceUtil {
                 return null;
             }
             String content = response.body().string();
-//            System.out.println(content);
+            System.out.println(content);
             JSONObject object = new JSONObject(content);
             Acg12CaricatureChaptersDto caricatureDto = new Acg12CaricatureChaptersDto();
-            caricatureDto.setComicId(JsonParse.getInt(object, "id"));
+            caricatureDto.setComicId(JsonParse.getInt(object, "comic_id"));
             caricatureDto.setTitle(JsonParse.getString(object, "name"));
             caricatureDto.setIndex(JsonParse.getInt(object, "index"));
 
@@ -139,8 +139,8 @@ public class KukeResourceUtil {
     }
 
     public static void main(String[] args) {
-        kukeSearch("火影");
-//        kukeCaricatureInfo(18657);
-//        kukeCaricatureChapters(18657 , 1);
+//        kukeSearch("夏娜");
+//        kukeCaricatureInfo(48246);
+        kukeCaricatureChapters(48246 , 1);
     }
 }

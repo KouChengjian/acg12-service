@@ -151,6 +151,13 @@
                 title: "sId", field: "sId", align: "center", valign: "middle", sortable: true
             },
             {
+                title: "封面", field: "image", align: "center", valign: "middle", sortable: true
+                , formatter: function (value, row, index) {
+                    var a = "<img src=" + value + " height='60px' width='60px' />";
+                    return a;
+                }
+            },
+            {
                 title: "类型", field: "type", align: "center", valign: "middle", sortable: true
             },
             {
@@ -164,9 +171,6 @@
             },
             {
                 title: "概况", field: "summary", align: "center", valign: "middle", sortable: true, visible: false
-            },
-            {
-                title: "封面", field: "image", align: "center", valign: "middle", sortable: true, visible: false
             },
             {
                 title: "话数", field: "epsCount", align: "center", valign: "middle", sortable: true

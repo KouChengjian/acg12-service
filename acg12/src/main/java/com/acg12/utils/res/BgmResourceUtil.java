@@ -137,7 +137,7 @@ public class BgmResourceUtil {
                     if (j == 0) {
                         jsonObject.put("name", name[j]);
                     } else if (j == 1) {
-                        jsonObject.put("nameCn", name[j]);
+                        jsonObject.put("name_cn", name[j]);
                     }
                 }
                 jsonObject.put("type", 1);
