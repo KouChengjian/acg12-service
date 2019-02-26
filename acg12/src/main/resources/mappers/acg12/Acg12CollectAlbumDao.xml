@@ -14,17 +14,21 @@
 		<result property="content" column="content" />
 		<result property="love" column="love" />
 		<result property="favorites" column="favorites" />
-		<result property="createtime" column="createTime" />
-		<result property="updatetime" column="updateTime" />
+		<result property="love" column="love" />
+		<result property="favorites" column="favorites" />
+		<result property="resWidth" column="res_width" />
+		<result property="resHight" column="res_hight" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
 	</resultMap>
 	
 	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
 	<sql id="base_column">
-		 id ,user_id ,pin_id ,image ,link_url ,content ,love ,favorites ,createTime ,updateTime 
+		 id ,user_id ,pin_id ,image ,link_url ,content ,love ,favorites ,res_width ,res_hight ,create_time ,update_time
 	</sql>
 	
 	<sql id="base_value_column">
-		 #{id},#{userId},#{pinId},#{image},#{linkUrl},#{content},#{love},#{favorites},#{createtime},#{updatetime}
+		 #{id},#{userId},#{pinId},#{image},#{linkUrl},#{content},#{love},#{favorites},#{resWidth},#{resHight},#{createTime},#{updateTime}
 	</sql>
 	
 	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
@@ -119,36 +123,6 @@
 	    <if test="filter_favoritese!= null">
 			AND favorites<![CDATA[<=]]>#{filter_favoritese}
 		</if>
-
-
-		<if test="createtime != null ">
-			AND createTime = #{createtime,jdbcType=TIMESTAMP}
-		</if>
-	    	<!-- 大于等于createTime -->
-		<if test="filter_createtimes != null">
-			AND date_format(createTime,'%Y%m%d')<![CDATA[>=]]>#{filter_createtimes}
-		</if>
-		<!-- 小于等于createTime -->
-	    <if test="filter_createtimee!= null">
-			AND date_format(createTime,'%Y%m%d')<![CDATA[<=]]>#{filter_createtimee}
-		</if>
-
-
-
-		<if test="updatetime != null ">
-			AND updateTime = #{updatetime,jdbcType=TIMESTAMP}
-		</if>
-	    	<!-- 大于等于updateTime -->
-		<if test="filter_updatetimes != null">
-			AND date_format(updateTime,'%Y%m%d')<![CDATA[>=]]>#{filter_updatetimes}
-		</if>
-		<!-- 小于等于updateTime -->
-	    <if test="filter_updatetimee!= null">
-			AND date_format(updateTime,'%Y%m%d')<![CDATA[<=]]>#{filter_updatetimee}
-		</if>
-
-
-
 	</sql>
 	
 	<!-- 设置语句 -->
@@ -177,11 +151,11 @@
 		<if test="favorites != null ">
 			favorites = #{favorites,jdbcType=INTEGER},
 		</if>
-		<if test="createtime != null ">
-			createTime = #{createtime,jdbcType=TIMESTAMP},
+		<if test="createTime != null ">
+			createTime = #{createTime,jdbcType=TIMESTAMP},
 		</if>
-		<if test="updatetime != null ">
-			updateTime = #{updatetime,jdbcType=TIMESTAMP},
+		<if test="updateTime != null ">
+			updateTime = #{updateTime,jdbcType=TIMESTAMP},
 		</if>
 	</sql>
 

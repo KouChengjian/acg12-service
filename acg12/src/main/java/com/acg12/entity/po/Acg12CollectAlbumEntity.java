@@ -53,13 +53,24 @@ public class Acg12CollectAlbumEntity implements GenericEntity {
 	/** 采集 */
 	@Column(name = "favorites" )
 	private Integer favorites;
-	
+
+	/** 资源宽度 */
+	@Column(name = "res_width" )
+	private Integer resWidth;
+
+	/** 资源高度 */
+	@Column(name = "res_hight" )
+	private Integer resHight;
+
 	/** 创建时间 */
-	@Column(name = "createTime" )
-	private java.util.Date createtime;
+	@Column(name = "create_time" )
+	private java.util.Date createTime;
 	
 	/** 更新时间 */
-	@Column(name = "updateTime" )
-	private java.util.Date updatetime;
+	@Column(name = "update_time" )
+	private java.util.Date updateTime;
+
+	/** 是否收藏 */
+	private Integer isCollect;
 	
 }

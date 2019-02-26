@@ -28,13 +28,13 @@ public class AppConstants {
 	public static final String AppError5000109= "5000109";
     /**验证码错误*/
     public static final String  CAPTCHA__NOT_EXIST = "5000107";
-
 	/**参数有误。比如参数不能为空，或长度超出限制等**/
 	public static final String AppError5000020 = "5000020";
 	/**SQl操作异常**/
 	public static final String AppError5000021= "5000111";
-	
 
 
+	/**收藏相关的**/
+	public static final String AppError5010001= "5010001";
 
 }
