@@ -56,6 +56,9 @@ public class App12CollectController extends AppBaseController {
         List<Acg12CollectSubjectEntity> collectSubjectEntityList = acg12CollectSubjectService.findListByPage(parameter);
         collectSubjectEntityList = collectSubjectEntityList.stream().map(e -> {
             e.setIsCollect(1);
+            if (!e.getImage().contains("http")) {
+                e.setImage("http:"+e.getImage());
+            }
             return e;
         }).collect(Collectors.toList());
         return Result.ok(collectSubjectEntityList);
