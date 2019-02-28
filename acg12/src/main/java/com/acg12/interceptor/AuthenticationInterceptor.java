@@ -32,7 +32,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
     public static final Integer min15 = 60 * 15;
     private static final Long BANGSHOU_TYPE = 1L;
-    private String sessionName = "sessionId";
+    public static String sessionName = "sessionId";
     private String GET = "GET";
     private String POST = "POST";
     private String ALL = "ALL";

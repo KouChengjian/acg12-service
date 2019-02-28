@@ -2,8 +2,6 @@ package com.acg12.entity.dto;
 
 import com.acg12.entity.po.*;
 import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.framework.loippi.mybatis.ext.annotation.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -58,6 +56,9 @@ public class Acg12SubjectDto {
 
     /** 播放结束 */
     private String endDate;
+
+    /** 是否收藏 */
+    private Integer isCollect;
 
     private List<Acg12SubjectDetailEntity> detailList = new ArrayList<>();
     private List<Acg12SubjectStaffEntity> staffList = new ArrayList<>();

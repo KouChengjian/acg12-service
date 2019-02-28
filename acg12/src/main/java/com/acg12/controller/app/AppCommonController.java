@@ -48,6 +48,8 @@ public class AppCommonController extends AppBaseController {
     private Acg12BannerService acg12BannerService;
     @Resource
     private Acg12TagService acg12TagService;
+    @Resource
+    private Acg12CollectSubjectService acg12CollectSubjectService;
 
     @Transactional
     @ResponseBody
@@ -208,11 +210,15 @@ public class AppCommonController extends AppBaseController {
 
     public Result subjectInfo(int id, String key) {
         Acg12SubjectDto acg12SubjectDto = acg12SubjectService.findSubjectDto(id);
-        if (acg12SubjectDto != null) {
-            return Result.ok(acg12SubjectDto);
+        if (acg12SubjectDto == null) {
+            acg12SubjectDto = acg12ResourceService.getBgmSubject(id);
         }
-        acg12SubjectDto = acg12ResourceService.getBgmSubject(id);
+
         if (acg12SubjectDto != null) {
+            UserDao loginUser = getCurrentUser();
+            if (loginUser != null) {
+                acg12SubjectDto = acg12CollectSubjectService.buildHasCollectToSubject(acg12SubjectDto, loginUser.getId());
+            }
             return Result.ok(acg12SubjectDto);
         }
         return Result.error("数据为空");

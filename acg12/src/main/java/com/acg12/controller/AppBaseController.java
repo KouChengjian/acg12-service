@@ -7,6 +7,7 @@ import com.acg12.entity.dto.UserDao;
 import com.acg12.entity.po.Acg12UserEntity;
 import com.acg12.utils.RandomGUIDUtil;
 import com.acg12.utils.RedisUtils;
+import com.acg12.utils.StringUtil;
 import com.acg12.utils.result.Result;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+
+import static com.acg12.interceptor.AuthenticationInterceptor.sessionName;
 
 /**
  * Created with IntelliJ IDEA.
@@ -88,6 +91,24 @@ public class AppBaseController {
         return userDao;
     }
 
+    public UserDao validateRedisLoginUser(String sessionId) {
+        if (StringUtil.isEmpty(sessionId)) {
+            return null;
+        }
+        String sessionIdRedis = redisUtils.get(StrUtil.format(AdminConstant.TOKEN_PRFFIX, sessionId));
+        if (sessionIdRedis == null) {
+            return null;
+        }
+
+        JSONObject jsonObject = JSONObject.fromObject(sessionIdRedis);// 将json字符串转换为json对象
+
+        UserDao loginUser = (UserDao) JSONObject.toBean(jsonObject, UserDao.class);// 将建json对象转换为Person对象
+
+        String key = StrUtil.format(AdminConstant.USER_TOKEN_KEY_TEMPLATE, loginUser.getId(), loginUser.getSessionId());
+        redisUtils.set(key, System.currentTimeMillis());
+        return loginUser;
+    }
+
     /**
      * 获取当前登录的用户
      *
@@ -95,6 +116,19 @@ public class AppBaseController {
      */
     protected UserDao getCurrentUser() {
         UserDao loginUser = (UserDao) request.getAttribute("LoginUser");
+        if(loginUser == null){
+            String sessionId = request.getHeader(sessionName);
+            if (StringUtil.isEmpty(sessionId)) {
+                sessionId = request.getParameter(sessionName);
+            }
+            if (StringUtil.isEmpty(sessionId)) {
+                return null;
+            }
+            loginUser = validateRedisLoginUser(sessionId);
+            if (loginUser == null) {
+                return null;
+            }
+        }
         return loginUser;
     }
 }
