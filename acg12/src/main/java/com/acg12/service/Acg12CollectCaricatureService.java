@@ -13,4 +13,6 @@ public interface Acg12CollectCaricatureService  extends GenericService<Acg12Coll
 	public	List<Acg12CollectCaricatureEntity> findListByPage(Object parameter);
 	public	List<Acg12CollectCaricatureEntity> findListNewByPage(Object parameter);
     public	 Long deletes(Object parameter);
+
+//	public Acg12PersonDto buildHasCollectToCaricature(Acg12PersonDto acg12PersonDto , long userId);
 }

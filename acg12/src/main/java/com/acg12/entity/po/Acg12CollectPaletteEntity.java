@@ -45,13 +45,32 @@ public class Acg12CollectPaletteEntity implements GenericEntity {
 	/** 数量 */
 	@Column(name = "num" )
 	private Integer num;
+
+	/** 封面 */
+	@Column(name = "cover" )
+	private String cover;
+
+	/** 缩略图1 */
+	@Column(name = "thum_image_1" )
+	private String thumImage1;
+
+	/** 缩略图2 */
+	@Column(name = "thum_image_2" )
+	private String thumImage2;
+
+	/** 缩略图3 */
+	@Column(name = "thum_image_3" )
+	private String thumImage3;
 	
 	/** 创建时间 */
-	@Column(name = "createTime" )
-	private java.util.Date createtime;
+	@Column(name = "create_time" )
+	private java.util.Date createTime;
 	
 	/** 创建时间 */
-	@Column(name = "updateTime" )
-	private java.util.Date updatetime;
+	@Column(name = "update_time" )
+	private java.util.Date updateTime;
+
+	/** 是否收藏 */
+	private Integer isCollect;
 	
 }

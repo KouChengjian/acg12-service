@@ -2,9 +2,7 @@ package com.acg12.entity.dto;
 
 import com.acg12.entity.po.Acg12PersonDetailEntity;
 import com.acg12.entity.po.Acg12PersonEntity;
-import com.acg12.entity.po.Acg12SubjectEntity;
 import com.alibaba.fastjson.JSON;
-import com.framework.loippi.mybatis.ext.annotation.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -61,6 +59,9 @@ public class Acg12PersonDto {
 
     /** 生日 */
     private String birthday;
+
+    /** 是否收藏 */
+    private Integer isCollect;
 
     private List<Acg12PersonDetailEntity> detailList;
 

@@ -48,7 +48,7 @@ public class App12CollectController extends AppBaseController {
     @RequestMapping(value = "/subject/list", method = {RequestMethod.POST})
     public Result subjectList(int pageNumber, int pageSize) {
         UserDao loginUser = getCurrentUser();
-        Map<String, Object> parameter = new HashMap<String, Object>();
+        Map<String, Object> parameter = new HashMap<>();
         parameter.put("userId", loginUser.getId());
         parameter.put("pageNumber", (pageNumber - 1) * pageSize);
         parameter.put("pageSize", pageSize);
@@ -57,7 +57,7 @@ public class App12CollectController extends AppBaseController {
         collectSubjectEntityList = collectSubjectEntityList.stream().map(e -> {
             e.setIsCollect(1);
             if (!e.getImage().contains("http")) {
-                e.setImage("http:"+e.getImage());
+                e.setImage("http:" + e.getImage());
             }
             return e;
         }).collect(Collectors.toList());
@@ -71,7 +71,7 @@ public class App12CollectController extends AppBaseController {
             return Result.error("参数错误");
         }
         UserDao loginUser = getCurrentUser();
-        Map<String, Object> parameter = new HashMap<String, Object>();
+        Map<String, Object> parameter = new HashMap<>();
         parameter.put("userId", loginUser.getId());
         parameter.put("relevanceId", subjectEntity.getRelevanceId());
         List<Acg12CollectSubjectEntity> collectSubjectList = acg12CollectSubjectService.findListByPage(parameter);
@@ -95,10 +95,10 @@ public class App12CollectController extends AppBaseController {
             return Result.error("参数错误");
         }
         UserDao loginUser = getCurrentUser();
-        Map<String, Object> parameter = new HashMap<String, Object>();
+        Map<String, Object> parameter = new HashMap<>();
         parameter.put("userId", loginUser.getId());
         parameter.put("relevanceId", relevanceId);
-        long i = acg12CollectAlbumService.deletes(parameter);
+        acg12CollectAlbumService.deletes(parameter);
         return Result.ok();
     }
 
@@ -106,7 +106,7 @@ public class App12CollectController extends AppBaseController {
     @RequestMapping(value = "/album/list", method = {RequestMethod.POST})
     public Result albumList(int pageNumber, int pageSize) {
         UserDao loginUser = getCurrentUser();
-        Map<String, Object> parameter = new HashMap<String, Object>();
+        Map<String, Object> parameter = new HashMap<>();
         parameter.put("userId", loginUser.getId());
         parameter.put("pageNumber", (pageNumber - 1) * pageSize);
         parameter.put("pageSize", pageSize);
@@ -126,7 +126,7 @@ public class App12CollectController extends AppBaseController {
             return Result.error("参数错误");
         }
         UserDao loginUser = getCurrentUser();
-        Map<String, Object> parameter = new HashMap<String, Object>();
+        Map<String, Object> parameter = new HashMap<>();
         parameter.put("userId", loginUser.getId());
         parameter.put("pinId", albumEntity.getPinId());
         List<Acg12CollectAlbumEntity> collectAlbumList = acg12CollectAlbumService.findListByPage(parameter);
@@ -150,7 +150,7 @@ public class App12CollectController extends AppBaseController {
             return Result.error("参数错误");
         }
         UserDao loginUser = getCurrentUser();
-        Map<String, Object> parameter = new HashMap<String, Object>();
+        Map<String, Object> parameter = new HashMap<>();
         parameter.put("userId", loginUser.getId());
         parameter.put("pinId", pinId);
         long i = acg12CollectAlbumService.deletes(parameter);
@@ -162,34 +162,54 @@ public class App12CollectController extends AppBaseController {
     @RequestMapping(value = "/palette/list", method = {RequestMethod.POST})
     public Result paletteList(int pageNumber, int pageSize) {
         UserDao loginUser = getCurrentUser();
-        Map<String, Object> parameter = new HashMap<String, Object>();
+        Map<String, Object> parameter = new HashMap<>();
         parameter.put("userId", loginUser.getId());
         parameter.put("pageNumber", (pageNumber - 1) * pageSize);
         parameter.put("pageSize", pageSize);
         parameter.put("order", " id desc");
-        List<Acg12CollectPaletteEntity> collectAlbumList = acg12CollectPaletteService.findListByPage(parameter);
-        return Result.ok(collectAlbumList);
+        List<Acg12CollectPaletteEntity> collectPaletteList = acg12CollectPaletteService.findListByPage(parameter);
+        collectPaletteList = collectPaletteList.stream().map(e -> {
+            e.setIsCollect(1);
+            return e;
+        }).collect(Collectors.toList());
+        return Result.ok(collectPaletteList);
     }
 
     @ResponseBody
     @RequestMapping(value = "/palette/add", method = {RequestMethod.POST})
     public Result paletteAdd(Acg12CollectPaletteEntity paletteEntity) {
-        if (StringUtil.isEmpty(paletteEntity.getBoardId())) {
+        if (StringUtil.isEmpty(paletteEntity.getBoardId()) || StringUtil.isEmpty(paletteEntity.getCover())) {
             return Result.error("参数错误");
         }
         UserDao loginUser = getCurrentUser();
+        Map<String, Object> parameter = new HashMap<>();
+        parameter.put("userId", loginUser.getId());
+        parameter.put("boardId", paletteEntity.getBoardId());
+        List<Acg12CollectPaletteEntity> collectAlbumList = acg12CollectPaletteService.findListByPage(parameter);
+        if (collectAlbumList.size() > 0) {
+            return Result.error(AppConstants.AppError5010001, "当前已收藏");
+        }
+
         Acg12CollectPaletteEntity acg12CollectPaletteEntity = new Acg12CollectPaletteEntity();
         BeanUtils.copyProperties(paletteEntity, acg12CollectPaletteEntity);
         acg12CollectPaletteEntity.setUserId(loginUser.getId());
+        acg12CollectPaletteEntity.setCreateTime(new Date());
+        acg12CollectPaletteEntity.setUpdateTime(new Date());
         acg12CollectPaletteService.save(acg12CollectPaletteEntity);
         return Result.ok();
     }
 
     @ResponseBody
     @RequestMapping(value = "/palette/del", method = {RequestMethod.POST})
-    public Result paletteDel(long id) {
-        long i = acg12CollectPaletteService.delete(id);
-        System.out.println(i + "==============");
+    public Result paletteDel(String boardId) {
+        if (StringUtil.isEmpty(boardId)) {
+            return Result.error("参数错误");
+        }
+        UserDao loginUser = getCurrentUser();
+        Map<String, Object> parameter = new HashMap<>();
+        parameter.put("userId", loginUser.getId());
+        parameter.put("boardId", boardId);
+        acg12CollectPaletteService.deletes(parameter);
         return Result.ok();
     }
 

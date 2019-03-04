@@ -13,4 +13,5 @@ public interface Acg12CollectAlbumService  extends GenericService<Acg12CollectAl
 	public	List<Acg12CollectAlbumEntity> findListByPage(Object parameter);
 	public	List<Acg12CollectAlbumEntity> findListNewByPage(Object parameter);
     public	 Long deletes(Object parameter);
+//	public Acg12PersonDto buildHasCollectAlbum(Acg12PersonDto acg12PersonDto , long userId);
 }

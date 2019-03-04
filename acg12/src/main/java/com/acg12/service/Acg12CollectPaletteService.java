@@ -13,4 +13,5 @@ public interface Acg12CollectPaletteService  extends GenericService<Acg12Collect
 	public	List<Acg12CollectPaletteEntity> findListByPage(Object parameter);
 	public	List<Acg12CollectPaletteEntity> findListNewByPage(Object parameter);
     public	 Long deletes(Object parameter);
+//	public Acg12PersonDto buildHasCollectToPalette(Acg12PersonDto acg12PersonDto , long userId);
 }

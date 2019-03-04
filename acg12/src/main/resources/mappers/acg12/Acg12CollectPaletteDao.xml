@@ -12,17 +12,21 @@
 		<result property="title" column="title" />
 		<result property="sign" column="sign" />
 		<result property="num" column="num" />
-		<result property="createtime" column="createTime" />
-		<result property="updatetime" column="updateTime" />
+		<result property="cover" column="cover" />
+		<result property="thumImage1" column="thum_image_1" />
+		<result property="thumImage2" column="thum_image_2" />
+		<result property="thumImage3" column="thum_image_3" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
 	</resultMap>
 	
 	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
 	<sql id="base_column">
-		 id ,user_id ,board_id ,title ,sign ,num ,createTime ,updateTime 
+		 id ,user_id ,board_id ,title ,sign ,num ,cover ,thum_image_1 ,thum_image_2 ,thum_image_3 ,create_time ,update_time
 	</sql>
 	
 	<sql id="base_value_column">
-		 #{id},#{userId},#{boardId},#{title},#{sign},#{num},#{createtime},#{updatetime}
+		 #{id},#{userId},#{boardId},#{title},#{sign},#{num},#{cover},#{thumImage1},#{thumImage2},#{thumImage3},#{createTime},#{updateTime}
 	</sql>
 	
 	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
@@ -95,8 +99,23 @@
 			AND num<![CDATA[<=]]>#{filter_nume}
 		</if>
 
+		<if test="cover != null ">
+			AND cover = #{cover,jdbcType=VARCHAR}
+		</if>
 
-		<if test="createtime != null ">
+		<if test="thumImage1 != null ">
+			AND thumImage1 = #{thumImage1,jdbcType=VARCHAR}
+		</if>
+
+		<if test="thumImage2 != null ">
+			AND thumImage2 = #{thumImage2,jdbcType=VARCHAR}
+		</if>
+
+		<if test="thumImage3 != null ">
+			AND thumImage3 = #{thumImage3,jdbcType=VARCHAR}
+		</if>
+
+		<if test="createTime != null ">
 			AND createTime = #{createtime,jdbcType=TIMESTAMP}
 		</if>
 	    	<!-- 大于等于createTime -->
@@ -110,7 +129,7 @@
 
 
 
-		<if test="updatetime != null ">
+		<if test="updateTime != null ">
 			AND updateTime = #{updatetime,jdbcType=TIMESTAMP}
 		</if>
 	    	<!-- 大于等于updateTime -->
@@ -146,11 +165,23 @@
 		<if test="num != null ">
 			num = #{num,jdbcType=INTEGER},
 		</if>
-		<if test="createtime != null ">
-			createTime = #{createtime,jdbcType=TIMESTAMP},
+		<if test="cover != null ">
+			num = #{cover,jdbcType=VARCHAR},
 		</if>
-		<if test="updatetime != null ">
-			updateTime = #{updatetime,jdbcType=TIMESTAMP},
+		<if test="thumImage1 != null ">
+			num = #{thumImage1,jdbcType=VARCHAR},
+		</if>
+		<if test="thumImage2 != null ">
+			num = #{thumImage2,jdbcType=VARCHAR},
+		</if>
+		<if test="thumImage3 != null ">
+			num = #{thumImage3,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null ">
+			createTime = #{createTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="updateTime != null ">
+			updateTime = #{updateTime,jdbcType=TIMESTAMP},
 		</if>
 	</sql>
 

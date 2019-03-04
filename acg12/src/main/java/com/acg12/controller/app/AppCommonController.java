@@ -226,11 +226,15 @@ public class AppCommonController extends AppBaseController {
 
     public Result characterInfo(int id, String key) {
         Acg12CharacterDto acg12CharacterDto = acg12CharacterService.findCharacterDto(id);
-        if (acg12CharacterDto != null) {
-            return Result.ok(acg12CharacterDto);
+        if (acg12CharacterDto == null) {
+            acg12CharacterDto = acg12ResourceService.getBgmCharacter(id);
         }
-        acg12CharacterDto = acg12ResourceService.getBgmCharacter(id);
+
         if (acg12CharacterDto != null) {
+            UserDao loginUser = getCurrentUser();
+            if (loginUser != null) {
+                acg12CharacterDto = acg12CollectSubjectService.buildHasCollectToCharacter(acg12CharacterDto, loginUser.getId());
+            }
             return Result.ok(acg12CharacterDto);
         }
         return Result.error("数据为空");
@@ -239,10 +243,14 @@ public class AppCommonController extends AppBaseController {
     public Result personInfo(int id, String key) {
         Acg12PersonDto acg12PersonDto = acg12PersonService.findPersonDto(id);
         if (acg12PersonDto != null) {
-            return Result.ok(acg12PersonDto);
+            acg12PersonDto = acg12ResourceService.getBgmPerson(id);
         }
-        acg12PersonDto = acg12ResourceService.getBgmPerson(id);
+
         if (acg12PersonDto != null) {
+            UserDao loginUser = getCurrentUser();
+            if (loginUser != null) {
+                acg12PersonDto = acg12CollectSubjectService.buildHasCollectToPerson(acg12PersonDto, loginUser.getId());
+            }
             return Result.ok(acg12PersonDto);
         }
         return Result.error("数据为空");
