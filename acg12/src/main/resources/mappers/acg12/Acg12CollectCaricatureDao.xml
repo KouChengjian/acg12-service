@@ -12,17 +12,17 @@
 		<result property="type" column="type" />
 		<result property="cover" column="cover" />
 		<result property="title" column="title" />
-		<result property="createtime" column="createTime" />
-		<result property="updatetime" column="updateTime" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
 	</resultMap>
 	
 	<!-- 定义可重用的SQL代码段，可以包含在其他语句中 -->
 	<sql id="base_column">
-		 id ,user_id ,comic_id ,type ,cover ,title ,createTime ,updateTime 
+		 id ,user_id ,comic_id ,type ,cover ,title ,create_time ,update_time
 	</sql>
 	
 	<sql id="base_value_column">
-		 #{id},#{userId},#{comicId},#{type},#{cover},#{title},#{createtime},#{updatetime}
+		 #{id},#{userId},#{comicId},#{type},#{cover},#{title},#{createTime},#{updateTime}
 	</sql>
 	
 	<!-- 定义可重用的WHERE SQL公共代码段，可以包含在其他语句中 -->
@@ -101,8 +101,8 @@
 
 
 
-		<if test="createtime != null ">
-			AND createTime = #{createtime,jdbcType=TIMESTAMP}
+		<if test="createTime != null ">
+			AND create_time = #{create_time,jdbcType=TIMESTAMP}
 		</if>
 	    	<!-- 大于等于createTime -->
 		<if test="filter_createtimes != null">
@@ -115,8 +115,8 @@
 
 
 
-		<if test="updatetime != null ">
-			AND updateTime = #{updatetime,jdbcType=TIMESTAMP}
+		<if test="updateTime != null ">
+			AND update_time = #{update_time,jdbcType=TIMESTAMP}
 		</if>
 	    	<!-- 大于等于updateTime -->
 		<if test="filter_updatetimes != null">
@@ -151,11 +151,11 @@
 		<if test="title != null ">
 			title = #{title,jdbcType=VARCHAR},
 		</if>
-		<if test="createtime != null ">
-			createTime = #{createtime,jdbcType=TIMESTAMP},
+		<if test="createTime != null ">
+			create_time = #{create_time,jdbcType=TIMESTAMP},
 		</if>
-		<if test="updatetime != null ">
-			updateTime = #{updatetime,jdbcType=TIMESTAMP},
+		<if test="updateTime != null ">
+			update_time = #{update_time,jdbcType=TIMESTAMP},
 		</if>
 	</sql>
 

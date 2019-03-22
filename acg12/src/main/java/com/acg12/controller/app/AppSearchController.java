@@ -1,8 +1,11 @@
 package com.acg12.controller.app;
 
+import com.acg12.controller.AppBaseController;
 import com.acg12.entity.dto.Acg12AlbumDto;
 import com.acg12.entity.dto.Acg12CaricatureDto;
 import com.acg12.entity.dto.Acg12PaletteDto;
+import com.acg12.entity.dto.UserDao;
+import com.acg12.service.Acg12CollectCaricatureService;
 import com.acg12.service.Acg12ResourceService;
 import com.acg12.utils.result.Result;
 import org.springframework.stereotype.Controller;
@@ -18,10 +21,12 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("api/app/search/*")
-public class AppSearchController {
+public class AppSearchController extends AppBaseController {
 
     @Resource
     private Acg12ResourceService acg12ResourceService;
+    @Resource
+    private Acg12CollectCaricatureService acg12CollectCaricatureService;
 
     @ResponseBody
     @RequestMapping(value = "/key", method = {RequestMethod.POST})
@@ -47,7 +52,7 @@ public class AppSearchController {
 
     @ResponseBody
     @RequestMapping(value = "/albumList", method = {RequestMethod.POST})
-    public Result albumList(String key, String page){
+    public Result albumList(String key, String page) {
         List<Acg12AlbumDto> albumList = acg12ResourceService.getHuaBanSearchImages(key, page);
         if (albumList == null || albumList.size() == 0) {
             return Result.error("数据为空");
@@ -58,7 +63,7 @@ public class AppSearchController {
 
     @ResponseBody
     @RequestMapping(value = "/paletteList", method = {RequestMethod.POST})
-    public Result paletteList(String key, String page)   {
+    public Result paletteList(String key, String page) {
         List<Acg12PaletteDto> paletteList = acg12ResourceService.getHuaBanSearchBoards(key, page);
         if (paletteList == null || paletteList.size() == 0) {
             return Result.error("数据为空");
@@ -69,11 +74,15 @@ public class AppSearchController {
 
     @ResponseBody
     @RequestMapping(value = "/caricatureList", method = {RequestMethod.POST})
-    public Result caricatureList(String key, String page)   {
+    public Result caricatureList(String key, String page) {
         List<Acg12CaricatureDto> caricatureDtoList = acg12ResourceService.kukeSearch(key);
         if (caricatureDtoList == null || caricatureDtoList.size() == 0) {
             return Result.error("数据为空");
         } else {
+            UserDao loginUser = getCurrentUser();
+            if (loginUser != null) {
+                caricatureDtoList = acg12CollectCaricatureService.buildHasCollectToCaricature(caricatureDtoList, loginUser.getId());
+            }
             return Result.ok(caricatureDtoList);
         }
     }

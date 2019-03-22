@@ -47,11 +47,14 @@ public class Acg12CollectCaricatureEntity implements GenericEntity {
 	private String title;
 	
 	/** 创建时间 */
-	@Column(name = "createTime" )
-	private java.util.Date createtime;
+	@Column(name = "create_time" )
+	private java.util.Date createTime;
 	
 	/** 更新时间 */
-	@Column(name = "updateTime" )
-	private java.util.Date updatetime;
+	@Column(name = "update_time" )
+	private java.util.Date updateTime;
+
+	/** 是否收藏 */
+	private Integer isCollect;
 	
 }

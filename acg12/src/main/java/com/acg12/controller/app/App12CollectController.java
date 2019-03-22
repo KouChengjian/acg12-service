@@ -4,6 +4,7 @@ import com.acg12.constant.AppConstants;
 import com.acg12.controller.AppBaseController;
 import com.acg12.entity.dto.UserDao;
 import com.acg12.entity.po.Acg12CollectAlbumEntity;
+import com.acg12.entity.po.Acg12CollectCaricatureEntity;
 import com.acg12.entity.po.Acg12CollectPaletteEntity;
 import com.acg12.entity.po.Acg12CollectSubjectEntity;
 import com.acg12.service.Acg12CollectAlbumService;
@@ -213,5 +214,59 @@ public class App12CollectController extends AppBaseController {
         return Result.ok();
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/caricature/list", method = {RequestMethod.POST})
+    public Result caricatureList(int pageNumber, int pageSize) {
+        UserDao loginUser = getCurrentUser();
+        Map<String, Object> parameter = new HashMap<>();
+        parameter.put("userId", loginUser.getId());
+        parameter.put("pageNumber", (pageNumber - 1) * pageSize);
+        parameter.put("pageSize", pageSize);
+        parameter.put("order", " id desc");
+        List<Acg12CollectCaricatureEntity> collectPaletteList = acg12CollectCaricatureService.findListByPage(parameter);
+        collectPaletteList = collectPaletteList.stream().map(e -> {
+            e.setIsCollect(1);
+            return e;
+        }).collect(Collectors.toList());
+        return Result.ok(collectPaletteList);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/caricature/add", method = {RequestMethod.POST})
+    public Result caricatureAdd(Acg12CollectCaricatureEntity caricatureEntity) {
+        if (caricatureEntity.getComicId() == null || caricatureEntity.getComicId() == 0) {
+            return Result.error("参数错误");
+        }
+        UserDao loginUser = getCurrentUser();
+        Map<String, Object> parameter = new HashMap<>();
+        parameter.put("userId", loginUser.getId());
+        parameter.put("comicId", caricatureEntity.getComicId());
+        List<Acg12CollectCaricatureEntity> collectCaricatureList = acg12CollectCaricatureService.findListByPage(parameter);
+        if (collectCaricatureList.size() > 0) {
+            return Result.error(AppConstants.AppError5010001, "当前已收藏");
+        }
+
+        Acg12CollectCaricatureEntity acg12CollectCaricatureEntity = new Acg12CollectCaricatureEntity();
+        BeanUtils.copyProperties(caricatureEntity, acg12CollectCaricatureEntity);
+        acg12CollectCaricatureEntity.setUserId(loginUser.getId());
+        acg12CollectCaricatureEntity.setCreateTime(new Date());
+        acg12CollectCaricatureEntity.setUpdateTime(new Date());
+        acg12CollectCaricatureService.save(acg12CollectCaricatureEntity);
+        return Result.ok();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/caricature/del", method = {RequestMethod.POST})
+    public Result caricatureDel(Integer comicId) {
+        if (comicId  == null || comicId == 0) {
+            return Result.error("参数错误");
+        }
+        UserDao loginUser = getCurrentUser();
+        Map<String, Object> parameter = new HashMap<>();
+        parameter.put("userId", loginUser.getId());
+        parameter.put("comicId", comicId);
+        acg12CollectPaletteService.deletes(parameter);
+        return Result.ok();
+    }
 
 }
