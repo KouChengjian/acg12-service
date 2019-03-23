@@ -48,6 +48,9 @@ public class AppCommonController extends AppBaseController {
     private Acg12BannerService acg12BannerService;
     @Resource
     private Acg12TagService acg12TagService;
+
+    @Resource
+    private Acg12CollectAlbumService acg12CollectAlbumService;
     @Resource
     private Acg12CollectSubjectService acg12CollectSubjectService;
 
@@ -159,9 +162,12 @@ public class AppCommonController extends AppBaseController {
         List<Acg12AlbumDto> albumList = acg12ResourceService.getHuaBanImages(max);
         if (albumList == null || albumList.size() == 0) {
             return Result.error("数据为空");
-        } else {
-            return Result.ok(albumList);
         }
+        UserDao loginUser = getCurrentUser();
+        if (loginUser != null) {
+            albumList = acg12CollectAlbumService.buildHasCollectAlbum(albumList, loginUser.getId());
+        }
+        return Result.ok(albumList);
     }
 
 

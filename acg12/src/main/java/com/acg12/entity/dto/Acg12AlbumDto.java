@@ -9,6 +9,8 @@ public class Acg12AlbumDto {
 	private Integer resHight; // 资源高度
 	private Integer love; // 喜欢的个数  点赞
 	private Integer favorites;// 收藏的个数 采集
+	/** 是否收藏 */
+	private Integer isCollect;
 
 	public String getPinId() {
 		return pinId;
@@ -64,5 +66,13 @@ public class Acg12AlbumDto {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public Integer getIsCollect() {
+		return isCollect;
+	}
+
+	public void setIsCollect(Integer isCollect) {
+		this.isCollect = isCollect;
 	}
 }
