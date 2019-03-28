@@ -8,6 +8,8 @@ public class Acg12PaletteDto {
 	private String name; // 画板名
 	private Integer num = 0; // 图片数量
 	private String sign; // 图片签名
+	/** 是否收藏 */
+	private Integer isCollect;
 	private ArrayList<String> urlAlbum = new ArrayList<String>();
 
 	public String getBoardId() {
@@ -80,6 +82,13 @@ public class Acg12PaletteDto {
 		return "Acg12PaletteDto [boardId=" + boardId + ", name=" + name + ", num="
 				+ num + ", sign=" + sign + ", urlAlbum=" + urlAlbum + "]";
 	}
-	
-	
+
+
+	public Integer getIsCollect() {
+		return isCollect;
+	}
+
+	public void setIsCollect(Integer isCollect) {
+		this.isCollect = isCollect;
+	}
 }

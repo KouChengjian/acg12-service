@@ -5,7 +5,9 @@ import com.acg12.entity.dto.Acg12AlbumDto;
 import com.acg12.entity.dto.Acg12CaricatureDto;
 import com.acg12.entity.dto.Acg12PaletteDto;
 import com.acg12.entity.dto.UserDao;
+import com.acg12.service.Acg12CollectAlbumService;
 import com.acg12.service.Acg12CollectCaricatureService;
+import com.acg12.service.Acg12CollectPaletteService;
 import com.acg12.service.Acg12ResourceService;
 import com.acg12.utils.result.Result;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,11 @@ public class AppSearchController extends AppBaseController {
 
     @Resource
     private Acg12ResourceService acg12ResourceService;
+
+    @Resource
+    private Acg12CollectAlbumService acg12CollectAlbumService;
+    @Resource
+    private Acg12CollectPaletteService acg12CollectPaletteService;
     @Resource
     private Acg12CollectCaricatureService acg12CollectCaricatureService;
 
@@ -56,9 +63,12 @@ public class AppSearchController extends AppBaseController {
         List<Acg12AlbumDto> albumList = acg12ResourceService.getHuaBanSearchImages(key, page);
         if (albumList == null || albumList.size() == 0) {
             return Result.error("数据为空");
-        } else {
-            return Result.ok(albumList);
         }
+        UserDao loginUser = getCurrentUser();
+        if (loginUser != null) {
+            albumList = acg12CollectAlbumService.buildHasCollectAlbum(albumList, loginUser.getId());
+        }
+        return Result.ok(albumList);
     }
 
     @ResponseBody
@@ -67,9 +77,12 @@ public class AppSearchController extends AppBaseController {
         List<Acg12PaletteDto> paletteList = acg12ResourceService.getHuaBanSearchBoards(key, page);
         if (paletteList == null || paletteList.size() == 0) {
             return Result.error("数据为空");
-        } else {
-            return Result.ok(paletteList);
         }
+        UserDao loginUser = getCurrentUser();
+        if (loginUser != null) {
+            paletteList = acg12CollectPaletteService.buildHasCollectPalette(paletteList, loginUser.getId());
+        }
+        return Result.ok(paletteList);
     }
 
     @ResponseBody

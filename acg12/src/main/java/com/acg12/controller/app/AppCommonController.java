@@ -52,6 +52,8 @@ public class AppCommonController extends AppBaseController {
     @Resource
     private Acg12CollectAlbumService acg12CollectAlbumService;
     @Resource
+    private Acg12CollectPaletteService acg12CollectPaletteService;
+    @Resource
     private Acg12CollectSubjectService acg12CollectSubjectService;
 
     @Transactional
@@ -177,9 +179,12 @@ public class AppCommonController extends AppBaseController {
         List<Acg12PaletteDto> paletteList = acg12ResourceService.getHuaBanBoards(max);
         if (paletteList == null || paletteList.size() == 0) {
             return Result.error("数据为空");
-        } else {
-            return Result.ok(paletteList);
         }
+        UserDao loginUser = getCurrentUser();
+        if (loginUser != null) {
+            paletteList = acg12CollectPaletteService.buildHasCollectPalette(paletteList, loginUser.getId());
+        }
+        return Result.ok(paletteList);
     }
 
     @ResponseBody
@@ -188,9 +193,12 @@ public class AppCommonController extends AppBaseController {
         List<Acg12AlbumDto> albumList = acg12ResourceService.getHuaBanBoardsToImages(boardId, max);
         if (albumList == null || albumList.size() == 0) {
             return Result.error("数据为空");
-        } else {
-            return Result.ok(albumList);
         }
+        UserDao loginUser = getCurrentUser();
+        if (loginUser != null) {
+            albumList = acg12CollectAlbumService.buildHasCollectAlbum(albumList, loginUser.getId());
+        }
+        return Result.ok(albumList);
     }
 
     /**
