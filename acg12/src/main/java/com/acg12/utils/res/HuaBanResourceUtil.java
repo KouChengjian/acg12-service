@@ -27,8 +27,8 @@ public class HuaBanResourceUtil {
     public static final String URL_PALETTE = "http://huabanpro.com/boards/favorite/anime/?iemf5hf8&limit=20&wfl=1"; //&max=24465404
     // 获取画板中的画集
     public static final String URL_PALETTE_ALBUM = "http://huabanpro.com/boards/";
-    // 搜索 - 图片
-    public static final String URL_SEARCH_ALBUM   = "http://huabanpro.com/search/?category=anime&q=";
+    // 搜索 - 图片 https://huaban.com/search/?q=%E8%BE%89%E5%A4%9C%E5%A4%A7%E5%B0%8F%E5%A7%90%E6%83%B3%E8%AE%A9%E6%88%91%E5%91%8A%E7%99%BD
+    public static final String URL_SEARCH_ALBUM   = "http://huabanpro.com/search/?q="; // category=anime& 去除过滤
     // 搜索 - 画集
     public static final String URL_SEARCH_PALETTE = "http://huabanpro.com/search/boards/?q=";
 

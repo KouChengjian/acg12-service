@@ -225,7 +225,10 @@ public class BgmResourceUtil {
             acg12SubjectEntity.setName(JsonParse.getString(contentJson, "name"));
             acg12SubjectEntity.setNameCn(JsonParse.getString(contentJson, "name_cn"));
             acg12SubjectEntity.setSummary(JsonParse.getString(contentJson, "summary"));
-            acg12SubjectEntity.setImage(contentJson.getJSONObject("images").getString("large"));
+            JSONObject images = JsonParse.getJSONObject(contentJson ,"images");
+            if(images != null){
+                acg12SubjectEntity.setImage(JsonParse.getString(images, "large"));
+            }
             acg12SubjectEntity.setEpsCount(JsonParse.getInt(contentJson, "eps_count"));
             acg12SubjectEntity.setAirDate(JsonParse.getString(contentJson, "air_date"));
             acg12SubjectEntity.setAirWeekday(JsonParse.getInt(contentJson, "air_weekday"));
@@ -792,10 +795,13 @@ public class BgmResourceUtil {
         return list;
     }
 
-
+    /**
+     * subject: 1030 1031 1052 1062
+     * @param args
+     */
     public static void main(String[] args) {
-//        Acg12SubjectDto subjectDto = BgmResourceUtil.getSubjectDto(1031);
-//        System.out.println(subjectDto.toString());
+        Acg12SubjectDto subjectDto = BgmResourceUtil.getSubjectDto(9119);
+        System.out.println(subjectDto.toString());
 
 //        Acg12PersonDto acg12PersonDto = BgmResourceUtil.getPersonDto(6054);
 //        System.out.println(acg12PersonDto.toString());

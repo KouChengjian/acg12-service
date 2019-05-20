@@ -41,6 +41,7 @@ public class BgmTask {
             return;
         }
         acg12ScheduleJobLogEntity.setStartNum(acg12ScheduleJobLogEntity.getStartNum() + 1);
+        // TODO: 失败的全部抛弃，后面查表找回
         acg12ScheduleJobLogService.update(acg12ScheduleJobLogEntity);
         Acg12SubjectDto acg12SubjectDto = BgmResourceUtil.getSubjectDto(acg12ScheduleJobLogEntity.getStartNum().intValue());
         if (acg12SubjectDto == null) {
