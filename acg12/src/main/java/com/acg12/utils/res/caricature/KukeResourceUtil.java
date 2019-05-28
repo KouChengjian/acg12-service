@@ -1,4 +1,4 @@
-package com.acg12.utils.res;
+package com.acg12.utils.res.caricature;
 
 import com.acg12.entity.dto.Acg12CaricatureChaptersDto;
 import com.acg12.entity.dto.Acg12CaricatureChaptersPageDto;
@@ -139,8 +139,8 @@ public class KukeResourceUtil {
     }
 
     public static void main(String[] args) {
-//        kukeSearch("夏娜");
+        kukeSearch("夏娜");
 //        kukeCaricatureInfo(48246);
-        kukeCaricatureChapters(48246 , 1);
+//        kukeCaricatureChapters(48246 , 1);
     }
 }

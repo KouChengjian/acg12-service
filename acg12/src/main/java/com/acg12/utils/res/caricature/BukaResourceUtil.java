@@ -1,4 +1,4 @@
-package com.acg12.utils.res;
+package com.acg12.utils.res.caricature;
 
 import com.acg12.utils.UrlEncoderUtil;
 import okhttp3.OkHttpClient;
@@ -6,8 +6,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-
-import javax.lang.model.util.Elements;
 
 /**
  * Created with IntelliJ IDEA.

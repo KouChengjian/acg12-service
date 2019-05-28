@@ -1,4 +1,4 @@
-package com.acg12.utils.res;
+package com.acg12.utils.res.caricature;
 
 import com.acg12.utils.UrlEncoderUtil;
 import okhttp3.OkHttpClient;

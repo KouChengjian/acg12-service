@@ -3,6 +3,8 @@ package com.acg12.service.impl;
 import com.acg12.entity.dto.*;
 import com.acg12.service.Acg12ResourceService;
 import com.acg12.utils.res.*;
+import com.acg12.utils.res.caricature.DmzjResourceUtil;
+import com.acg12.utils.res.caricature.KukeResourceUtil;
 import org.json.JSONArray;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +46,7 @@ public class Acg12ResourceServiceImpl implements Acg12ResourceService {
 
     @Override
     public String getDongManZhiJiaNews(String pager) {
-        return DongManZhiJiaResourceUtil.getNewList(pager).toString();
+        return DmzjResourceUtil.getNewList(pager).toString();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.acg12.utils.res;
+package com.acg12.utils.res.caricature;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,7 +11,7 @@ import org.jsoup.nodes.Document;
  * Date: 2018/7/16 18:35
  * Description: 动漫之家
  */
-public class DongManZhiJiaResourceUtil {
+public class DmzjResourceUtil {
 
     // 动漫之家 资讯
     // http://v2.api.dmzj.com/v3/article/list/0/2/0.json?channel=Android&version=2.7.003 全部
@@ -57,6 +57,8 @@ public class DongManZhiJiaResourceUtil {
         }
         return null;
     }
+
+
 
     public static void main(String[] args) {
     }

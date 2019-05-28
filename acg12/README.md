@@ -32,7 +32,7 @@ netstat -lntp | grep 6379
 
 ######启动
 ./redis-server &  <br>
-./redis-server ../redis.conf
+./redis-server ../etc/redis.conf
 
 ######停止
 使用客户端<br>
@@ -45,3 +45,10 @@ kill -9 PID
 
 ######选择数据库
 select 1
+
+#MySql
+######停止服务
+service mysql stop
+
+service mysql status
+
