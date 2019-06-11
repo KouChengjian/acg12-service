@@ -31,4 +31,6 @@ public class Acg12IndexDto {
 
     private List<Acg12TagEntity> tagList;
 
+    private List<Acg12CaricatureTagDto> tags;
+
 }

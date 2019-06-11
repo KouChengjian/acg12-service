@@ -14,6 +14,15 @@ import java.util.*;
  */
 public class JsonParse {
 
+    public static JSONObject stringToJson(String string) {
+        try {
+            return new JSONObject(string);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return new JSONObject();
+        }
+    }
+
     public static String getString(JSONObject json, String key) {
         try {
             if (!json.isNull(key)) {

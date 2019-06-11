@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
  */
 @Controller
 @RequestMapping("api/app/collect/*")
-public class App12CollectController extends AppBaseController {
+public class AppCollectController extends AppBaseController {
 
     @Resource
     private Acg12CollectSubjectService acg12CollectSubjectService;

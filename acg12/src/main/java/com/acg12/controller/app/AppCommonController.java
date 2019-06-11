@@ -4,7 +4,6 @@ import com.acg12.constant.AppConstants;
 import com.acg12.controller.AppBaseController;
 import com.acg12.entity.dto.*;
 import com.acg12.entity.po.Acg12BannerEntity;
-import com.acg12.entity.po.Acg12TagEntity;
 import com.acg12.entity.po.Acg12UserEntity;
 import com.acg12.service.*;
 import com.acg12.utils.StringUtil;
@@ -20,9 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -119,20 +116,22 @@ public class AppCommonController extends AppBaseController {
     @RequestMapping(value = "/index", method = {RequestMethod.GET})
     public Result index() {
         Acg12BannerEntity bannerEntity = acg12BannerService.find("type", 1);
-        Map<String, Object> parameter = new HashMap<String, Object>();
+//        Map<String, Object> parameter = new HashMap<String, Object>();
 //        parameter.put("pageNumber", (pageNumber - 1) * pageSize);
 //        parameter.put("pageSize", pageSize);
-        parameter.put("pageNumber", 0);
-        parameter.put("pageSize", 10);
-        parameter.put("status", 1);
-        parameter.put("order", " id desc");
-        List<Acg12TagEntity> tagList = acg12TagService.findListByPage(parameter);
-        if (bannerEntity == null || tagList == null || tagList.size() == 0) {
-            return Result.error("数据为空");
-        }
+//        parameter.put("pageNumber", 0);
+//        parameter.put("pageSize", 10);
+//        parameter.put("status", 1);
+//        parameter.put("order", " id desc");
+//        List<Acg12TagEntity> tagList = acg12TagService.findListByPage(parameter);
+//        if (bannerEntity == null || tagList == null || tagList.size() == 0) {
+//            return Result.error("数据为空");
+//        }
+        List<Acg12CaricatureTagDto> tagDtoList = acg12ResourceService.kukeTagList();
         Acg12IndexDto acg12IndexDto = new Acg12IndexDto();
         BeanUtils.copyProperties(bannerEntity, acg12IndexDto);
-        acg12IndexDto.setTagList(tagList);
+//        acg12IndexDto.setTagList(tagList);
+        acg12IndexDto.setTags(tagDtoList);
         return Result.ok(acg12IndexDto);
     }
 

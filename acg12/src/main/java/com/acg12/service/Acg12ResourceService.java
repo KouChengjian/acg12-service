@@ -1,7 +1,6 @@
 package com.acg12.service;
 
 import com.acg12.entity.dto.*;
-import com.acg12.entity.po.Acg12CharacterEntity;
 
 import java.util.List;
 
@@ -66,6 +65,8 @@ public interface Acg12ResourceService {
     Acg12CaricatureDto kukeCaricatureInfo(int id);
 
     Acg12CaricatureChaptersDto kukeCaricatureChapters(int id, int index);
+
+    List<Acg12CaricatureTagDto> kukeTagList();
 
     /**
      * --------------------------------------bilibili资源--------------------------------------------

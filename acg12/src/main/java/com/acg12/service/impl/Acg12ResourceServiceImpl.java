@@ -104,6 +104,11 @@ public class Acg12ResourceServiceImpl implements Acg12ResourceService {
     }
 
     @Override
+    public List<Acg12CaricatureTagDto> kukeTagList() {
+        return KukeResourceUtil.kukeTagList();
+    }
+
+    @Override
     public List<Acg12VideoDto> getBilibiliVideoTypeList(String type, String page) {
         String url = BiliBiliResourceUtil.getMoreVideoUrl(type);
         return BiliBiliResourceUtil.getVideoTypeList(url, page);
