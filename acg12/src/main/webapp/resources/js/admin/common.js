@@ -1,5 +1,5 @@
 var framework = {
-	base: "/shangyi",
+	base: "/acg2",
 	locale: "zh_CN"
 };
 

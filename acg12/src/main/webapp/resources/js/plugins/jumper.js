@@ -79,11 +79,11 @@
         getPrefix:function (cdnSelector) {
             switch ($(cdnSelector).val()) {
                 case 'QINIU_PUBLIC_TOKEN':
-                    return "http://public.api.shangyizhijia.com/"
+                    return "http://public.api.acg12.com/"
                 case 'QINIU_PROTECTED_TOKEN':
-                    return "http://protected.api.shangyizhijia.com/"
+                    return "http://protected.api.acg12.com/"
                 case 'QINIU_PRIVATE_TOKEN':
-                    return "http://private.api.shangyizhijia.com/"
+                    return "http://private.api.acg12.com/"
             }
             return "";
         }

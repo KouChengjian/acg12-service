@@ -107,7 +107,7 @@ public class AdminGenSchemeController extends GenericController {
     private void generate(HttpServletRequest request, SystemGenSchemeEntity scheme, SystemGenTableEntity table) {
         String fullPath = this.getClass().getResource("").getPath().replace("classes/com/framework/loippi/controller/admin/", "generated-codes");
 
-        fullPath = "D:/daima/shangyi";
+        fullPath = "D:/daima/acg12";
 
         Map<String, Object> data = new HashMap<String, Object>();
         data.put("scheme", scheme);

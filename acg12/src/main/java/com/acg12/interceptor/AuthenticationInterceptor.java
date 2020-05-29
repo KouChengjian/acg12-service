@@ -42,7 +42,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
     private Set<AuthenticationPatten> needSignAndCantRepeatSet = new HashSet<>();
 
     //防盗链
-    private final static String EABLE_REFERER = "https://api.shangyizhijia.com";
+    private final static String EABLE_REFERER = "https://acg12.club";
     private NamedThreadLocal<Long> startTimeThreadLocal = new NamedThreadLocal<Long>("StopWatch-StartTime");
 
     {

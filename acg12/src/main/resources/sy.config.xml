@@ -44,16 +44,16 @@
 	<!--邮件配置-->
 	<setting name="siteUrl" value="http://127.0.0.1:10081/manage" />
 	<setting name="logo" value="http://127.0.0.1:10081/manage/resources/admin/images/logo.jpg" />
-	<setting name="contact" value="上医之家" />
-	<setting name="phone" value="0755-82523213（仅限工作日）" />
-	<setting name="address" value="深圳市福田区飞扬时代大厦B栋1902" />
-	<setting name="email" value="we@shangyizhijia.com" />
-	<setting name="certtext" value="粤ICP备18018734号" />
-	<setting name="smtpFromMail" value="metronic@huxin.me"/>
-	<setting name="smtpHost" value="smtp.mxhichina.com"/>
+	<setting name="contact" value="漫友" />
+	<setting name="phone" value="0755-000000000（仅限工作日）" />
+	<setting name="address" value="咫尺天涯" />
+	<setting name="email" value="acg12@163.com" />
+	<setting name="certtext" value="粤ICP备000000000号" />
+	<setting name="smtpFromMail" value="acg12@163.com"/>
+	<setting name="smtpHost" value="acg12@163.com"/>
 	<setting name="smtpPort" value="25"/>
-	<setting name="smtpUsername" value="metronic@huxin.me"/>
-	<setting name="smtpPassword" value="Yan@metronic"/>
+	<setting name="smtpUsername" value="acg12@163.com"/>
+	<setting name="smtpPassword" value="acg12@163.com"/>
 	<!--上传文件-->
 	<setting name="imageUploadPath" value="/upload/image/${.now?string('yyyyMM')}/" />
 	<setting name="flashUploadPath" value="/upload/flash/${.now?string('yyyyMM')}/" />
@@ -65,5 +65,5 @@
 	<!-- 邮件测试 -->
 	<template id="testMail" type="mail" name="邮件测试" templatePath="/admin/setting/mail.ftl" />
 	<!-- 接口 -->
-	<api id="main" logo="fa fa-gears" name="三瑞医疗接口文档" version="2.0" author="Loippi team" description="描述信息" baseUrl="http://127.0.0.1:10081/sleep/api"/>
+	<api id="main" logo="fa fa-gears" name="接口文档" version="2.0" author="Loippi team" description="描述信息" baseUrl="http://127.0.0.1:10081/sleep/api"/>
 </framework>

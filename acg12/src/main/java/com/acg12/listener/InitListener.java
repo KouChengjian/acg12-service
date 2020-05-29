@@ -6,7 +6,6 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletContextAware;
 
-import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import java.util.logging.Logger;
 
@@ -43,7 +42,7 @@ public class InitListener implements ServletContextAware, ApplicationListener<Co
 	public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 		System.setProperty(net.sf.ehcache.CacheManager.ENABLE_SHUTDOWN_HOOK_PROPERTY,"true");
 		if (servletContext != null && contextRefreshedEvent.getApplicationContext().getParent() == null) {
-			String info = "Initializing shangyizhijia!" + systemVersion;
+			String info = "Initializing acg12!" + systemVersion;
 			logger.info(info);
 //			//清除缓存
 //			cacheService.clear();
